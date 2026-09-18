@@ -102,6 +102,11 @@
   .title-flex{display:flex; align-items:center; gap:0.55rem;}
   .title-icon{display:inline-flex; flex:none;}
   .title-icon svg{width:18px; height:18px;}
+  /* Higher specificity than ".chart-card svg{width:100%}" below, so title
+     icons stay 18px even when a panel title sits inside a .chart-card
+     (Consistency, Milestones, History, Weight, workout day cards, etc.) —
+     without this they inherit the chart sizing and render huge. */
+  .chart-card .title-icon svg,.panel-title .title-icon svg{width:18px; height:18px;}
   .title-icon-dumbbell{color:var(--protein); animation:dumbbellLift 1.7s ease-in-out infinite;}
   .title-icon-muscle{color:var(--fat); animation:muscleFlex 2.2s ease-in-out infinite;}
   @keyframes dumbbellLift{ 0%,100%{ transform:rotate(-14deg) translateY(0); } 50%{ transform:rotate(14deg) translateY(-1px); } }
@@ -113,12 +118,14 @@
   /* ---------- empty states ---------- */
   .empty-icon{display:flex; justify-content:center; margin-bottom:0.5rem; opacity:0.5; color:var(--text-2);}
   .empty-icon svg{width:28px; height:28px;}
+  .chart-card .empty-icon svg{width:28px; height:28px;}
 
   /* ---------- milestone badges ---------- */
   .milestones-row{display:flex; justify-content:space-between; gap:0.5rem; text-align:center;}
   .milestone-badge{flex:1; display:flex; flex-direction:column; align-items:center; gap:0.4rem;}
   .milestone-badge-icon{width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none; border:1.5px solid var(--hairline); color:var(--text-2); opacity:0.35; transition:opacity .3s ease, box-shadow .3s ease;}
   .milestone-badge-icon svg{width:20px; height:20px;}
+  .chart-card .milestone-badge-icon svg{width:20px; height:20px;}
   .milestone-badge.earned .milestone-badge-icon{opacity:1; border-color:var(--accent); color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent);}
   .milestone-badge.earned .milestone-badge-icon svg{fill:var(--accent); stroke:var(--accent);}
   .milestone-badge-label{font-size:0.68rem; color:var(--text-2); line-height:1.25;}
