@@ -93,6 +93,13 @@
   section.panel:first-of-type{border-top:1px solid var(--hairline);}
   h2.panel-title{font-family:var(--font-display); font-weight:600; font-size:1rem; margin:0 0 0.9rem; display:flex; align-items:center; justify-content:space-between; gap:0.6rem;}
   h2.panel-title .aux{font-weight:500; font-size:0.8rem; color:var(--text-2); font-family:var(--font-body);}
+  .title-flex{display:flex; align-items:center; gap:0.55rem;}
+  .title-icon{display:inline-flex; flex:none;}
+  .title-icon svg{width:18px; height:18px;}
+  .title-icon-dumbbell{color:var(--protein); animation:dumbbellLift 1.7s ease-in-out infinite;}
+  .title-icon-muscle{color:var(--fat); animation:muscleFlex 2.2s ease-in-out infinite;}
+  @keyframes dumbbellLift{ 0%,100%{ transform:rotate(-14deg) translateY(0); } 50%{ transform:rotate(14deg) translateY(-1px); } }
+  @keyframes muscleFlex{ 0%,100%{ transform:scale(1); } 45%{ transform:scale(1.14); } 55%{ transform:scale(1.14); } }
 
   .tabpage{display:none;}
   .tabpage.active{display:block;}
@@ -155,6 +162,14 @@
     background:linear-gradient(90deg, #4dabf7 0%, #4dabf7 14%, #2fbf71 14%, #2fbf71 40%, #ffab2e 40%, #ffab2e 60%, #ff6b4d 60%, #ff4757 100%);}
   .bmi-gauge-marker{position:absolute; top:50%; left:40%; width:16px; height:16px; margin-left:-8px; border-radius:50%; background:#fff; border:3px solid var(--bmi-c, #2fbf71); transform:translateY(-50%); box-shadow:0 2px 8px rgba(0,0,0,0.25); transition:left .5s var(--ease-spring), border-color .3s;}
   .bmi-gauge-ticks{display:flex; justify-content:space-between; margin-top:0.4rem; font-size:0.66rem; color:var(--text-2); text-transform:uppercase; letter-spacing:0.03em;}
+
+  .gym-card{display:flex; align-items:center; gap:0.85rem; margin-top:1rem; padding:0.95rem 1.1rem; border-radius:18px;
+    background:linear-gradient(135deg, color-mix(in srgb, var(--protein) 14%, var(--surface)), color-mix(in srgb, var(--protein) 3%, var(--surface)));
+    border:1px solid color-mix(in srgb, var(--protein) 26%, var(--hairline));}
+  .gym-icon{flex:none; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--protein); background:color-mix(in srgb, var(--protein) 16%, transparent);}
+  .gym-icon svg{width:20px; height:20px; animation:gymLift 1.8s ease-in-out infinite; transform-origin:50% 85%;}
+  @keyframes gymLift{ 0%,100%{ transform:rotate(-16deg); } 50%{ transform:rotate(16deg); } }
+  .gym-text{flex:1; font-size:0.86rem; font-weight:600; color:var(--text); line-height:1.4;}
 
   .motivation-card{display:flex; align-items:center; gap:0.85rem; margin-top:1rem; padding:0.95rem 1.1rem; border-radius:18px;
     background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--surface)), color-mix(in srgb, var(--accent) 4%, var(--surface)));
@@ -715,12 +730,12 @@
     </section>
 
     <section class="panel" id="activityPanel">
-      <h2 class="panel-title">Activity level</h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-dumbbell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="9" width="3" height="6" rx="1"/><rect x="4.5" y="7" width="2" height="10" rx="1"/><line x1="6.5" y1="12" x2="17.5" y2="12"/><rect x="17.5" y="7" width="2" height="10" rx="1"/><rect x="20" y="9" width="3" height="6" rx="1"/></svg></span>Activity level</span></h2>
       <div id="activityList"></div>
     </section>
 
     <section class="panel" id="goalPanel">
-      <h2 class="panel-title">Goal</h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muscle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21v-4.5c0-1-1-1.5-1-3A5 5 0 0 1 11 8.5c0-2 1.5-4 4-4a3.5 3.5 0 0 1 3.5 3.5c0 2-1.5 3-1.5 3v2c0 3.5-2.5 5-4 5.5V21"/></svg></span>Goal</span></h2>
       <div id="goalList"></div>
     </section>
 
@@ -786,6 +801,13 @@
           <span class="grams" id="fatG">–</span>
           <span class="pct" id="fatPct">–</span>
         </div>
+      </div>
+
+      <div class="gym-card" id="gymCard">
+        <div class="gym-icon" id="gymIcon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="9" width="3" height="6" rx="1"/><rect x="4.5" y="7" width="2" height="10" rx="1"/><line x1="6.5" y1="12" x2="17.5" y2="12"/><rect x="17.5" y="7" width="2" height="10" rx="1"/><rect x="20" y="9" width="3" height="6" rx="1"/></svg>
+        </div>
+        <p class="gym-text" id="gymText">Gym target: aim to burn roughly 350–500 kcal per session.</p>
       </div>
 
       <div id="noteArea"></div>
@@ -2014,8 +2036,9 @@
     setArc('arcCarb', cFrac, pFrac, C);
     setArc('arcFat', fFrac, pFrac+cFrac, C);
 
+    el('gymText').textContent = 'Gym target: aim to burn roughly '+goal.gymLow+'–'+goal.gymHigh+' kcal per session (cardio + strength combined) to support this goal. That\'s on top of — not instead of — your 10,000 daily steps; strength days won\'t always hit this number from "calories burned" alone, and that\'s fine, since progressive overload matters more there than the burn total.';
+
     var notes = [];
-    notes.push('Gym target: aim to burn roughly '+goal.gymLow+'–'+goal.gymHigh+' kcal per session (cardio + strength combined) to support this goal. That\'s on top of — not instead of — your 10,000 daily steps; strength days won\'t always hit this number from "calories burned" alone, and that\'s fine, since progressive overload matters more there than the burn total.');
     if(goal.adj<0){
       var absKg = Math.abs(t.weeklyKg);
       notes.push('At this target, expect to lose roughly '+round(absKg,2)+' kg ('+round(absKg*2.20462,2)+' lb) a week, on average.');
