@@ -69,12 +69,19 @@
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html,body{margin:0; padding:0;}
   body{
-    background:var(--bg);
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(1100px 560px at 12% -12%, color-mix(in srgb, var(--protein) 11%, transparent), transparent 62%),
+      radial-gradient(900px 480px at 112% 8%, color-mix(in srgb, var(--fat) 9%, transparent), transparent 60%),
+      radial-gradient(800px 420px at 50% 118%, color-mix(in srgb, var(--carb) 7%, transparent), transparent 60%);
+    background-attachment:fixed;
     color:var(--text);
     font-family:var(--font-body);
     padding-top:env(safe-area-inset-top);
     -webkit-font-smoothing:antialiased;
+    animation:pageFadeIn .5s ease both;
   }
+  @keyframes pageFadeIn{ from{opacity:0;} to{opacity:1;} }
   button{font-family:inherit; cursor:pointer;}
   .wrap{max-width:480px; margin:0 auto; padding:0 1.1rem calc(5.4rem + env(safe-area-inset-bottom));}
 
@@ -133,7 +140,7 @@
   .substats .v{font-family:var(--font-mono); font-weight:600; font-size:1.05rem;}
   .substats .l{font-size:0.72rem; color:var(--text-2); margin-top:0.15rem;}
 
-  .donut-wrap{display:flex; justify-content:center; padding:0.9rem 0 0.3rem;}
+  .donut-wrap{display:flex; justify-content:center; padding:0.9rem 0 0.3rem; position:relative;}
   .donut-wrap svg{width:180px; height:180px;}
   .donut-center{font-family:var(--font-mono); font-weight:600;}
 
@@ -308,12 +315,117 @@
 
   .toast{position:fixed; left:50%; bottom:calc(5.6rem + env(safe-area-inset-bottom)); transform:translateX(-50%) translateY(10px); background:var(--text); color:var(--bg); padding:0.6rem 1rem; border-radius:20px; font-size:0.82rem; font-weight:600; opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease; z-index:50; white-space:nowrap;}
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* ============================================================
+     MOTION / VISUAL POLISH
+  ============================================================ */
+  :root{ --ease-out:cubic-bezier(.16,1,.3,1); --ease-spring:cubic-bezier(.34,1.56,.64,1); }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+  @keyframes scaleIn{ from{opacity:0; transform:scale(.9);} to{opacity:1; transform:scale(1);} }
+  @keyframes popIn{ 0%{opacity:0; transform:scale(.5);} 60%{opacity:1; transform:scale(1.12);} 100%{transform:scale(1);} }
+  @keyframes ringSweep{ from{opacity:0; transform:scale(.86) rotate(-10deg);} to{opacity:1; transform:scale(1) rotate(0);} }
+  @keyframes toastPop{ 0%{opacity:0; transform:translateX(-50%) translateY(14px) scale(.9);} 55%{opacity:1; transform:translateX(-50%) translateY(-3px) scale(1.03);} 100%{opacity:1; transform:translateX(-50%) translateY(0) scale(1);} }
+  @keyframes drawLine{ to{ stroke-dashoffset:0; } }
+  @keyframes shimmerGlow{ 0%,100%{opacity:.5;} 50%{opacity:1;} }
+  @keyframes floatSpin{ 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+  @keyframes barGrow{ from{ transform:scaleY(0); } to{ transform:scaleY(1); } }
+  @keyframes sheetIn{ from{ transform:translateY(24px); opacity:.7; } to{ transform:translateY(0); opacity:1; } }
+  @keyframes sheetInCard{ from{ transform:scale(.94) translateY(10px); opacity:0; } to{ transform:scale(1) translateY(0); opacity:1; } }
+
+  .tabpage.active section.panel{ animation:fadeUp .5s var(--ease-out) both; }
+  .tabpage.active section.panel:nth-of-type(1){animation-delay:.02s;}
+  .tabpage.active section.panel:nth-of-type(2){animation-delay:.07s;}
+  .tabpage.active section.panel:nth-of-type(3){animation-delay:.12s;}
+  .tabpage.active section.panel:nth-of-type(4){animation-delay:.17s;}
+  .tabpage.active section.panel:nth-of-type(5){animation-delay:.22s;}
+  .tabpage.active section.panel:nth-of-type(6){animation-delay:.27s;}
+  .tabpage.active section.panel:nth-of-type(7){animation-delay:.32s;}
+
+  .donut-wrap{ animation:ringSweep .7s var(--ease-spring) both; animation-delay:.1s; }
+  .donut-wrap::before{
+    content:""; position:absolute; inset:6px; border-radius:50%; z-index:-1;
+    background:radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+    filter:blur(18px); animation:shimmerGlow 3.4s ease-in-out infinite;
+  }
+  #ringConsumed, #arcProtein, #arcCarb, #arcFat{
+    transition:stroke-dasharray .9s var(--ease-out), stroke-dashoffset .9s var(--ease-out), stroke .3s ease;
+  }
+
+  .meter-fill{ transition:width .7s var(--ease-out); }
+  .meter-row{ animation:fadeUp .45s var(--ease-out) both; }
+  .meter-row:nth-child(1){animation-delay:.05s;}
+  .meter-row:nth-child(2){animation-delay:.12s;}
+  .meter-row:nth-child(3){animation-delay:.19s;}
+  .food-row{ animation:fadeUp .35s var(--ease-out) both; }
+
+  button,.option-row,.segmented button,.tab-btn,.fdel,.qadd,.datenav button{
+    transition:transform .15s var(--ease-spring), background-color .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease;
+  }
+  button:active{ transform:scale(0.94); }
+  .addfood-btn:hover,.add-btn:hover{ box-shadow:0 4px 14px rgba(0,0,0,0.12); }
+  .addfood-btn:active,.add-btn:active{ transform:scale(0.98); }
+  .option-row:active{ transform:scale(0.985); }
+  .option-row.active{ box-shadow:0 2px 10px color-mix(in srgb, var(--text) 10%, transparent); }
+  .datenav button:hover{ background:var(--tint); }
+  .datenav button:active:not(:disabled){ transform:scale(0.88); }
+
+  nav.tabbar button.active svg{ animation:popIn .4s var(--ease-spring); }
+  nav.tabbar button:active{ transform:scale(0.88); }
+
+  nav.sidebar .tab-btn{ position:relative; }
+  nav.sidebar .tab-btn.active::before{
+    content:""; position:absolute; left:-1rem; top:14%; bottom:14%; width:3px; border-radius:0 3px 3px 0;
+    background:linear-gradient(180deg, var(--protein), var(--carb), var(--fat)); animation:fadeIn .3s ease;
+  }
+  .sidebar-mark svg,.top-mark svg{ animation:floatSpin 14s linear infinite; }
+  .top-mark{ width:32px; height:32px; flex:none; display:flex; }
+  @media (min-width:900px){ .top-mark{display:none;} }
+
+  .switch::after{ transition:transform .25s var(--ease-spring); }
+  .switch.on{ box-shadow:0 0 0 3px color-mix(in srgb, var(--text) 12%, transparent); }
+
+  .chart-card{ animation:fadeUp .55s var(--ease-out) both; }
+  .chart-card svg path[data-anim="line"]{ stroke-dasharray:1px; stroke-dashoffset:1px; animation:drawLine 1.1s var(--ease-out) forwards; animation-delay:.15s; }
+  .chart-card svg rect{ transform-box:fill-box; transform-origin:bottom; animation:barGrow .5s var(--ease-out) both; animation-delay:calc(var(--i,0) * 0.035s); }
+  .chart-card svg circle{ transform-box:fill-box; transform-origin:center; animation:scaleIn .4s var(--ease-spring) both; animation-delay:.85s; }
+
+  .sheet-overlay{ transition:backdrop-filter .25s ease; }
+  .sheet-overlay.open{ backdrop-filter:blur(3px); }
+  .sheet-overlay.open .sheet{ animation:sheetIn .35s var(--ease-out); }
+  @media (min-width:900px){
+    .sheet-overlay.open .sheet{ animation:sheetInCard .3s var(--ease-out); }
+  }
+
+  .quick-item{ transition:background-color .2s ease, transform .15s ease; border-radius:8px; }
+  .quick-item:hover{ background:var(--tint); }
+  .qadd:hover,.fdel:hover{ background:var(--text); color:var(--bg); }
+  .qadd:active,.fdel:active{ transform:scale(0.85); }
+
+  .toast.show{ animation:toastPop .4s var(--ease-spring); }
+
+  @media (min-width:900px){
+    .tabpage.active section.panel{ transition:transform .25s var(--ease-out), box-shadow .25s ease; }
+    .tabpage.active section.panel:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(0,0,0,0.07); }
+  }
+
+  header.top h1{
+    background:linear-gradient(90deg, var(--text) 55%, var(--protein));
+    -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header class="top">
+    <div class="top-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="var(--protein)" stroke-width="2.4" stroke-dasharray="12 30"/><circle cx="12" cy="12" r="9" stroke="var(--carb)" stroke-width="2.4" stroke-dasharray="10 30" stroke-dashoffset="-12"/><circle cx="12" cy="12" r="9" stroke="var(--fat)" stroke-width="2.4" stroke-dasharray="8 30" stroke-dashoffset="-22"/></svg>
+    </div>
     <div>
       <h1>Lean Metrics</h1>
       <p class="sub" id="headerSub">Targets, logging, and trends.</p>
@@ -735,6 +847,45 @@
     toast._t = setTimeout(function(){ t.classList.remove('show'); }, 1600);
   }
 
+  // Animates a number-bearing element's text from its previously-displayed
+  // value to `to` over a short easing curve, instead of an instant text swap.
+  function animateNumber(target, to, opts){
+    var node = typeof target === 'string' ? el(target) : target;
+    if(!node) return;
+    opts = opts || {};
+    var duration = opts.duration || 450;
+    var suffix = opts.suffix || '';
+    var decimals = opts.decimals || 0;
+    if(to===null || to===undefined || isNaN(to)){
+      if(node._animRaf) cancelAnimationFrame(node._animRaf);
+      node.textContent = '–';
+      node.dataset.animVal = '';
+      return;
+    }
+    var prev = parseFloat(node.dataset.animVal);
+    var from = isNaN(prev) ? to : prev;
+    if(node._animRaf) cancelAnimationFrame(node._animRaf);
+    if(from === to){
+      node.textContent = (decimals ? to.toFixed(decimals) : Math.round(to).toLocaleString()) + suffix;
+      node.dataset.animVal = to;
+      return;
+    }
+    var start = null;
+    function step(ts){
+      if(start===null) start = ts;
+      var p = Math.min((ts-start)/duration, 1);
+      var eased = 1 - Math.pow(1-p, 3);
+      var val = from + (to-from)*eased;
+      node.textContent = (decimals ? val.toFixed(decimals) : Math.round(val).toLocaleString()) + suffix;
+      if(p<1){ node._animRaf = requestAnimationFrame(step); }
+      else{
+        node.textContent = (decimals ? to.toFixed(decimals) : Math.round(to).toLocaleString()) + suffix;
+        node.dataset.animVal = to;
+      }
+    }
+    node._animRaf = requestAnimationFrame(step);
+  }
+
   /* ============================================================
      STATE
   ============================================================ */
@@ -779,7 +930,6 @@
     var age = parseFloat(profile.age), heightRaw = parseFloat(profile.height), weightRaw = parseFloat(profile.weight);
     var bfRaw = profile.bodyfat!=='' && profile.bodyfat!=null ? parseFloat(profile.bodyfat) : null;
     if(!age || !heightRaw || !weightRaw || age<10 || heightRaw<=0 || weightRaw<=0) return null;
-
     var m = toMetric(heightRaw, weightRaw, profile.unit);
     var heightCm = m.h, weightKg = m.w;
     var bmr = 10*weightKg + 6.25*heightCm - 5*age + (profile.sex==='male' ? 5 : -161);
@@ -869,9 +1019,9 @@
     } else {
       var remaining = targets.calories - consumed.cal;
       var over = remaining < 0;
-      el('calsRemaining').textContent = fmt(Math.abs(remaining));
+      animateNumber('calsRemaining', Math.abs(remaining));
       el('calsCap').textContent = over ? (fmt(Math.abs(remaining))+' kcal over target') : ('of '+fmt(targets.calories)+' kcal target');
-      el('ringConsumedTxt').textContent = fmt(consumed.cal);
+      animateNumber('ringConsumedTxt', consumed.cal);
       el('ringTargetTxt').textContent = 'of '+fmt(targets.calories)+' kcal';
       var frac = clamp(consumed.cal/targets.calories, 0, 1);
       var ring = el('ringConsumed');
@@ -1103,7 +1253,7 @@
     // area wash
     svg += '<path d="'+areaPath+'" fill="var(--accent)" opacity="0.08" stroke="none"/>';
     // line
-    svg += '<path d="'+path+'" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
     // end marker with surface ring
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="6" fill="var(--surface)"/>';
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--accent)"/>';
@@ -1130,7 +1280,7 @@
     var path = pts.map(function(p,idx){ return (idx===0?'M':'L')+xScale(p.i,n).toFixed(1)+','+yScale(p.v).toFixed(1); }).join(' ');
     var last = pts[pts.length-1];
     var svg = '<svg viewBox="0 0 '+CW+' '+CH+'" preserveAspectRatio="xMidYMid meet">';
-    svg += '<path d="'+path+'" fill="none" stroke="var(--fat)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--fat)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="6" fill="var(--surface)"/>';
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--fat)"/>';
     svg += '<text x="'+clamp(xScale(last.i,n),PAD_L+18,CW-PAD_R-18).toFixed(1)+'" y="'+(yScale(last.v)-10).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)" font-family="IBM Plex Mono, monospace">'+round(last.v,1)+'</text>';
@@ -1151,7 +1301,7 @@
       var y = yScale(d.cal);
       var h = Math.max((CH-PAD_B) - y, 3);
       var barY = (CH-PAD_B) - h;
-      svg += '<rect x="'+x.toFixed(1)+'" y="'+barY.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+Math.min(4,h/2).toFixed(1)+'" fill="var(--accent)"/>';
+      svg += '<rect x="'+x.toFixed(1)+'" y="'+barY.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+Math.min(4,h/2).toFixed(1)+'" fill="var(--accent)" style="--i:'+i+'"/>';
     });
     if(targets){
       var ty = yScale(targets.calories);
@@ -1189,7 +1339,7 @@
         if(s.v<=0) return;
         var h = (base - yScale(s.v));
         var yTop = cursor - h;
-        svg += '<rect x="'+x.toFixed(1)+'" y="'+(yTop+gap/2).toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+Math.max(h-gap,0).toFixed(1)+'" fill="'+s.color+'"/>';
+        svg += '<rect x="'+x.toFixed(1)+'" y="'+(yTop+gap/2).toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+Math.max(h-gap,0).toFixed(1)+'" fill="'+s.color+'" style="--i:'+i+'"/>';
         cursor = yTop;
       });
     });
@@ -1317,19 +1467,19 @@
     if(!t) return;
     var goal = t.goal;
 
-    el('targetCals').textContent = fmt(t.calories);
+    animateNumber('targetCals', t.calories);
     el('goalCap').textContent = goal.cap + (t.flooredNote ? ' (raised to a safe minimum)' : '');
-    el('bmrOut').textContent = fmt(t.bmr);
-    el('tdeeOut').textContent = fmt(t.tdee);
-    el('bmiOut').textContent = round(t.bmi,1) + '';
+    animateNumber('bmrOut', t.bmr);
+    animateNumber('tdeeOut', t.tdee);
+    animateNumber('bmiOut', t.bmi, {decimals:1});
 
-    el('donutCals').textContent = fmt(t.totalCal);
-    el('proteinG').textContent = fmt(t.protein)+' g';
-    el('carbG').textContent = fmt(t.carbs)+' g';
-    el('fatG').textContent = fmt(t.fat)+' g';
-    el('proteinPct').textContent = round(t.proteinCal/t.totalCal*100)+'%';
-    el('carbPct').textContent = round(t.carbCal/t.totalCal*100)+'%';
-    el('fatPct').textContent = round(t.fatCal/t.totalCal*100)+'%';
+    animateNumber('donutCals', t.totalCal);
+    animateNumber('proteinG', t.protein, {suffix:' g'});
+    animateNumber('carbG', t.carbs, {suffix:' g'});
+    animateNumber('fatG', t.fat, {suffix:' g'});
+    animateNumber('proteinPct', t.proteinCal/t.totalCal*100, {suffix:'%'});
+    animateNumber('carbPct', t.carbCal/t.totalCal*100, {suffix:'%'});
+    animateNumber('fatPct', t.fatCal/t.totalCal*100, {suffix:'%'});
 
     var R=80, C=2*Math.PI*R;
     var pFrac = t.proteinCal/t.totalCal, cFrac = t.carbCal/t.totalCal, fFrac = t.fatCal/t.totalCal;
