@@ -16,7 +16,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#EEF0F3;
@@ -31,7 +31,7 @@
     --accent:#12151A;
     --danger:#B23A2E;
     --good:#2E8C63;
-    --font-display:'Space Grotesk',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-display:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
     --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   }
@@ -86,7 +86,7 @@
   .wrap{max-width:480px; margin:0 auto; padding:0 1.1rem calc(5.4rem + env(safe-area-inset-bottom));}
 
   header.top{padding:1.5rem 0 1rem; display:flex; align-items:center; justify-content:space-between; gap:0.6rem;}
-  header.top h1{font-family:var(--font-display); font-weight:700; font-size:1.5rem; letter-spacing:-0.02em; margin:0;}
+  header.top h1{font-family:var(--font-display); font-weight:800; font-size:1.85rem; letter-spacing:-0.035em; margin:0;}
   header.top .sub{margin:0.15rem 0 0; color:var(--text-2); font-size:0.82rem;}
 
   section.panel{padding:1.2rem 0; border-top:1px solid var(--hairline);}
@@ -102,18 +102,18 @@
   .field label{display:block; font-size:0.82rem; color:var(--text-2); margin-bottom:0.4rem;}
   .field input[type=number],.field input[type=text],.field input[type=time]{
     width:100%; font-family:var(--font-mono); font-size:1.05rem;
-    padding:0.7rem 0.8rem; border-radius:10px; border:1px solid var(--hairline);
+    padding:0.7rem 0.8rem; border-radius:14px; border:1px solid var(--hairline);
     background:var(--surface); color:var(--text);
   }
   .field input:focus{outline:2px solid var(--accent); outline-offset:1px;}
   .row2{display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;}
   .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem;}
 
-  .segmented{display:flex; background:var(--surface); border:1px solid var(--hairline); border-radius:10px; padding:3px; gap:3px;}
-  .segmented button{flex:1; padding:0.6rem 0; border:none; background:transparent; color:var(--text-2); font-family:var(--font-display); font-weight:500; font-size:0.88rem; border-radius:8px;}
+  .segmented{display:flex; background:var(--surface); border:1px solid var(--hairline); border-radius:14px; padding:3px; gap:3px;}
+  .segmented button{flex:1; padding:0.6rem 0; border:none; background:transparent; color:var(--text-2); font-family:var(--font-display); font-weight:500; font-size:0.88rem; border-radius:10px;}
   .segmented button.active{background:var(--accent); color:var(--bg);}
 
-  .option-row{display:flex; align-items:flex-start; gap:0.7rem; padding:0.8rem 0.85rem; border:1px solid var(--hairline); border-radius:12px; margin-bottom:0.5rem;}
+  .option-row{display:flex; align-items:flex-start; gap:0.7rem; padding:0.8rem 0.85rem; border:1px solid var(--hairline); border-radius:16px; margin-bottom:0.5rem;}
   .option-row.active{border-color:var(--text); background:var(--tint);}
   .option-row .dot{width:18px; height:18px; min-width:18px; margin-top:0.1rem; border-radius:50%; border:2px solid var(--hairline); position:relative;}
   .option-row.active .dot{border-color:var(--text);}
@@ -131,7 +131,7 @@
 
   /* ---------- hero / rings ---------- */
   .hero{text-align:center; padding:0.4rem 0 1rem;}
-  .hero .num{font-family:var(--font-mono); font-weight:600; font-size:2.7rem; letter-spacing:-0.02em; line-height:1;}
+  .hero .num{font-family:var(--font-mono); font-weight:600; font-size:3rem; letter-spacing:-0.03em; line-height:1;}
   .hero .unit{font-size:0.95rem; color:var(--text-2); font-family:var(--font-body); margin-left:0.3rem;}
   .hero .cap{font-size:0.82rem; color:var(--text-2); margin-top:0.45rem;}
 
@@ -139,6 +139,36 @@
   .substats div{text-align:center;}
   .substats .v{font-family:var(--font-mono); font-weight:600; font-size:1.05rem;}
   .substats .l{font-size:0.72rem; color:var(--text-2); margin-top:0.15rem;}
+
+  .bmi-status{display:flex; align-items:center; gap:0.9rem; margin:1rem 0 0.7rem; padding:0.85rem 1rem; border-radius:18px; background:var(--surface); border:1px solid var(--hairline);}
+  .bmi-badge{position:relative; flex:none; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; background:var(--bmi-c, #2fbf71); box-shadow:0 4px 14px color-mix(in srgb, var(--bmi-c, #2fbf71) 45%, transparent);}
+  .bmi-badge svg{width:22px; height:22px; position:relative; z-index:2;}
+  .bmi-badge::before, .bmi-badge::after{content:''; position:absolute; inset:0; border-radius:50%; border:2px solid var(--bmi-c, #2fbf71); opacity:0.55; animation:bmiPulse 2.4s ease-out infinite;}
+  .bmi-badge::after{animation-delay:1.2s;}
+  @keyframes bmiPulse{ 0%{ transform:scale(1); opacity:0.55; } 100%{ transform:scale(1.85); opacity:0; } }
+  .bmi-status-text{flex:1; min-width:0;}
+  .bmi-status-label{font-family:var(--font-display); font-weight:700; font-size:1.02rem; color:var(--bmi-c, #2fbf71); transition:color .3s;}
+  .bmi-status-sub{font-size:0.78rem; color:var(--text-2); margin-top:0.15rem; line-height:1.35;}
+
+  .bmi-gauge-wrap{margin:0 0 0.9rem;}
+  .bmi-gauge{position:relative; height:10px; border-radius:999px; overflow:visible;
+    background:linear-gradient(90deg, #4dabf7 0%, #4dabf7 14%, #2fbf71 14%, #2fbf71 40%, #ffab2e 40%, #ffab2e 60%, #ff6b4d 60%, #ff4757 100%);}
+  .bmi-gauge-marker{position:absolute; top:50%; left:40%; width:16px; height:16px; margin-left:-8px; border-radius:50%; background:#fff; border:3px solid var(--bmi-c, #2fbf71); transform:translateY(-50%); box-shadow:0 2px 8px rgba(0,0,0,0.25); transition:left .5s var(--ease-spring), border-color .3s;}
+  .bmi-gauge-ticks{display:flex; justify-content:space-between; margin-top:0.4rem; font-size:0.66rem; color:var(--text-2); text-transform:uppercase; letter-spacing:0.03em;}
+
+  .motivation-card{display:flex; align-items:center; gap:0.85rem; margin-top:1rem; padding:0.95rem 1.1rem; border-radius:18px;
+    background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--surface)), color-mix(in srgb, var(--accent) 4%, var(--surface)));
+    border:1px solid color-mix(in srgb, var(--accent) 30%, var(--hairline));}
+  .motivation-icon{flex:none; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent); background:color-mix(in srgb, var(--accent) 18%, transparent); animation:motivationFloat 3.2s ease-in-out infinite;}
+  .motivation-icon svg{width:19px; height:19px;}
+  @keyframes motivationFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+  .motivation-text{flex:1; font-size:0.86rem; font-weight:600; color:var(--text); line-height:1.4; transition:opacity .25s;}
+  .motivation-text.fade{opacity:0;}
+
+  .mini-stats{display:grid; grid-template-columns:1fr 1fr; gap:0.8rem 1rem;}
+  .mini-stat{padding:0.7rem 0.8rem; border:1px solid var(--hairline); border-radius:16px; text-align:center;}
+  .mini-stat-v{font-family:var(--font-mono); font-weight:600; font-size:1.25rem;}
+  .mini-stat-l{font-size:0.72rem; color:var(--text-2); margin-top:0.2rem;}
 
   .donut-wrap{display:flex; justify-content:center; padding:0.9rem 0 0.3rem; position:relative;}
   .donut-wrap svg{width:180px; height:180px;}
@@ -161,7 +191,7 @@
   .meter-fill{position:absolute; left:0; top:0; height:100%; border-radius:6px;}
   .meter-tick{position:absolute; top:-3px; width:2px; height:16px; background:var(--text-2); opacity:0.55;}
 
-  .note{font-size:0.82rem; line-height:1.5; padding:0.75rem 0.85rem; border-radius:10px; background:var(--tint); color:var(--text-2); margin-top:0.7rem;}
+  .note{font-size:0.82rem; line-height:1.5; padding:0.75rem 0.85rem; border-radius:14px; background:var(--tint); color:var(--text-2); margin-top:0.7rem;}
   .note.warn{color:var(--danger); background:rgba(178,58,46,0.08);}
   .note.good{color:var(--good);}
 
@@ -182,7 +212,18 @@
   .food-row .fdel{width:26px; height:26px; border-radius:50%; border:none; background:var(--tint); color:var(--text-2); font-size:0.95rem; line-height:1; flex:none;}
   .empty-hint{font-size:0.85rem; color:var(--text-2); padding:0.9rem 0; text-align:center;}
 
-  .addfood-btn{width:100%; padding:0.8rem; border-radius:10px; border:1px dashed var(--hairline); background:transparent; color:var(--text); font-family:var(--font-display); font-weight:600; font-size:0.92rem; margin-top:0.6rem;}
+  .addfood-btn{width:100%; padding:0.85rem; border-radius:999px; border:1.5px dashed var(--hairline); background:transparent; color:var(--text); font-family:var(--font-display); font-weight:600; font-size:0.92rem; margin-top:0.6rem;}
+
+  /* ---------- steps panel ---------- */
+  .steps-input-row{display:flex; align-items:center; gap:0.7rem;}
+  .steps-input-row input[type=number]{
+    width:100%; font-family:var(--font-mono); font-size:1.4rem; font-weight:600;
+    padding:0.6rem 0.8rem; border-radius:14px; border:1px solid var(--hairline);
+    background:var(--surface); color:var(--text);
+  }
+  .steps-input-row input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .steps-unit{font-size:0.8rem; color:var(--text-2); white-space:nowrap; flex:none;}
+  .l .lfull{display:block; font-size:0.62rem; font-weight:400; opacity:0.65; margin-top:0.15rem; line-height:1.25;}
 
   /* ---------- modal sheet ---------- */
   .sheet-overlay{position:fixed; inset:0; background:rgba(10,12,15,0.5); z-index:40; display:none; align-items:flex-end;}
@@ -200,9 +241,9 @@
   .quick-item .qm{font-size:0.76rem; color:var(--text-2); margin-top:0.1rem; font-weight:400;}
   .quick-item button{border:none; background:var(--tint); color:var(--text); font-weight:700; font-size:1.1rem; width:30px; height:30px; border-radius:50%; flex:none;}
   .qty-row{display:flex; gap:0.4rem; margin-top:0.6rem;}
-  .qty-row button{flex:1; padding:0.45rem 0; border-radius:8px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-size:0.8rem;}
+  .qty-row button{flex:1; padding:0.45rem 0; border-radius:10px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-size:0.8rem;}
   .qty-row button.active{background:var(--text); color:var(--bg); border-color:var(--text);}
-  .add-btn{width:100%; padding:0.8rem; border-radius:10px; border:none; background:var(--text); color:var(--bg); font-family:var(--font-display); font-weight:600; font-size:0.92rem; margin-top:0.5rem;}
+  .add-btn{width:100%; padding:0.85rem; border-radius:999px; border:none; background:var(--text); color:var(--bg); font-family:var(--font-display); font-weight:600; font-size:0.92rem; margin-top:0.5rem;}
   .add-btn:disabled{opacity:0.4;}
 
   /* ---------- charts ---------- */
@@ -227,8 +268,8 @@
   details.methods .body a{color:var(--text); text-decoration-color:var(--hairline);}
 
   .data-actions{display:flex; gap:0.6rem;}
-  .data-actions button, .data-actions label{flex:1; text-align:center; padding:0.7rem; border-radius:10px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-size:0.85rem; font-weight:600;}
-  .danger-btn{width:100%; padding:0.7rem; border-radius:10px; border:1px solid rgba(178,58,46,0.35); background:transparent; color:var(--danger); font-size:0.85rem; font-weight:600; margin-top:0.6rem;}
+  .data-actions button, .data-actions label{flex:1; text-align:center; padding:0.7rem; border-radius:14px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-size:0.85rem; font-weight:600;}
+  .danger-btn{width:100%; padding:0.75rem; border-radius:999px; border:1px solid rgba(178,58,46,0.35); background:transparent; color:var(--danger); font-size:0.85rem; font-weight:600; margin-top:0.6rem;}
 
   footer{padding-top:1.3rem; text-align:center;}
   footer p{font-size:0.78rem; color:var(--text-2); line-height:1.6; margin:0 0 0.5rem;}
@@ -239,7 +280,7 @@
   }
 
   /* ---------- bottom tab bar ---------- */
-  nav.tabbar{position:fixed; left:0; right:0; bottom:0; z-index:30; background:var(--surface); border-top:1px solid var(--hairline); padding-bottom:env(safe-area-inset-bottom);}
+  nav.tabbar{position:fixed; left:0; right:0; bottom:0; z-index:30; background:color-mix(in srgb, var(--surface) 78%, transparent); backdrop-filter:blur(20px) saturate(1.6); -webkit-backdrop-filter:blur(20px) saturate(1.6); border-top:1px solid var(--hairline); padding-bottom:env(safe-area-inset-bottom);}
   nav.tabbar .inner{max-width:480px; margin:0 auto; display:flex;}
   nav.tabbar button{flex:1; background:none; border:none; padding:0.6rem 0 0.5rem; display:flex; flex-direction:column; align-items:center; gap:0.2rem; color:var(--text-2);}
   nav.tabbar button.active{color:var(--text);}
@@ -262,14 +303,16 @@
       display:flex; flex-direction:column; gap:0.2rem;
       position:fixed; left:0; top:0; bottom:0; width:232px;
       padding:1.6rem 1rem; border-right:1px solid var(--hairline);
-      background:var(--surface); overflow-y:auto;
+      background:color-mix(in srgb, var(--surface) 70%, transparent);
+      backdrop-filter:blur(20px) saturate(1.6); -webkit-backdrop-filter:blur(20px) saturate(1.6);
+      overflow-y:auto;
     }
     .sidebar-brand{display:flex; align-items:center; gap:0.6rem; padding:0.4rem 0.7rem 1.4rem;}
     .sidebar-mark svg{width:26px; height:26px;}
     .sidebar-title{font-family:var(--font-display); font-weight:700; font-size:1.05rem; letter-spacing:-0.02em;}
     nav.sidebar .tab-btn{
       flex-direction:row; justify-content:flex-start; align-items:center; gap:0.7rem;
-      padding:0.65rem 0.7rem; border-radius:10px; color:var(--text-2); font-weight:600;
+      padding:0.65rem 0.7rem; border-radius:14px; color:var(--text-2); font-weight:600;
       background:none; border:none; width:100%; text-align:left;
     }
     nav.sidebar .tab-btn.active{background:var(--tint); color:var(--text);}
@@ -285,10 +328,11 @@
     .tabpage.active{display:grid; grid-template-columns:1fr 1fr; gap:1.3rem 1.6rem; align-items:start;}
     .tabpage.active section.panel{
       border:1px solid var(--hairline); border-top:1px solid var(--hairline) !important;
-      border-radius:16px; padding:1.4rem 1.5rem; background:var(--surface); margin:0;
+      border-radius:22px; padding:1.5rem 1.6rem; background:var(--surface); margin:0;
+      box-shadow:0 1px 2px rgba(0,0,0,0.03), 0 10px 30px -12px rgba(0,0,0,0.08);
     }
     /* full-width cards */
-    #dateNavPanel, #numbersPanel, #resultsPanel, #methodsPanel{ grid-column:1 / -1; }
+    #dateNavPanel, #numbersPanel, #resultsPanel, #methodsPanel, #extraTargetsPanel{ grid-column:1 / -1; }
     #page-setup > footer{ grid-column:1 / -1; padding-top:0.5rem; }
 
     /* trends: chart cards flow 2-up automatically since they're flat siblings */
@@ -311,6 +355,50 @@
 
   @media (min-width: 1180px){
     .wrap{ max-width:1040px; }
+  }
+
+  /* ---------- insights rail (very wide desktop) ---------- */
+  .insights-rail{
+    display:none; flex-direction:column; gap:1.3rem;
+    position:fixed; right:0; top:0; bottom:0; width:300px;
+    padding:1.8rem 1.5rem; overflow-y:auto;
+    border-left:1px solid var(--hairline);
+    background:color-mix(in srgb, var(--surface) 70%, transparent);
+    backdrop-filter:blur(20px) saturate(1.6); -webkit-backdrop-filter:blur(20px) saturate(1.6);
+    z-index:5;
+  }
+  .rail-mark{ width:34px; height:34px; opacity:0.9; }
+  .rail-mark svg{ width:100%; height:100%; }
+  .rail-card{
+    border:1px solid var(--hairline); border-radius:16px; padding:1.1rem 1.1rem 1.2rem; position:relative; overflow:hidden;
+  }
+  .rail-card h3{ font-family:var(--font-display); font-weight:600; font-size:0.88rem; margin:0 0 0.9rem; }
+  .rail-rings{ display:flex; justify-content:space-around; gap:0.6rem; }
+  .rail-ring{ position:relative; width:60px; height:60px; }
+  .rail-ring svg{ width:60px; height:60px; }
+  .rail-ring-label{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .rail-ring-label strong{ font-family:var(--font-mono); font-size:0.78rem; font-weight:600; line-height:1; }
+  .rail-ring-label span{ font-size:0.55rem; color:var(--text-2); margin-top:0.1rem; }
+  .rail-substat{ margin-top:0.9rem; font-size:0.74rem; color:var(--text-2); line-height:1.5; }
+  .rail-tip{
+    border:1px solid var(--hairline); border-radius:16px; padding:1rem 1.1rem; background:var(--tint);
+  }
+  .rail-tip-label{
+    font-family:var(--font-display); font-weight:700; font-size:0.65rem; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--text-2); margin-bottom:0.4rem;
+  }
+  .rail-tip p{ margin:0; font-size:0.82rem; line-height:1.55; color:var(--text); min-height:3.4em; }
+  .rail-blob{
+    position:absolute; border-radius:50%; filter:blur(56px); opacity:0.16; pointer-events:none; z-index:-1;
+  }
+  .rail-blob-a{ width:220px; height:220px; top:-60px; right:-80px; background:var(--protein); }
+  .rail-blob-b{ width:180px; height:180px; bottom:10%; right:-60px; background:var(--fat); }
+
+  @media (min-width: 1560px){
+    .wrap{ margin-right:300px; }
+    .insights-rail{ display:flex; }
   }
 
   .toast{position:fixed; left:50%; bottom:calc(5.6rem + env(safe-area-inset-bottom)); transform:translateX(-50%) translateY(10px); background:var(--text); color:var(--bg); padding:0.6rem 1rem; border-radius:20px; font-size:0.82rem; font-weight:600; opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease; z-index:50; white-space:nowrap;}
@@ -382,8 +470,24 @@
     content:""; position:absolute; left:-1rem; top:14%; bottom:14%; width:3px; border-radius:0 3px 3px 0;
     background:linear-gradient(180deg, var(--protein), var(--carb), var(--fat)); animation:fadeIn .3s ease;
   }
-  .sidebar-mark svg,.top-mark svg{ animation:floatSpin 14s linear infinite; }
+  .sidebar-mark svg,.top-mark svg,.rail-mark svg{ animation:floatSpin 14s linear infinite; }
   .top-mark{ width:32px; height:32px; flex:none; display:flex; }
+
+  /* ---------- insights rail motion ---------- */
+  .insights-rail{ animation:fadeIn .5s var(--ease-out) both; }
+  .rail-card::before{
+    content:""; position:absolute; inset:-30% -30% auto auto; width:70%; height:70%; z-index:-1;
+    background:radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
+    filter:blur(20px); animation:shimmerGlow 4s ease-in-out infinite;
+  }
+  #railStepsRing, #railCalRing{
+    transition:stroke-dasharray .9s var(--ease-out), stroke-dashoffset .9s var(--ease-out);
+  }
+  .rail-blob-a{ animation:railDrift 16s ease-in-out infinite; }
+  .rail-blob-b{ animation:railDrift 20s ease-in-out infinite reverse; }
+  @keyframes railDrift{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-14px,18px) scale(1.08); } }
+  .rail-tip p{ transition:opacity .3s ease; }
+  .rail-tip p.fade{ opacity:0; }
   @media (min-width:900px){ .top-mark{display:none;} }
 
   .switch::after{ transition:transform .25s var(--ease-spring); }
@@ -401,7 +505,7 @@
     .sheet-overlay.open .sheet{ animation:sheetInCard .3s var(--ease-out); }
   }
 
-  .quick-item{ transition:background-color .2s ease, transform .15s ease; border-radius:8px; }
+  .quick-item{ transition:background-color .2s ease, transform .15s ease; border-radius:10px; }
   .quick-item:hover{ background:var(--tint); }
   .qadd:hover,.fdel:hover{ background:var(--text); color:var(--bg); }
   .qadd:active,.fdel:active{ transform:scale(0.85); }
@@ -409,17 +513,47 @@
   .toast.show{ animation:toastPop .4s var(--ease-spring); }
 
   @media (min-width:900px){
-    .tabpage.active section.panel{ transition:transform .25s var(--ease-out), box-shadow .25s ease; }
-    .tabpage.active section.panel:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(0,0,0,0.07); }
+    .tabpage.active section.panel{ transition:transform .3s var(--ease-out), box-shadow .3s ease; }
+    .tabpage.active section.panel:hover{ transform:translateY(-3px); box-shadow:0 1px 2px rgba(0,0,0,0.03), 0 20px 40px -14px rgba(0,0,0,0.14); }
   }
 
   header.top h1{
     background:linear-gradient(90deg, var(--text) 55%, var(--protein));
     -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
   }
+
+  /* ---------- animated background aura ---------- */
+  .bg-aura{ position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+  .bg-blob{ position:absolute; border-radius:50%; filter:blur(84px); opacity:0.10; }
+  .bg-blob-1{ width:440px; height:440px; top:-140px; left:-120px; background:var(--protein); animation:bgDrift1 22s ease-in-out infinite alternate; }
+  .bg-blob-2{ width:400px; height:400px; top:26%; right:-160px; background:var(--fat); animation:bgDrift2 27s ease-in-out infinite alternate; }
+  .bg-blob-3{ width:360px; height:360px; bottom:-140px; left:18%; background:var(--carb); animation:bgDrift3 31s ease-in-out infinite alternate; }
+  @keyframes bgDrift1{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(70px,50px) scale(1.18); } }
+  @keyframes bgDrift2{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(-60px,35px) scale(1.12); } }
+  @keyframes bgDrift3{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(35px,-45px) scale(1.1); } }
+
+  /* ---------- tab switch transition ---------- */
+  .tabpage.active{ animation:tabFade .4s var(--ease-out); }
+  @keyframes tabFade{ from{ opacity:0.35; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+
+  /* ---------- button ripple ---------- */
+  .add-btn,.addfood-btn,.danger-btn{ position:relative; overflow:hidden; }
+  .ripple{ position:absolute; border-radius:50%; background:rgba(255,255,255,0.45); transform:scale(0); pointer-events:none; animation:rippleEffect .55s ease-out forwards; }
+  @keyframes rippleEffect{ to{ transform:scale(2.8); opacity:0; } }
+
+  /* ---------- steps-goal confetti ---------- */
+  #stepsPanel{ position:relative; }
+  .confetti-piece{ position:absolute; top:12%; width:6px; height:10px; border-radius:2px; opacity:0.9; animation:confettiFall 1s ease-out forwards; pointer-events:none; }
+  @keyframes confettiFall{ 0%{ transform:translateY(0) rotate(0deg); opacity:1; } 100%{ transform:translateY(90px) rotate(340deg); opacity:0; } }
 </style>
 </head>
 <body>
+<script>(function(){try{var s=JSON.parse(window.localStorage.getItem('leanMetrics.v2')||'null');var t=s&&s.theme;if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<div class="bg-aura" aria-hidden="true">
+  <span class="bg-blob bg-blob-1"></span>
+  <span class="bg-blob bg-blob-2"></span>
+  <span class="bg-blob bg-blob-3"></span>
+</div>
 <div class="wrap">
 
   <header class="top">
@@ -463,6 +597,19 @@
     <section class="panel" id="macrosPanel">
       <h2 class="panel-title">Macros<span class="aux" id="macroCapTxt"></span></h2>
       <div id="macroBars"></div>
+    </section>
+
+    <section class="panel" id="stepsPanel">
+      <h2 class="panel-title">Steps<span class="aux" id="stepsCapTxt">goal 10,000</span></h2>
+      <div class="steps-input-row">
+        <input type="number" id="logSteps" inputmode="numeric" min="0" step="500" placeholder="0">
+        <span class="steps-unit">steps today</span>
+      </div>
+      <div class="meter-track" style="margin:0.7rem 0 0.7rem;">
+        <div class="meter-tick" id="stepsTick" style="left:100%;"></div>
+        <div class="meter-fill" id="stepsFill" style="width:0%; background:var(--good);"></div>
+      </div>
+      <div class="note" id="stepsNote">Bare minimum goal: 10,000 steps a day (about 5 miles). That's roughly 300–400 kcal for most adults, and is linked on its own — separate from any gym work — to better heart health, steadier blood sugar, and better mood and sleep.</div>
     </section>
 
     <section class="panel" id="foodLogPanel">
@@ -578,9 +725,25 @@
       </div>
 
       <div class="substats">
-        <div><div class="v" id="bmrOut">–</div><div class="l">BMR</div></div>
-        <div><div class="v" id="tdeeOut">–</div><div class="l">TDEE</div></div>
-        <div><div class="v" id="bmiOut">–</div><div class="l">BMI</div></div>
+        <div><div class="v" id="bmrOut">–</div><div class="l">BMR<span class="lfull">Basal Metabolic Rate</span></div></div>
+        <div><div class="v" id="tdeeOut">–</div><div class="l">TDEE<span class="lfull">Total Daily Energy Expenditure</span></div></div>
+        <div><div class="v" id="bmiOut">–</div><div class="l">BMI<span class="lfull">Body Mass Index</span></div></div>
+      </div>
+
+      <div class="bmi-status" id="bmiStatus">
+        <div class="bmi-badge" id="bmiBadge">
+          <svg id="bmiIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <div class="bmi-status-text">
+          <div class="bmi-status-label" id="bmiStatusLabel">Normal weight</div>
+          <div class="bmi-status-sub" id="bmiStatusSub">Within the healthy BMI range for most adults.</div>
+        </div>
+      </div>
+      <div class="bmi-gauge-wrap">
+        <div class="bmi-gauge" id="bmiGauge">
+          <div class="bmi-gauge-marker" id="bmiMarker"></div>
+        </div>
+        <div class="bmi-gauge-ticks"><span>Under</span><span>Normal</span><span>Over</span><span>Obese</span></div>
       </div>
 
       <div class="donut-wrap">
@@ -618,6 +781,36 @@
       </div>
 
       <div id="noteArea"></div>
+
+      <div class="motivation-card" id="motivationCard">
+        <div class="motivation-icon" id="motivationIcon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 0-5.5 6.2-5.5 11a5.5 5.5 0 0 0 11 0C17.5 8.2 12 2 12 2z"/><path d="M12 17a2.5 2.5 0 0 0 2.5-2.5c0-1.4-1.2-2.6-2-3.5"/></svg>
+        </div>
+        <p class="motivation-text" id="motivationText">Every log brings you closer to your goal.</p>
+      </div>
+    </section>
+
+    <section class="panel" id="extraTargetsPanel">
+      <h2 class="panel-title">Water, fiber &amp; limits<span class="aux">daily</span></h2>
+      <div class="mini-stats">
+        <div class="mini-stat">
+          <div class="mini-stat-v" id="waterOut">–</div>
+          <div class="mini-stat-l">Water<span class="lfull">liters/day</span></div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-v" id="fiberOut">–</div>
+          <div class="mini-stat-l">Fiber<span class="lfull">grams/day, min.</span></div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-v" id="sodiumOut">–</div>
+          <div class="mini-stat-l">Sodium<span class="lfull">mg/day, cap</span></div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-v" id="sugarOut">–</div>
+          <div class="mini-stat-l">Added sugar<span class="lfull">grams/day, cap</span></div>
+        </div>
+      </div>
+      <div class="note">Water scales with your bodyweight and activity level. Fiber follows the 14g-per-1,000-kcal rule of thumb. Sodium and added-sugar are upper limits (AHA/FDA guidance), not targets to hit — food-log totals for these aren't tracked yet, so treat them as a ceiling to keep in mind.</div>
     </section>
 
     <section class="panel" id="reminderPanel">
@@ -631,6 +824,19 @@
         <input type="time" id="reminderTime" value="08:00">
       </div>
       <div class="note" id="reminderNote">Works while Lean Metrics is open in a browser tab or on your Home Screen — it can't notify you in the background like a native app would.</div>
+    </section>
+
+    <section class="panel" id="appearancePanel">
+      <h2 class="panel-title">Appearance</h2>
+      <div class="field">
+        <label>Theme</label>
+        <div class="segmented" id="themeToggle">
+          <button data-val="auto">Auto</button>
+          <button data-val="light">Light</button>
+          <button data-val="dark">Dark</button>
+        </div>
+      </div>
+      <div class="note">Auto follows your device's system setting. Light and Dark override it just for Lean Metrics.</div>
     </section>
 
     <section class="panel" id="dataPanel">
@@ -653,6 +859,9 @@
           <p><strong>Protein</strong> follows the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/" target="_blank" rel="noopener">International Society of Sports Nutrition's position stand</a> — 1.4–2.0 g/kg for general training, and up to 2.3–3.1 g/kg of lean mass in a deficit to protect muscle. If you enter body fat %, the higher lean-mass-based range is used for fat-loss goals.</p>
           <p><strong>Fat</strong> targets 22–30% of calories, with a floor of about 0.6 g/kg bodyweight to protect hormone health, per the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5470183/" target="_blank" rel="noopener">ISSN position stand on diets and body composition</a> and USDA dietary fat guidance (20–35% AMDR).</p>
           <p><strong>Carbs</strong> fill the remaining calories. A note appears if that falls under ~130 g/day, the amount the brain needs from glucose per Institute of Medicine guidance.</p>
+          <p><strong>Water</strong> uses a common rule of thumb of about 33 ml per kg of bodyweight, plus an activity bump (0.1–1.1 L) for your selected activity level. Hotter climates, illness, or breastfeeding raise this further.</p>
+          <p><strong>Fiber</strong> uses the widely cited 14 g per 1,000 kcal rule of thumb (derived from the ~25g/2,000 kcal and ~38g/2,900 kcal Adequate Intake values from the Institute of Medicine).</p>
+          <p><strong>Sodium</strong> and <strong>added sugar</strong> are shown as ceilings, not targets: 2,300 mg/day sodium (FDA) and 25 g/day for women or 36 g/day for men on added sugar (American Heart Association) — lower if you have high blood pressure or your doctor advises otherwise. The app doesn't log these from your food yet, so treat them as things to keep an eye on rather than numbers it's tracking for you.</p>
           <p>Food-log macros come from a small built-in reference list of common foods (typical USDA-style values) or whatever you enter manually — they're estimates, not lab measurements.</p>
           <p>These are population-level formulas, not a medical assessment. Individual metabolism varies by 5–15% or more. If you have a health condition, are pregnant, or are under 18, talk to a doctor or registered dietitian before changing your diet.</p>
         </div>
@@ -668,6 +877,42 @@
   </div>
 
 </div>
+
+<!-- ============ INSIGHTS RAIL (wide desktop only) ============ -->
+<aside class="insights-rail" id="insightsRail" aria-hidden="true">
+  <div class="rail-mark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="var(--protein)" stroke-width="2" stroke-dasharray="12 30"/><circle cx="12" cy="12" r="9" stroke="var(--carb)" stroke-width="2" stroke-dasharray="10 30" stroke-dashoffset="-12"/><circle cx="12" cy="12" r="9" stroke="var(--fat)" stroke-width="2" stroke-dasharray="8 30" stroke-dashoffset="-22"/></svg>
+  </div>
+
+  <div class="rail-card">
+    <h3>Today at a glance</h3>
+    <div class="rail-rings">
+      <div class="rail-ring">
+        <svg viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="24" fill="none" stroke="var(--hairline)" stroke-width="6"></circle>
+          <circle id="railStepsRing" cx="30" cy="30" r="24" fill="none" stroke="var(--good)" stroke-width="6" stroke-linecap="round" transform="rotate(-90 30 30)"></circle>
+        </svg>
+        <div class="rail-ring-label"><strong id="railStepsTxt">0</strong><span>steps</span></div>
+      </div>
+      <div class="rail-ring">
+        <svg viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="24" fill="none" stroke="var(--hairline)" stroke-width="6"></circle>
+          <circle id="railCalRing" cx="30" cy="30" r="24" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" transform="rotate(-90 30 30)"></circle>
+        </svg>
+        <div class="rail-ring-label"><strong id="railCalTxt">0</strong><span>kcal</span></div>
+      </div>
+    </div>
+    <div class="rail-substat"><span id="railGoalTxt">Set up your numbers to see targets.</span></div>
+  </div>
+
+  <div class="rail-tip" id="railTip">
+    <div class="rail-tip-label">Tip</div>
+    <p id="railTipText">Loading…</p>
+  </div>
+
+  <div class="rail-blob rail-blob-a" aria-hidden="true"></div>
+  <div class="rail-blob rail-blob-b" aria-hidden="true"></div>
+</aside>
 
 <!-- ============ ADD FOOD SHEET ============ -->
 <div class="sheet-overlay" id="addFoodOverlay">
@@ -753,19 +998,19 @@
      CONSTANTS
   ============================================================ */
   var ACTIVITY = [
-    {id:'sedentary', mult:1.2, label:'Sedentary', desc:'Little or no exercise, desk job'},
-    {id:'light', mult:1.375, label:'Lightly active', desc:'Light exercise 1–3 days a week'},
-    {id:'moderate', mult:1.55, label:'Moderately active', desc:'Moderate exercise 3–5 days a week'},
-    {id:'active', mult:1.725, label:'Very active', desc:'Hard exercise 6–7 days a week'},
-    {id:'extra', mult:1.9, label:'Extra active', desc:'Physical job, or training twice a day'}
+    {id:'sedentary', mult:1.2, waterBumpL:0.1, label:'Sedentary', desc:'Little or no exercise, desk job'},
+    {id:'light', mult:1.375, waterBumpL:0.3, label:'Lightly active', desc:'Light exercise 1–3 days a week'},
+    {id:'moderate', mult:1.55, waterBumpL:0.5, label:'Moderately active', desc:'Moderate exercise 3–5 days a week'},
+    {id:'active', mult:1.725, waterBumpL:0.8, label:'Very active', desc:'Hard exercise 6–7 days a week'},
+    {id:'extra', mult:1.9, waterBumpL:1.1, label:'Extra active', desc:'Physical job, or training twice a day'}
   ];
 
   var GOALS = [
-    {id:'maintain', adj:0, proteinPerKg:1.6, lbmProtein:1.8, fatPct:0.30, label:'Maintain weight', desc:'Hold current weight and composition', cap:'Maintenance calories'},
-    {id:'mildloss', adj:-0.15, proteinPerKg:1.8, lbmProtein:2.4, fatPct:0.27, label:'Mild fat loss', desc:'Slow, steady loss — easiest to sustain', cap:'≈15% below maintenance'},
-    {id:'leanloss', adj:-0.20, proteinPerKg:2.0, lbmProtein:2.6, fatPct:0.25, label:'Fat loss (lean body)', desc:'Standard cut, roughly 0.5–0.7% bodyweight/week', cap:'≈20% below maintenance'},
-    {id:'aggressiveloss', adj:-0.25, proteinPerKg:2.2, lbmProtein:2.9, fatPct:0.22, label:'Aggressive fat loss', desc:'Faster loss — more hunger, more muscle-loss risk', cap:'≈25% below maintenance'},
-    {id:'gain', adj:0.15, proteinPerKg:1.8, lbmProtein:1.8, fatPct:0.28, label:'Lean muscle gain', desc:'Slight surplus to build muscle, limit fat gain', cap:'≈15% above maintenance'}
+    {id:'maintain', adj:0, proteinPerKg:1.6, lbmProtein:1.8, fatPct:0.30, gymLow:200, gymHigh:350, label:'Maintain weight', desc:'Hold current weight and composition', cap:'Maintenance calories'},
+    {id:'mildloss', adj:-0.15, proteinPerKg:1.8, lbmProtein:2.4, fatPct:0.27, gymLow:300, gymHigh:450, label:'Mild fat loss', desc:'Slow, steady loss — easiest to sustain', cap:'≈15% below maintenance'},
+    {id:'leanloss', adj:-0.20, proteinPerKg:2.0, lbmProtein:2.6, fatPct:0.25, gymLow:350, gymHigh:500, label:'Fat loss (lean body)', desc:'Standard cut, roughly 0.5–0.7% bodyweight/week', cap:'≈20% below maintenance'},
+    {id:'aggressiveloss', adj:-0.25, proteinPerKg:2.2, lbmProtein:2.9, fatPct:0.22, gymLow:450, gymHigh:600, label:'Aggressive fat loss', desc:'Faster loss — more hunger, more muscle-loss risk', cap:'≈25% below maintenance'},
+    {id:'gain', adj:0.15, proteinPerKg:1.8, lbmProtein:1.8, fatPct:0.28, gymLow:250, gymHigh:400, label:'Lean muscle gain', desc:'Slight surplus to build muscle, limit fat gain', cap:'≈15% above maintenance'}
   ];
 
   // per-serving macros, calories are recomputed from macros for internal consistency
@@ -796,6 +1041,19 @@
     {name:'Protein bar', serving:'1 bar', p:20, c:22, f:8}
   ].map(function(f){ f.cal = Math.round(f.p*4 + f.c*4 + f.f*9); return f; });
 
+  var TIPS = [
+    '10,000 steps is a floor, not a ceiling — every extra 1,000 steps burns roughly another 30–40 kcal.',
+    'Protein at every meal blunts hunger more than carbs or fat at the same calories.',
+    'A pound of fat is about 3,500 kcal — small, sustainable deficits beat crash diets.',
+    'Strength training 2–3x/week preserves muscle while you\'re in a calorie deficit.',
+    'Water counts too — mild dehydration is often mistaken for hunger.',
+    'Sleep under 6 hours a night measurably raises hunger hormones the next day.',
+    'Weigh yourself at the same time of day — morning, after the bathroom, before food — for the least noisy trend.',
+    'Fiber-rich carbs (veggies, oats, beans) fill you up for far fewer calories than refined ones.',
+    'Progress isn\'t linear — a stall of 1–2 weeks on the scale is normal, not a sign to panic.',
+    'Walking after meals can measurably lower the blood-sugar spike that follows.'
+  ];
+
   var STORAGE_KEY = 'leanMetrics.v2';
   var LEGACY_KEY = 'leanMetrics.profile';
 
@@ -804,6 +1062,7 @@
   var state = {
     profile: Object.assign({}, DEFAULT_PROFILE),
     reminder: {enabled:false, time:'08:00', lastFired:''},
+    theme: 'auto',
     selectedDate: null,
     logs: {}
   };
@@ -897,6 +1156,7 @@
         if(parsed && typeof parsed === 'object'){
           state.profile = Object.assign({}, DEFAULT_PROFILE, parsed.profile||{});
           state.reminder = Object.assign({enabled:false,time:'08:00',lastFired:''}, parsed.reminder||{});
+          state.theme = (parsed.theme==='light'||parsed.theme==='dark') ? parsed.theme : 'auto';
           state.logs = parsed.logs || {};
           return;
         }
@@ -913,9 +1173,45 @@
     try{ window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
   }
   function getLog(dateStr){
-    if(!state.logs[dateStr]) state.logs[dateStr] = {weight:null, waist:null, bodyfat:null, foods:[]};
+    if(!state.logs[dateStr]) state.logs[dateStr] = {weight:null, waist:null, bodyfat:null, steps:null, foods:[]};
     if(!state.logs[dateStr].foods) state.logs[dateStr].foods = [];
     return state.logs[dateStr];
+  }
+
+  /* ============================================================
+     THEME
+  ============================================================ */
+  function applyTheme(theme){
+    var root = document.documentElement;
+    if(theme==='light' || theme==='dark'){
+      root.setAttribute('data-theme', theme);
+    } else {
+      root.removeAttribute('data-theme');
+    }
+    // Keep the browser chrome (address bar / PWA titlebar) matching the forced theme.
+    var lightMeta = document.querySelector('meta[name="theme-color"][media*="light"]');
+    var darkMeta = document.querySelector('meta[name="theme-color"][media*="dark"]');
+    var forced = theme==='light' ? '#EEF0F3' : (theme==='dark' ? '#12151A' : null);
+    if(forced){
+      if(lightMeta) lightMeta.setAttribute('content', forced);
+      if(darkMeta) darkMeta.setAttribute('content', forced);
+    } else {
+      if(lightMeta) lightMeta.setAttribute('content', '#EEF0F3');
+      if(darkMeta) darkMeta.setAttribute('content', '#12151A');
+    }
+  }
+  function wireThemeToggle(){
+    var group = el('themeToggle');
+    if(!group) return;
+    Array.prototype.forEach.call(group.children, function(btn){
+      btn.classList.toggle('active', btn.dataset.val===state.theme);
+      btn.addEventListener('click', function(){
+        state.theme = btn.dataset.val;
+        Array.prototype.forEach.call(group.children, function(b){ b.classList.toggle('active', b===btn); });
+        saveState();
+        applyTheme(state.theme);
+      });
+    });
   }
 
   /* ============================================================
@@ -966,13 +1262,20 @@
     var dailyDelta = tdee - targetCalories;
     var weeklyKg = (dailyDelta*7)/7700;
 
+    // extra daily targets: water, fiber, sodium cap, added-sugar cap
+    var waterL = round(weightKg*0.033 + activity.waterBumpL, 1);
+    var fiberG = Math.round(targetCalories/1000 * 14);
+    var sodiumCapMg = 2300;
+    var sugarCapG = profile.sex==='male' ? 36 : 25;
+
     return {
       bmr:bmr, tdee:tdee, bmi:bmi, weightKg:weightKg,
       calories:targetCalories, totalCal:totalCal,
       protein:proteinGrams, carbs:carbGrams, fat:fatGrams,
       proteinCal:proteinCal, carbCal:carbCal, fatCal:fatCal,
       flooredNote:flooredNote, usedLbm:usedLbm, overBudget:overBudget,
-      weeklyKg:weeklyKg, goal:goal, activity:activity
+      weeklyKg:weeklyKg, goal:goal, activity:activity,
+      waterL:waterL, fiberG:fiberG, sodiumCapMg:sodiumCapMg, sugarCapG:sugarCapG
     };
   }
 
@@ -1051,6 +1354,71 @@
     el('logWeight').value = log.weight!=null ? log.weight : '';
     el('logWaist').value = log.waist!=null ? log.waist : '';
     el('logBodyfat').value = log.bodyfat!=null ? log.bodyfat : '';
+    el('logSteps').value = log.steps!=null ? log.steps : '';
+    updateStepsUI(log.steps);
+    renderRail(log, targets, consumed);
+  }
+
+  function updateStepsUI(steps){
+    var fill = el('stepsFill'), note = el('stepsNote');
+    var s = (steps==null || isNaN(steps)) ? 0 : Math.max(0, steps);
+    var pct = clamp(s/10000, 0, 1)*100;
+    fill.style.width = pct+'%';
+    if(!s){
+      note.textContent = 'Bare minimum goal: 10,000 steps a day (about 5 miles). That\'s roughly 300–400 kcal for most adults, and is linked on its own — separate from any gym work — to better heart health, steadier blood sugar, and better mood and sleep.';
+      return;
+    }
+    var wKg = toMetric(parseFloat(el('height').value)||0, parseFloat(el('weight').value)||state.profile.weight, state.profile.unit).w || 75;
+    var kcal = Math.round(s * 0.0005 * wKg);
+    var remaining = Math.max(10000 - s, 0);
+    note.textContent = remaining>0
+      ? fmt(s)+' steps logged today (~'+kcal+' kcal) — '+fmt(remaining)+' to go for the 10,000/day minimum.'
+      : fmt(s)+' steps logged today (~'+kcal+' kcal) — past the 10,000/day minimum. Nice.';
+  }
+
+  function saveSteps(){
+    var dateStr = state.selectedDate || todayStr();
+    var log = getLog(dateStr);
+    var s = parseFloat(el('logSteps').value);
+    log.steps = isNaN(s) ? null : Math.max(0, Math.round(s));
+    saveState();
+    updateStepsUI(log.steps);
+    renderRail(log, currentTargets(), log.foods.reduce(function(acc,f){ acc.cal+=f.cal; return acc; }, {cal:0}));
+    maybeCelebrateSteps(dateStr, log.steps);
+  }
+
+  var celebratedSteps = {};
+  function maybeCelebrateSteps(dateStr, steps){
+    if(steps>=10000 && !celebratedSteps[dateStr]){
+      celebratedSteps[dateStr] = true;
+      spawnConfetti(el('stepsPanel'));
+      toast('10,000 steps — nice work!');
+    }
+  }
+  function spawnConfetti(container){
+    if(!container) return;
+    var colors = ['var(--protein)','var(--carb)','var(--fat)','var(--good)'];
+    for(var i=0;i<14;i++){
+      var p = document.createElement('span');
+      p.className = 'confetti-piece';
+      p.style.left = (5 + Math.random()*90)+'%';
+      p.style.background = colors[i % colors.length];
+      p.style.animationDelay = (Math.random()*0.15)+'s';
+      container.appendChild(p);
+      (function(node){ setTimeout(function(){ node.remove(); }, 1300); })(p);
+    }
+  }
+  function addRipple(e){
+    var btn = e.currentTarget;
+    var rect = btn.getBoundingClientRect();
+    var size = Math.max(rect.width, rect.height);
+    var span = document.createElement('span');
+    span.className = 'ripple';
+    span.style.width = span.style.height = size+'px';
+    span.style.left = (e.clientX - rect.left - size/2)+'px';
+    span.style.top = (e.clientY - rect.top - size/2)+'px';
+    btn.appendChild(span);
+    setTimeout(function(){ span.remove(); }, 550);
   }
 
   function renderMacroBars(consumed, targets){
@@ -1078,6 +1446,39 @@
     var len = Math.max(frac*C, 0);
     circle.style.strokeDasharray = len+' '+(C-len);
     circle.style.strokeDashoffset = String(-offsetFrac*C);
+  }
+
+  /* ============================================================
+     INSIGHTS RAIL (wide desktop)
+  ============================================================ */
+  function renderRail(log, targets, consumed){
+    var railC = 2*Math.PI*24;
+    var steps = (log && log.steps!=null) ? log.steps : 0;
+    setArc('railStepsRing', clamp(steps/10000, 0, 1), 0, railC);
+    animateNumber('railStepsTxt', steps);
+
+    if(targets){
+      var frac = clamp((consumed?consumed.cal:0)/targets.calories, 0, 1);
+      setArc('railCalRing', frac, 0, railC);
+      animateNumber('railCalTxt', consumed?consumed.cal:0);
+      el('railGoalTxt').textContent = fmt(consumed?consumed.cal:0)+' of '+fmt(targets.calories)+' kcal today · '+fmt(steps)+' / 10,000 steps.';
+    } else {
+      setArc('railCalRing', 0, 0, railC);
+      animateNumber('railCalTxt', 0);
+      el('railGoalTxt').textContent = 'Set up your numbers on the Setup tab to see targets here.';
+    }
+  }
+
+  var railTipIdx = Math.floor(Math.random()*TIPS.length);
+  function rotateTip(){
+    var p = el('railTipText');
+    if(!p) return;
+    p.classList.add('fade');
+    setTimeout(function(){
+      railTipIdx = (railTipIdx+1) % TIPS.length;
+      p.textContent = TIPS[railTipIdx];
+      p.classList.remove('fade');
+    }, 300);
   }
 
   function changeDay(delta){
@@ -1454,6 +1855,94 @@
     el('bodyfat').value = state.profile.bodyfat || '';
   }
 
+  var BMI_ICONS = {
+    under: '<path d="M12 5v14M5 12l7 7 7-7"/>',
+    normal: '<path d="M20 6L9 17l-5-5"/>',
+    over: '<path d="M12 19V5M5 12l7-7 7 7"/>',
+    obese: '<path d="M12 9v3.5M12 16.5h.01M10.29 3.86l-8.02 13.9A1.7 1.7 0 0 0 3.75 20.5h16.5a1.7 1.7 0 0 0 1.48-2.74l-8.02-13.9a1.7 1.7 0 0 0-2.96 0z"/>'
+  };
+  function bmiCategory(bmi){
+    if(bmi < 18.5) return {key:'under', label:'Underweight', sub:'Below the typical healthy range — worth a chat with a doctor if it\'s unintended.', color:'#4dabf7'};
+    if(bmi < 25)   return {key:'normal', label:'Normal weight', sub:'Within the healthy BMI range for most adults.', color:'#2fbf71'};
+    if(bmi < 30)   return {key:'over', label:'Overweight', sub:'Above the typical healthy range — small, steady changes help.', color:'#ffab2e'};
+    if(bmi < 35)   return {key:'obese', label:'Obese (Class I)', sub:'A healthcare provider can help build a safe, sustainable plan.', color:'#ff6b4d'};
+    return                {key:'obese', label:'Obese (Class II+)', sub:'A healthcare provider can help build a safe, sustainable plan.', color:'#ff4757'};
+  }
+  var MOTIVATION = {
+    maintain: [
+      'Maintenance is a skill — nailing it makes every future phase easier.',
+      'Staying steady here quietly builds the habits that make everything else stick.',
+      'You\'re not standing still — you\'re banking consistency.'
+    ],
+    mildloss: [
+      'Slow and steady is the whole strategy — it\'s the plan most likely to actually work.',
+      'Small, boring deficits beat big, dramatic ones. You\'re playing the long game.',
+      'Every day you hit this target, your body trusts the process a little more.'
+    ],
+    leanloss: [
+      'This pace keeps muscle while the fat comes off — stick with it.',
+      'Progress here is measured in weeks, not days. Trust the average, not any one day.',
+      'Hit your protein, hit your steps, and the scale follows on its own schedule.'
+    ],
+    aggressiveloss: [
+      'This pace asks more of you — sleep and recovery matter as much as the deficit.',
+      'Fast progress needs discipline on the details: protein, steps, sleep. You\'ve got this.',
+      'Push hard, but listen to your body — ease off if hunger or energy crash too far.'
+    ],
+    gain: [
+      'Muscle is built in the gym and paid for at the table — keep showing up for both.',
+      'A slow surplus means more of this weight ends up as muscle, not just the scale moving.',
+      'Progressive overload plus consistent eating. That\'s the whole game from here.'
+    ]
+  };
+  var motivationIdx = 0;
+  var lastMotivationGoal = null;
+  function rotateMotivation(pickNew){
+    var p = el('motivationText');
+    if(!p) return;
+    var pool = MOTIVATION[state.profile.goal] || MOTIVATION.maintain;
+    if(pickNew) motivationIdx = (motivationIdx+1) % pool.length;
+    p.classList.add('fade');
+    setTimeout(function(){
+      p.textContent = pool[motivationIdx % pool.length];
+      p.classList.remove('fade');
+    }, 250);
+  }
+  function updateMotivation(goalId){
+    if(goalId === lastMotivationGoal) return;
+    lastMotivationGoal = goalId;
+    motivationIdx = 0;
+    var p = el('motivationText');
+    if(!p) return;
+    var pool = MOTIVATION[goalId] || MOTIVATION.maintain;
+    p.classList.add('fade');
+    setTimeout(function(){
+      p.textContent = pool[0];
+      p.classList.remove('fade');
+    }, 250);
+  }
+
+  var lastBmiCatKey = null;
+  function updateBmiStatus(bmi){
+    if(!bmi || isNaN(bmi)) return;
+    var cat = bmiCategory(bmi);
+    el('bmiStatus').style.setProperty('--bmi-c', cat.color);
+    el('bmiStatusLabel').textContent = cat.label;
+    el('bmiStatusSub').textContent = cat.sub;
+    el('bmiIcon').innerHTML = BMI_ICONS[cat.key] || BMI_ICONS.normal;
+    var pct = clamp((bmi - 15) / (40 - 15) * 100, 1, 99);
+    el('bmiMarker').style.left = pct + '%';
+    var badge = el('bmiBadge');
+    if(cat.key !== lastBmiCatKey){
+      badge.style.transition = 'none';
+      badge.style.transform = 'scale(0.8)';
+      requestAnimationFrame(function(){
+        badge.style.transition = 'transform .4s var(--ease-spring)';
+        badge.style.transform = 'scale(1)';
+      });
+      lastBmiCatKey = cat.key;
+    }
+  }
   function renderSetupResults(){
     var age = parseFloat(el('age').value);
     var heightRaw = parseFloat(el('height').value);
@@ -1473,6 +1962,8 @@
     animateNumber('bmrOut', t.bmr);
     animateNumber('tdeeOut', t.tdee);
     animateNumber('bmiOut', t.bmi, {decimals:1});
+    updateBmiStatus(t.bmi);
+    updateMotivation(goal.id);
 
     animateNumber('donutCals', t.totalCal);
     animateNumber('proteinG', t.protein, {suffix:' g'});
@@ -1482,6 +1973,11 @@
     animateNumber('carbPct', t.carbCal/t.totalCal*100, {suffix:'%'});
     animateNumber('fatPct', t.fatCal/t.totalCal*100, {suffix:'%'});
 
+    animateNumber('waterOut', t.waterL, {decimals:1, suffix:' L'});
+    animateNumber('fiberOut', t.fiberG, {suffix:' g'});
+    animateNumber('sodiumOut', t.sodiumCapMg, {suffix:' mg'});
+    animateNumber('sugarOut', t.sugarCapG, {suffix:' g'});
+
     var R=80, C=2*Math.PI*R;
     var pFrac = t.proteinCal/t.totalCal, cFrac = t.carbCal/t.totalCal, fFrac = t.fatCal/t.totalCal;
     setArc('arcProtein', pFrac, 0, C);
@@ -1489,6 +1985,7 @@
     setArc('arcFat', fFrac, pFrac+cFrac, C);
 
     var notes = [];
+    notes.push('Gym target: aim to burn roughly '+goal.gymLow+'–'+goal.gymHigh+' kcal per session (cardio + strength combined) to support this goal. That\'s on top of — not instead of — your 10,000 daily steps; strength days won\'t always hit this number from "calories burned" alone, and that\'s fine, since progressive overload matters more there than the burn total.');
     if(goal.adj<0){
       var absKg = Math.abs(t.weeklyKg);
       notes.push('At this target, expect to lose roughly '+round(absKg,2)+' kg ('+round(absKg*2.20462,2)+' lb) a week, on average.');
@@ -1599,11 +2096,13 @@
   }
   function resetAll(){
     if(!confirm('Reset all data? This clears your profile, logs, and reminders on this device.')) return;
-    state = {profile:Object.assign({},DEFAULT_PROFILE), reminder:{enabled:false,time:'08:00',lastFired:''}, selectedDate:null, logs:{}};
+    state = {profile:Object.assign({},DEFAULT_PROFILE), reminder:{enabled:false,time:'08:00',lastFired:''}, theme:'auto', selectedDate:null, logs:{}};
     saveState();
     populateInputs();
     applyUnitLabels();
     applyReminderUI();
+    applyTheme(state.theme);
+    Array.prototype.forEach.call(el('themeToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.theme); });
     renderSetupResults();
     renderToday();
     toast('All data reset');
@@ -1614,10 +2113,12 @@
   ============================================================ */
   function init(){
     loadState();
+    applyTheme(state.theme);
     state.selectedDate = todayStr();
     populateInputs();
     applyUnitLabels();
     applyReminderUI();
+    wireThemeToggle();
 
     Array.prototype.forEach.call(el('unitToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.unit); });
     Array.prototype.forEach.call(el('sexToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.sex); });
@@ -1670,6 +2171,8 @@
     el('prevDay').addEventListener('click', function(){ changeDay(-1); });
     el('nextDay').addEventListener('click', function(){ changeDay(1); });
     el('saveCheckin').addEventListener('click', saveCheckin);
+    el('logSteps').addEventListener('input', function(){ updateStepsUI(parseFloat(this.value)); });
+    el('logSteps').addEventListener('change', saveSteps);
     el('openAddFood').addEventListener('click', openSheet);
     el('closeAddFood').addEventListener('click', closeSheet);
     el('addFoodOverlay').addEventListener('click', function(e){ if(e.target===el('addFoodOverlay')) closeSheet(); });
@@ -1707,6 +2210,20 @@
     el('reminderSwitch').addEventListener('click', toggleReminder);
     el('reminderTime').addEventListener('change', function(){ state.reminder.time = this.value; saveState(); });
     setInterval(checkReminder, 20000);
+
+    // insights rail tip ticker
+    if(el('railTipText')){
+      el('railTipText').textContent = TIPS[railTipIdx];
+      setInterval(rotateTip, 6000);
+    }
+
+    // motivation card ticker
+    setInterval(function(){ rotateMotivation(true); }, 9000);
+
+    // button ripple effect
+    document.querySelectorAll('.add-btn, .addfood-btn, .danger-btn').forEach(function(b){
+      b.addEventListener('click', addRipple);
+    });
 
     // data
     el('exportBtn').addEventListener('click', exportData);
