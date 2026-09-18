@@ -184,6 +184,15 @@
   .motivation-card{display:flex; align-items:center; gap:0.85rem; margin-top:1rem; padding:0.95rem 1.1rem; border-radius:18px;
     background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--surface)), color-mix(in srgb, var(--accent) 4%, var(--surface)));
     border:1px solid color-mix(in srgb, var(--accent) 30%, var(--hairline));}
+
+  .install-card{display:flex; align-items:center; gap:0.85rem; padding:0.95rem 1.1rem; border-radius:18px;
+    background:linear-gradient(135deg, color-mix(in srgb, var(--good) 14%, var(--surface)), color-mix(in srgb, var(--good) 3%, var(--surface)));
+    border:1px solid color-mix(in srgb, var(--good) 26%, var(--hairline));}
+  .install-icon{flex:none; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--good); background:color-mix(in srgb, var(--good) 16%, transparent);}
+  .install-icon svg{width:20px; height:20px; animation:motivationFloat 3.2s ease-in-out infinite;}
+  .install-text{flex:1; font-size:0.86rem; font-weight:600; color:var(--text); line-height:1.4; min-width:0;}
+  .install-text span{display:block; font-weight:400; color:var(--text-2); font-size:0.78rem; margin-top:0.2rem;}
+  .install-btn{flex:none; padding:0.6rem 1rem; border-radius:999px; border:none; background:var(--text); color:var(--bg); font-family:var(--font-display); font-weight:600; font-size:0.82rem;}
   .motivation-icon{flex:none; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent); background:color-mix(in srgb, var(--accent) 18%, transparent); animation:motivationFloat 3.2s ease-in-out infinite;}
   .motivation-icon svg{width:19px; height:19px;}
   @keyframes motivationFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
@@ -668,7 +677,7 @@
   @media print{
     .bg-aura, nav.tabbar, nav.sidebar, .insights-rail, .sheet-overlay, .toast,
     .print-btn, #rangeToggle, #reminderPanel, #appearancePanel, #dataPanel,
-    #methodsPanel, #setupFooter, header.top{ display:none !important; }
+    #methodsPanel, #setupFooter, header.top, #installPanel{ display:none !important; }
     .tabpage{ display:none !important; }
     #page-trends{ display:block !important; }
     body{ background:#fff !important; color:#0a0a0a !important; padding:0 !important; }
@@ -1096,6 +1105,17 @@
       <div class="note" id="reminderNote">Works while Lean Metrics is open in a browser tab or on your Home Screen — it can't notify you in the background like a native app would.</div>
     </section>
 
+    <section class="panel" id="installPanel" style="display:none;">
+      <h2 class="panel-title">Install app</h2>
+      <div class="install-card">
+        <div class="install-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+        </div>
+        <div class="install-text">Add Lean Metrics to your home screen<span id="installTextSub">Full-screen, works offline, opens like a native app.</span></div>
+        <button class="install-btn" id="installBtn">Install</button>
+      </div>
+    </section>
+
     <section class="panel" id="appearancePanel">
       <h2 class="panel-title">Appearance</h2>
       <div class="field">
@@ -1279,6 +1299,23 @@
 <script>
 (function(){
   "use strict";
+
+  /* ============================================================
+     PWA INSTALL PROMPT — captured immediately so we don't miss the
+     event if it fires before init() runs.
+  ============================================================ */
+  var deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    var panel = document.getElementById('installPanel');
+    if(panel) panel.style.display = '';
+  });
+  window.addEventListener('appinstalled', function(){
+    deferredInstallPrompt = null;
+    var panel = document.getElementById('installPanel');
+    if(panel) panel.style.display = 'none';
+  });
 
   /* ============================================================
      CONSTANTS
@@ -1640,6 +1677,45 @@
         Array.prototype.forEach.call(group.children, function(b){ b.classList.toggle('active', b===btn); });
         saveState();
         applyTheme(state.theme);
+      });
+    });
+  }
+
+  /* ============================================================
+     PWA INSTALL PROMPT
+  ============================================================ */
+  function isStandalone(){
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  }
+  function isIOS(){
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  }
+  function wireInstallPrompt(){
+    var panel = el('installPanel');
+    if(!panel) return;
+
+    if(isStandalone()){
+      // Already installed / running as a standalone app — nothing to offer.
+      panel.style.display = 'none';
+      return;
+    }
+
+    if(isIOS()){
+      // Safari on iOS doesn't support beforeinstallprompt — show manual steps instead.
+      panel.style.display = '';
+      el('installTextSub').textContent = 'Tap the Share icon in Safari, then "Add to Home Screen".';
+      el('installBtn').style.display = 'none';
+      return;
+    }
+
+    if(deferredInstallPrompt){ panel.style.display = ''; }
+
+    el('installBtn').addEventListener('click', function(){
+      if(!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then(function(){
+        deferredInstallPrompt = null;
+        panel.style.display = 'none';
       });
     });
   }
@@ -2885,6 +2961,7 @@
     applyUnitLabels();
     applyReminderUI();
     wireThemeToggle();
+    wireInstallPrompt();
 
     Array.prototype.forEach.call(el('unitToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.unit); });
     Array.prototype.forEach.call(el('sexToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.sex); });

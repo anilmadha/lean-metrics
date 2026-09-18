@@ -1,13 +1,16 @@
 {
+  "id": "./index.html",
   "name": "Lean Metrics",
   "short_name": "Lean Metrics",
   "description": "Daily calorie and macro targets, food logging, and progress trends.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
   "background_color": "#12151A",
   "theme_color": "#12151A",
+  "categories": ["health", "fitness", "lifestyle"],
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
