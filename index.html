@@ -30,6 +30,7 @@
     --fat:#2E7A6C;
     --accent:#A8842A;
     --accent-2:#8E6E22;
+    --fill:#1A1712;
     --danger:#A8432E;
     --good:#2E7A5C;
     --font-display:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
@@ -49,6 +50,7 @@
       --fat:#4FB39E;
       --accent:#C9A227;
       --accent-2:#E0C15A;
+      --fill:#C9A227;
       --danger:#D67B5C;
       --good:#5CBB8F;
     }
@@ -65,6 +67,7 @@
     --fat:#4FB39E;
     --accent:#C9A227;
     --accent-2:#E0C15A;
+    --fill:#C9A227;
     --danger:#D67B5C;
     --good:#5CBB8F;
   }
@@ -103,6 +106,38 @@
   .title-icon-muscle{color:var(--fat); animation:muscleFlex 2.2s ease-in-out infinite;}
   @keyframes dumbbellLift{ 0%,100%{ transform:rotate(-14deg) translateY(0); } 50%{ transform:rotate(14deg) translateY(-1px); } }
   @keyframes muscleFlex{ 0%,100%{ transform:scale(1); } 45%{ transform:scale(1.14); } 55%{ transform:scale(1.14); } }
+  .title-icon-accent{color:var(--accent);}
+  .title-icon-carb{color:var(--carb);}
+  .title-icon-muted{color:var(--text-2);}
+
+  /* ---------- empty states ---------- */
+  .empty-icon{display:flex; justify-content:center; margin-bottom:0.5rem; opacity:0.5; color:var(--text-2);}
+  .empty-icon svg{width:28px; height:28px;}
+
+  /* ---------- milestone badges ---------- */
+  .milestones-row{display:flex; justify-content:space-between; gap:0.5rem; text-align:center;}
+  .milestone-badge{flex:1; display:flex; flex-direction:column; align-items:center; gap:0.4rem;}
+  .milestone-badge-icon{width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none; border:1.5px solid var(--hairline); color:var(--text-2); opacity:0.35; transition:opacity .3s ease, box-shadow .3s ease;}
+  .milestone-badge-icon svg{width:20px; height:20px;}
+  .milestone-badge.earned .milestone-badge-icon{opacity:1; border-color:var(--accent); color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent);}
+  .milestone-badge.earned .milestone-badge-icon svg{fill:var(--accent); stroke:var(--accent);}
+  .milestone-badge-label{font-size:0.68rem; color:var(--text-2); line-height:1.25;}
+  .milestone-badge.earned .milestone-badge-label{color:var(--text); font-weight:600;}
+
+  /* ---------- hero ring flourish ---------- */
+  .donut-wrap::after{
+    content:""; position:absolute; inset:-8px; border-radius:50%; z-index:-1; pointer-events:none;
+    background:
+      repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--accent) 14%, transparent) 0deg 1.2deg, transparent 1.2deg 9deg);
+    -webkit-mask:radial-gradient(circle, transparent 62%, #000 63%, #000 68%, transparent 69%);
+    mask:radial-gradient(circle, transparent 62%, #000 63%, #000 68%, transparent 69%);
+    opacity:0.7; animation:heroTicksIn .8s var(--ease-out) both; animation-delay:.15s;
+  }
+  @keyframes heroTicksIn{ from{opacity:0; transform:scale(0.92);} to{opacity:0.7; transform:scale(1);} }
+  .hero-stats-row{display:flex; justify-content:center; gap:1.4rem; margin-top:0.7rem;}
+  .hero-stat{display:flex; align-items:center; gap:0.35rem; font-size:0.78rem; color:var(--text-2);}
+  .hero-stat svg{width:15px; height:15px; flex:none;}
+  .hero-stat .hero-stat-v{font-family:var(--font-mono); font-weight:600; color:var(--text);}
 
   .tabpage{display:none;}
   .tabpage.active{display:block;}
@@ -115,7 +150,7 @@
     padding:0.7rem 0.8rem; border-radius:14px; border:1px solid var(--hairline);
     background:var(--surface); color:var(--text);
   }
-  .field input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .field input:focus{outline:2px solid var(--fill); outline-offset:1px;}
   .row2{display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;}
   .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem;}
   details.more-measurements{margin-bottom:1.1rem;}
@@ -131,7 +166,7 @@
   .print-btn svg{width:16px; height:16px;}
   .segmented{display:flex; background:var(--surface); border:1px solid var(--hairline); border-radius:14px; padding:3px; gap:3px;}
   .segmented button{flex:1; padding:0.6rem 0; border:none; background:transparent; color:var(--text-2); font-family:var(--font-display); font-weight:500; font-size:0.88rem; border-radius:10px;}
-  .segmented button.active{background:var(--accent); color:var(--bg);}
+  .segmented button.active{background:var(--fill); color:var(--bg);}
 
   .option-row{display:flex; align-items:flex-start; gap:0.7rem; padding:0.8rem 0.85rem; border:1px solid var(--hairline); border-radius:16px; margin-bottom:0.5rem;}
   .option-row.active{border-color:var(--text); background:var(--tint);}
@@ -271,7 +306,7 @@
     padding:0.6rem 0.8rem; border-radius:14px; border:1px solid var(--hairline);
     background:var(--surface); color:var(--text);
   }
-  .steps-input-row input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .steps-input-row input:focus{outline:2px solid var(--fill); outline-offset:1px;}
   .steps-unit{font-size:0.8rem; color:var(--text-2); white-space:nowrap; flex:none;}
   .l .lfull{display:block; font-size:0.62rem; font-weight:400; opacity:0.65; margin-top:0.15rem; line-height:1.25;}
 
@@ -284,7 +319,7 @@
   .sheet-head button{border:none; background:var(--tint); width:30px; height:30px; border-radius:50%; color:var(--text); font-size:1rem;}
   .sheet-tabs{display:flex; gap:0.4rem; margin-bottom:0.8rem;}
   .sheet-tabs button{flex:1; padding:0.5rem; border-radius:9px; border:1px solid var(--hairline); background:var(--surface); color:var(--text-2); font-weight:600; font-size:0.85rem;}
-  .sheet-tabs button.active{background:var(--accent); color:var(--bg); border-color:var(--accent);}
+  .sheet-tabs button.active{background:var(--fill); color:var(--bg); border-color:var(--fill);}
   .quick-item{display:flex; align-items:center; gap:0.7rem; padding:0.65rem 0.2rem; border-bottom:1px solid var(--hairline);}
   .quick-item:last-child{border-bottom:none;}
   .quick-item .qn{flex:1; font-size:0.9rem; font-weight:600;}
@@ -385,7 +420,7 @@
   .set-row{display:flex; align-items:center; gap:0.5rem;}
   .set-num{flex:none; width:20px; font-family:var(--font-mono); font-size:0.78rem; color:var(--text-2); text-align:center;}
   .set-row input[type=number]{width:100%; font-family:var(--font-mono); font-size:0.95rem; padding:0.55rem 0.6rem; border-radius:10px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); min-height:44px;}
-  .set-row input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .set-row input:focus{outline:2px solid var(--fill); outline-offset:1px;}
   .set-log-btn{flex:none; width:44px; height:44px; border-radius:10px; border:1px solid var(--hairline); background:var(--tint); color:var(--text-2); font-size:1rem; font-weight:700;}
   .set-log-btn.logged{background:var(--good); border-color:var(--good); color:#fff;}
   .set-logger-actions{display:flex; gap:0.6rem; margin-top:0.8rem;}
@@ -800,21 +835,26 @@
         <svg viewBox="0 0 200 200">
           <g transform="rotate(-90 100 100)">
             <circle cx="100" cy="100" r="80" fill="none" stroke="var(--hairline)" stroke-width="22"></circle>
-            <circle id="ringConsumed" cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="22" stroke-linecap="round"></circle>
+            <circle id="ringConsumed" cx="100" cy="100" r="80" fill="none" stroke="var(--fill)" stroke-width="22" stroke-linecap="round"></circle>
           </g>
           <text x="100" y="96" text-anchor="middle" class="donut-center" fill="var(--text)" font-size="22" font-family="IBM Plex Mono, monospace" id="ringConsumedTxt">–</text>
           <text x="100" y="116" text-anchor="middle" fill="var(--text-2)" font-size="11" font-family="Space Grotesk, sans-serif" id="ringTargetTxt">of – kcal</text>
         </svg>
       </div>
+      <div class="hero-stats-row">
+        <div class="hero-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.5 3-5 5.5-5 10a5 5 0 0 0 10 0c0-1.5-.5-2.5-1.5-3.5.3 2-.8 3-1.8 3-1.4 0-2.1-1.1-1.6-2.6C12.7 7 12.6 4.3 12 2z"/></svg><span class="hero-stat-v" id="heroStatCals">0</span> kcal</div>
+        <div class="hero-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="7" cy="15.5" rx="2.4" ry="3.6" transform="rotate(-18 7 15.5)"/><circle cx="8.6" cy="10.6" r="1" fill="currentColor" stroke="none"/><ellipse cx="16" cy="8.8" rx="2.4" ry="3.6" transform="rotate(14 16 8.8)"/><circle cx="17.4" cy="14" r="1" fill="currentColor" stroke="none"/></svg><span class="hero-stat-v" id="heroStatSteps">0</span></div>
+        <div class="hero-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 7.2 6 11.2A6 6 0 0 1 6 14.2C6 10.2 12 3 12 3z"/></svg><span class="hero-stat-v" id="heroStatWater">0.0</span> L</div>
+      </div>
     </section>
 
     <section class="panel" id="macrosPanel">
-      <h2 class="panel-title">Macros<span class="aux" id="macroCapTxt"></span></h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.5 3-5 5.5-5 10a5 5 0 0 0 10 0c0-1.5-.5-2.5-1.5-3.5.3 2-.8 3-1.8 3-1.4 0-2.1-1.1-1.6-2.6C12.7 7 12.6 4.3 12 2z"/></svg></span>Macros</span><span class="aux" id="macroCapTxt"></span></h2>
       <div id="macroBars"></div>
     </section>
 
     <section class="panel" id="stepsPanel">
-      <h2 class="panel-title">Steps<span class="aux" id="stepsCapTxt">goal 10,000</span></h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="7" cy="15.5" rx="2.4" ry="3.6" transform="rotate(-18 7 15.5)"/><circle cx="8.6" cy="10.6" r="1" fill="currentColor" stroke="none"/><ellipse cx="16" cy="8.8" rx="2.4" ry="3.6" transform="rotate(14 16 8.8)"/><circle cx="17.4" cy="14" r="1" fill="currentColor" stroke="none"/></svg></span>Steps</span><span class="aux" id="stepsCapTxt">goal 10,000</span></h2>
       <div class="steps-input-row">
         <input type="number" id="logSteps" inputmode="numeric" min="0" step="500" placeholder="0">
         <span class="steps-unit">steps today</span>
@@ -827,7 +867,7 @@
     </section>
 
     <section class="panel" id="waterPanel">
-      <h2 class="panel-title">Water<span class="aux" id="waterCapTxt">goal –</span></h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 7.2 6 11.2A6 6 0 0 1 6 14.2C6 10.2 12 3 12 3z"/></svg></span>Water</span><span class="aux" id="waterCapTxt">goal –</span></h2>
       <div class="water-row">
         <div class="water-track-wrap">
           <div class="meter-track">
@@ -849,13 +889,13 @@
     </section>
 
     <section class="panel" id="foodLogPanel">
-      <h2 class="panel-title">Food log<span class="aux" id="foodTotalTxt"></span></h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2v5a2 2 0 0 0 4 0V2M7 7v15M17 2c-2 0-3 2-3 5s1 4 3 4v11"/></svg></span>Food log</span><span class="aux" id="foodTotalTxt"></span></h2>
       <div id="foodList"></div>
       <button class="addfood-btn" id="openAddFood">+ Add food</button>
     </section>
 
     <section class="panel" id="checkinPanel">
-      <h2 class="panel-title">Check-in</h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><path d="M8.5 14.5l2 2 4-4.5"/></svg></span>Check-in</span></h2>
       <div class="row3">
         <div class="field">
           <label>Weight</label>
@@ -975,7 +1015,7 @@
   <div class="tabpage active" id="page-setup">
 
     <section class="panel" id="numbersPanel" style="padding-top:0.2rem; border-top:none;">
-      <h2 class="panel-title">Your numbers</h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="1.5"/><path d="M7 8v3M11 8v3M15 8v3M19 8v3"/></svg></span>Your numbers</span></h2>
 
       <div class="field">
         <label>Units</label>
@@ -1038,7 +1078,7 @@
     </section>
 
     <section class="panel" id="resultsPanel">
-      <h2 class="panel-title">Your daily targets</h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.5 3-5 5.5-5 10a5 5 0 0 0 10 0c0-1.5-.5-2.5-1.5-3.5.3 2-.8 3-1.8 3-1.4 0-2.1-1.1-1.6-2.6C12.7 7 12.6 4.3 12 2z"/></svg></span>Your daily targets</span></h2>
 
       <div class="hero">
         <div><span class="num" id="targetCals">–</span><span class="unit">kcal/day</span></div>
@@ -1119,7 +1159,7 @@
     </section>
 
     <section class="panel" id="extraTargetsPanel">
-      <h2 class="panel-title">Water, fiber &amp; limits<span class="aux">daily</span></h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 7.2 6 11.2A6 6 0 0 1 6 14.2C6 10.2 12 3 12 3z"/></svg></span>Water, fiber &amp; limits</span><span class="aux">daily</span></h2>
       <div class="mini-stats">
         <div class="mini-stat">
           <div class="mini-stat-v" id="waterOut">–</div>
@@ -1142,7 +1182,7 @@
     </section>
 
     <section class="panel" id="reminderPanel">
-      <h2 class="panel-title">Daily reminder</h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a5 5 0 0 0-5 5v2.5c0 1.3-.8 2.4-2 3.9V16h14v-1.6c-1.2-1.5-2-2.6-2-3.9V8a5 5 0 0 0-5-5z"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0"/></svg></span>Daily reminder</span></h2>
       <div class="switch-row">
         <div class="txt"><strong>Remind me to log</strong><span>A daily nudge while this tab is open in your browser.</span></div>
         <button class="switch" id="reminderSwitch" role="switch" aria-checked="false"></button>
@@ -1155,7 +1195,7 @@
     </section>
 
     <section class="panel" id="installPanel" style="display:none;">
-      <h2 class="panel-title">Install app</h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></span>Install app</span></h2>
       <div class="install-card">
         <div class="install-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
@@ -1166,7 +1206,7 @@
     </section>
 
     <section class="panel" id="appearancePanel">
-      <h2 class="panel-title">Appearance</h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 12H2M22 12h-2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></svg></span>Appearance</span></h2>
       <div class="field">
         <label>Theme</label>
         <div class="segmented" id="themeToggle">
@@ -1179,7 +1219,7 @@
     </section>
 
     <section class="panel" id="dataPanel">
-      <h2 class="panel-title">Your data</h2>
+      <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-10.5z"/></svg></span>Your data</span></h2>
       <div class="data-actions">
         <label for="importFile">Import backup</label>
         <input type="file" id="importFile" accept="application/json" style="display:none;">
@@ -1236,7 +1276,7 @@
       <div class="rail-ring">
         <svg viewBox="0 0 60 60">
           <circle cx="30" cy="30" r="24" fill="none" stroke="var(--hairline)" stroke-width="6"></circle>
-          <circle id="railCalRing" cx="30" cy="30" r="24" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" transform="rotate(-90 30 30)"></circle>
+          <circle id="railCalRing" cx="30" cy="30" r="24" fill="none" stroke="var(--fill)" stroke-width="6" stroke-linecap="round" transform="rotate(-90 30 30)"></circle>
         </svg>
         <div class="rail-ring-label"><strong id="railCalTxt">0</strong><span>kcal</span></div>
       </div>
@@ -1937,7 +1977,7 @@
       el('ringConsumedTxt').textContent = '–';
       el('ringTargetTxt').textContent = 'no target yet';
       setArc('ringConsumed', 0, 0, 2*Math.PI*80);
-      el('macroBars').innerHTML = '<div class="empty-hint">Add your numbers in Setup to see macro targets.</div>';
+      el('macroBars').innerHTML = '<div class="empty-hint"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></div>Add your numbers in Setup to see macro targets.</div>';
       el('macroCapTxt').textContent = '';
     } else {
       var remaining = targets.calories - consumed.cal;
@@ -1948,7 +1988,7 @@
       el('ringTargetTxt').textContent = 'of '+fmt(targets.calories)+' kcal';
       var frac = clamp(consumed.cal/targets.calories, 0, 1);
       var ring = el('ringConsumed');
-      ring.setAttribute('stroke', over ? 'var(--danger)' : 'var(--accent)');
+      ring.setAttribute('stroke', over ? 'var(--danger)' : 'var(--fill)');
       setArc('ringConsumed', frac, 0, 2*Math.PI*80);
 
       el('macroCapTxt').textContent = fmt(consumed.cal)+' / '+fmt(targets.calories)+' kcal logged';
@@ -1958,7 +1998,7 @@
     // food list
     var listEl = el('foodList');
     if(!log.foods.length){
-      listEl.innerHTML = '<div class="empty-hint">No food logged for this day yet.</div>';
+      listEl.innerHTML = '<div class="empty-hint"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>No food logged for this day yet.</div>';
     } else {
       listEl.innerHTML = log.foods.map(function(f){
         return '<div class="food-row">'+
@@ -1969,6 +2009,10 @@
       }).join('');
     }
     el('foodTotalTxt').textContent = log.foods.length ? (fmt(consumed.cal)+' kcal') : '';
+
+    if(el('heroStatCals')) el('heroStatCals').textContent = fmt(consumed.cal);
+    if(el('heroStatSteps')) el('heroStatSteps').textContent = log.steps!=null ? fmt(log.steps) : '0';
+    if(el('heroStatWater')) el('heroStatWater').textContent = round(log.water||0, 1);
 
     el('logWeight').value = log.weight!=null ? log.weight : '';
     el('logWaist').value = log.waist!=null ? log.waist : '';
@@ -2094,6 +2138,10 @@
       if(w!=null && (priorMin===null || w<priorMin)) priorMin = w;
     });
     if(priorMin!==null && weight<priorMin){
+      if(!state.milestones.newLowWeight){
+        state.milestones.newLowWeight = true;
+        saveState();
+      }
       spawnConfetti(el('checkinPanel'));
       toast('New low weight — great work.');
     }
@@ -2279,7 +2327,7 @@
     var f = filter.trim().toLowerCase();
     var items = QUICK_FOODS.filter(function(it){ return !f || it.name.toLowerCase().indexOf(f)>-1; });
     var listEl = el('quickList');
-    if(!items.length){ listEl.innerHTML = '<div class="empty-hint">No matches — try Custom instead.</div>'; return; }
+    if(!items.length){ listEl.innerHTML = '<div class="empty-hint"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.5-4.5"/></svg></div>No matches — try Custom instead.</div>'; return; }
     listEl.innerHTML = items.map(function(it,i){
       return '<div class="quick-item" data-idx="'+QUICK_FOODS.indexOf(it)+'">'+
         '<div><div class="qn">'+escapeHtml(it.name)+'</div><div class="qm">'+it.serving+' · '+fmt(it.cal)+' kcal · P'+it.p+' C'+it.c+' F'+it.f+'</div></div>'+
@@ -2358,31 +2406,50 @@
     var html = '';
 
     if(!haveWeight && !haveFood && !haveWaist && !haveBodyfat && !haveSteps){
-      html += '<div class="chart-empty">Log a few check-ins and meals on the Today tab, and your trends will show up here.</div>';
+      html += '<div class="chart-empty"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M4 16l5-5 4 3 7-8"/><circle cx="4" cy="16" r="1.1" fill="currentColor" stroke="none"/><circle cx="9" cy="11" r="1.1" fill="currentColor" stroke="none"/><circle cx="13" cy="14" r="1.1" fill="currentColor" stroke="none"/><circle cx="20" cy="6" r="1.1" fill="currentColor" stroke="none"/></svg></div>Log a few check-ins and meals on the Today tab, and your trends will show up here.</div>';
       el('trendsBody').innerHTML = html;
       return;
     }
 
-    html += '<div class="chart-card consistency-card"><h2 class="panel-title">Consistency<span class="aux">last 12 weeks</span></h2>' + heatmapHTML(84) + '</div>';
+    html += '<div class="chart-card consistency-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg></span>Consistency</span><span class="aux">last 12 weeks</span></h2>' + heatmapHTML(84) + '</div>';
 
-    html += '<div class="chart-card history-card"><h2 class="panel-title">History<span class="aux">'+trendRange+'-day log</span></h2>' + historyTable(days) + '</div>';
+    html += milestonesHTML();
+
+    html += '<div class="chart-card history-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.3 2"/></svg></span>History</span><span class="aux">'+trendRange+'-day log</span></h2>' + historyTable(days) + '</div>';
 
     if(haveWeight){
       var eta = computeGoalEta(collectRange(Math.max(trendRange,30)));
-      html += '<div class="chart-card"><h2 class="panel-title">Weight</h2>' + weightChartSVG(days) + weightTable(days) + (eta ? '<div class="note">'+eta.msg+'</div>' : '') + '</div>';
+      html += '<div class="chart-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="2.5"/><path d="M9 6h6M12 9V6"/><circle cx="12" cy="15" r="2.3"/></svg></span>Weight</span></h2>' + weightChartSVG(days) + weightTable(days) + (eta ? '<div class="note">'+eta.msg+'</div>' : '') + '</div>';
     }
     if(haveFood){
-      html += '<div class="chart-card"><h2 class="panel-title">Calories vs target</h2>' + calorieChartSVG(days, targets) + calorieTable(days, targets) + '</div>';
-      html += '<div class="chart-card"><h2 class="panel-title">Macro split</h2>' + macroStackSVG(days) + macroTable(days) + '</div>';
+      html += '<div class="chart-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.5 3-5 5.5-5 10a5 5 0 0 0 10 0c0-1.5-.5-2.5-1.5-3.5.3 2-.8 3-1.8 3-1.4 0-2.1-1.1-1.6-2.6C12.7 7 12.6 4.3 12 2z"/></svg></span>Calories vs target</span></h2>' + calorieChartSVG(days, targets) + calorieTable(days, targets) + '</div>';
+      html += '<div class="chart-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-carb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6.4 3.2M12 12L6 15.2"/></svg></span>Macro split</span></h2>' + macroStackSVG(days) + macroTable(days) + '</div>';
     }
     if(haveWaist){
-      html += '<div class="chart-card"><h2 class="panel-title">Waist</h2>' + waistChartSVG(days) + '</div>';
+      html += '<div class="chart-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="1.5"/><path d="M7 8v3M11 8v3M15 8v3M19 8v3"/></svg></span>Waist</span></h2>' + waistChartSVG(days) + '</div>';
     }
     if(haveMeasurements){
-      html += '<div class="chart-card"><h2 class="panel-title">Measurements<span class="aux">chest · hips · arms · thighs</span></h2>' + measurementsTable(days) + '</div>';
+      html += '<div class="chart-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="1.5"/><path d="M7 8v3M11 8v3M15 8v3M19 8v3"/></svg></span>Measurements</span><span class="aux">chest · hips · arms · thighs</span></h2>' + measurementsTable(days) + '</div>';
     }
 
     el('trendsBody').innerHTML = html;
+  }
+
+  var MILESTONE_DEFS = [
+    {key:'streak7', label:'7-day streak'},
+    {key:'streak30', label:'30-day streak'},
+    {key:'streak100', label:'100-day streak'},
+    {key:'newLowWeight', label:'New low weight'}
+  ];
+  function milestonesHTML(){
+    var badges = MILESTONE_DEFS.map(function(m){
+      var earned = !!(state.milestones && state.milestones[m.key]);
+      return '<div class="milestone-badge'+(earned?' earned':'')+'">'+
+        '<div class="milestone-badge-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 14.2L7.5 21l4.5-2.5 4.5 2.5-1.5-6.8"/></svg></div>'+
+        '<div class="milestone-badge-label">'+escapeHtml(m.label)+'</div>'+
+      '</div>';
+    }).join('');
+    return '<div class="chart-card milestones-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 14.2L7.5 21l4.5-2.5 4.5 2.5-1.5-6.8"/></svg></span>Milestones</span></h2><div class="milestones-row">'+badges+'</div></div>';
   }
 
   function heatmapHTML(numDays){
@@ -2486,7 +2553,7 @@
       });
     });
     if(!lines.length) return '';
-    return '<details class="photo-credits"><summary>Photo credits</summary><ul>'+lines.join('')+'</ul></details>';
+    return '<details class="photo-credits"><summary><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.2"/></svg></span>Photo credits</span></summary><ul>'+lines.join('')+'</ul></details>';
   }
   function renderWorkouts(){
     var days = currentWorkoutDays();
@@ -2495,7 +2562,7 @@
     days.forEach(function(day, dayIndex){
       html += '<div class="chart-card">'+
         '<div class="workout-day-head">'+
-          '<h2 class="panel-title">'+escapeHtml(day.title)+'</h2>'+
+          '<h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-dumbbell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="9" width="3" height="6" rx="1"/><rect x="4.5" y="7" width="2" height="10" rx="1"/><line x1="6.5" y1="12" x2="17.5" y2="12"/><rect x="17.5" y="7" width="2" height="10" rx="1"/><rect x="20" y="9" width="3" height="6" rx="1"/></svg></span>'+escapeHtml(day.title)+'</span></h2>'+
           '<button type="button" class="gym-start-btn" data-day="'+dayIndex+'">Start</button>'+
         '</div>'+
         '<div class="workout-day-sub">'+day.ex.length+' exercises · rest 60–90 sec between sets</div>'+
@@ -2982,7 +3049,7 @@
           '<td>'+(d.arms!=null?round(d.arms,1):'–')+'</td>'+
           '<td>'+(d.thighs!=null?round(d.thighs,1):'–')+'</td></tr>';
       }).join('');
-    if(!rows) return '<div class="chart-empty">No measurements logged in this range yet.</div>';
+    if(!rows) return '<div class="chart-empty"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg></div>No measurements logged in this range yet.</div>';
     return '<div class="table-scroll"><table class="history-table"><tr><th>Date</th><th>Chest</th><th>Hips</th><th>Arms</th><th>Thighs</th></tr>'+rows+'</table></div>';
   }
 
@@ -3025,7 +3092,7 @@
   function weightChartSVG(days){
     var pts = days.map(function(d,i){ return {i:i, v:d.weight, date:d.date}; }).filter(function(p){ return p.v!=null; });
     if(pts.length<2){
-      return '<div class="chart-empty">Log weight on at least two days to see a trend line.</div>';
+      return '<div class="chart-empty"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></svg></div>Log weight on at least two days to see a trend line.</div>';
     }
     var vals = pts.map(function(p){return p.v;});
     var minV = Math.min.apply(null, vals), maxV = Math.max.apply(null, vals);
@@ -3058,16 +3125,16 @@
     svg += '<text x="'+(PAD_L-6)+'" y="'+(yScale(maxV)+3).toFixed(1)+'" text-anchor="end" font-size="8" fill="var(--text-2)" font-family="IBM Plex Mono, monospace">'+round(maxV,1)+'</text>';
     svg += '<text x="'+(PAD_L-6)+'" y="'+(yScale(minV)+3).toFixed(1)+'" text-anchor="end" font-size="8" fill="var(--text-2)" font-family="IBM Plex Mono, monospace">'+round(minV,1)+'</text>';
     // area wash
-    svg += '<path d="'+areaPath+'" fill="var(--accent)" opacity="0.08" stroke="none"/>';
+    svg += '<path d="'+areaPath+'" fill="var(--fill)" opacity="0.08" stroke="none"/>';
     // line
-    svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="'+(showAvg?0.45:1)+'"/>';
+    svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--fill)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="'+(showAvg?0.45:1)+'"/>';
     // smoothed trailing-average overlay — the line that actually shows the trend
     if(showAvg){
       svg += '<path d="'+avgPath+'" fill="none" stroke="var(--good)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>';
     }
     // end marker with surface ring
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="6" fill="var(--surface)"/>';
-    svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--accent)"/>';
+    svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--fill)"/>';
     // direct label at last point
     var labelX = clamp(xScale(last.i,n), PAD_L+18, CW-PAD_R-18);
     svg += '<text x="'+labelX.toFixed(1)+'" y="'+(yScale(last.v)-10).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)" font-family="IBM Plex Mono, monospace">'+round(last.v,1)+'</text>';
@@ -3076,13 +3143,13 @@
       svg += '<text x="'+xScale(i,n).toFixed(1)+'" y="'+(CH-6)+'" text-anchor="middle" font-size="8" fill="var(--text-2)" font-family="Space Grotesk, sans-serif">'+shortLabel(days[i].date)+'</text>';
     });
     svg += '</svg>';
-    var legend = showAvg ? '<div class="chart-legend"><span class="li"><span class="swatch" style="background:var(--accent); opacity:0.45;"></span>Daily</span><span class="li"><span class="swatch" style="background:var(--good);"></span>7-day average</span></div>' : '';
+    var legend = showAvg ? '<div class="chart-legend"><span class="li"><span class="swatch" style="background:var(--fill); opacity:0.45;"></span>Daily</span><span class="li"><span class="swatch" style="background:var(--good);"></span>7-day average</span></div>' : '';
     return legend + svg;
   }
 
   function waistChartSVG(days){
     var pts = days.map(function(d,i){ return {i:i, v:d.waist}; }).filter(function(p){ return p.v!=null; });
-    if(pts.length<2) return '<div class="chart-empty">Log waist measurements on at least two days to see a trend.</div>';
+    if(pts.length<2) return '<div class="chart-empty"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></svg></div>Log waist measurements on at least two days to see a trend.</div>';
     var vals = pts.map(function(p){return p.v;});
     var minV=Math.min.apply(null,vals), maxV=Math.max.apply(null,vals);
     if(minV===maxV){minV-=1;maxV+=1;}
@@ -3113,7 +3180,7 @@
       var y = yScale(d.cal);
       var h = Math.max((CH-PAD_B) - y, 3);
       var barY = (CH-PAD_B) - h;
-      svg += '<rect x="'+x.toFixed(1)+'" y="'+barY.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+Math.min(4,h/2).toFixed(1)+'" fill="var(--accent)" style="--i:'+i+'"/>';
+      svg += '<rect x="'+x.toFixed(1)+'" y="'+barY.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+Math.min(4,h/2).toFixed(1)+'" fill="var(--fill)" style="--i:'+i+'"/>';
     });
     if(targets){
       var ty = yScale(targets.calories);
@@ -3181,7 +3248,7 @@
         '<td>'+(d.cal>0?fmt(d.cal):'–')+'</td>'+
       '</tr>';
     }).join('');
-    if(!rows) return '<div class="chart-empty">No entries logged in this range yet.</div>';
+    if(!rows) return '<div class="chart-empty"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg></div>No entries logged in this range yet.</div>';
     return '<div class="table-scroll"><table class="history-table"><tr><th>Date</th><th>Weight</th><th>Waist</th><th>Body fat</th><th>Steps</th><th>Calories</th></tr>'+rows+'</table></div>';
   }
   function weightTable(days){
