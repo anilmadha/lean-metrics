@@ -433,7 +433,7 @@
   </header>
 
   <!-- ============ TODAY ============ -->
-  <div class="tabpage active" id="page-today">
+  <div class="tabpage" id="page-today">
 
     <section class="panel" id="dateNavPanel" style="padding-top:0.2rem; border-top:none;">
       <div class="datenav">
@@ -510,7 +510,7 @@
   </div>
 
   <!-- ============ SETUP ============ -->
-  <div class="tabpage" id="page-setup">
+  <div class="tabpage active" id="page-setup">
 
     <section class="panel" id="numbersPanel" style="padding-top:0.2rem; border-top:none;">
       <h2 class="panel-title">Your numbers</h2>
@@ -708,7 +708,7 @@
 <!-- ============ BOTTOM TAB BAR (phone) ============ -->
 <nav class="tabbar">
   <div class="inner">
-    <button class="tab-btn active" data-tab="today">
+    <button class="tab-btn" data-tab="today">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4l2.6 2.6" stroke-linecap="round"/></svg>
       <span class="tlabel">Today</span>
     </button>
@@ -716,7 +716,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5.5 3.5 3L20 6"/><path d="M14.5 6H20v5.5"/></svg>
       <span class="tlabel">Trends</span>
     </button>
-    <button class="tab-btn" data-tab="setup">
+    <button class="tab-btn active" data-tab="setup">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a1.7 1.7 0 000-3l1.1-1.6-1.7-1.7-1.6 1.1a1.7 1.7 0 00-3 0L13.6 5h-2.4l-.6 1.9a1.7 1.7 0 00-3 0L6 5.8 4.3 7.5l1.1 1.6a1.7 1.7 0 000 3L4.3 13.7 6 15.4l1.6-1.1a1.7 1.7 0 003 0l.6 1.9h2.4l.6-1.9a1.7 1.7 0 003 0l1.6 1.1 1.7-1.7-1.1-1.6z" stroke-linejoin="round"/></svg>
       <span class="tlabel">Setup</span>
     </button>
@@ -739,7 +739,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5.5 3.5 3L20 6"/><path d="M14.5 6H20v5.5"/></svg>
     <span class="tlabel">Trends</span>
   </button>
-  <button class="tab-btn" data-tab="setup">
+  <button class="tab-btn active" data-tab="setup">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a1.7 1.7 0 000-3l1.1-1.6-1.7-1.7-1.6 1.1a1.7 1.7 0 00-3 0L13.6 5h-2.4l-.6 1.9a1.7 1.7 0 00-3 0L6 5.8 4.3 7.5l1.1 1.6a1.7 1.7 0 000 3L4.3 13.7 6 15.4l1.6-1.1a1.7 1.7 0 003 0l.6 1.9h2.4l.6-1.9a1.7 1.7 0 003 0l1.6 1.1 1.7-1.7-1.1-1.6z" stroke-linejoin="round"/></svg>
     <span class="tlabel">Setup</span>
   </button>
@@ -930,6 +930,7 @@
     var age = parseFloat(profile.age), heightRaw = parseFloat(profile.height), weightRaw = parseFloat(profile.weight);
     var bfRaw = profile.bodyfat!=='' && profile.bodyfat!=null ? parseFloat(profile.bodyfat) : null;
     if(!age || !heightRaw || !weightRaw || age<10 || heightRaw<=0 || weightRaw<=0) return null;
+
     var m = toMetric(heightRaw, weightRaw, profile.unit);
     var heightCm = m.h, weightKg = m.w;
     var bmr = 10*weightKg + 6.25*heightCm - 5*age + (profile.sex==='male' ? 5 : -161);
