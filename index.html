@@ -1593,6 +1593,7 @@
     log.water = Math.max(0, round(before + deltaL, 2));
     saveState();
     updateWaterUI(log, currentTargets());
+    updateStreakUI();
     if(deltaL>0){
       var goalL = currentTargets() ? currentTargets().waterL : null;
       if(goalL && log.water>=goalL && before<goalL){
@@ -1628,6 +1629,7 @@
     updateStepsUI(log.steps);
     renderRail(log, currentTargets(), log.foods.reduce(function(acc,f){ acc.cal+=f.cal; return acc; }, {cal:0}));
     maybeCelebrateSteps(dateStr, log.steps);
+    updateStreakUI();
   }
 
   /* ============================================================
