@@ -9,8 +9,8 @@
 <meta name="apple-mobile-web-app-title" content="Lean Metrics">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="description" content="Daily calorie and macro targets, food logging, and progress trends.">
-<meta name="theme-color" content="#EEF0F3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#12151A" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0C10" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -19,51 +19,54 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#EEF0F3;
+    --bg:#F7F4EE;
     --surface:#FFFFFF;
-    --text:#12151A;
-    --text-2:#5B6470;
-    --hairline:rgba(18,21,26,0.12);
-    --tint:rgba(18,21,26,0.05);
-    --protein:#C4432E;
-    --carb:#CC9230;
-    --fat:#3AA38F;
-    --accent:#12151A;
-    --danger:#B23A2E;
-    --good:#2E8C63;
+    --text:#1A1712;
+    --text-2:#6E6455;
+    --hairline:rgba(26,23,18,0.12);
+    --tint:rgba(26,23,18,0.05);
+    --protein:#A8432E;
+    --carb:#A8791F;
+    --fat:#2E7A6C;
+    --accent:#A8842A;
+    --accent-2:#8E6E22;
+    --danger:#A8432E;
+    --good:#2E7A5C;
     --font-display:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
     --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#12151A;
-      --surface:#1B2027;
-      --text:#ECEEF1;
-      --text-2:#8B94A0;
-      --hairline:rgba(236,238,241,0.14);
-      --tint:rgba(236,238,241,0.06);
-      --protein:#E2624A;
-      --carb:#966711;
-      --fat:#3EA692;
-      --accent:#ECEEF1;
-      --danger:#E2624A;
-      --good:#49A77B;
+      --bg:#0B0C10;
+      --surface:#17191F;
+      --text:#F3EFE6;
+      --text-2:#9C9488;
+      --hairline:rgba(243,239,230,0.12);
+      --tint:rgba(243,239,230,0.05);
+      --protein:#D67B5C;
+      --carb:#D4A94A;
+      --fat:#4FB39E;
+      --accent:#C9A227;
+      --accent-2:#E0C15A;
+      --danger:#D67B5C;
+      --good:#5CBB8F;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#12151A;
-    --surface:#1B2027;
-    --text:#ECEEF1;
-    --text-2:#8B94A0;
-    --hairline:rgba(236,238,241,0.14);
-    --tint:rgba(236,238,241,0.06);
-    --protein:#E2624A;
-    --carb:#966711;
-    --fat:#3EA692;
-    --accent:#ECEEF1;
-    --danger:#E2624A;
-    --good:#49A77B;
+    --bg:#0B0C10;
+    --surface:#17191F;
+    --text:#F3EFE6;
+    --text-2:#9C9488;
+    --hairline:rgba(243,239,230,0.12);
+    --tint:rgba(243,239,230,0.05);
+    --protein:#D67B5C;
+    --carb:#D4A94A;
+    --fat:#4FB39E;
+    --accent:#C9A227;
+    --accent-2:#E0C15A;
+    --danger:#D67B5C;
+    --good:#5CBB8F;
   }
 
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
@@ -702,37 +705,23 @@
   }
 
   header.top h1{
-    background:linear-gradient(90deg, var(--text) 55%, var(--protein));
+    background:linear-gradient(100deg, var(--text) 45%, var(--accent-2) 75%, var(--accent) 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
   }
 
-  /* ---------- animated background aura ---------- */
-  .bg-aura{ position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; animation:auraHue 10s linear infinite; }
-  @keyframes auraHue{ from{ filter:hue-rotate(0deg); } to{ filter:hue-rotate(360deg); } }
-  .bg-blob{ position:absolute; border-radius:50%; filter:blur(70px); opacity:0.26; mix-blend-mode:screen; }
-  .bg-blob-1{ width:460px; height:460px; top:-140px; left:-120px; background:#ff2d95; animation:bgDrift1 6.5s ease-in-out infinite alternate; }
-  .bg-blob-2{ width:420px; height:420px; top:22%; right:-160px; background:#00e5ff; animation:bgDrift2 8s ease-in-out infinite alternate; }
-  .bg-blob-3{ width:380px; height:380px; bottom:-140px; left:16%; background:#c6ff1f; animation:bgDrift3 7.2s ease-in-out infinite alternate; }
-  .bg-blob-4{ width:340px; height:340px; top:42%; left:38%; background:#8b3bff; animation:bgDrift4 5.8s ease-in-out infinite alternate; }
-  .bg-blob-5{ width:300px; height:300px; bottom:8%; right:6%; background:#ff9500; animation:bgDrift5 9s ease-in-out infinite alternate; }
-  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .bg-blob{ opacity:0.4; } }
-  :root[data-theme="dark"] .bg-blob{ opacity:0.4; }
-  @keyframes bgDrift1{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(120px,90px) scale(1.4); } }
-  @keyframes bgDrift2{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(-100px,70px) scale(1.32); } }
-  @keyframes bgDrift3{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(80px,-100px) scale(1.3); } }
-  @keyframes bgDrift4{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(-70px,-80px) scale(1.45); } }
-  @keyframes bgDrift5{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(-60px,55px) scale(1.22); } }
-
-  .party-beam{ position:absolute; top:50%; left:50%; width:150vmax; height:150vmax; margin:-75vmax 0 0 -75vmax;
-    background:conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.16) 6deg, transparent 16deg, transparent 360deg);
-    mix-blend-mode:screen; animation:beamSpin 5s linear infinite; }
-  .party-beam-2{ background:conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.1) 10deg, transparent 22deg, transparent 360deg);
-    animation:beamSpin 8s linear infinite reverse; }
-  @keyframes beamSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
-
-  .party-sparkle{ position:absolute; width:4px; height:4px; border-radius:50%; background:currentColor; box-shadow:0 0 7px 2px currentColor; animation:sparkleTwinkle 2.2s ease-in-out infinite; }
-  @keyframes sparkleTwinkle{ 0%,100%{ opacity:0; transform:scale(0.4); } 50%{ opacity:1; transform:scale(1); } }
-  @media (prefers-reduced-motion: reduce){ .bg-aura{ animation:none; } .party-beam,.party-beam-2{ display:none; } }
+  /* ---------- ambient background glow ----------
+     A quiet, single-family glow (deep charcoal + muted gold) rather than
+     a bright multi-hue "party" background — two slow-drifting blobs, no
+     hue rotation, no strobing beams or sparkle confetti. */
+  .bg-aura{ position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+  .bg-blob{ position:absolute; border-radius:50%; filter:blur(90px); opacity:0.14; }
+  .bg-blob-1{ width:520px; height:520px; top:-160px; left:-140px; background:var(--accent); animation:bgDrift1 16s ease-in-out infinite alternate; }
+  .bg-blob-2{ width:460px; height:460px; bottom:-160px; right:-120px; background:var(--accent-2); animation:bgDrift2 19s ease-in-out infinite alternate; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .bg-blob{ opacity:0.16; } }
+  :root[data-theme="dark"] .bg-blob{ opacity:0.16; }
+  @keyframes bgDrift1{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(70px,50px) scale(1.15); } }
+  @keyframes bgDrift2{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(-60px,-40px) scale(1.12); } }
+  @media (prefers-reduced-motion: reduce){ .bg-blob{ animation:none; } }
 
   /* ---------- tab switch transition ---------- */
   .tabpage.active{ animation:tabFade .4s var(--ease-out); }
@@ -774,25 +763,6 @@
 <div class="bg-aura" aria-hidden="true">
   <span class="bg-blob bg-blob-1"></span>
   <span class="bg-blob bg-blob-2"></span>
-  <span class="bg-blob bg-blob-3"></span>
-  <span class="bg-blob bg-blob-4"></span>
-  <span class="bg-blob bg-blob-5"></span>
-  <span class="party-beam"></span>
-  <span class="party-beam party-beam-2"></span>
-  <span class="party-sparkle" style="top:8%; left:12%; color:#ff2d95; animation-delay:0s;"></span>
-  <span class="party-sparkle" style="top:15%; left:78%; color:#00e5ff; animation-delay:.3s;"></span>
-  <span class="party-sparkle" style="top:32%; left:45%; color:#c6ff1f; animation-delay:.6s;"></span>
-  <span class="party-sparkle" style="top:48%; left:88%; color:#8b3bff; animation-delay:.9s;"></span>
-  <span class="party-sparkle" style="top:60%; left:6%; color:#ff9500; animation-delay:1.2s;"></span>
-  <span class="party-sparkle" style="top:72%; left:60%; color:#ff2d95; animation-delay:1.5s;"></span>
-  <span class="party-sparkle" style="top:84%; left:22%; color:#00e5ff; animation-delay:.4s;"></span>
-  <span class="party-sparkle" style="top:20%; left:30%; color:#8b3bff; animation-delay:1.8s;"></span>
-  <span class="party-sparkle" style="top:38%; left:70%; color:#c6ff1f; animation-delay:.7s;"></span>
-  <span class="party-sparkle" style="top:55%; left:35%; color:#ff9500; animation-delay:1.1s;"></span>
-  <span class="party-sparkle" style="top:68%; left:92%; color:#ff2d95; animation-delay:1.7s;"></span>
-  <span class="party-sparkle" style="top:90%; left:50%; color:#00e5ff; animation-delay:2s;"></span>
-  <span class="party-sparkle" style="top:5%; left:55%; color:#8b3bff; animation-delay:.2s;"></span>
-  <span class="party-sparkle" style="top:78%; left:78%; color:#c6ff1f; animation-delay:1.4s;"></span>
 </div>
 <div class="wrap">
 
