@@ -310,6 +310,38 @@
   .heatmap-cell.lvl-2{background:var(--good);}
   .heatmap-legend{margin-top:0.7rem;}
 
+  /* ---------- workouts ---------- */
+  .workout-day-sub{font-size:0.8rem; color:var(--text-2); margin:-0.6rem 0 0.9rem;}
+  .workout-ex{display:flex; gap:0.9rem; padding:0.85rem 0; border-bottom:1px solid var(--hairline); align-items:flex-start;}
+  .workout-ex:last-child{border-bottom:none; padding-bottom:0;}
+  .ex-media{position:relative; flex:none; width:96px; height:72px; border-radius:12px; overflow:hidden; background:var(--tint);}
+  .ex-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;}
+  .ex-media img:first-child{ animation:exFrameA 2.6s steps(1,end) infinite; }
+  .ex-media img:last-child{ animation:exFrameB 2.6s steps(1,end) infinite; }
+  @keyframes exFrameA{ 0%,49.9%{opacity:1;} 50%,100%{opacity:0;} }
+  @keyframes exFrameB{ 0%,49.9%{opacity:0;} 50%,100%{opacity:1;} }
+  .ex-media .ex-loop-badge{position:absolute; right:3px; bottom:3px; font-size:0.55rem; font-weight:700; letter-spacing:0.02em; color:#fff; background:rgba(0,0,0,0.55); padding:0.1rem 0.32rem; border-radius:5px; text-transform:uppercase;}
+  .ex-info{flex:1; min-width:0;}
+  .ex-name{font-family:var(--font-display); font-weight:700; font-size:0.94rem; margin-bottom:0.35rem;}
+  .ex-tags{display:flex; flex-wrap:wrap; gap:0.35rem; margin-bottom:0.4rem;}
+  .ex-tag{font-size:0.68rem; font-weight:600; padding:0.2rem 0.5rem; border-radius:999px; background:var(--tint); color:var(--text-2); white-space:nowrap;}
+  .ex-tag.muscle{background:color-mix(in srgb, var(--protein) 16%, transparent); color:var(--protein);}
+  .ex-tag.sets{background:color-mix(in srgb, var(--good) 16%, transparent); color:var(--good); font-family:var(--font-mono);}
+  .ex-tip{font-size:0.78rem; line-height:1.45; color:var(--text-2); margin:0;}
+  .ex-mistakes,.ex-alternatives{font-size:0.75rem; margin-top:0.4rem; padding:0.4rem 0.5rem; border-radius:6px; background:var(--tint);}
+  .ex-mistakes{border-left:3px solid var(--danger);}
+  .ex-alternatives{border-left:3px solid var(--fat); margin-top:0.3rem;}
+  .ex-mistakes strong,.ex-alternatives strong{font-weight:600; color:var(--text);}
+  .ex-header{display:flex; gap:0.6rem; align-items:flex-start;}
+  .ex-checkbox{appearance:none; -webkit-appearance:none; width:20px; height:20px; margin:2px 0 0 0; border:2px solid var(--hairline); border-radius:6px; background:var(--surface); cursor:pointer; flex-shrink:0; transition:all 0.2s ease;}
+  .ex-checkbox:hover{border-color:var(--text-2);}
+  .ex-checkbox:checked{background:var(--good); border-color:var(--good);}
+  .ex-checkbox:checked::after{content:'✓'; position:absolute; color:#fff; font-size:12px; font-weight:700; text-align:center; line-height:16px;}
+  .ex-check-label{display:none;}
+  .workout-ex.completed .ex-info{opacity:0.65;}
+  .workout-ex.completed .ex-name{text-decoration:line-through;}
+  @media (prefers-reduced-motion: reduce){ .ex-media img:first-child, .ex-media img:last-child{ animation:none; opacity:1; } .ex-media img:last-child{ display:none; } }
+
   details.datatable{margin-top:0.4rem;}
   details.datatable summary{cursor:pointer; font-size:0.78rem; color:var(--text-2); list-style:none;}
   details.datatable summary::-webkit-details-marker{display:none;}
@@ -402,6 +434,13 @@
     #trendsBody .chart-empty{ grid-column:1 / -1; }
     #trendsBody .history-card{ grid-column:1 / -1; }
     #trendsBody .consistency-card{ grid-column:1 / -1; }
+
+    /* workouts: day cards flow 2-up, same pattern as trends charts */
+    #page-workouts.active{ display:block; }
+    #page-workouts.active > section.panel:first-child{ border:none; padding:0 0 1rem; background:none; }
+    #workoutsBody{ border:none !important; padding:0 !important; background:none !important; }
+    #workoutsBody{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 1.8rem; }
+    #workoutsBody .chart-card{ border:1px solid var(--hairline); border-radius:16px; padding:1.3rem 1.4rem; margin:0; }
 
     /* today: date-nav bar is a slim strip, not a tall card */
     #dateNavPanel{ padding-top:0.9rem !important; padding-bottom:0.9rem !important; }
@@ -831,6 +870,49 @@
 
   </div>
 
+  <!-- ============ WORKOUTS ============ -->
+  <div class="tabpage" id="page-workouts">
+
+    <section class="panel" style="padding-top:0.2rem; border-top:none;">
+      <div class="field">
+        <label>Plan for</label>
+        <div class="segmented" id="workoutGenderToggle">
+          <button data-val="male" class="active">Male</button>
+          <button data-val="female">Female</button>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0.4rem;">
+        <label>Days per week</label>
+        <div class="segmented" id="workoutSplitToggle">
+          <button data-val="3" class="active">3-Day</button>
+          <button data-val="4">4-Day</button>
+          <button data-val="5">5-Day</button>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0.4rem;">
+        <label>Difficulty</label>
+        <div class="segmented" id="workoutDifficultyToggle">
+          <button data-val="beginner" class="active">Beginner</button>
+          <button data-val="intermediate">Intermediate</button>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0.4rem;">
+        <label>Primary goal</label>
+        <div class="segmented" id="workoutGoalToggle">
+          <button data-val="general" class="active">General Fitness</button>
+          <button data-val="muscle">Muscle Building</button>
+          <button data-val="fat">Fat Loss</button>
+        </div>
+      </div>
+      <div class="note">Either plan works no matter your goal — pick whichever split fits your schedule and recovery. Swap any exercise for an equivalent if the equipment isn't free. Check off exercises as you complete them. The demo loop shows the start and end position of each rep, not full-speed video.</div>
+    </section>
+
+    <section class="panel" id="workoutsBody">
+      <!-- filled by JS -->
+    </section>
+
+  </div>
+
   <!-- ============ SETUP ============ -->
   <div class="tabpage active" id="page-setup">
 
@@ -1157,6 +1239,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5.5 3.5 3L20 6"/><path d="M14.5 6H20v5.5"/></svg>
       <span class="tlabel">Trends</span>
     </button>
+    <button class="tab-btn" data-tab="workouts">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12h11"/><rect x="1.5" y="9" width="2.6" height="6" rx="1"/><rect x="4.6" y="7" width="2" height="10" rx="1"/><rect x="17.4" y="7" width="2" height="10" rx="1"/><rect x="19.9" y="9" width="2.6" height="6" rx="1"/></svg>
+      <span class="tlabel">Workouts</span>
+    </button>
     <button class="tab-btn active" data-tab="setup">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a1.7 1.7 0 000-3l1.1-1.6-1.7-1.7-1.6 1.1a1.7 1.7 0 00-3 0L13.6 5h-2.4l-.6 1.9a1.7 1.7 0 00-3 0L6 5.8 4.3 7.5l1.1 1.6a1.7 1.7 0 000 3L4.3 13.7 6 15.4l1.6-1.1a1.7 1.7 0 003 0l.6 1.9h2.4l.6-1.9a1.7 1.7 0 003 0l1.6 1.1 1.7-1.7-1.1-1.6z" stroke-linejoin="round"/></svg>
       <span class="tlabel">Setup</span>
@@ -1179,6 +1265,10 @@
   <button class="tab-btn" data-tab="trends">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5.5 3.5 3L20 6"/><path d="M14.5 6H20v5.5"/></svg>
     <span class="tlabel">Trends</span>
+  </button>
+  <button class="tab-btn" data-tab="workouts">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12h11"/><rect x="1.5" y="9" width="2.6" height="6" rx="1"/><rect x="4.6" y="7" width="2" height="10" rx="1"/><rect x="17.4" y="7" width="2" height="10" rx="1"/><rect x="19.9" y="9" width="2.6" height="6" rx="1"/></svg>
+    <span class="tlabel">Workouts</span>
   </button>
   <button class="tab-btn active" data-tab="setup">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a1.7 1.7 0 000-3l1.1-1.6-1.7-1.7-1.6 1.1a1.7 1.7 0 00-3 0L13.6 5h-2.4l-.6 1.9a1.7 1.7 0 00-3 0L6 5.8 4.3 7.5l1.1 1.6a1.7 1.7 0 000 3L4.3 13.7 6 15.4l1.6-1.1a1.7 1.7 0 003 0l.6 1.9h2.4l.6-1.9a1.7 1.7 0 003 0l1.6 1.1 1.7-1.7-1.1-1.6z" stroke-linejoin="round"/></svg>
@@ -1250,12 +1340,142 @@
     'Walking after meals can measurably lower the blood-sugar spike that follows.'
   ];
 
+  var EX_DB = {
+    benchPress: {name:'Barbell Bench Press - Medium Grip', muscle:'Chest', equipment:'Barbell', tip:'Lie back on a flat bench. Using a medium width grip (a grip that creates a 90-degree angle in the middle of the movement…', mistakes:'Bouncing the bar off chest, flaring elbows too wide, not keeping shoulder blades retracted', alternatives:'Dumbbell Bench Press, Smith Machine Press', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Bench_Press_-_Medium_Grip/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Bench_Press_-_Medium_Grip/1.jpg']},
+    inclineDbPress: {name:'Incline Dumbbell Press', muscle:'Chest', equipment:'Dumbbell', tip:'Lie back on an incline bench with a dumbbell in each hand atop your thighs. The palms of your hands will be facing each other.', mistakes:'Bringing dumbbells too close together, pressing straight up instead of in an arc, not controlling the descent', alternatives:'Incline Barbell Press, Machine Incline Press', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Dumbbell_Press/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Dumbbell_Press/1.jpg']},
+    cableCrossover: {name:'Cable Crossover', muscle:'Chest', equipment:'Cable machine', tip:'To get yourself into the starting position, place the pulleys on a high position (above your head), select the resistance to…', mistakes:'Cables not crossing fully, leaning back too much, not squeezing at peak contraction', alternatives:'Pec Deck Machine, Resistance Band Flyes', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crossover/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crossover/1.jpg']},
+    chestDip: {name:'Dips - Chest Version', muscle:'Chest', equipment:'Other equipment', tip:'For this exercise you will need access to parallel bars. To get yourself into the starting position, hold your body at arms…', mistakes:'Leaning too far forward (hits triceps), not going deep enough, shoulders not stable', alternatives:'Machine Assisted Dips, Band-Assisted Dips', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dips_-_Chest_Version/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dips_-_Chest_Version/1.jpg']},
+    pushUpWide: {name:'Push-Up Wide', muscle:'Chest', equipment:'Bodyweight', tip:'With your hands wide apart, support your body on your toes and hands in a plank position. Your elbows should be extended and…', mistakes:'Sagging hips, not going deep enough, elbows flaring too much, head position incorrect', alternatives:'Incline Push-Ups, Machine Chest Press', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Push-Up_Wide/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Push-Up_Wide/1.jpg']},
+    deadlift: {name:'Barbell Deadlift', muscle:'Lower back', equipment:'Barbell', tip:'Stand in front of a loaded barbell.', mistakes:'Rounding the back, bar drifting away from body, jerking the weight, starting with hips too high', alternatives:'Trap Bar Deadlift, Romanian Deadlift', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Deadlift/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Deadlift/1.jpg']},
+    bentRow: {name:'Bent Over Barbell Row', muscle:'Back', equipment:'Barbell', tip:'Holding a barbell with a pronated grip (palms facing down), bend your knees slightly and bring your torso forward, by bending…', mistakes:'Bouncing the weight, not pulling to the chest, rounding the back excessively, narrow grip', alternatives:'Dumbbell Rows, T-Bar Rows', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Barbell_Row/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Barbell_Row/1.jpg']},
+    latPulldown: {name:'Wide-Grip Lat Pulldown', muscle:'Back', equipment:'Cable machine', tip:'Sit down on a pull-down machine with a wide bar attached to the top pulley. Make sure that you adjust the knee pad of the…', mistakes:'Pulling in front instead of behind neck, using too much arm, not getting full stretch', alternatives:'Assisted Pull-Ups, Close-Grip Lat Pulldown', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Wide-Grip_Lat_Pulldown/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Wide-Grip_Lat_Pulldown/1.jpg']},
+    seatedRow: {name:'Seated Cable Rows', muscle:'Back', equipment:'Cable machine', tip:'For this exercise you will need access to a low pulley row machine with a V-bar. Note: The V-bar will enable you to have a…', mistakes:'Rounding the back, pulling to waist instead of chest, jerky movements, not pausing', alternatives:'Machine Row, Dumbbell Rows', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Cable_Rows/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Cable_Rows/1.jpg']},
+    pullups: {name:'Pullups', muscle:'Back', equipment:'Bodyweight', tip:'Grab the pull-up bar with the palms facing forward using the prescribed grip. Note on grips: For a wide grip, your hands need…', mistakes:'Partial range of motion, kipping or using momentum, gripping too narrow, jerky movement', alternatives:'Assisted Pull-Ups, Lat Pulldown', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/1.jpg']},
+    militaryPress: {name:'Standing Military Press', muscle:'Shoulders', equipment:'Barbell', tip:'Start by placing a barbell that is about chest high on a squat rack. Once you have selected the weights, grab the barbell…', mistakes:'Excessive arching, bar drifting forward, not stabilizing core, flaring elbows too much', alternatives:'Dumbbell Press, Machine Military Press', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Military_Press/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Military_Press/1.jpg']},
+    seatedDbPress: {name:'Seated Dumbbell Press', muscle:'Shoulders', equipment:'Dumbbell', tip:'Grab a couple of dumbbells and sit on a military press bench or a utility bench that has a back support on it as you place the…', mistakes:'Uneven pressing, not controlling the descent, elbows flaring too wide, incomplete ROM', alternatives:'Barbell Shoulder Press, Machine Press', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Dumbbell_Press/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Dumbbell_Press/1.jpg']},
+    arnoldPress: {name:'Arnold Dumbbell Press', muscle:'Shoulders', equipment:'Dumbbell', tip:'Sit on an exercise bench with back support and hold two dumbbells in front of you at about upper chest level with your palms…', mistakes:'Not fully rotating, jerky transitions, swinging the weight, incomplete extension', alternatives:'Dumbbell Shoulder Press, Machine Press', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Arnold_Dumbbell_Press/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Arnold_Dumbbell_Press/1.jpg']},
+    lateralRaise: {name:'Side Lateral Raise', muscle:'Shoulders', equipment:'Dumbbell', tip:'Pick a couple of dumbbells and stand with a straight torso and the dumbbells by your side at arms length with the palms of the…', mistakes:'Using too much momentum, elbows dipping too much, raising past shoulder height, jerky ROM', alternatives:'Machine Lateral Raise, Cable Lateral Raise', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Side_Lateral_Raise/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Side_Lateral_Raise/1.jpg']},
+    frontRaise: {name:'Front Raise And Pullover', muscle:'Shoulders', equipment:'Barbell', tip:'Lie on a flat bench while holding a barbell using a palms down grip that is about 15 inches apart.', mistakes:'Going past parallel, swinging the weight, bending elbows too much, incomplete control', alternatives:'Dumbbell Front Raises, Machine Front Raise', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Front_Raise_And_Pullover/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Front_Raise_And_Pullover/1.jpg']},
+    facePull: {name:'Face Pull', muscle:'Shoulders', equipment:'Cable machine', tip:'Facing a high pulley with a rope or dual handles attached, pull the weight directly towards your face, separating your hands…', mistakes:'Not separating hands at end, pulling to forehead instead of face, using too much weight, jerky reps', alternatives:'Reverse Pec Deck, Resistance Band Pull-Aparts', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Face_Pull/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Face_Pull/1.jpg']},
+    barbellCurl: {name:'Barbell Curl', muscle:'Biceps', equipment:'Barbell', tip:'Stand up with your torso upright while holding a barbell at a shoulder-width grip. The palm of your hands should be facing…', mistakes:'Using momentum and swinging, elbows drifting forward, lowering too quickly, using too much weight', alternatives:'Dumbbell Curls, Machine Curls', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Curl/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Curl/1.jpg']},
+    dbCurl: {name:'Dumbbell Bicep Curl', muscle:'Biceps', equipment:'Dumbbell', tip:'Stand up straight with a dumbbell in each hand at arm\'s length. Keep your elbows close to your torso and rotate the palms of…', mistakes:'Swinging dumbbells using momentum, elbows not staying stable, incomplete ROM, rotating wrists', alternatives:'Barbell Curls, Cable Curls', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/1.jpg']},
+    hammerCurl: {name:'Hammer Curls', muscle:'Biceps', equipment:'Dumbbell', tip:'Stand up with your torso upright and a dumbbell on each hand being held at arms length. The elbows should be close to the torso.', mistakes:'Twisting wrists, using momentum, dropping too quickly, incomplete contraction at top', alternatives:'Cable Hammer Curls, Machine Curls', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hammer_Curls/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hammer_Curls/1.jpg']},
+    preacherCurl: {name:'Preacher Curl', muscle:'Biceps', equipment:'Barbell', tip:'To perform this movement you will need a preacher bench and an E-Z bar. Grab the E-Z curl bar at the close inner handle…', mistakes:'Jerky movements, using momentum, arms not on pad, incomplete ROM, too much weight', alternatives:'Dumbbell Preacher Curls, Machine Preacher Curl', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Preacher_Curl/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Preacher_Curl/1.jpg']},
+    tricepPushdown: {name:'Triceps Pushdown', muscle:'Triceps', equipment:'Cable machine', tip:'Attach a straight or angled bar to a high pulley and grab with an overhand grip (palms facing down) at shoulder width.', mistakes:'Moving the upper arm, using too much weight, not getting full extension, jerky reps', alternatives:'Rope Pushdowns, Bench Dips', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/1.jpg']},
+    ropeExtension: {name:'Cable Rope Overhead Triceps Extension', muscle:'Triceps', equipment:'Cable machine', tip:'Attach a rope to the bottom pulley of the pulley machine.', mistakes:'Lowering too far forward, elbows flaring out, jerky movement, using too much weight', alternatives:'Dumbbell Overhead Triceps Extension, Machine Triceps Extension', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Rope_Overhead_Triceps_Extension/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Rope_Overhead_Triceps_Extension/1.jpg']},
+    skullcrusher: {name:'EZ-Bar Skullcrusher', muscle:'Triceps', equipment:'EZ-bar', tip:'Using a close grip, lift the EZ bar and hold it with your elbows in as you lie on the bench. Your arms should be perpendicular…', mistakes:'Elbows drifting out, lowering behind head too far, jerky descent, using momentum', alternatives:'Dumbbell Skullcrushers, Machine Triceps Extension', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/EZ-Bar_Skullcrusher/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/EZ-Bar_Skullcrusher/1.jpg']},
+    benchDip: {name:'Weighted Bench Dip', muscle:'Triceps', equipment:'Other equipment', tip:'For this exercise you will need to place a bench behind your back and another one in front of you. With the benches…', mistakes:'Shoulders shrugging, not going deep enough, elbows flaring too much, forward body lean', alternatives:'Bodyweight Dips, Machine Triceps Dip', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Weighted_Bench_Dip/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Weighted_Bench_Dip/1.jpg']},
+    squat: {name:'Barbell Squat', muscle:'Quads', equipment:'Barbell', tip:'This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack to just below…', mistakes:'Knees caving inward, not going deep enough, leaning too far forward, bar position incorrect', alternatives:'Leg Press, Goblet Squats', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Squat/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Squat/1.jpg']},
+    legPress: {name:'Leg Press', muscle:'Quads', equipment:'Machine', tip:'Using a leg press machine, sit down on the machine and place your legs on the platform directly in front of you at a medium…', mistakes:'Knees not tracking over toes, locking knees at top, going too deep, not controlling descent', alternatives:'Barbell Squats, Hack Squats', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/1.jpg']},
+    legExtension: {name:'Leg Extensions', muscle:'Quads', equipment:'Machine', tip:'For this exercise you will need to use a leg extension machine. First choose your weight and sit on the machine with your legs…', mistakes:'Locking knees at the top, using momentum, not getting full contraction, leaning back', alternatives:'Sissy Squats, Dumbbell Lunges', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Extensions/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Extensions/1.jpg']},
+    dbLunge: {name:'Dumbbell Lunges', muscle:'Quads', equipment:'Dumbbell', tip:'Stand with your torso upright holding two dumbbells in your hands by your sides. This will be your starting position.', mistakes:'Front knee going past toes, leaning forward, not going deep enough, jerky movements', alternatives:'Barbell Lunges, Machine Leg Press', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Lunges/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Lunges/1.jpg']},
+    splitSquat: {name:'Split Squats', muscle:'Hamstrings', equipment:'Bodyweight', tip:'Being in a standing position. Jump into a split leg position, with one leg forward and one leg back, flexing the knees and…', mistakes:'Front knee caving inward, not deep enough depth, torso leaning too much, uneven stance', alternatives:'Bulgarian Split Squats, Lunges', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Split_Squats/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Split_Squats/1.jpg']},
+    rdl: {name:'Romanian Deadlift', muscle:'Hamstrings', equipment:'Barbell', tip:'Put a barbell in front of you on the ground and grab it using a pronated (palms facing down) grip that a little wider than…', mistakes:'Rounding the back excessively, bending knees too much, bar drifting away, jerky movements', alternatives:'Dumbbell RDL, Stiff-Leg Deadlift', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/1.jpg']},
+    hipThrust: {name:'Barbell Hip Thrust', muscle:'Glutes', equipment:'Barbell', tip:'Begin seated on the ground with a bench directly behind you. Have a loaded barbell over your legs. Using a fat bar or having a…', mistakes:'Not squeezing glutes at top, not going deep enough, excessive arching of back, uneven hips', alternatives:'Dumbbell Hip Thrusts, Smith Machine Hip Thrusts', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Hip_Thrust/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Hip_Thrust/1.jpg']},
+    seatedLegCurl: {name:'Seated Leg Curl', muscle:'Hamstrings', equipment:'Machine', tip:'Adjust the machine lever to fit your height and sit on the machine with your back against the back support pad.', mistakes:'Not getting full stretch, jerky movements, using momentum, incomplete contraction', alternatives:'Lying Leg Curls, Standing Leg Curls', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Leg_Curl/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Leg_Curl/1.jpg']},
+    lyingLegCurl: {name:'Lying Leg Curls', muscle:'Hamstrings', equipment:'Machine', tip:'Adjust the machine lever to fit your height and lie face down on the leg curl machine with the pad of the lever on the back of…', mistakes:'Hips lifting off pad, jerky movement, not getting full ROM, using too much weight', alternatives:'Seated Leg Curls, Standing Leg Curls', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_Leg_Curls/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_Leg_Curls/1.jpg']},
+    standingCalf: {name:'Standing Calf Raises', muscle:'Calves', equipment:'Machine', tip:'Adjust the padded lever of the calf raise machine to fit your height.', mistakes:'Not getting full range of motion, using momentum, not pausing at top, going too fast', alternatives:'Dumbbell Calf Raises, Barbell Calf Raises', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Calf_Raises/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Calf_Raises/1.jpg']},
+    seatedCalf: {name:'Seated Calf Raise', muscle:'Calves', equipment:'Machine', tip:'Sit on the machine and place your toes on the lower portion of the platform provided with the heels extending off. Choose the…', mistakes:'Not getting full range of motion, jerky reps, using momentum, incomplete stretch', alternatives:'Machine Standing Calf Raises, Dumbbell Calf Raises', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Calf_Raise/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Calf_Raise/1.jpg']},
+    crunches: {name:'Crunches', muscle:'Abs', equipment:'Bodyweight', tip:'Lie flat on your back with your feet flat on the ground, or resting on a bench with your knees bent at a 90 degree angle. If…', mistakes:'Pulling on the neck, not curling enough, using hip flexors instead of abs, jerky ROM', alternatives:'Cable Crunches, Machine Crunches', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Crunches/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Crunches/1.jpg']},
+    plank: {name:'Plank', muscle:'Abs', equipment:'Bodyweight', tip:'Get into a prone position on the floor, supporting your weight on your toes and your forearms. Your arm are bent and directly…', mistakes:'Hips sagging or piking up, shoulders shrugging, head position incorrect, not breathing', alternatives:'Side Planks, Weighted Planks', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/1.jpg']},
+    hangingLegRaise: {name:'Hanging Leg Raise', muscle:'Abs', equipment:'Bodyweight', tip:'Hang from a chin-up bar with both arms extended at arms length in top of you using either a wide grip or a medium grip. The…', mistakes:'Swinging legs using momentum, rounding lower back, not getting full contraction, jerky reps', alternatives:'Cable Leg Raises, Machine Leg Raises', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hanging_Leg_Raise/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hanging_Leg_Raise/1.jpg']},
+    cableCrunch: {name:'Cable Crunch', muscle:'Abs', equipment:'Cable machine', tip:'Kneel below a high pulley that contains a rope attachment.', mistakes:'Pulling with arms instead of crunching, not getting full contraction, using momentum, jerky ROM', alternatives:'Machine Crunches, Weighted Crunches', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crunch/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crunch/1.jpg']},
+    russianTwist: {name:'Russian Twist', muscle:'Abs', equipment:'Bodyweight', tip:'Lie down on the floor placing your feet either under something that will not move or by having a partner hold them. Your legs…', mistakes:'Not getting enough rotation, neck strain from jerky movements, not keeping legs stable, too fast', alternatives:'Cable Wood Chops, Machine Twists', img:['https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Russian_Twist/0.jpg','https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Russian_Twist/1.jpg']},
+  };
+
+  var EX_REPS = {
+    deadlift:'4 x 6-8',
+    squat:'4 x 6-8',
+    benchPress:'4 x 6-8',
+    bentRow:'4 x 6-8',
+    hipThrust:'4 x 6-8',
+    rdl:'4 x 6-8',
+    militaryPress:'4 x 6-8',
+    inclineDbPress:'3 x 8-10',
+    legPress:'3 x 8-10',
+    latPulldown:'3 x 8-10',
+    seatedRow:'3 x 8-10',
+    seatedDbPress:'3 x 8-10',
+    pullups:'3 x 8-10',
+    chestDip:'3 x 8-10',
+    splitSquat:'3 x 8-10',
+    dbLunge:'3 x 8-10',
+    arnoldPress:'3 x 8-10',
+    cableCrossover:'3 x 10-12',
+    lateralRaise:'3 x 10-12',
+    frontRaise:'3 x 10-12',
+    facePull:'3 x 10-12',
+    barbellCurl:'3 x 10-12',
+    dbCurl:'3 x 10-12',
+    hammerCurl:'3 x 10-12',
+    preacherCurl:'3 x 10-12',
+    tricepPushdown:'3 x 10-12',
+    ropeExtension:'3 x 10-12',
+    skullcrusher:'3 x 10-12',
+    benchDip:'3 x 10-12',
+    legExtension:'3 x 10-12',
+    lyingLegCurl:'3 x 10-12',
+    seatedLegCurl:'3 x 10-12',
+    standingCalf:'3 x 10-12',
+    seatedCalf:'3 x 10-12',
+    pushUpWide:'3 x 10-12',
+    crunches:'3 x 15',
+    cableCrunch:'3 x 15',
+    russianTwist:'3 x 15',
+    hangingLegRaise:'3 x 15',
+    plank:'3 x 30-45 sec',
+  };
+
+  var WORKOUT_PLANS = {
+    male: {
+      3: [
+        {title:'Day 1 — Push (Chest, Shoulders, Triceps)', ex:['benchPress','inclineDbPress','militaryPress','lateralRaise','tricepPushdown','skullcrusher','benchDip']},
+        {title:'Day 2 — Pull (Back, Biceps)', ex:['deadlift','bentRow','latPulldown','seatedRow','barbellCurl','hammerCurl']},
+        {title:'Day 3 — Legs', ex:['squat','legPress','rdl','dbLunge','legExtension','lyingLegCurl','standingCalf']}
+      ],
+      4: [
+        {title:'Day 1 — Chest & Triceps', ex:['benchPress','inclineDbPress','cableCrossover','chestDip','tricepPushdown','ropeExtension']},
+        {title:'Day 2 — Back & Biceps', ex:['deadlift','bentRow','latPulldown','seatedRow','barbellCurl','preacherCurl']},
+        {title:'Day 3 — Legs', ex:['squat','legPress','rdl','legExtension','lyingLegCurl','standingCalf']},
+        {title:'Day 4 — Shoulders & Abs', ex:['militaryPress','seatedDbPress','lateralRaise','facePull','crunches','hangingLegRaise','plank']}
+      ],
+      5: [
+        {title:'Day 1 — Chest', ex:['benchPress','inclineDbPress','cableCrossover','chestDip','pushUpWide']},
+        {title:'Day 2 — Back', ex:['deadlift','bentRow','latPulldown','seatedRow','pullups']},
+        {title:'Day 3 — Legs', ex:['squat','legPress','rdl','legExtension','lyingLegCurl','standingCalf']},
+        {title:'Day 4 — Shoulders', ex:['militaryPress','seatedDbPress','arnoldPress','lateralRaise','frontRaise','facePull']},
+        {title:'Day 5 — Arms & Abs', ex:['barbellCurl','hammerCurl','preacherCurl','tricepPushdown','skullcrusher','cableCrunch']}
+      ]
+    },
+    female: {
+      3: [
+        {title:'Day 1 — Full Body', ex:['squat','inclineDbPress','bentRow','hipThrust','plank']},
+        {title:'Day 2 — Lower Body & Glutes', ex:['hipThrust','rdl','splitSquat','legPress','seatedLegCurl','standingCalf']},
+        {title:'Day 3 — Upper Body & Core', ex:['seatedDbPress','latPulldown','seatedRow','lateralRaise','dbCurl','cableCrunch']}
+      ],
+      4: [
+        {title:'Day 1 — Upper Body', ex:['inclineDbPress','seatedRow','seatedDbPress','latPulldown','dbCurl','tricepPushdown']},
+        {title:'Day 2 — Glutes & Hamstrings', ex:['hipThrust','rdl','seatedLegCurl','lyingLegCurl','splitSquat','standingCalf']},
+        {title:'Day 3 — Full Body', ex:['squat','bentRow','pushUpWide','plank','russianTwist']},
+        {title:'Day 4 — Quads, Glutes & Core', ex:['squat','legPress','legExtension','hipThrust','hangingLegRaise','cableCrunch']}
+      ],
+      5: [
+        {title:'Day 1 — Upper Body Push', ex:['inclineDbPress','seatedDbPress','cableCrossover','lateralRaise','tricepPushdown']},
+        {title:'Day 2 — Glutes & Hamstrings', ex:['hipThrust','rdl','seatedLegCurl','lyingLegCurl','standingCalf']},
+        {title:'Day 3 — Back & Arms', ex:['latPulldown','seatedRow','facePull','dbCurl','hammerCurl']},
+        {title:'Day 4 — Quads & Calves', ex:['squat','legPress','splitSquat','legExtension','seatedCalf']},
+        {title:'Day 5 — Glutes & Core', ex:['hipThrust','splitSquat','legPress','plank','russianTwist','cableCrunch']}
+      ]
+    }
+  };
+
   var STORAGE_KEY = 'leanMetrics.v2';
   var LEGACY_KEY = 'leanMetrics.profile';
 
   var DEFAULT_PROFILE = {unit:'metric', sex:'male', age:30, height:175, weight:75, bodyfat:'', activity:'moderate', goal:'leanloss', goalWeight:''};
 
   var DEFAULT_MILESTONES = {streak7:false, streak30:false, streak100:false, newLowWeight:false};
+  var DEFAULT_WORKOUT = {gender:'male', split:'3', difficulty:'beginner', goal:'general', completed:{}};
 
   var state = {
     profile: Object.assign({}, DEFAULT_PROFILE),
@@ -1264,7 +1484,8 @@
     selectedDate: null,
     logs: {},
     favorites: [],
-    milestones: Object.assign({}, DEFAULT_MILESTONES)
+    milestones: Object.assign({}, DEFAULT_MILESTONES),
+    workout: Object.assign({}, DEFAULT_WORKOUT)
   };
 
   /* ============================================================
@@ -1360,6 +1581,7 @@
           state.logs = parsed.logs || {};
           state.favorites = Array.isArray(parsed.favorites) ? parsed.favorites : [];
           state.milestones = Object.assign({}, DEFAULT_MILESTONES, parsed.milestones||{});
+          state.workout = Object.assign({}, DEFAULT_WORKOUT, parsed.workout||{});
           return;
         }
       }
@@ -1498,6 +1720,7 @@
     document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===name); });
     if(name==='today') renderToday();
     if(name==='trends') renderTrends();
+    if(name==='workouts') renderWorkouts();
     if(name==='setup') renderSetupResults();
     window.scrollTo(0,0);
   }
@@ -2002,6 +2225,81 @@
       '<span class="li"><span class="heatmap-cell lvl-2"></span>On target</span>'+
     '</div>';
     return html;
+  }
+
+  /* ============================================================
+     WORKOUTS TAB
+  ============================================================ */
+  function exerciseRowHTML(slug, dayIndex){
+    var e = EX_DB[slug];
+    if(!e) return '';
+    var reps = EX_REPS[slug] || '3 x 10-12';
+    var completed = (state.workout.completed && state.workout.completed[dayIndex+':'+slug]) || false;
+    var cbId = 'ex-cb-'+dayIndex+'-'+slug;
+    return '<div class="workout-ex '+(completed?'completed':'')+'">'+
+      '<div class="ex-header">'+
+        '<input type="checkbox" id="'+cbId+'" class="ex-checkbox" '+(completed?'checked':'')+' data-day="'+dayIndex+'" data-slug="'+slug+'">'+
+        '<label for="'+cbId+'" class="ex-check-label"></label>'+
+        '<div class="ex-media">'+
+          '<img src="'+e.img[0]+'" alt="" loading="lazy" referrerpolicy="no-referrer">'+
+          '<img src="'+e.img[1]+'" alt="" loading="lazy" referrerpolicy="no-referrer">'+
+          '<span class="ex-loop-badge">Loop</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="ex-info">'+
+        '<div class="ex-name">'+escapeHtml(e.name)+'</div>'+
+        '<div class="ex-tags">'+
+          '<span class="ex-tag muscle">'+escapeHtml(e.muscle)+'</span>'+
+          '<span class="ex-tag">'+escapeHtml(e.equipment)+'</span>'+
+          '<span class="ex-tag sets">'+escapeHtml(reps)+'</span>'+
+        '</div>'+
+        '<p class="ex-tip">'+escapeHtml(e.tip)+'</p>'+
+        (e.mistakes?'<div class="ex-mistakes"><strong>Avoid:</strong> '+escapeHtml(e.mistakes)+'</div>':'')+
+        (e.alternatives?'<div class="ex-alternatives"><strong>Swap with:</strong> '+escapeHtml(e.alternatives)+'</div>':'')+
+      '</div>'+
+    '</div>';
+  }
+
+  function renderWorkouts(){
+    var gender = (state.workout && state.workout.gender) || 'male';
+    var split = (state.workout && state.workout.split) || '3';
+    var difficulty = (state.workout && state.workout.difficulty) || 'beginner';
+    var goal = (state.workout && state.workout.goal) || 'general';
+    var days = (WORKOUT_PLANS[gender] && WORKOUT_PLANS[gender][split]) || WORKOUT_PLANS.male['3'];
+    var html = '';
+    days.forEach(function(day, dayIndex){
+      html += '<div class="chart-card">'+
+        '<h2 class="panel-title">'+escapeHtml(day.title)+'</h2>'+
+        '<div class="workout-day-sub">'+day.ex.length+' exercises · rest 60–90 sec between sets</div>'+
+        day.ex.map(function(slug){ return exerciseRowHTML(slug, dayIndex); }).join('') +
+      '</div>';
+    });
+    el('workoutsBody').innerHTML = html;
+    // Wire up completion checkboxes
+    Array.prototype.forEach.call(el('workoutsBody').querySelectorAll('.ex-checkbox'), function(cb){
+      cb.addEventListener('change', function(){
+        var dayIndex = this.dataset.day;
+        var slug = this.dataset.slug;
+        var key = dayIndex+':'+slug;
+        if(!state.workout.completed) state.workout.completed = {};
+        state.workout.completed[key] = this.checked;
+        saveState();
+        // Update UI
+        var row = this.closest('.workout-ex');
+        if(row) row.classList.toggle('completed', this.checked);
+      });
+    });
+  }
+
+  function syncWorkoutToggles(){
+    var gender = (state.workout && state.workout.gender) || 'male';
+    var split = (state.workout && state.workout.split) || '3';
+    var difficulty = (state.workout && state.workout.difficulty) || 'beginner';
+    var goal = (state.workout && state.workout.goal) || 'general';
+    Array.prototype.forEach.call(el('workoutGenderToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===gender); });
+    Array.prototype.forEach.call(el('workoutSplitToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===split); });
+    Array.prototype.forEach.call(el('workoutDifficultyToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===difficulty); });
+    Array.prototype.forEach.call(el('workoutGoalToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===goal); });
   }
 
   function measurementsTable(days){
@@ -2545,12 +2843,15 @@
           state.logs = parsed.logs || {};
           state.favorites = Array.isArray(parsed.favorites) ? parsed.favorites : [];
           state.milestones = Object.assign({}, DEFAULT_MILESTONES, parsed.milestones||{});
+          state.workout = Object.assign({}, DEFAULT_WORKOUT, parsed.workout||{});
           saveState();
           populateInputs();
           applyUnitLabels();
           applyReminderUI();
+          syncWorkoutToggles();
           renderSetupResults();
           renderToday();
+          renderWorkouts();
           toast('Backup imported');
         }
       }catch(e){ toast('Could not read that file'); }
@@ -2559,15 +2860,17 @@
   }
   function resetAll(){
     if(!confirm('Reset all data? This clears your profile, logs, and reminders on this device.')) return;
-    state = {profile:Object.assign({},DEFAULT_PROFILE), reminder:{enabled:false,time:'08:00',lastFired:''}, theme:'auto', selectedDate:null, logs:{}, favorites:[], milestones:Object.assign({},DEFAULT_MILESTONES)};
+    state = {profile:Object.assign({},DEFAULT_PROFILE), reminder:{enabled:false,time:'08:00',lastFired:''}, theme:'auto', selectedDate:null, logs:{}, favorites:[], milestones:Object.assign({},DEFAULT_MILESTONES), workout:Object.assign({},DEFAULT_WORKOUT)};
     saveState();
     populateInputs();
     applyUnitLabels();
     applyReminderUI();
     applyTheme(state.theme);
     Array.prototype.forEach.call(el('themeToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.theme); });
+    syncWorkoutToggles();
     renderSetupResults();
     renderToday();
+    renderWorkouts();
     toast('All data reset');
   }
 
@@ -2698,6 +3001,13 @@
     // trends tab
     wireSimpleSegmented('rangeToggle', function(val){ trendRange = parseInt(val,10); renderTrends(); });
     el('printReportBtn').addEventListener('click', function(){ window.print(); });
+
+    // workouts tab
+    syncWorkoutToggles();
+    wireSimpleSegmented('workoutGenderToggle', function(val){ state.workout.gender = val; saveState(); renderWorkouts(); });
+    wireSimpleSegmented('workoutSplitToggle', function(val){ state.workout.split = val; saveState(); renderWorkouts(); });
+    wireSimpleSegmented('workoutDifficultyToggle', function(val){ state.workout.difficulty = val; saveState(); renderWorkouts(); });
+    wireSimpleSegmented('workoutGoalToggle', function(val){ state.workout.goal = val; saveState(); renderWorkouts(); });
 
     // reminders
     el('reminderSwitch').addEventListener('click', toggleReminder);
