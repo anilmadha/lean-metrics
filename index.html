@@ -115,7 +115,17 @@
   .field input:focus{outline:2px solid var(--accent); outline-offset:1px;}
   .row2{display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;}
   .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem;}
+  details.more-measurements{margin-bottom:1.1rem;}
+  details.more-measurements summary{cursor:pointer; font-size:0.82rem; color:var(--text-2); list-style:none; padding:0.3rem 0;}
+  details.more-measurements summary::-webkit-details-marker{display:none;}
+  details.more-measurements summary::after{content:" +"; }
+  details.more-measurements[open] summary::after{content:" \2013";}
+  details.more-measurements .field:last-child, details.more-measurements .row2:last-of-type .field{margin-bottom:0;}
 
+  .trends-toolbar{display:flex; align-items:center; gap:0.7rem;}
+  .trends-toolbar .segmented{flex:1;}
+  .print-btn{flex:none; display:flex; align-items:center; gap:0.35rem; padding:0.62rem 0.9rem; border-radius:14px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-family:var(--font-display); font-weight:600; font-size:0.82rem;}
+  .print-btn svg{width:16px; height:16px;}
   .segmented{display:flex; background:var(--surface); border:1px solid var(--hairline); border-radius:14px; padding:3px; gap:3px;}
   .segmented button{flex:1; padding:0.6rem 0; border:none; background:transparent; color:var(--text-2); font-family:var(--font-display); font-weight:500; font-size:0.88rem; border-radius:10px;}
   .segmented button.active{background:var(--accent); color:var(--bg);}
@@ -210,12 +220,25 @@
   .note.warn{color:var(--danger); background:rgba(178,58,46,0.08);}
   .note.good{color:var(--good);}
 
+  /* ---------- water tracker ---------- */
+  .water-row{display:flex; align-items:center; gap:0.9rem;}
+  .water-track-wrap{flex:1;}
+  .water-amount{font-family:var(--font-mono); font-weight:600; font-size:0.95rem; flex:none; min-width:4.6rem; text-align:right;}
+  .water-btn-row{display:flex; gap:0.6rem; margin-top:0.8rem;}
+  .water-btn{display:flex; align-items:center; justify-content:center; gap:0.4rem; border-radius:999px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-family:var(--font-display); font-weight:600; font-size:0.85rem; padding:0.7rem 1rem;}
+  .water-btn svg{width:18px; height:18px; flex:none;}
+  #waterMinus{flex:none; width:44px; padding:0.7rem 0;}
+  .water-add{flex:1; color:#1c7fc9; border-color:color-mix(in srgb, #4dabf7 45%, var(--hairline));}
+  .water-add:active{ transform:scale(0.97); }
+
   /* ---------- date nav ---------- */
   .datenav{display:flex; align-items:center; justify-content:space-between; gap:0.6rem; margin-bottom:0.2rem;}
   .datenav button{width:34px; height:34px; border-radius:9px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-size:1rem; display:flex; align-items:center; justify-content:center;}
   .datenav button:disabled{opacity:0.3;}
   .datenav .lbl{font-family:var(--font-display); font-weight:600; font-size:0.95rem; text-align:center;}
   .datenav .lbl .rel{display:block; font-family:var(--font-body); font-weight:400; font-size:0.74rem; color:var(--text-2); margin-top:0.1rem;}
+  .streak-chip{display:flex; align-items:center; justify-content:center; gap:0.4rem; margin:0.7rem auto 0; padding:0.4rem 0.9rem; border-radius:999px; width:max-content; background:color-mix(in srgb, #ff7a1a 14%, transparent); color:#e0611a; font-family:var(--font-display); font-weight:700; font-size:0.8rem;}
+  .streak-chip svg{width:15px; height:15px; flex:none;}
 
   /* ---------- food log ---------- */
   .food-row{display:flex; align-items:center; gap:0.7rem; padding:0.7rem 0; border-bottom:1px solid var(--hairline);}
@@ -255,6 +278,9 @@
   .quick-item .qn{flex:1; font-size:0.9rem; font-weight:600;}
   .quick-item .qm{font-size:0.76rem; color:var(--text-2); margin-top:0.1rem; font-weight:400;}
   .quick-item button{border:none; background:var(--tint); color:var(--text); font-weight:700; font-size:1.1rem; width:30px; height:30px; border-radius:50%; flex:none;}
+  .fav-heading{font-size:0.78rem; font-weight:700; color:var(--text-2); text-transform:uppercase; letter-spacing:0.03em; margin-bottom:0.3rem;}
+  #favoritesSection{margin-bottom:0.9rem; padding-bottom:0.7rem; border-bottom:1px solid var(--hairline);}
+  .quick-item .fdel-fav{border:none; background:none; color:var(--text-2); font-size:1rem; width:22px; height:22px; border-radius:50%; flex:none; margin-left:-0.3rem;}
   .qty-row{display:flex; gap:0.4rem; margin-top:0.6rem;}
   .qty-row button{flex:1; padding:0.45rem 0; border-radius:10px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-size:0.8rem;}
   .qty-row button.active{background:var(--text); color:var(--bg); border-color:var(--text);}
@@ -273,6 +299,16 @@
   .history-table th:first-child,.history-table td:first-child{text-align:left; font-family:var(--font-body); font-weight:600;}
   .history-table th{color:var(--text-2); font-weight:600; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.02em;}
   .history-table tbody tr:hover td, .history-table tr:hover td{background:var(--tint);}
+
+  /* ---------- consistency heatmap ---------- */
+  .heatmap-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:0.2rem;}
+  .heatmap-grid{display:flex; gap:3px; width:max-content;}
+  .heatmap-col{display:grid; grid-template-rows:repeat(7,1fr); gap:3px;}
+  .heatmap-cell{width:11px; height:11px; border-radius:3px; background:var(--tint); display:inline-block;}
+  .heatmap-legend .heatmap-cell{margin-right:0.35rem; vertical-align:middle;}
+  .heatmap-cell.lvl-1{background:color-mix(in srgb, var(--good) 40%, var(--tint));}
+  .heatmap-cell.lvl-2{background:var(--good);}
+  .heatmap-legend{margin-top:0.7rem;}
 
   details.datatable{margin-top:0.4rem;}
   details.datatable summary{cursor:pointer; font-size:0.78rem; color:var(--text-2); list-style:none;}
@@ -365,6 +401,7 @@
     #trendsBody .chart-card{ border:1px solid var(--hairline); border-radius:16px; padding:1.3rem 1.4rem; margin:0; }
     #trendsBody .chart-empty{ grid-column:1 / -1; }
     #trendsBody .history-card{ grid-column:1 / -1; }
+    #trendsBody .consistency-card{ grid-column:1 / -1; }
 
     /* today: date-nav bar is a slim strip, not a tall card */
     #dateNavPanel{ padding-top:0.9rem !important; padding-bottom:0.9rem !important; }
@@ -583,9 +620,28 @@
   @keyframes rippleEffect{ to{ transform:scale(2.8); opacity:0; } }
 
   /* ---------- steps-goal confetti ---------- */
-  #stepsPanel{ position:relative; }
-  .confetti-piece{ position:absolute; top:12%; width:6px; height:10px; border-radius:2px; opacity:0.9; animation:confettiFall 1s ease-out forwards; pointer-events:none; }
+  #stepsPanel, #waterPanel, #checkinPanel, #streakChip{ position:relative; overflow:visible; }
+  .confetti-piece{ position:absolute; top:12%; width:6px; height:10px; border-radius:2px; opacity:0.9; animation:confettiFall 1s ease-out forwards; pointer-events:none; z-index:5; }
   @keyframes confettiFall{ 0%{ transform:translateY(0) rotate(0deg); opacity:1; } 100%{ transform:translateY(90px) rotate(340deg); opacity:0; } }
+
+  /* ---------- print report ---------- */
+  .print-header{ display:none; }
+  @media print{
+    .bg-aura, nav.tabbar, nav.sidebar, .insights-rail, .sheet-overlay, .toast,
+    .print-btn, #rangeToggle, #reminderPanel, #appearancePanel, #dataPanel,
+    #methodsPanel, #setupFooter, header.top{ display:none !important; }
+    .tabpage{ display:none !important; }
+    #page-trends{ display:block !important; }
+    body{ background:#fff !important; color:#0a0a0a !important; padding:0 !important; }
+    .wrap{ margin:0 !important; max-width:100% !important; padding:0.4in !important; }
+    #trendsBody{ display:block !important; border:none !important; padding:0 !important; }
+    .chart-card{ break-inside:avoid; border:1px solid #ccc !important; border-radius:8px !important; padding:0.9rem 1rem !important; margin:0 0 0.9rem !important; box-shadow:none !important; background:#fff !important; }
+    .print-header{ display:block !important; margin-bottom:1rem; }
+    .print-header h2{ font-family:var(--font-display); font-size:1.3rem; margin:0 0 0.2rem; }
+    .print-header p{ font-size:0.85rem; color:#555; margin:0; }
+    .heatmap-cell{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    section.panel{ border-top:none !important; }
+  }
 </style>
 </head>
 <body>
@@ -634,6 +690,10 @@
         <div class="lbl"><span id="dateLabel">Today</span><span class="rel" id="dateRel"></span></div>
         <button id="nextDay" aria-label="Next day">&#8250;</button>
       </div>
+      <div class="streak-chip" id="streakChip" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 0-5.5 6.2-5.5 11a5.5 5.5 0 0 0 11 0C17.5 8.2 12 2 12 2z"/></svg>
+        <span id="streakChipTxt">0-day streak</span>
+      </div>
     </section>
 
     <section class="panel" id="ringPanel">
@@ -671,6 +731,28 @@
       <div class="note" id="stepsNote">Bare minimum goal: 10,000 steps a day (about 5 miles). That's roughly 300–400 kcal for most adults, and is linked on its own — separate from any gym work — to better heart health, steadier blood sugar, and better mood and sleep.</div>
     </section>
 
+    <section class="panel" id="waterPanel">
+      <h2 class="panel-title">Water<span class="aux" id="waterCapTxt">goal –</span></h2>
+      <div class="water-row">
+        <div class="water-track-wrap">
+          <div class="meter-track">
+            <div class="meter-fill" id="waterFill" style="width:0%; background:#4dabf7;"></div>
+          </div>
+        </div>
+        <div class="water-amount" id="waterAmountTxt">0.0 L</div>
+      </div>
+      <div class="water-btn-row">
+        <button class="water-btn" id="waterMinus" aria-label="Remove a glass">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+        </button>
+        <button class="water-btn water-add" id="waterPlus" data-ml="250">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-1.2 15.5A2 2 0 0 1 13.8 20h-3.6a2 2 0 0 1-2-1.5L7 3z"/><path d="M8 9h8" stroke-opacity="0.6"/></svg>
+          <span>+250ml glass</span>
+        </button>
+      </div>
+      <div class="note" id="waterNote">Water scales with your bodyweight and activity level. Tap the glass each time you drink one.</div>
+    </section>
+
     <section class="panel" id="foodLogPanel">
       <h2 class="panel-title">Food log<span class="aux" id="foodTotalTxt"></span></h2>
       <div id="foodList"></div>
@@ -693,6 +775,29 @@
           <input type="number" id="logBodyfat" inputmode="decimal" step="0.5" placeholder="—">
         </div>
       </div>
+      <details class="more-measurements">
+        <summary>More measurements (optional)</summary>
+        <div class="row2" style="margin-top:0.8rem;">
+          <div class="field">
+            <label>Chest</label>
+            <input type="number" id="logChest" inputmode="decimal" step="0.1" placeholder="—">
+          </div>
+          <div class="field">
+            <label>Hips</label>
+            <input type="number" id="logHips" inputmode="decimal" step="0.1" placeholder="—">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Arms</label>
+            <input type="number" id="logArms" inputmode="decimal" step="0.1" placeholder="—">
+          </div>
+          <div class="field">
+            <label>Thighs</label>
+            <input type="number" id="logThighs" inputmode="decimal" step="0.1" placeholder="—">
+          </div>
+        </div>
+      </details>
       <button class="add-btn" id="saveCheckin">Save check-in</button>
     </section>
 
@@ -702,12 +807,23 @@
   <div class="tabpage" id="page-trends">
 
     <section class="panel" style="padding-top:0.2rem; border-top:none;">
-      <div class="segmented" id="rangeToggle">
-        <button data-val="7" class="active">7 days</button>
-        <button data-val="30">30 days</button>
-        <button data-val="90">90 days</button>
+      <div class="trends-toolbar">
+        <div class="segmented" id="rangeToggle">
+          <button data-val="7" class="active">7 days</button>
+          <button data-val="30">30 days</button>
+          <button data-val="90">90 days</button>
+        </div>
+        <button class="print-btn" id="printReportBtn" aria-label="Print report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><rect x="4" y="9" width="16" height="8" rx="1.5"/><path d="M6 17v5h12v-5"/></svg>
+          <span>Print</span>
+        </button>
       </div>
     </section>
+
+    <div class="print-header" id="printHeader">
+      <h2>Lean Metrics — Progress report</h2>
+      <p id="printHeaderDate"></p>
+    </div>
 
     <section class="panel" id="trendsBody">
       <!-- filled by JS -->
@@ -762,6 +878,12 @@
           <label>Body fat % <span style="opacity:0.7;">(optional)</span></label>
           <input type="number" id="bodyfat" inputmode="decimal" step="0.5" placeholder="—">
         </div>
+      </div>
+
+      <div class="field">
+        <label id="goalWeightLabel">Goal weight (kg) <span style="opacity:0.7;">(optional)</span></label>
+        <input type="number" id="goalWeight" inputmode="decimal" step="0.1" placeholder="—">
+        <label style="margin-top:0.5rem; margin-bottom:0; font-size:0.72rem;">Set this to see a projected date on the Trends tab, based on your recent weight trend.</label>
       </div>
     </section>
 
@@ -876,7 +998,7 @@
           <div class="mini-stat-l">Added sugar<span class="lfull">grams/day, cap</span></div>
         </div>
       </div>
-      <div class="note">Water scales with your bodyweight and activity level. Fiber follows the 14g-per-1,000-kcal rule of thumb. Sodium and added-sugar are upper limits (AHA/FDA guidance), not targets to hit — food-log totals for these aren't tracked yet, so treat them as a ceiling to keep in mind.</div>
+      <div class="note">Water scales with your bodyweight and activity level — log it with the glass button on the Today tab. Fiber follows the 14g-per-1,000-kcal rule of thumb. Sodium and added-sugar are upper limits (AHA/FDA guidance), not targets to hit — food-log totals for these aren't tracked yet, so treat them as a ceiling to keep in mind.</div>
     </section>
 
     <section class="panel" id="reminderPanel">
@@ -993,6 +1115,10 @@
     </div>
 
     <div id="quickPane">
+      <div id="favoritesSection" style="display:none;">
+        <div class="fav-heading">Your favorites</div>
+        <div id="favoritesList"></div>
+      </div>
       <div class="field" style="margin-bottom:0.7rem;">
         <input type="text" id="foodSearch" placeholder="Search foods…">
       </div>
@@ -1008,6 +1134,10 @@
       <div class="row2">
         <div class="field"><label>Carbs (g)</label><input type="number" id="cC" inputmode="decimal"></div>
         <div class="field"><label>Fat (g)</label><input type="number" id="cF" inputmode="decimal"></div>
+      </div>
+      <div class="switch-row" style="padding:0.4rem 0;">
+        <div class="txt"><strong>Save as a favorite</strong><span>Adds it to your quick-pick list for next time.</span></div>
+        <button class="switch" id="saveFavToggle" role="switch" aria-checked="false"></button>
       </div>
       <button class="add-btn" id="addCustomBtn">Add to log</button>
     </div>
@@ -1123,14 +1253,18 @@
   var STORAGE_KEY = 'leanMetrics.v2';
   var LEGACY_KEY = 'leanMetrics.profile';
 
-  var DEFAULT_PROFILE = {unit:'metric', sex:'male', age:30, height:175, weight:75, bodyfat:'', activity:'moderate', goal:'leanloss'};
+  var DEFAULT_PROFILE = {unit:'metric', sex:'male', age:30, height:175, weight:75, bodyfat:'', activity:'moderate', goal:'leanloss', goalWeight:''};
+
+  var DEFAULT_MILESTONES = {streak7:false, streak30:false, streak100:false, newLowWeight:false};
 
   var state = {
     profile: Object.assign({}, DEFAULT_PROFILE),
     reminder: {enabled:false, time:'08:00', lastFired:''},
     theme: 'auto',
     selectedDate: null,
-    logs: {}
+    logs: {},
+    favorites: [],
+    milestones: Object.assign({}, DEFAULT_MILESTONES)
   };
 
   /* ============================================================
@@ -1224,6 +1358,8 @@
           state.reminder = Object.assign({enabled:false,time:'08:00',lastFired:''}, parsed.reminder||{});
           state.theme = (parsed.theme==='light'||parsed.theme==='dark') ? parsed.theme : 'auto';
           state.logs = parsed.logs || {};
+          state.favorites = Array.isArray(parsed.favorites) ? parsed.favorites : [];
+          state.milestones = Object.assign({}, DEFAULT_MILESTONES, parsed.milestones||{});
           return;
         }
       }
@@ -1239,9 +1375,15 @@
     try{ window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
   }
   function getLog(dateStr){
-    if(!state.logs[dateStr]) state.logs[dateStr] = {weight:null, waist:null, bodyfat:null, steps:null, foods:[]};
-    if(!state.logs[dateStr].foods) state.logs[dateStr].foods = [];
-    return state.logs[dateStr];
+    if(!state.logs[dateStr]) state.logs[dateStr] = {weight:null, waist:null, bodyfat:null, steps:null, water:0, chest:null, hips:null, arms:null, thighs:null, foods:[]};
+    var log = state.logs[dateStr];
+    if(!log.foods) log.foods = [];
+    if(log.water==null) log.water = 0;
+    if(log.chest===undefined) log.chest = null;
+    if(log.hips===undefined) log.hips = null;
+    if(log.arms===undefined) log.arms = null;
+    if(log.thighs===undefined) log.thighs = null;
+    return log;
   }
 
   /* ============================================================
@@ -1420,9 +1562,44 @@
     el('logWeight').value = log.weight!=null ? log.weight : '';
     el('logWaist').value = log.waist!=null ? log.waist : '';
     el('logBodyfat').value = log.bodyfat!=null ? log.bodyfat : '';
+    el('logChest').value = log.chest!=null ? log.chest : '';
+    el('logHips').value = log.hips!=null ? log.hips : '';
+    el('logArms').value = log.arms!=null ? log.arms : '';
+    el('logThighs').value = log.thighs!=null ? log.thighs : '';
     el('logSteps').value = log.steps!=null ? log.steps : '';
     updateStepsUI(log.steps);
+    updateWaterUI(log, targets);
+    updateStreakUI();
     renderRail(log, targets, consumed);
+  }
+
+  /* ============================================================
+     WATER TRACKER
+  ============================================================ */
+  function updateWaterUI(log, targets){
+    var fill = el('waterFill'), amt = el('waterAmountTxt'), cap = el('waterCapTxt');
+    var have = log.water || 0;
+    var goalL = targets ? targets.waterL : null;
+    amt.textContent = round(have,2)+' L';
+    cap.textContent = goalL ? ('goal '+round(goalL,1)+' L') : 'goal –';
+    var pct = goalL ? clamp(have/goalL, 0, 1)*100 : 0;
+    fill.style.width = pct+'%';
+    el('waterMinus').disabled = have<=0;
+  }
+  function addWater(deltaL){
+    var dateStr = state.selectedDate || todayStr();
+    var log = getLog(dateStr);
+    var before = log.water||0;
+    log.water = Math.max(0, round(before + deltaL, 2));
+    saveState();
+    updateWaterUI(log, currentTargets());
+    if(deltaL>0){
+      var goalL = currentTargets() ? currentTargets().waterL : null;
+      if(goalL && log.water>=goalL && before<goalL){
+        spawnConfetti(el('waterPanel'));
+        toast('Water goal hit for today');
+      }
+    }
   }
 
   function updateStepsUI(steps){
@@ -1451,6 +1628,62 @@
     updateStepsUI(log.steps);
     renderRail(log, currentTargets(), log.foods.reduce(function(acc,f){ acc.cal+=f.cal; return acc; }, {cal:0}));
     maybeCelebrateSteps(dateStr, log.steps);
+  }
+
+  /* ============================================================
+     STREAK TRACKER
+  ============================================================ */
+  function isLoggedDay(log){
+    return !!(log && ((log.foods && log.foods.length) || log.weight!=null || log.steps!=null || (log.water && log.water>0)));
+  }
+  function computeStreak(){
+    var d = todayStr();
+    var cursor = d;
+    if(!isLoggedDay(state.logs[d])) cursor = addDays(d, -1);
+    var streak = 0;
+    while(isLoggedDay(state.logs[cursor])){
+      streak++;
+      cursor = addDays(cursor, -1);
+    }
+    return streak;
+  }
+  function updateStreakUI(){
+    var chip = el('streakChip');
+    if(!chip) return;
+    var streak = computeStreak();
+    if(streak>0){
+      chip.style.display = 'flex';
+      el('streakChipTxt').textContent = streak+'-day streak';
+    } else {
+      chip.style.display = 'none';
+    }
+    maybeCelebrateStreak(streak);
+  }
+  function maybeCelebrateStreak(streak){
+    var milestones = [[100,'streak100'],[30,'streak30'],[7,'streak7']];
+    for(var i=0;i<milestones.length;i++){
+      var n = milestones[i][0], key = milestones[i][1];
+      if(streak>=n && !state.milestones[key]){
+        state.milestones[key] = true;
+        saveState();
+        spawnConfetti(el('streakChip'));
+        toast(n+'-day streak — keep it going.');
+        break;
+      }
+    }
+  }
+  function maybeCelebrateWeight(dateStr, weight){
+    if(weight==null || isNaN(weight)) return;
+    var priorMin = null;
+    Object.keys(state.logs).forEach(function(d){
+      if(d===dateStr) return;
+      var w = state.logs[d] && state.logs[d].weight;
+      if(w!=null && (priorMin===null || w<priorMin)) priorMin = w;
+    });
+    if(priorMin!==null && weight<priorMin){
+      spawnConfetti(el('checkinPanel'));
+      toast('New low weight — great work.');
+    }
   }
 
   var celebratedSteps = {};
@@ -1561,9 +1794,17 @@
     var w = parseFloat(el('logWeight').value);
     var wa = parseFloat(el('logWaist').value);
     var bf = parseFloat(el('logBodyfat').value);
+    var chest = parseFloat(el('logChest').value);
+    var hips = parseFloat(el('logHips').value);
+    var arms = parseFloat(el('logArms').value);
+    var thighs = parseFloat(el('logThighs').value);
     log.weight = isNaN(w) ? null : w;
     log.waist = isNaN(wa) ? null : wa;
     log.bodyfat = isNaN(bf) ? null : bf;
+    log.chest = isNaN(chest) ? null : chest;
+    log.hips = isNaN(hips) ? null : hips;
+    log.arms = isNaN(arms) ? null : arms;
+    log.thighs = isNaN(thighs) ? null : thighs;
     // keep the Setup-tab profile weight current so targets track reality
     if(!isNaN(w) && dateStr === todayStr()){
       state.profile.weight = w;
@@ -1571,6 +1812,8 @@
     }
     saveState();
     toast('Check-in saved');
+    if(!isNaN(w)) maybeCelebrateWeight(dateStr, w);
+    updateStreakUI();
     renderSetupResults();
   }
 
@@ -1584,7 +1827,31 @@
     el('addFoodOverlay').classList.add('open');
     el('foodSearch').value = '';
     renderQuickList('');
+    renderFavorites();
     switchSheetTab('quick');
+  }
+  function renderFavorites(){
+    var section = el('favoritesSection'), list = el('favoritesList');
+    if(!state.favorites.length){ section.style.display = 'none'; return; }
+    section.style.display = 'block';
+    list.innerHTML = state.favorites.map(function(it,idx){
+      return '<div class="quick-item" data-idx="'+idx+'">'+
+        '<div><div class="qn">'+escapeHtml(it.name)+'</div><div class="qm">'+fmt(it.cal)+' kcal · P'+round(it.p,1)+' C'+round(it.c,1)+' F'+round(it.f,1)+'</div></div>'+
+        '<button class="fdel-fav" data-idx="'+idx+'" aria-label="Remove favorite">&times;</button>'+
+        '<button class="favadd" data-idx="'+idx+'">+</button>'+
+      '</div>';
+    }).join('');
+  }
+  function addFavorite(entry){
+    var exists = state.favorites.some(function(f){ return f.name.toLowerCase()===entry.name.toLowerCase(); });
+    if(exists) return;
+    state.favorites.push({name:entry.name, cal:entry.cal, p:entry.p, c:entry.c, f:entry.f});
+    saveState();
+  }
+  function removeFavorite(idx){
+    state.favorites.splice(idx,1);
+    saveState();
+    renderFavorites();
   }
   function closeSheet(){
     el('addFoodOverlay').classList.remove('open');
@@ -1633,6 +1900,7 @@
 
   function collectRange(days){
     var out = [];
+    var targets = currentTargets();
     for(var i=days-1; i>=0; i--){
       var d = addDays(todayStr(), -i);
       var log = state.logs[d];
@@ -1640,14 +1908,22 @@
       if(log && log.foods){
         log.foods.forEach(function(f){ totals.cal+=f.cal; totals.p+=f.p; totals.c+=f.c; totals.f+=f.f; });
       }
+      var hasFood = !!(log && log.foods && log.foods.length);
+      var logged = hasFood || (log && (log.weight!=null || log.steps!=null || (log.water&&log.water>0)));
+      var hitTarget = hasFood && targets ? (totals.cal <= targets.calories*1.05) : false;
       out.push({
         date:d,
         weight: log && log.weight!=null ? log.weight : null,
         waist: log && log.waist!=null ? log.waist : null,
         bodyfat: log && log.bodyfat!=null ? log.bodyfat : null,
         steps: log && log.steps!=null ? log.steps : null,
+        water: log && log.water ? log.water : null,
+        chest: log && log.chest!=null ? log.chest : null,
+        hips: log && log.hips!=null ? log.hips : null,
+        arms: log && log.arms!=null ? log.arms : null,
+        thighs: log && log.thighs!=null ? log.thighs : null,
         cal: totals.cal, p: totals.p, c: totals.c, f: totals.f,
-        hasFood: !!(log && log.foods && log.foods.length)
+        hasFood: hasFood, logged: !!logged, hitTarget: hitTarget
       });
     }
     return out;
@@ -1656,11 +1932,15 @@
   function renderTrends(){
     var days = collectRange(trendRange);
     var targets = currentTargets();
+    if(el('printHeaderDate')){
+      el('printHeaderDate').textContent = 'Generated '+dayLabel(todayStr())+' · last '+trendRange+' days'+(state.profile.goalWeight?' · goal weight '+round(parseFloat(state.profile.goalWeight),1)+(state.profile.unit==='metric'?' kg':' lb'):'');
+    }
     var haveWeight = days.some(function(d){ return d.weight!=null; });
     var haveFood = days.some(function(d){ return d.hasFood; });
     var haveWaist = days.some(function(d){ return d.waist!=null; });
     var haveBodyfat = days.some(function(d){ return d.bodyfat!=null; });
     var haveSteps = days.some(function(d){ return d.steps!=null; });
+    var haveMeasurements = days.some(function(d){ return d.chest!=null||d.hips!=null||d.arms!=null||d.thighs!=null; });
 
     var html = '';
 
@@ -1670,10 +1950,13 @@
       return;
     }
 
+    html += '<div class="chart-card consistency-card"><h2 class="panel-title">Consistency<span class="aux">last 12 weeks</span></h2>' + heatmapHTML(84) + '</div>';
+
     html += '<div class="chart-card history-card"><h2 class="panel-title">History<span class="aux">'+trendRange+'-day log</span></h2>' + historyTable(days) + '</div>';
 
     if(haveWeight){
-      html += '<div class="chart-card"><h2 class="panel-title">Weight</h2>' + weightChartSVG(days) + weightTable(days) + '</div>';
+      var eta = computeGoalEta(collectRange(Math.max(trendRange,30)));
+      html += '<div class="chart-card"><h2 class="panel-title">Weight</h2>' + weightChartSVG(days) + weightTable(days) + (eta ? '<div class="note">'+eta.msg+'</div>' : '') + '</div>';
     }
     if(haveFood){
       html += '<div class="chart-card"><h2 class="panel-title">Calories vs target</h2>' + calorieChartSVG(days, targets) + calorieTable(days, targets) + '</div>';
@@ -1682,8 +1965,77 @@
     if(haveWaist){
       html += '<div class="chart-card"><h2 class="panel-title">Waist</h2>' + waistChartSVG(days) + '</div>';
     }
+    if(haveMeasurements){
+      html += '<div class="chart-card"><h2 class="panel-title">Measurements<span class="aux">chest · hips · arms · thighs</span></h2>' + measurementsTable(days) + '</div>';
+    }
 
     el('trendsBody').innerHTML = html;
+  }
+
+  function heatmapHTML(numDays){
+    var days = collectRange(numDays);
+    var p = days[0].date.split('-').map(Number);
+    var dow = new Date(p[0], p[1]-1, p[2]).getDay();
+    var cells = [];
+    for(var i=0;i<dow;i++) cells.push(null);
+    days.forEach(function(d){ cells.push(d); });
+    while(cells.length % 7 !== 0) cells.push(null);
+    var weeks = [];
+    for(var w=0; w<cells.length; w+=7) weeks.push(cells.slice(w,w+7));
+    var html = '<div class="heatmap-wrap"><div class="heatmap-grid">';
+    weeks.forEach(function(week){
+      html += '<div class="heatmap-col">';
+      week.forEach(function(d){
+        if(!d){ html += '<span class="heatmap-cell lvl-0" aria-hidden="true"></span>'; return; }
+        var lvl = d.hitTarget ? 2 : (d.logged ? 1 : 0);
+        var title = shortLabel(d.date) + (d.logged ? (d.hitTarget?' — on target':' — logged') : ' — no entry');
+        html += '<span class="heatmap-cell lvl-'+lvl+'" title="'+title+'"></span>';
+      });
+      html += '</div>';
+    });
+    html += '</div></div>';
+    html += '<div class="chart-legend heatmap-legend">'+
+      '<span class="li"><span class="heatmap-cell lvl-0"></span>No entry</span>'+
+      '<span class="li"><span class="heatmap-cell lvl-1"></span>Logged</span>'+
+      '<span class="li"><span class="heatmap-cell lvl-2"></span>On target</span>'+
+    '</div>';
+    return html;
+  }
+
+  function measurementsTable(days){
+    var rows = days.filter(function(d){ return d.chest!=null||d.hips!=null||d.arms!=null||d.thighs!=null; })
+      .slice().reverse().map(function(d){
+        return '<tr><td>'+shortLabel(d.date)+'</td>'+
+          '<td>'+(d.chest!=null?round(d.chest,1):'–')+'</td>'+
+          '<td>'+(d.hips!=null?round(d.hips,1):'–')+'</td>'+
+          '<td>'+(d.arms!=null?round(d.arms,1):'–')+'</td>'+
+          '<td>'+(d.thighs!=null?round(d.thighs,1):'–')+'</td></tr>';
+      }).join('');
+    if(!rows) return '<div class="chart-empty">No measurements logged in this range yet.</div>';
+    return '<div class="table-scroll"><table class="history-table"><tr><th>Date</th><th>Chest</th><th>Hips</th><th>Arms</th><th>Thighs</th></tr>'+rows+'</table></div>';
+  }
+
+  function computeGoalEta(days){
+    var goalW = parseFloat(state.profile.goalWeight);
+    if(!goalW) return null;
+    var pts = days.map(function(d,i){ return {i:i, v:d.weight}; }).filter(function(p){ return p.v!=null; });
+    var unitLbl = state.profile.unit==='metric' ? 'kg':'lb';
+    if(pts.length<3) return {msg:'Log weight on a few more days to project a date toward your '+round(goalW,1)+' '+unitLbl+' goal.'};
+    var n = pts.length, sumX=0,sumY=0,sumXY=0,sumXX=0;
+    pts.forEach(function(p){ sumX+=p.i; sumY+=p.v; sumXY+=p.i*p.v; sumXX+=p.i*p.i; });
+    var denom = (n*sumXX - sumX*sumX);
+    if(denom===0) return {msg:'Not enough variation yet to project a date.'};
+    var slope = (n*sumXY - sumX*sumY)/denom;
+    var intercept = (sumY - slope*sumX)/n;
+    var lastVal = slope*pts[pts.length-1].i + intercept;
+    var diff = goalW - lastVal;
+    if(Math.abs(diff) < 0.15) return {msg:'You\'re already at your goal weight based on your latest trend.'};
+    if(Math.abs(slope) < 0.01) return {msg:'Weight has been flat recently — no clear trend to project a date from yet.'};
+    if(Math.sign(slope) !== Math.sign(diff)) return {msg:'The recent trend is moving away from your '+round(goalW,1)+' '+unitLbl+' goal, not toward it.'};
+    var daysNeeded = diff/slope;
+    var targetDate = addDays(todayStr(), Math.round(daysNeeded));
+    var weeklyRate = slope*7;
+    return {msg:'At the recent trend ('+(weeklyRate>=0?'+':'')+round(weeklyRate,2)+' '+unitLbl+'/week), projected to reach '+round(goalW,1)+' '+unitLbl+' around '+dayLabel(targetDate)+'.'};
   }
 
   // ---- shared chart geometry ----
@@ -1717,6 +2069,16 @@
     var last = pts[pts.length-1];
     var first = pts[0];
     var tickIdx = xTickIndices(n);
+    var showAvg = pts.length>=4;
+    var avgPath = '';
+    if(showAvg){
+      var avgPts = pts.map(function(p,idx){
+        var slice = pts.slice(Math.max(0,idx-6), idx+1);
+        var avg = slice.reduce(function(s,q){return s+q.v;},0)/slice.length;
+        return {i:p.i, v:avg};
+      });
+      avgPath = avgPts.map(function(p,idx){ return (idx===0?'M':'L')+xScale(p.i,n).toFixed(1)+','+yScale(p.v).toFixed(1); }).join(' ');
+    }
 
     var svg = '<svg viewBox="0 0 '+CW+' '+CH+'" preserveAspectRatio="xMidYMid meet">';
     // gridlines: two hairlines (max/min reference)
@@ -1727,7 +2089,11 @@
     // area wash
     svg += '<path d="'+areaPath+'" fill="var(--accent)" opacity="0.08" stroke="none"/>';
     // line
-    svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="'+(showAvg?0.45:1)+'"/>';
+    // smoothed trailing-average overlay — the line that actually shows the trend
+    if(showAvg){
+      svg += '<path d="'+avgPath+'" fill="none" stroke="var(--good)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>';
+    }
     // end marker with surface ring
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="6" fill="var(--surface)"/>';
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--accent)"/>';
@@ -1739,7 +2105,8 @@
       svg += '<text x="'+xScale(i,n).toFixed(1)+'" y="'+(CH-6)+'" text-anchor="middle" font-size="8" fill="var(--text-2)" font-family="Space Grotesk, sans-serif">'+shortLabel(days[i].date)+'</text>';
     });
     svg += '</svg>';
-    return svg;
+    var legend = showAvg ? '<div class="chart-legend"><span class="li"><span class="swatch" style="background:var(--accent); opacity:0.45;"></span>Daily</span><span class="li"><span class="swatch" style="background:var(--good);"></span>7-day average</span></div>' : '';
+    return legend + svg;
   }
 
   function waistChartSVG(days){
@@ -1907,11 +2274,13 @@
     if(state.profile.unit==='metric'){
       el('heightLabel').textContent = 'Height (cm)';
       el('weightLabel').textContent = 'Weight (kg)';
+      el('goalWeightLabel').innerHTML = 'Goal weight (kg) <span style="opacity:0.7;">(optional)</span>';
       el('height').style.display = '';
       el('heightImperialRow').style.display = 'none';
     }else{
       el('heightLabel').textContent = 'Height (ft, in)';
       el('weightLabel').textContent = 'Weight (lb)';
+      el('goalWeightLabel').innerHTML = 'Goal weight (lb) <span style="opacity:0.7;">(optional)</span>';
       el('height').style.display = 'none';
       el('heightImperialRow').style.display = 'grid';
       syncFtInFromHeight();
@@ -1941,6 +2310,7 @@
     el('height').value = state.profile.height;
     el('weight').value = state.profile.weight;
     el('bodyfat').value = state.profile.bodyfat || '';
+    el('goalWeight').value = state.profile.goalWeight || '';
   }
 
   var BMI_ICONS = {
@@ -2171,6 +2541,8 @@
           state.profile = Object.assign({}, DEFAULT_PROFILE, parsed.profile||{});
           state.reminder = Object.assign({enabled:false,time:'08:00',lastFired:''}, parsed.reminder||{});
           state.logs = parsed.logs || {};
+          state.favorites = Array.isArray(parsed.favorites) ? parsed.favorites : [];
+          state.milestones = Object.assign({}, DEFAULT_MILESTONES, parsed.milestones||{});
           saveState();
           populateInputs();
           applyUnitLabels();
@@ -2185,7 +2557,7 @@
   }
   function resetAll(){
     if(!confirm('Reset all data? This clears your profile, logs, and reminders on this device.')) return;
-    state = {profile:Object.assign({},DEFAULT_PROFILE), reminder:{enabled:false,time:'08:00',lastFired:''}, theme:'auto', selectedDate:null, logs:{}};
+    state = {profile:Object.assign({},DEFAULT_PROFILE), reminder:{enabled:false,time:'08:00',lastFired:''}, theme:'auto', selectedDate:null, logs:{}, favorites:[], milestones:Object.assign({},DEFAULT_MILESTONES)};
     saveState();
     populateInputs();
     applyUnitLabels();
@@ -2214,6 +2586,7 @@
 
     wireSegmented('unitToggle','unit', function(){
       var h = parseFloat(el('height').value), w = parseFloat(el('weight').value);
+      var gw = parseFloat(el('goalWeight').value);
       if(h && w){
         if(state.profile.unit==='imperial'){
           el('height').value = round(h/2.54,1);
@@ -2222,6 +2595,11 @@
           el('height').value = round(h*2.54,1);
           el('weight').value = round(w*0.45359237,1);
         }
+      }
+      if(!isNaN(gw)){
+        el('goalWeight').value = state.profile.unit==='imperial' ? round(gw/0.45359237,1) : round(gw*0.45359237,1);
+        state.profile.goalWeight = el('goalWeight').value;
+        saveState();
       }
       applyUnitLabels();
     });
@@ -2232,6 +2610,10 @@
 
     ['age','height','weight','bodyfat'].forEach(function(id){
       el(id).addEventListener('input', renderSetupResults);
+    });
+    el('goalWeight').addEventListener('input', function(){
+      state.profile.goalWeight = this.value;
+      saveState();
     });
     ['heightFt','heightIn'].forEach(function(id){
       el(id).addEventListener('input', function(){
@@ -2262,6 +2644,8 @@
     el('saveCheckin').addEventListener('click', saveCheckin);
     el('logSteps').addEventListener('input', function(){ updateStepsUI(parseFloat(this.value)); });
     el('logSteps').addEventListener('change', saveSteps);
+    el('waterPlus').addEventListener('click', function(){ addWater(0.25); });
+    el('waterMinus').addEventListener('click', function(){ addWater(-0.25); });
     el('openAddFood').addEventListener('click', openSheet);
     el('closeAddFood').addEventListener('click', closeSheet);
     el('addFoodOverlay').addEventListener('click', function(e){ if(e.target===el('addFoodOverlay')) closeSheet(); });
@@ -2280,6 +2664,19 @@
       addFoodToLog({name:it.name, cal:it.cal, p:it.p, c:it.c, f:it.f});
       closeSheet();
     });
+    el('favoritesList').addEventListener('click', function(e){
+      var del = e.target.closest('.fdel-fav');
+      if(del){ removeFavorite(parseInt(del.dataset.idx,10)); return; }
+      var add = e.target.closest('.favadd');
+      if(add){
+        var it = state.favorites[parseInt(add.dataset.idx,10)];
+        if(it){ addFoodToLog({name:it.name, cal:it.cal, p:it.p, c:it.c, f:it.f}); closeSheet(); }
+      }
+    });
+    el('saveFavToggle').addEventListener('click', function(){
+      this.classList.toggle('on');
+      this.setAttribute('aria-checked', this.classList.contains('on'));
+    });
     el('addCustomBtn').addEventListener('click', function(){
       var name = el('cName').value.trim();
       var cal = parseFloat(el('cCal').value);
@@ -2287,13 +2684,18 @@
       var c = parseFloat(el('cC').value)||0;
       var f = parseFloat(el('cF').value)||0;
       if(!name || isNaN(cal)){ toast('Add a name and calories'); return; }
-      addFoodToLog({name:name, cal:cal, p:p, c:c, f:f});
+      var entry = {name:name, cal:cal, p:p, c:c, f:f};
+      if(el('saveFavToggle').classList.contains('on')) addFavorite(entry);
+      addFoodToLog(entry);
       el('cName').value=''; el('cCal').value=''; el('cP').value=''; el('cC').value=''; el('cF').value='';
+      el('saveFavToggle').classList.remove('on');
+      el('saveFavToggle').setAttribute('aria-checked','false');
       closeSheet();
     });
 
     // trends tab
     wireSimpleSegmented('rangeToggle', function(val){ trendRange = parseInt(val,10); renderTrends(); });
+    el('printReportBtn').addEventListener('click', function(){ window.print(); });
 
     // reminders
     el('reminderSwitch').addEventListener('click', toggleReminder);
@@ -2337,6 +2739,15 @@
   }
 
   document.addEventListener('DOMContentLoaded', init);
+
+  // Offline support: cache the app shell so it keeps working without a
+  // connection once it's been opened at least once (works alongside the
+  // existing "Add to Home Screen" install).
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
 })();
 </script>
 </body>
