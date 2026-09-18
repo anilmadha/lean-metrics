@@ -252,6 +252,13 @@
   .chart-legend{display:flex; gap:1rem; margin-bottom:0.5rem; flex-wrap:wrap;}
   .chart-legend .li{display:flex; align-items:center; gap:0.4rem; font-size:0.78rem; color:var(--text-2);}
   .chart-empty{font-size:0.85rem; color:var(--text-2); text-align:center; padding:2rem 0;}
+  .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 -0.2rem; padding:0 0.2rem;}
+  .history-table{width:100%; min-width:420px; border-collapse:collapse; font-size:0.82rem;}
+  .history-table th,.history-table td{padding:0.5rem 0.6rem; text-align:right; border-bottom:1px solid var(--hairline); font-family:var(--font-mono); white-space:nowrap;}
+  .history-table th:first-child,.history-table td:first-child{text-align:left; font-family:var(--font-body); font-weight:600;}
+  .history-table th{color:var(--text-2); font-weight:600; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.02em;}
+  .history-table tbody tr:hover td, .history-table tr:hover td{background:var(--tint);}
+
   details.datatable{margin-top:0.4rem;}
   details.datatable summary{cursor:pointer; font-size:0.78rem; color:var(--text-2); list-style:none;}
   details.datatable summary::-webkit-details-marker{display:none;}
@@ -342,6 +349,7 @@
     #trendsBody{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 1.8rem; }
     #trendsBody .chart-card{ border:1px solid var(--hairline); border-radius:16px; padding:1.3rem 1.4rem; margin:0; }
     #trendsBody .chart-empty{ grid-column:1 / -1; }
+    #trendsBody .history-card{ grid-column:1 / -1; }
 
     /* today: date-nav bar is a slim strip, not a tall card */
     #dateNavPanel{ padding-top:0.9rem !important; padding-bottom:0.9rem !important; }
@@ -1578,6 +1586,8 @@
         date:d,
         weight: log && log.weight!=null ? log.weight : null,
         waist: log && log.waist!=null ? log.waist : null,
+        bodyfat: log && log.bodyfat!=null ? log.bodyfat : null,
+        steps: log && log.steps!=null ? log.steps : null,
         cal: totals.cal, p: totals.p, c: totals.c, f: totals.f,
         hasFood: !!(log && log.foods && log.foods.length)
       });
@@ -1591,14 +1601,18 @@
     var haveWeight = days.some(function(d){ return d.weight!=null; });
     var haveFood = days.some(function(d){ return d.hasFood; });
     var haveWaist = days.some(function(d){ return d.waist!=null; });
+    var haveBodyfat = days.some(function(d){ return d.bodyfat!=null; });
+    var haveSteps = days.some(function(d){ return d.steps!=null; });
 
     var html = '';
 
-    if(!haveWeight && !haveFood){
+    if(!haveWeight && !haveFood && !haveWaist && !haveBodyfat && !haveSteps){
       html += '<div class="chart-empty">Log a few check-ins and meals on the Today tab, and your trends will show up here.</div>';
       el('trendsBody').innerHTML = html;
       return;
     }
+
+    html += '<div class="chart-card history-card"><h2 class="panel-title">History<span class="aux">'+trendRange+'-day log</span></h2>' + historyTable(days) + '</div>';
 
     if(haveWeight){
       html += '<div class="chart-card"><h2 class="panel-title">Weight</h2>' + weightChartSVG(days) + weightTable(days) + '</div>';
@@ -1758,6 +1772,22 @@
     return legend + svg;
   }
 
+  function historyTable(days){
+    var rows = days.filter(function(d){
+      return d.weight!=null || d.waist!=null || d.bodyfat!=null || (d.steps!=null) || d.cal>0;
+    }).slice().reverse().map(function(d){
+      return '<tr>'+
+        '<td>'+shortLabel(d.date)+'</td>'+
+        '<td>'+(d.weight!=null?round(d.weight,1):'–')+'</td>'+
+        '<td>'+(d.waist!=null?round(d.waist,1):'–')+'</td>'+
+        '<td>'+(d.bodyfat!=null?round(d.bodyfat,1)+'%':'–')+'</td>'+
+        '<td>'+(d.steps!=null?fmt(d.steps):'–')+'</td>'+
+        '<td>'+(d.cal>0?fmt(d.cal):'–')+'</td>'+
+      '</tr>';
+    }).join('');
+    if(!rows) return '<div class="chart-empty">No entries logged in this range yet.</div>';
+    return '<div class="table-scroll"><table class="history-table"><tr><th>Date</th><th>Weight</th><th>Waist</th><th>Body fat</th><th>Steps</th><th>Calories</th></tr>'+rows+'</table></div>';
+  }
   function weightTable(days){
     var rows = days.filter(function(d){return d.weight!=null;}).map(function(d){
       return '<tr><td>'+shortLabel(d.date)+'</td><td>'+round(d.weight,1)+'</td></tr>';
