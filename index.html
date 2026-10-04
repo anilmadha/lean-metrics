@@ -344,6 +344,34 @@
   .add-btn{width:100%; padding:0.85rem; border-radius:999px; border:none; background:var(--text); color:var(--bg); font-family:var(--font-display); font-weight:600; font-size:0.92rem; margin-top:0.5rem;}
   .add-btn:disabled{opacity:0.4;}
 
+  /* ---------- meditate ---------- */
+  .chip-row{display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.7rem;}
+  .chip-btn{padding:0.55rem 1.1rem; border-radius:999px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-family:var(--font-display); font-weight:600; font-size:0.85rem;}
+  .chip-btn.active{background:var(--fill); color:var(--bg); border-color:var(--fill);}
+  .meditate-ring-wrap{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; margin:1.4rem auto 1.6rem; width:220px; height:220px;}
+  .meditate-breath{position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--accent) 24%, transparent) 0%, transparent 72%); border:1px solid var(--hairline); animation:breathCycle 16s ease-in-out infinite; animation-play-state:paused;}
+  .meditate-breath.running{animation-play-state:running;}
+  @keyframes breathCycle{
+    0%{transform:scale(0.7);}
+    25%{transform:scale(1);}
+    50%{transform:scale(1);}
+    75%{transform:scale(0.7);}
+    100%{transform:scale(0.7);}
+  }
+  .meditate-time{position:relative; font-family:var(--font-mono); font-size:2.5rem; font-weight:600; color:var(--text); z-index:1; letter-spacing:0.01em;}
+  .meditate-phase{position:relative; font-size:0.8rem; color:var(--text-2); margin-top:0.3rem; z-index:1;}
+  .meditate-controls{display:flex; gap:0.6rem; justify-content:center; margin-top:0.2rem;}
+  .meditate-controls button{flex:1; max-width:160px; padding:0.8rem; border-radius:999px; border:none; background:var(--text); color:var(--bg); font-family:var(--font-display); font-weight:600; font-size:0.92rem;}
+  .meditate-controls button.ghost{background:transparent; border:1px solid var(--hairline); color:var(--text);}
+  .meditate-field-label{font-size:0.78rem; color:var(--text-2); margin-top:1.1rem; display:block;}
+  .meditate-field-label:first-child{margin-top:0;}
+  input[type="range"].meditate-volume{width:100%; margin-top:0.6rem; accent-color:var(--fill);}
+  .meditate-toggle-row{display:flex; align-items:center; gap:0.5rem; margin-top:1rem; font-size:0.85rem; color:var(--text);}
+  .meditate-toggle-row input{width:17px; height:17px; accent-color:var(--fill);}
+  .meditate-stats-row{display:flex; gap:1.4rem; margin-bottom:0.9rem; flex-wrap:wrap;}
+  .meditate-stat{font-size:0.8rem; color:var(--text-2);}
+  .meditate-stat strong{display:block; font-family:var(--font-display); font-size:1.15rem; color:var(--text); font-weight:700;}
+
   /* ---------- charts ---------- */
   .chart-card{margin-bottom:1.3rem;}
   .chart-card svg{width:100%; height:auto; display:block; overflow:visible;}
@@ -581,6 +609,14 @@
     #learnBody{ border:none !important; padding:0 !important; background:none !important; }
     #learnBody{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 1.8rem; }
     #learnBody .chart-card{ border:1px solid var(--hairline); border-radius:16px; padding:1.3rem 1.4rem; margin:0; }
+
+    /* meditate: timer card full width, sound + history side by side */
+    #page-meditate.active{ display:block; }
+    #page-meditate.active > section.panel:first-child{ border:none; padding:0 0 1rem; background:none; }
+    #meditateBody{ border:none !important; padding:0 !important; background:none !important; }
+    #meditateBody{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 1.8rem; }
+    #meditateBody .chart-card{ border:1px solid var(--hairline); border-radius:16px; padding:1.3rem 1.4rem; margin:0; }
+    #meditateBody .meditate-timer-card{ grid-column:1 / -1; }
 
     /* today: date-nav bar is a slim strip, not a tall card */
     #dateNavPanel{ padding-top:0.9rem !important; padding-bottom:0.9rem !important; }
@@ -1103,16 +1139,125 @@
 
       <div class="chart-card">
         <details class="methods">
+          <summary><span class="title-flex"><span class="title-icon title-icon-protein" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9.5" width="18" height="5" rx="2.5" transform="rotate(35 12 12)"/><path d="M9.7 8.2L14.3 15.8" transform="rotate(35 12 12)"/></svg></span>Supplements worth considering</span></summary>
+          <div class="body">
+            <p><strong>Protein powder (whey or plant-based).</strong> Not essential if food already hits your gram target, but the easiest way to close a gap — after training or when a meal falls short. Whey digests fast (good post-workout or first thing in the morning); casein digests slowly (useful before bed for an overnight supply).</p>
+            <p><strong>Creatine monohydrate.</strong> One of the <a href="https://pubmed.ncbi.nlm.nih.gov/?term=ISSN+position+stand+creatine+supplementation" target="_blank" rel="noopener">most well-researched supplements in sports nutrition</a> — about 3–5g/day, every day, improves strength and power output. Timing barely matters since it works by saturating muscle stores over time; take it with any meal, consistently, rather than specifically around training.</p>
+            <p><strong>Vitamin D3.</strong> Worth considering with limited sun exposure — supports bone health and immune function. Take it with a meal containing some fat, since it's fat-soluble and absorbs better that way. Typical over-the-counter doses run 1,000–2,000 IU/day; get your level checked before going higher.</p>
+            <p><strong>Omega-3 / fish oil.</strong> Supports heart and brain health if you don't eat <a href="https://ods.od.nih.gov/factsheets/Omega3FattyAcids-Consumer/" target="_blank" rel="noopener">fatty fish</a> a couple times a week. Take it with meals — it reduces the "fishy burps" some people get on an empty stomach.</p>
+            <p><strong>Magnesium.</strong> Involved in muscle relaxation, nerve function, and sleep quality; many diets fall short. Gentler forms like magnesium glycinate are easier on digestion. Best taken in the evening, 30–60 minutes before bed, for its mild relaxing effect.</p>
+            <p><strong>Caffeine.</strong> Reliably improves focus and workout performance taken 30–60 minutes beforehand. Cut it off by early-to-mid afternoon — its roughly 5–6 hour half-life means a late dose is still partly active at bedtime and can quietly wreck sleep quality.</p>
+            <p>Supplements fill gaps in a diet — they don't fix a bad one. None of the above are essential if food already covers it, and as always, check with a doctor before starting anything new, especially if you take medication or have a health condition.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="chart-card">
+        <details class="methods">
+          <summary><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span>Sleep: the most underrated recovery tool</span></summary>
+          <div class="body">
+            <p><strong>How much you actually need.</strong> <a href="https://www.cdc.gov/sleep/" target="_blank" rel="noopener">CDC and sleep-medicine guidance</a> puts healthy adults at 7–9 hours a night. Falling short regularly is linked to worse recovery, worse appetite control, and worse training performance — "I function fine on 5" is usually adaptation to feeling bad, not evidence it's harmless.</p>
+            <p><strong>Deep sleep repairs the body.</strong> Growth hormone release — the hormone most responsible for tissue repair and muscle recovery — peaks during deep (slow-wave) sleep, concentrated in the first half of the night. Cutting sleep short disproportionately cuts into this stage.</p>
+            <p><strong>REM sleep repairs the mind.</strong> Later sleep cycles are REM-heavy — tied to memory consolidation, learning, and emotional regulation. Alcohol and short sleep duration both suppress REM disproportionately (see the alcohol card above).</p>
+            <p><strong>It directly affects fat loss and hunger.</strong> <a href="https://pubmed.ncbi.nlm.nih.gov/?term=sleep+restriction+fat+loss+Nedeltcheva" target="_blank" rel="noopener">Sleep-restriction studies</a> found that cutting sleep to ~5.5 hours while dieting shifted weight loss away from fat and toward lean mass, and raised hunger hormones — the same calorie deficit performed noticeably worse on too little sleep.</p>
+            <p><strong>Practical sleep hygiene.</strong> A consistent sleep/wake time (even on weekends), a cool dark room, cutting caffeine by early afternoon, and keeping screens and bright light out of the last 30–60 minutes before bed are the highest-leverage, best-evidenced habits — more impactful than any supplement. The Meditate tab's timer can help wind down before bed.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="chart-card">
+        <details class="methods">
+          <summary><span class="title-flex"><span class="title-icon title-icon-danger" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="14.5" width="15" height="3.2" rx="1"/><path d="M17 14.5h2.5a1.6 1.6 0 0 0 0-3.2H18M8 9c0.9-1 0.9-2 0-3M12.3 9c0.9-1.2 0.9-2.4-0.2-3.6"/></svg></span>How smoking affects your body — and how to quit</span></summary>
+          <div class="body">
+            <p><strong>It directly undercuts training and recovery.</strong> Carbon monoxide from smoke binds red blood cells more readily than oxygen does, measurably reducing how much oxygen your blood delivers to working muscle — this shows up as lower endurance and a harder time recovering between sets or sessions.</p>
+            <p><strong>Cardiovascular cost.</strong> Smoking raises heart rate and blood pressure, damages the lining of blood vessels, and accelerates plaque buildup — the same process behind heart attack and stroke risk, compounding with the extra cardiovascular strain of carrying excess weight.</p>
+            <p><strong>It slows healing and muscle repair.</strong> Reduced oxygen delivery and chronic low-grade inflammation from smoking measurably slow wound and tissue healing — relevant for anyone training hard enough to generate normal muscle micro-damage that needs to repair.</p>
+            <p><strong>Vaping isn't a free pass.</strong> Nicotine itself — combusted or vaped — raises heart rate and blood pressure and is addictive. Vaping removes much of the tar and combustion-byproduct exposure, but the cardiovascular and addiction effects of nicotine remain.</p>
+            <p><strong>How to quit — what actually works.</strong> The combination with the best track record is nicotine replacement (patch, gum, or lozenge) or a prescription medication (varenicline or bupropion, via a doctor) <em>plus</em> behavioral support — a quitline, app, or counselor roughly doubles success rates over willpower alone. <a href="https://smokefree.gov/" target="_blank" rel="noopener">Smokefree.gov</a> and the U.S. 1-800-QUIT-NOW line are free starting points.</p>
+            <p><strong>It gets better fast.</strong> Heart rate and blood pressure drop within 20 minutes of the last cigarette; circulation and lung function measurably improve within weeks to months; within a year, excess heart disease risk is roughly cut in half. It's never too late to see gains from quitting.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="chart-card">
+        <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.8 2.8M15.2 15.2L18 18M18 6l-2.8 2.8M8.8 15.2L6 18"/></svg></span>Other things worth knowing</span></summary>
           <div class="body">
             <p><strong>Fiber feeds more than digestion.</strong> Beyond regularity, fiber slows glucose absorption (steadier energy, less of a blood-sugar spike) and feeds the gut bacteria linked to immune and metabolic health — the reasoning behind your fiber target on the Setup tab.</p>
-            <p><strong>Omega-3 fats.</strong> <a href="https://ods.od.nih.gov/factsheets/Omega3FattyAcids-Consumer/" target="_blank" rel="noopener">EPA/DHA</a> (fatty fish, algae oil) and ALA (flax, walnuts, chia) support heart and brain health and help balance the inflammatory response from the far more common omega-6 fats in most diets.</p>
-            <p><strong>Creatine</strong> is one of the most well-researched supplements in sports nutrition — <a href="https://pubmed.ncbi.nlm.nih.gov/?term=ISSN+position+stand+creatine+supplementation" target="_blank" rel="noopener">~3–5g/day consistently improves strength and power output</a> and is considered safe for healthy adults at that dose.</p>
-            <p><strong>Sleep is a training variable, not a lifestyle footnote.</strong> Much of the hormonal environment that supports muscle repair and fat loss — growth hormone release, appetite-regulating hormones like leptin and ghrelin — is tied to consistent 7–9 hour sleep. Poor sleep undermines a good diet and training plan.</p>
             <p><strong>Food first, supplements second.</strong> Supplements fill gaps; they don't replace a varied diet of whole foods, which brings fiber, phytonutrients, and a wider spread of vitamins and minerals that pills alone don't fully replicate.</p>
-            <p>These are population-level summaries of established nutrition research, not a medical assessment. If you have a health condition, are pregnant, or are under 18, talk to a doctor or registered dietitian before changing your diet, supplements, or alcohol intake.</p>
+            <p>These are population-level summaries of established nutrition research, not a medical assessment. If you have a health condition, are pregnant, or are under 18, talk to a doctor or registered dietitian before changing your diet, supplements, alcohol intake, or smoking cessation plan.</p>
           </div>
         </details>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- ============ MEDITATE ============ -->
+  <div class="tabpage" id="page-meditate">
+
+    <section class="panel" style="padding-top:0.2rem; border-top:none;">
+      <div class="note">A simple breath-paced timer with optional ambient sound — for winding down, a pre-sleep reset, or a mid-day break from training stress. Runs fully on-device; nothing is recorded or sent anywhere.</div>
+    </section>
+
+    <section class="panel" id="meditateBody">
+
+      <div class="chart-card meditate-timer-card">
+        <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></span>Timer</span></h2>
+
+        <span class="meditate-field-label">Duration</span>
+        <div class="chip-row" id="medDurationChips">
+          <button type="button" class="chip-btn" data-min="3">3 min</button>
+          <button type="button" class="chip-btn active" data-min="5">5 min</button>
+          <button type="button" class="chip-btn" data-min="10">10 min</button>
+          <button type="button" class="chip-btn" data-min="15">15 min</button>
+          <button type="button" class="chip-btn" data-min="20">20 min</button>
+          <button type="button" class="chip-btn" data-min="30">30 min</button>
+        </div>
+
+        <div class="meditate-ring-wrap">
+          <div class="meditate-breath" id="medBreath" aria-hidden="true"></div>
+          <div class="meditate-time" id="medTimeDisplay">05:00</div>
+          <div class="meditate-phase" id="medPhaseLabel">Ready</div>
+        </div>
+
+        <div class="meditate-controls">
+          <button type="button" id="medStartBtn">Start</button>
+          <button type="button" id="medResetBtn" class="ghost">Reset</button>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V7l9-2v11"/><circle cx="6.5" cy="18" r="2.3"/><circle cx="15.5" cy="16" r="2.3"/></svg></span>Ambient sound</span></h2>
+
+        <span class="meditate-field-label">Sound</span>
+        <div class="chip-row" id="medSoundChips">
+          <button type="button" class="chip-btn active" data-sound="none">None</button>
+          <button type="button" class="chip-btn" data-sound="white">White noise</button>
+          <button type="button" class="chip-btn" data-sound="brown">Brown noise</button>
+          <button type="button" class="chip-btn" data-sound="rain">Rain</button>
+          <button type="button" class="chip-btn" data-sound="ocean">Ocean waves</button>
+        </div>
+
+        <span class="meditate-field-label">Volume</span>
+        <input type="range" class="meditate-volume" id="medVolume" min="0" max="100" value="45">
+
+        <label class="meditate-toggle-row">
+          <input type="checkbox" id="medBellToggle" checked>
+          <span>Bell chime at start &amp; end</span>
+        </label>
+
+        <div class="note" style="margin-top:1rem;">Sounds are generated on-device with the Web Audio API — no audio files to download, nothing hosted externally.</div>
+      </div>
+
+      <div class="chart-card">
+        <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4l2.6 2.6" stroke-linecap="round"/></svg></span>Your sessions</span></h2>
+        <div class="meditate-stats-row">
+          <div class="meditate-stat"><strong id="medWeekStat">0 min</strong>this week</div>
+          <div class="meditate-stat"><strong id="medLifetimeStat">0 sessions</strong>lifetime</div>
+        </div>
+        <div id="medSessionList"></div>
       </div>
 
     </section>
@@ -1493,6 +1638,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5A1.5 1.5 0 014 18.5v-13z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5a1.5 1.5 0 001.5-1.5v-13z"/></svg>
       <span class="tlabel">Learn</span>
     </button>
+    <button class="tab-btn" data-tab="meditate">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+      <span class="tlabel">Meditate</span>
+    </button>
     <button class="tab-btn active" data-tab="setup">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a1.7 1.7 0 000-3l1.1-1.6-1.7-1.7-1.6 1.1a1.7 1.7 0 00-3 0L13.6 5h-2.4l-.6 1.9a1.7 1.7 0 00-3 0L6 5.8 4.3 7.5l1.1 1.6a1.7 1.7 0 000 3L4.3 13.7 6 15.4l1.6-1.1a1.7 1.7 0 003 0l.6 1.9h2.4l.6-1.9a1.7 1.7 0 003 0l1.6 1.1 1.7-1.7-1.1-1.6z" stroke-linejoin="round"/></svg>
       <span class="tlabel">Setup</span>
@@ -1523,6 +1672,10 @@
   <button class="tab-btn" data-tab="learn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5A1.5 1.5 0 014 18.5v-13z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5a1.5 1.5 0 001.5-1.5v-13z"/></svg>
     <span class="tlabel">Learn</span>
+  </button>
+  <button class="tab-btn" data-tab="meditate">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+    <span class="tlabel">Meditate</span>
   </button>
   <button class="tab-btn active" data-tab="setup">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a1.7 1.7 0 000-3l1.1-1.6-1.7-1.7-1.6 1.1a1.7 1.7 0 00-3 0L13.6 5h-2.4l-.6 1.9a1.7 1.7 0 00-3 0L6 5.8 4.3 7.5l1.1 1.6a1.7 1.7 0 000 3L4.3 13.7 6 15.4l1.6-1.1a1.7 1.7 0 003 0l.6 1.9h2.4l.6-1.9a1.7 1.7 0 003 0l1.6 1.1 1.7-1.7-1.1-1.6z" stroke-linejoin="round"/></svg>
@@ -1777,6 +1930,7 @@
 
   var DEFAULT_MILESTONES = {streak7:false, streak30:false, streak100:false, newLowWeight:false};
   var DEFAULT_WORKOUT = {gender:'male', split:'3', difficulty:'beginner', goal:'general', completed:{}};
+  var DEFAULT_MEDITATION = {sessions:[], lastSound:'none', volume:45, bell:true};
 
   var state = {
     profile: Object.assign({}, DEFAULT_PROFILE),
@@ -1788,7 +1942,8 @@
     milestones: Object.assign({}, DEFAULT_MILESTONES),
     workout: Object.assign({}, DEFAULT_WORKOUT),
     workoutLogs: {},
-    restSeconds: 90
+    restSeconds: 90,
+    meditation: Object.assign({}, DEFAULT_MEDITATION)
   };
 
   /* ============================================================
@@ -1887,6 +2042,8 @@
           state.workout = Object.assign({}, DEFAULT_WORKOUT, parsed.workout||{});
           state.workoutLogs = (parsed.workoutLogs && typeof parsed.workoutLogs==='object') ? parsed.workoutLogs : {};
           state.restSeconds = (typeof parsed.restSeconds==='number' && parsed.restSeconds>0) ? parsed.restSeconds : 90;
+          state.meditation = Object.assign({}, DEFAULT_MEDITATION, parsed.meditation||{});
+          if(!Array.isArray(state.meditation.sessions)) state.meditation.sessions = [];
           return;
         }
       }
@@ -2065,6 +2222,7 @@
     if(name==='today') renderToday();
     if(name==='trends') renderTrends();
     if(name==='workouts') renderWorkouts();
+    if(name==='meditate') renderMeditateHistory();
     if(name==='setup') renderSetupResults();
     window.scrollTo(0,0);
   }
@@ -3091,6 +3249,271 @@
   }
 
   /* ============================================================
+     MEDITATE TAB (breath-paced timer + on-device ambient sound)
+  ============================================================ */
+  var medTimer = {total:300, remaining:300, intervalId:null, running:false};
+  var medAudio = {ctx:null, src:null, gain:null, extraNodes:[], lfo:null};
+
+  function medEnsureCtx(){
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if(!Ctx) return null;
+    if(!medAudio.ctx) medAudio.ctx = new Ctx();
+    if(medAudio.ctx.state === 'suspended') { try{ medAudio.ctx.resume(); }catch(e){} }
+    return medAudio.ctx;
+  }
+  function medMakeNoiseBuffer(ctx, brown){
+    var len = 2 * ctx.sampleRate;
+    var buffer = ctx.createBuffer(1, len, ctx.sampleRate);
+    var data = buffer.getChannelData(0);
+    if(brown){
+      var last = 0;
+      for(var i=0;i<len;i++){
+        var white = Math.random()*2-1;
+        last = (last + 0.02*white) / 1.02;
+        data[i] = last * 3.5;
+      }
+    } else {
+      for(var j=0;j<len;j++){ data[j] = Math.random()*2-1; }
+    }
+    return buffer;
+  }
+  function medStopSound(){
+    if(medAudio.src){ try{ medAudio.src.stop(); }catch(e){} try{ medAudio.src.disconnect(); }catch(e){} medAudio.src = null; }
+    if(medAudio.lfo){ try{ medAudio.lfo.stop(); }catch(e){} try{ medAudio.lfo.disconnect(); }catch(e){} medAudio.lfo = null; }
+    medAudio.extraNodes.forEach(function(n){ try{ n.disconnect(); }catch(e){} });
+    medAudio.extraNodes = [];
+    if(medAudio.gain){ try{ medAudio.gain.disconnect(); }catch(e){} medAudio.gain = null; }
+  }
+  function medStartSound(type, volume){
+    medStopSound();
+    if(!type || type==='none') return;
+    var ctx = medEnsureCtx();
+    if(!ctx) return;
+    var gain = ctx.createGain();
+    gain.gain.value = volume;
+    medAudio.gain = gain;
+
+    var src = ctx.createBufferSource();
+    var brown = (type==='brown' || type==='ocean');
+    src.buffer = medMakeNoiseBuffer(ctx, brown);
+    src.loop = true;
+
+    if(type==='rain'){
+      var hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 500;
+      var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2200; bp.Q.value = 0.5;
+      src.connect(hp); hp.connect(bp); bp.connect(gain);
+      medAudio.extraNodes = [hp, bp];
+    } else if(type==='ocean'){
+      var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900;
+      src.connect(lp); lp.connect(gain);
+      var lfo = ctx.createOscillator(); lfo.frequency.value = 0.09;
+      var lfoGain = ctx.createGain(); lfoGain.gain.value = volume*0.5;
+      lfo.connect(lfoGain); lfoGain.connect(gain.gain);
+      lfo.start();
+      medAudio.lfo = lfo;
+      medAudio.extraNodes = [lp, lfoGain];
+    } else {
+      src.connect(gain);
+    }
+    gain.connect(ctx.destination);
+    src.start();
+    medAudio.src = src;
+  }
+  function medSetVolume(v){
+    if(medAudio.gain) medAudio.gain.gain.value = v;
+  }
+  function playChime(){
+    try{
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if(!Ctx) return;
+      var ctx = new Ctx();
+      [1, 2, 2.4].forEach(function(mult, i){
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = 220*mult;
+        var peak = i===0 ? 0.3 : 0.12;
+        gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(peak, ctx.currentTime+0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+3.2);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime+3.3);
+      });
+      setTimeout(function(){ try{ ctx.close(); }catch(e){} }, 3500);
+    }catch(err){ /* Web Audio unavailable — silently skip the chime */ }
+  }
+
+  function medSelectedSound(){
+    var active = document.querySelector('#medSoundChips .chip-btn.active');
+    return active ? active.dataset.sound : 'none';
+  }
+  function medVolumeValue(){
+    var node = el('medVolume');
+    return node ? (Number(node.value)||0)/100 : 0.45;
+  }
+  function renderMedTimerDisplay(){
+    var r = Math.max(0, medTimer.remaining);
+    var m = Math.floor(r/60), s = r%60;
+    var node = el('medTimeDisplay');
+    if(node) node.textContent = pad2(m)+':'+pad2(s);
+    var ph = el('medPhaseLabel');
+    if(ph){
+      if(!medTimer.running){ ph.textContent = 'Ready'; }
+      else{
+        var elapsed = medTimer.total - r;
+        var pos = elapsed % 16;
+        ph.textContent = pos<4 ? 'Breathe in' : pos<8 ? 'Hold' : pos<12 ? 'Breathe out' : 'Hold';
+      }
+    }
+  }
+  function medSetDuration(mins){
+    if(medTimer.running) return;
+    medTimer.total = mins*60;
+    medTimer.remaining = mins*60;
+    renderMedTimerDisplay();
+    document.querySelectorAll('#medDurationChips .chip-btn').forEach(function(b){
+      b.classList.toggle('active', Number(b.dataset.min)===mins);
+    });
+  }
+  function medStartTimer(){
+    if(medTimer.remaining<=0) return;
+    if(medTimer.running) return;
+    medTimer.running = true;
+    medEnsureCtx();
+    var bell = el('medBellToggle');
+    if(bell && bell.checked) playChime();
+    var soundType = medSelectedSound();
+    medStartSound(soundType, medVolumeValue());
+    var breath = el('medBreath');
+    if(breath) breath.classList.add('running');
+    var startBtn = el('medStartBtn');
+    if(startBtn) startBtn.textContent = 'Pause';
+    renderMedTimerDisplay();
+    medTimer.intervalId = setInterval(function(){
+      medTimer.remaining--;
+      renderMedTimerDisplay();
+      if(medTimer.remaining<=0) medCompleteSession();
+    }, 1000);
+  }
+  function medPauseTimer(){
+    clearInterval(medTimer.intervalId);
+    medTimer.intervalId = null;
+    medTimer.running = false;
+    medStopSound();
+    var breath = el('medBreath');
+    if(breath) breath.classList.remove('running');
+    var startBtn = el('medStartBtn');
+    if(startBtn) startBtn.textContent = 'Resume';
+    renderMedTimerDisplay();
+  }
+  function medToggleStart(){
+    if(medTimer.running) medPauseTimer();
+    else medStartTimer();
+  }
+  function medResetTimer(){
+    clearInterval(medTimer.intervalId);
+    medTimer.intervalId = null;
+    medTimer.running = false;
+    medStopSound();
+    medTimer.remaining = medTimer.total;
+    var breath = el('medBreath');
+    if(breath) breath.classList.remove('running');
+    var startBtn = el('medStartBtn');
+    if(startBtn) startBtn.textContent = 'Start';
+    renderMedTimerDisplay();
+  }
+  function medCompleteSession(){
+    var completedSeconds = medTimer.total;
+    clearInterval(medTimer.intervalId);
+    medTimer.intervalId = null;
+    medTimer.running = false;
+    medStopSound();
+    var breath = el('medBreath');
+    if(breath) breath.classList.remove('running');
+    var bell = el('medBellToggle');
+    if(bell && bell.checked) playChime();
+    try{ if(navigator.vibrate) navigator.vibrate([200,80,200,80,200]); }catch(e){}
+    toast('Session complete — nicely done.');
+    logMeditationSession(completedSeconds);
+    var startBtn = el('medStartBtn');
+    if(startBtn) startBtn.textContent = 'Start';
+    medTimer.remaining = medTimer.total;
+    renderMedTimerDisplay();
+    renderMeditateHistory();
+  }
+  function logMeditationSession(seconds){
+    if(!seconds || seconds<=0) return;
+    if(!state.meditation) state.meditation = Object.assign({}, DEFAULT_MEDITATION);
+    if(!Array.isArray(state.meditation.sessions)) state.meditation.sessions = [];
+    state.meditation.sessions.unshift({date: todayStr(), seconds: seconds, ts: Date.now()});
+    if(state.meditation.sessions.length > 50) state.meditation.sessions.length = 50;
+    saveState();
+  }
+  function renderMeditateHistory(){
+    var sessions = (state.meditation && state.meditation.sessions) || [];
+    var totalSec = sessions.reduce(function(a,s){ return a+s.seconds; }, 0);
+    var weekCutoff = addDays(todayStr(), -6);
+    var weekSec = sessions.filter(function(s){ return s.date >= weekCutoff; }).reduce(function(a,s){ return a+s.seconds; }, 0);
+    var weekNode = el('medWeekStat');
+    if(weekNode) weekNode.textContent = Math.round(weekSec/60)+' min';
+    var lifeNode = el('medLifetimeStat');
+    if(lifeNode) lifeNode.textContent = sessions.length+(sessions.length===1?' session':' sessions');
+    var listNode = el('medSessionList');
+    if(!listNode) return;
+    if(!sessions.length){
+      listNode.innerHTML = '<div class="chart-empty">No sessions yet — start your first one above.</div>';
+      return;
+    }
+    var rows = sessions.slice(0,8).map(function(s){
+      var mins = Math.max(1, Math.round(s.seconds/60));
+      return '<tr><td>'+dayLabel(s.date)+'</td><td>'+mins+' min</td></tr>';
+    }).join('');
+    listNode.innerHTML = '<div class="table-scroll"><table class="history-table"><tr><th>Date</th><th>Duration</th></tr>'+rows+'</table></div>';
+  }
+  function initMeditate(){
+    var m = state.meditation || DEFAULT_MEDITATION;
+    document.querySelectorAll('#medDurationChips .chip-btn').forEach(function(b){
+      b.addEventListener('click', function(){ medSetDuration(Number(b.dataset.min)); });
+    });
+    document.querySelectorAll('#medSoundChips .chip-btn').forEach(function(b){
+      if(b.dataset.sound === m.lastSound) b.classList.add('active');
+      else b.classList.remove('active');
+      b.addEventListener('click', function(){
+        document.querySelectorAll('#medSoundChips .chip-btn').forEach(function(x){ x.classList.remove('active'); });
+        b.classList.add('active');
+        state.meditation.lastSound = b.dataset.sound;
+        saveState();
+        if(medTimer.running) medStartSound(b.dataset.sound, medVolumeValue());
+      });
+    });
+    var volNode = el('medVolume');
+    if(volNode){
+      volNode.value = (typeof m.volume==='number') ? m.volume : 45;
+      volNode.addEventListener('input', function(){ medSetVolume(Number(volNode.value)/100); });
+      volNode.addEventListener('change', function(){
+        state.meditation.volume = Number(volNode.value);
+        saveState();
+      });
+    }
+    var bellNode = el('medBellToggle');
+    if(bellNode){
+      bellNode.checked = m.bell !== false;
+      bellNode.addEventListener('change', function(){
+        state.meditation.bell = bellNode.checked;
+        saveState();
+      });
+    }
+    var startBtn = el('medStartBtn');
+    if(startBtn) startBtn.addEventListener('click', medToggleStart);
+    var resetBtn = el('medResetBtn');
+    if(resetBtn) resetBtn.addEventListener('click', medResetTimer);
+    medSetDuration(5);
+    renderMeditateHistory();
+  }
+
+  /* ============================================================
      GYM MODE (fullscreen, distraction-free workout runner)
   ============================================================ */
   var gymState = null; // {dayIndex, exIndex} — in-memory only, not persisted
@@ -3700,6 +4123,8 @@
           state.workout = Object.assign({}, DEFAULT_WORKOUT, parsed.workout||{});
           state.workoutLogs = (parsed.workoutLogs && typeof parsed.workoutLogs==='object') ? parsed.workoutLogs : {};
           state.restSeconds = (typeof parsed.restSeconds==='number' && parsed.restSeconds>0) ? parsed.restSeconds : 90;
+          state.meditation = Object.assign({}, DEFAULT_MEDITATION, parsed.meditation||{});
+          if(!Array.isArray(state.meditation.sessions)) state.meditation.sessions = [];
           saveState();
           populateInputs();
           applyUnitLabels();
@@ -3716,7 +4141,7 @@
   }
   function resetAll(){
     if(!confirm('Reset all data? This clears your profile, logs, and reminders on this device.')) return;
-    state = {profile:Object.assign({},DEFAULT_PROFILE), reminder:{enabled:false,time:'08:00',lastFired:''}, theme:'auto', selectedDate:null, logs:{}, favorites:[], milestones:Object.assign({},DEFAULT_MILESTONES), workout:Object.assign({},DEFAULT_WORKOUT), workoutLogs:{}, restSeconds:90};
+    state = {profile:Object.assign({},DEFAULT_PROFILE), reminder:{enabled:false,time:'08:00',lastFired:''}, theme:'auto', selectedDate:null, logs:{}, favorites:[], milestones:Object.assign({},DEFAULT_MILESTONES), workout:Object.assign({},DEFAULT_WORKOUT), workoutLogs:{}, restSeconds:90, meditation:Object.assign({},DEFAULT_MEDITATION)};
     saveState();
     populateInputs();
     applyUnitLabels();
@@ -3878,6 +4303,9 @@
     el('gymExitBtn').addEventListener('click', closeGymMode);
     el('gymPrevBtn').addEventListener('click', gymPrev);
     el('gymNextBtn').addEventListener('click', gymNext);
+
+    // meditate tab
+    initMeditate();
 
     // reminders
     el('reminderSwitch').addEventListener('click', toggleReminder);
