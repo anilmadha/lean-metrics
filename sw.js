@@ -1,7 +1,7 @@
 /* Lean Metrics — service worker
    Bumps its cache name so a redeploy of index.html can invalidate old
    assets; increment CACHE_NAME whenever core assets change. */
-var CACHE_NAME = 'lean-metrics-v9';
+var CACHE_NAME = 'lean-metrics-v10';
 var CORE_ASSETS = [
   './',
   'index.html',

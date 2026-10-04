@@ -126,11 +126,22 @@
   /* ---------- milestone badges ---------- */
   .milestones-row{display:flex; justify-content:space-between; gap:0.5rem; text-align:center;}
   .milestone-badge{flex:1; display:flex; flex-direction:column; align-items:center; gap:0.4rem;}
-  .milestone-badge-icon{width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none; border:1.5px solid var(--hairline); color:var(--text-2); opacity:0.35; transition:opacity .3s ease, box-shadow .3s ease;}
+  .milestone-badge-icon{position:relative; overflow:hidden; width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none; border:1.5px solid var(--hairline); color:var(--text-2); opacity:0.35; transition:opacity .3s ease, box-shadow .3s ease;}
   .milestone-badge-icon svg{width:20px; height:20px;}
   .chart-card .milestone-badge-icon svg{width:20px; height:20px;}
-  .milestone-badge.earned .milestone-badge-icon{opacity:1; border-color:var(--accent); color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent);}
-  .milestone-badge.earned .milestone-badge-icon svg{fill:var(--accent); stroke:var(--accent);}
+  .milestone-badge.earned .milestone-badge-icon{opacity:1; border-color:var(--accent); color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent), 0 0 16px color-mix(in srgb, var(--accent) 35%, transparent); animation:badgeEarnedIn .5s var(--ease-spring) both;}
+  .milestone-badge.earned .milestone-badge-icon svg{fill:var(--accent); stroke:var(--accent); position:relative; z-index:1;}
+  .milestone-badge.earned .milestone-badge-icon::after{
+    content:""; position:absolute; top:-50%; left:-180%; width:60%; height:220%;
+    background:linear-gradient(100deg, transparent 0%, color-mix(in srgb, #fff 75%, var(--accent)) 50%, transparent 100%);
+    opacity:0.85; transform:rotate(0deg); animation:badgeShine 3.6s ease-in-out infinite;
+  }
+  @keyframes badgeShine{
+    0%{ left:-180%; }
+    35%{ left:180%; }
+    100%{ left:180%; }
+  }
+  @keyframes badgeEarnedIn{ 0%{ transform:scale(0.6); } 55%{ transform:scale(1.12); } 100%{ transform:scale(1); } }
   .milestone-badge-label{font-size:0.68rem; color:var(--text-2); line-height:1.25;}
   .milestone-badge.earned .milestone-badge-label{color:var(--text); font-weight:600;}
 
@@ -141,9 +152,28 @@
       repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--accent) 14%, transparent) 0deg 1.2deg, transparent 1.2deg 9deg);
     -webkit-mask:radial-gradient(circle, transparent 62%, #000 63%, #000 68%, transparent 69%);
     mask:radial-gradient(circle, transparent 62%, #000 63%, #000 68%, transparent 69%);
-    opacity:0.7; animation:heroTicksIn .8s var(--ease-out) both; animation-delay:.15s;
+    opacity:0.7; transform-origin:center;
+    animation:heroTicksIn .8s var(--ease-out) both, donutTickSpin 70s linear infinite;
+    animation-delay:.15s, 0s;
   }
-  @keyframes heroTicksIn{ from{opacity:0; transform:scale(0.92);} to{opacity:0.7; transform:scale(1);} }
+  @keyframes heroTicksIn{ from{opacity:0; transform:scale(0.92) rotate(0deg);} to{opacity:0.7; transform:scale(1) rotate(0deg);} }
+  @keyframes donutTickSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+  /* sparkle flecks drifting around the ring — purely decorative */
+  .donut-wrap .donut-spark{
+    position:absolute; width:4px; height:4px; border-radius:50%; background:var(--accent); z-index:2; pointer-events:none;
+    top:50%; left:50%; margin:-2px; opacity:0; box-shadow:0 0 6px 1px color-mix(in srgb, var(--accent) 70%, transparent);
+    animation:donutSparkOrbit linear infinite;
+  }
+  .donut-wrap .donut-spark:nth-child(1){ animation-duration:9s; animation-delay:0s; }
+  .donut-wrap .donut-spark:nth-child(2){ animation-duration:11s; animation-delay:-3.5s; }
+  .donut-wrap .donut-spark:nth-child(3){ animation-duration:13s; animation-delay:-7s; }
+  @keyframes donutSparkOrbit{
+    0%{ transform:rotate(0deg) translateX(-74px) scale(0.6); opacity:0; }
+    8%{ opacity:0.9; }
+    50%{ opacity:0.55; }
+    92%{ opacity:0; }
+    100%{ transform:rotate(360deg) translateX(-74px) scale(0.6); opacity:0; }
+  }
   .hero-stats-row{display:flex; justify-content:center; gap:1.4rem; margin-top:0.7rem;}
   .hero-stat{display:flex; align-items:center; gap:0.35rem; font-size:0.78rem; color:var(--text-2);}
   .hero-stat svg{width:15px; height:15px; flex:none;}
@@ -351,6 +381,12 @@
   .meditate-ring-wrap{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; margin:1.4rem auto 1.6rem; width:220px; height:220px;}
   .meditate-breath{position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--accent) 24%, transparent) 0%, transparent 72%); border:1px solid var(--hairline); animation:breathCycle 16s ease-in-out infinite; animation-play-state:paused;}
   .meditate-breath.running{animation-play-state:running;}
+  .meditate-breath::before,.meditate-breath::after{
+    content:""; position:absolute; inset:0; border-radius:50%; border:1.5px solid var(--accent); opacity:0; pointer-events:none;
+  }
+  .meditate-breath.running::before{ animation:medSonar 4s ease-out infinite; }
+  .meditate-breath.running::after{ animation:medSonar 4s ease-out infinite; animation-delay:2s; }
+  @keyframes medSonar{ 0%{ transform:scale(0.72); opacity:0.5; } 100%{ transform:scale(1.75); opacity:0; } }
   @keyframes breathCycle{
     0%{transform:scale(0.7);}
     25%{transform:scale(1);}
@@ -389,10 +425,11 @@
   .heatmap-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:0.2rem;}
   .heatmap-grid{display:flex; gap:3px; width:max-content;}
   .heatmap-col{display:grid; grid-template-rows:repeat(7,1fr); gap:3px;}
-  .heatmap-cell{width:11px; height:11px; border-radius:3px; background:var(--tint); display:inline-block;}
-  .heatmap-legend .heatmap-cell{margin-right:0.35rem; vertical-align:middle;}
-  .heatmap-cell.lvl-1{background:color-mix(in srgb, var(--good) 40%, var(--tint));}
-  .heatmap-cell.lvl-2{background:var(--good);}
+  .heatmap-cell{width:11px; height:11px; border-radius:3px; background:var(--tint); display:inline-block; opacity:0; animation:heatmapPopIn .4s var(--ease-spring) both; animation-delay:calc(var(--i,0) * 0.045s);}
+  .heatmap-legend .heatmap-cell{margin-right:0.35rem; vertical-align:middle; animation:none; opacity:1;}
+  .heatmap-cell.lvl-1{background:color-mix(in srgb, var(--good) 40%, var(--tint)); transition:background-color .3s ease;}
+  .heatmap-cell.lvl-2{background:var(--good); transition:background-color .3s ease;}
+  @keyframes heatmapPopIn{ from{opacity:0; transform:scale(0.3);} 70%{transform:scale(1.15);} to{opacity:1; transform:scale(1);} }
   .heatmap-legend{margin-top:0.7rem;}
 
   /* ---------- workouts ---------- */
@@ -772,6 +809,8 @@
   .chart-card svg path[data-anim="line"]{ stroke-dasharray:1px; stroke-dashoffset:1px; animation:drawLine 1.1s var(--ease-out) forwards; animation-delay:.15s; }
   .chart-card svg rect{ transform-box:fill-box; transform-origin:bottom; animation:barGrow .5s var(--ease-out) both; animation-delay:calc(var(--i,0) * 0.035s); }
   .chart-card svg circle{ transform-box:fill-box; transform-origin:center; animation:scaleIn .4s var(--ease-spring) both; animation-delay:.85s; }
+  .chart-card svg circle.chart-pulse-ring{ fill:none; animation:chartPulseRing 2.2s ease-out infinite; animation-delay:1.1s; }
+  @keyframes chartPulseRing{ 0%{ transform:scale(1); opacity:0.55; } 100%{ transform:scale(2.6); opacity:0; } }
 
   .sheet-overlay{ transition:backdrop-filter .25s ease; }
   .sheet-overlay.open{ backdrop-filter:blur(3px); }
@@ -885,6 +924,9 @@
         <div class="cap" id="calsCap">—</div>
       </div>
       <div class="donut-wrap">
+        <span class="donut-spark" aria-hidden="true"></span>
+        <span class="donut-spark" aria-hidden="true"></span>
+        <span class="donut-spark" aria-hidden="true"></span>
         <svg viewBox="0 0 200 200">
           <g transform="rotate(-90 100 100)">
             <circle cx="100" cy="100" r="80" fill="none" stroke="var(--hairline)" stroke-width="22"></circle>
@@ -1254,8 +1296,8 @@
       <div class="chart-card">
         <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4l2.6 2.6" stroke-linecap="round"/></svg></span>Your sessions</span></h2>
         <div class="meditate-stats-row">
-          <div class="meditate-stat"><strong id="medWeekStat">0 min</strong>this week</div>
-          <div class="meditate-stat"><strong id="medLifetimeStat">0 sessions</strong>lifetime</div>
+          <div class="meditate-stat"><strong><span id="medWeekStat">0</span> min</strong>this week</div>
+          <div class="meditate-stat"><strong><span id="medLifetimeStat">0</span> <span id="medLifetimeUnit">sessions</span></strong>lifetime</div>
         </div>
         <div id="medSessionList"></div>
       </div>
@@ -2737,13 +2779,13 @@
     var weeks = [];
     for(var w=0; w<cells.length; w+=7) weeks.push(cells.slice(w,w+7));
     var html = '<div class="heatmap-wrap"><div class="heatmap-grid">';
-    weeks.forEach(function(week){
+    weeks.forEach(function(week, wi){
       html += '<div class="heatmap-col">';
       week.forEach(function(d){
-        if(!d){ html += '<span class="heatmap-cell lvl-0" aria-hidden="true"></span>'; return; }
+        if(!d){ html += '<span class="heatmap-cell lvl-0" aria-hidden="true" style="--i:'+wi+'"></span>'; return; }
         var lvl = d.hitTarget ? 2 : (d.logged ? 1 : 0);
         var title = shortLabel(d.date) + (d.logged ? (d.hitTarget?' — on target':' — logged') : ' — no entry');
-        html += '<span class="heatmap-cell lvl-'+lvl+'" title="'+title+'"></span>';
+        html += '<span class="heatmap-cell lvl-'+lvl+'" title="'+title+'" style="--i:'+wi+'"></span>';
       });
       html += '</div>';
     });
@@ -3456,10 +3498,10 @@
     var totalSec = sessions.reduce(function(a,s){ return a+s.seconds; }, 0);
     var weekCutoff = addDays(todayStr(), -6);
     var weekSec = sessions.filter(function(s){ return s.date >= weekCutoff; }).reduce(function(a,s){ return a+s.seconds; }, 0);
-    var weekNode = el('medWeekStat');
-    if(weekNode) weekNode.textContent = Math.round(weekSec/60)+' min';
-    var lifeNode = el('medLifetimeStat');
-    if(lifeNode) lifeNode.textContent = sessions.length+(sessions.length===1?' session':' sessions');
+    animateNumber('medWeekStat', Math.round(weekSec/60));
+    animateNumber('medLifetimeStat', sessions.length);
+    var unitNode = el('medLifetimeUnit');
+    if(unitNode) unitNode.textContent = sessions.length===1 ? 'session' : 'sessions';
     var listNode = el('medSessionList');
     if(!listNode) return;
     if(!sessions.length){
@@ -3669,11 +3711,12 @@
     svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--fill)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="'+(showAvg?0.45:1)+'"/>';
     // smoothed trailing-average overlay — the line that actually shows the trend
     if(showAvg){
-      svg += '<path d="'+avgPath+'" fill="none" stroke="var(--good)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>';
+      svg += '<path d="'+avgPath+'" pathLength="1" fill="none" stroke="var(--good)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" style="filter:drop-shadow(0 0 3px color-mix(in srgb, var(--good) 65%, transparent))"/>';
     }
-    // end marker with surface ring
+    // end marker with surface ring + a soft sonar pulse radiating from it
+    svg += '<circle class="chart-pulse-ring" cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" stroke="var(--fill)" stroke-width="2"/>';
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="6" fill="var(--surface)"/>';
-    svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--fill)"/>';
+    svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--fill)" style="filter:drop-shadow(0 0 4px var(--fill))"/>';
     // direct label at last point
     var labelX = clamp(xScale(last.i,n), PAD_L+18, CW-PAD_R-18);
     svg += '<text x="'+labelX.toFixed(1)+'" y="'+(yScale(last.v)-10).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)" font-family="IBM Plex Mono, monospace">'+round(last.v,1)+'</text>';
@@ -3698,9 +3741,10 @@
     var path = pts.map(function(p,idx){ return (idx===0?'M':'L')+xScale(p.i,n).toFixed(1)+','+yScale(p.v).toFixed(1); }).join(' ');
     var last = pts[pts.length-1];
     var svg = '<svg viewBox="0 0 '+CW+' '+CH+'" preserveAspectRatio="xMidYMid meet">';
-    svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--fat)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--fat)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" style="filter:drop-shadow(0 0 3px color-mix(in srgb, var(--fat) 55%, transparent))"/>';
+    svg += '<circle class="chart-pulse-ring" cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" stroke="var(--fat)" stroke-width="2"/>';
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="6" fill="var(--surface)"/>';
-    svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--fat)"/>';
+    svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--fat)" style="filter:drop-shadow(0 0 4px var(--fat))"/>';
     svg += '<text x="'+clamp(xScale(last.i,n),PAD_L+18,CW-PAD_R-18).toFixed(1)+'" y="'+(yScale(last.v)-10).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)" font-family="IBM Plex Mono, monospace">'+round(last.v,1)+'</text>';
     svg += '</svg>';
     return svg;
