@@ -378,6 +378,18 @@
   .chip-row{display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.7rem;}
   .chip-btn{padding:0.55rem 1.1rem; border-radius:999px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-family:var(--font-display); font-weight:600; font-size:0.85rem;}
   .chip-btn.active{background:var(--fill); color:var(--bg); border-color:var(--fill);}
+  /* Learn tab: horizontally scrolling topic strip */
+  .learn-chips{flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; margin:0.9rem -0.2rem 0; padding:0 0.2rem 0.3rem;}
+  .learn-chips::-webkit-scrollbar{display:none;}
+  .learn-chips .chip-btn{flex:none; white-space:nowrap; padding:0.45rem 0.95rem; font-size:0.8rem;}
+  .learn-chips .learn-expand{background:transparent; color:var(--text-2); border-style:dashed;}
+  #learnBody .chart-card{scroll-margin-top:1rem;}
+  @media (min-width:900px){ .learn-chips{flex-wrap:wrap; overflow:visible;} #learnBody{align-items:start;} }
+  .chart-card.learn-flash{animation:learnFlash 1.3s var(--ease-out);}
+  @keyframes learnFlash{
+    0%{ box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+    100%{ box-shadow:0 0 0 14px color-mix(in srgb, var(--accent) 0%, transparent); }
+  }
   .meditate-ring-wrap{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; margin:1.4rem auto 1.6rem; width:220px; height:220px;}
   .meditate-breath{position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--accent) 24%, transparent) 0%, transparent 72%); border:1px solid var(--hairline); animation:breathCycle 16s ease-in-out infinite; animation-play-state:paused;}
   .meditate-breath.running{animation-play-state:running;}
@@ -1110,12 +1122,26 @@
   <div class="tabpage" id="page-learn">
 
     <section class="panel" style="padding-top:0.2rem; border-top:none;">
-      <div class="note">The science behind the numbers — why protein matters, how to time it, what alcohol actually does, and the vitamins/minerals worth knowing about. Plain-language summaries of established nutrition research, not medical advice.</div>
+      <div class="note">The science behind the numbers — why protein matters, how to time it, what alcohol, THC and caffeine actually do, and the vitamins, minerals and habits worth knowing about. Plain-language summaries of established research, not medical advice.</div>
+      <div class="chip-row learn-chips" id="learnChips" role="navigation" aria-label="Jump to a topic">
+        <button type="button" class="chip-btn learn-expand" id="learnExpandAll">Expand all</button>
+        <button type="button" class="chip-btn" data-target="learn-protein">Protein</button>
+        <button type="button" class="chip-btn" data-target="learn-timing">Meal timing</button>
+        <button type="button" class="chip-btn" data-target="learn-leucine">Leucine &amp; mTOR</button>
+        <button type="button" class="chip-btn" data-target="learn-alcohol">Alcohol</button>
+        <button type="button" class="chip-btn" data-target="learn-thc">THC</button>
+        <button type="button" class="chip-btn" data-target="learn-vitamins">Vitamins</button>
+        <button type="button" class="chip-btn" data-target="learn-supplements">Supplements</button>
+        <button type="button" class="chip-btn" data-target="learn-caffeine">Caffeine</button>
+        <button type="button" class="chip-btn" data-target="learn-sleep">Sleep</button>
+        <button type="button" class="chip-btn" data-target="learn-smoking">Smoking</button>
+        <button type="button" class="chip-btn" data-target="learn-more">More</button>
+      </div>
     </section>
 
     <section class="panel" id="learnBody">
 
-      <div class="chart-card">
+      <div class="chart-card" id="learn-protein">
         <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-protein" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2.6"/><circle cx="12" cy="7" r="2.6"/><circle cx="19" cy="12" r="2.6"/><path d="M7.3 10.6L9.8 8.6M14.2 8.6l2.5 2"/></svg></span>Why protein matters</span></summary>
           <div class="body">
@@ -1127,7 +1153,7 @@
         </details>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="learn-timing">
         <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-carb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span>Why spread protein across meals</span></summary>
           <div class="body">
@@ -1138,7 +1164,7 @@
         </details>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="learn-leucine">
         <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-fat" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 9-12h-6l1-6z"/></svg></span>Leucine & mTOR — the "switch" for muscle building</span></summary>
           <div class="body">
@@ -1150,7 +1176,7 @@
         </details>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="learn-alcohol">
         <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-danger" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14l-7 9-7-9z"/><path d="M12 13v7M8.5 20h7"/></svg></span>How alcohol affects your body</span></summary>
           <div class="body">
@@ -1164,7 +1190,23 @@
         </details>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="learn-thc">
+        <details class="methods">
+          <summary><span class="title-flex"><span class="title-icon title-icon-danger" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5V14"/><path d="M12 14c-1-3.4-1-7.4 0-11.5 1 4.1 1 8.1 0 11.5z"/><path d="M12 14c-.9-3-.9-6.3 0-9.5.9 3.2.9 6.5 0 9.5z" transform="rotate(-36 12 14)"/><path d="M12 14c-.9-3-.9-6.3 0-9.5.9 3.2.9 6.5 0 9.5z" transform="rotate(36 12 14)"/><path d="M12 14c-.7-2.3-.7-4.9 0-7.2.7 2.3.7 4.9 0 7.2z" transform="rotate(-74 12 14)"/><path d="M12 14c-.7-2.3-.7-4.9 0-7.2.7 2.3.7 4.9 0 7.2z" transform="rotate(74 12 14)"/></svg></span>THC &amp; cannabis — what it does to your body</span></summary>
+          <div class="body">
+            <p><strong>How it works.</strong> THC (delta-9-tetrahydrocannabinol) is the main psychoactive compound in cannabis. It acts on CB1 receptors in the body's endocannabinoid system — the same network that helps regulate appetite, memory, mood, pain and sleep — which is why its effects show up in so many places at once. Per the <a href="https://www.cdc.gov/cannabis/health-effects/index.html" target="_blank" rel="noopener">CDC</a>, it directly affects the parts of the brain that handle memory, attention, decision-making, coordination and reaction time.</p>
+            <p><strong>Appetite is the biggest fat-loss risk.</strong> THC switches on hunger signaling in the brain ("the munchies"), and the cravings usually lean toward calorie-dense snacks. One evening can quietly add several hundred unplanned calories, so log it like any other food and your Today numbers stay honest.</p>
+            <p><strong>Training and recovery.</strong> It won't make you fitter or stronger. A <a href="https://doi.org/10.1186/s42238-020-00037-x" target="_blank" rel="noopener">2020 systematic review</a> found no performance benefit from regular use, and no clear performance harm either in the few small studies available. In the moment, though, THC raises heart rate and slows reaction time and coordination, which is a poor match for heavy lifts or technical work. Many users say they recover better; that hasn't shown up in measured outcomes.</p>
+            <p><strong>Sleep.</strong> It can make falling asleep feel easier, but a <a href="https://pubmed.ncbi.nlm.nih.gov/?term=cannabis+sleep+architecture+polysomnography+meta-analysis" target="_blank" rel="noopener">2025 meta-analysis of sleep-lab studies</a> found no consistent improvement in sleep structure. Tolerance builds with regular use. The most consistent finding came after stopping: shorter sleep, taking longer to fall asleep, and vivid dreams (REM rebound) for days to weeks.</p>
+            <p><strong>Heart and lungs.</strong> THC raises heart rate and blood pressure shortly after use. In an <a href="https://www.heart.org/en/news/2024/02/28/marijuana-use-linked-to-higher-risk-of-heart-attack-and-stroke" target="_blank" rel="noopener">American Heart Association study</a> of 434,104 U.S. adults, daily users had 25% higher odds of heart attack and 42% higher odds of stroke than non-users, and the link held in people who had never used tobacco. Smoked cannabis harms lung tissue however it's smoked. Edibles spare the lungs but can take up to 2 hours to kick in, which is why people re-dose too early and overdo it.</p>
+            <p><strong>Mood and dependence.</strong> The <a href="https://www.cdc.gov/cannabis/health-effects/cannabis-use-disorder.html" target="_blank" rel="noopener">CDC estimates</a> about 3 in 10 people who use cannabis have cannabis use disorder — trouble cutting back despite problems it's causing. Risk climbs with daily use, starting young, and higher potency: average THC roughly doubled from 9% in 2008 to 17% in 2017, and many dispensary products now run above 20%. Heavy use is also linked to anxiety, depression and, with frequent high-potency use, psychosis.</p>
+            <p><strong>Two warning signs.</strong> Cannabinoid hyperemesis syndrome is repeated bouts of severe nausea and vomiting in long-term heavy users, often briefly eased by hot showers; it only resolves by stopping. And don't drive high: THC slows reaction time and decision-making, and adding alcohol makes it worse.</p>
+            <p><strong>Cutting back or quitting.</strong> Withdrawal is real but short-lived. Irritability, restlessness, low appetite, cravings and poor sleep usually start within 1–3 days, peak in the first week, and ease over roughly 1–2 weeks (sleep can take a little longer). Regular exercise, a fixed sleep schedule and the Meditate tab's wind-down timer all help through that stretch. For free, confidential help finding support, call <a href="https://www.samhsa.gov/find-help/helplines/national-helpline" target="_blank" rel="noopener">SAMHSA's National Helpline</a> at 1-800-662-4357.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="chart-card" id="learn-vitamins">
         <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9.5" width="18" height="5" rx="2.5" transform="rotate(-30 12 12)"/><path d="M9.7 8.2L14.3 15.8" transform="rotate(-30 12 12)"/></svg></span>Essential vitamins & minerals</span></summary>
           <div class="body">
@@ -1179,7 +1221,7 @@
         </details>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="learn-supplements">
         <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-protein" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9.5" width="18" height="5" rx="2.5" transform="rotate(35 12 12)"/><path d="M9.7 8.2L14.3 15.8" transform="rotate(35 12 12)"/></svg></span>Supplements worth considering</span></summary>
           <div class="body">
@@ -1188,13 +1230,27 @@
             <p><strong>Vitamin D3.</strong> Worth considering with limited sun exposure — supports bone health and immune function. Take it with a meal containing some fat, since it's fat-soluble and absorbs better that way. Typical over-the-counter doses run 1,000–2,000 IU/day; get your level checked before going higher.</p>
             <p><strong>Omega-3 / fish oil.</strong> Supports heart and brain health if you don't eat <a href="https://ods.od.nih.gov/factsheets/Omega3FattyAcids-Consumer/" target="_blank" rel="noopener">fatty fish</a> a couple times a week. Take it with meals — it reduces the "fishy burps" some people get on an empty stomach.</p>
             <p><strong>Magnesium.</strong> Involved in muscle relaxation, nerve function, and sleep quality; many diets fall short. Gentler forms like magnesium glycinate are easier on digestion. Best taken in the evening, 30–60 minutes before bed, for its mild relaxing effect.</p>
-            <p><strong>Caffeine.</strong> Reliably improves focus and workout performance taken 30–60 minutes beforehand. Cut it off by early-to-mid afternoon — its roughly 5–6 hour half-life means a late dose is still partly active at bedtime and can quietly wreck sleep quality.</p>
+            <p><strong>Caffeine.</strong> Reliably improves focus and workout performance taken 30–60 minutes beforehand. Dose, timing and daily limits are covered in the caffeine card below.</p>
             <p>Supplements fill gaps in a diet — they don't fix a bad one. None of the above are essential if food already covers it, and as always, check with a doctor before starting anything new, especially if you take medication or have a health condition.</p>
           </div>
         </details>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="learn-caffeine">
+        <details class="methods">
+          <summary><span class="title-flex"><span class="title-icon title-icon-carb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12v4.5A5.5 5.5 0 0 1 10.5 19h-1A5.5 5.5 0 0 1 4 13.5V9z"/><path d="M16 10.5h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c.8 1 .8 2 0 3M12 3.5c.8 1 .8 2 0 3"/></svg></span>Caffeine: dose, timing &amp; limits</span></summary>
+          <div class="body">
+            <p><strong>How it works.</strong> Caffeine blocks adenosine, the chemical that builds up through the day and makes you feel sleepy, so you feel alert and hard efforts feel easier. It masks tiredness rather than removing it, which is why the crash arrives when it wears off.</p>
+            <p><strong>For training.</strong> The <a href="https://pubmed.ncbi.nlm.nih.gov/?term=ISSN+position+stand+caffeine+exercise+performance" target="_blank" rel="noopener">ISSN position stand on caffeine</a> puts the reliably effective range at about 3–6 mg per kg of bodyweight, taken 30–60 minutes before exercise, and doses as low as about 2 mg/kg can still help. For a 75 kg adult that's roughly 150–225 mg at the low end, about one or two cups of coffee. More isn't better: higher doses mostly add jitters and a worse night's sleep.</p>
+            <p><strong>Daily ceiling.</strong> The <a href="https://www.fda.gov/consumers/consumer-updates/spilling-beans-how-much-caffeine-too-much" target="_blank" rel="noopener">FDA</a> cites about 400 mg a day, roughly two to three 12-oz cups of coffee, as generally not linked to negative effects in healthy adults. Sensitivity varies a lot; pregnancy, heart-rhythm problems, anxiety and some medications all call for less.</p>
+            <p><strong>Timing protects your sleep.</strong> Caffeine's half-life is about 3–5 hours, per the <a href="https://sleepeducation.org/sleep-caffeine/" target="_blank" rel="noopener">American Academy of Sleep Medicine</a>, and in one study a dose 6 hours before bed still cut total sleep by about an hour. A good rule of thumb is to keep it to the morning and early afternoon, around 8 hours before you plan to sleep. An evening workout is the place to skip the pre-workout.</p>
+            <p><strong>Know where it's hiding.</strong> Energy drinks range from about 54 to 328 mg per 16 oz, and many pre-workouts carry 200 mg or more a scoop, so it's easy to stack past 400 mg without noticing. Avoid pure or powdered caffeine entirely: the FDA notes that around 1,200 mg, less than half a teaspoon, can cause seizures.</p>
+            <p><strong>Hydration and tolerance.</strong> Moderate coffee and tea still count toward your daily fluids, since the mild diuretic effect is largely offset by the water in the drink. Daily use builds tolerance; if it's stopped doing much, stepping down over a week or two restores the effect (expect a few days of headaches).</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="chart-card" id="learn-sleep">
         <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span>Sleep: the most underrated recovery tool</span></summary>
           <div class="body">
@@ -1207,7 +1263,7 @@
         </details>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="learn-smoking">
         <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-danger" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="14.5" width="15" height="3.2" rx="1"/><path d="M17 14.5h2.5a1.6 1.6 0 0 0 0-3.2H18M8 9c0.9-1 0.9-2 0-3M12.3 9c0.9-1.2 0.9-2.4-0.2-3.6"/></svg></span>How smoking affects your body — and how to quit</span></summary>
           <div class="body">
@@ -1221,13 +1277,13 @@
         </details>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="learn-more">
         <details class="methods">
           <summary><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.8 2.8M15.2 15.2L18 18M18 6l-2.8 2.8M8.8 15.2L6 18"/></svg></span>Other things worth knowing</span></summary>
           <div class="body">
             <p><strong>Fiber feeds more than digestion.</strong> Beyond regularity, fiber slows glucose absorption (steadier energy, less of a blood-sugar spike) and feeds the gut bacteria linked to immune and metabolic health — the reasoning behind your fiber target on the Setup tab.</p>
             <p><strong>Food first, supplements second.</strong> Supplements fill gaps; they don't replace a varied diet of whole foods, which brings fiber, phytonutrients, and a wider spread of vitamins and minerals that pills alone don't fully replicate.</p>
-            <p>These are population-level summaries of established nutrition research, not a medical assessment. If you have a health condition, are pregnant, or are under 18, talk to a doctor or registered dietitian before changing your diet, supplements, alcohol intake, or smoking cessation plan.</p>
+            <p>These are population-level summaries of established nutrition research, not a medical assessment. If you have a health condition, are pregnant, or are under 18, talk to a doctor or registered dietitian before changing your diet, supplements, alcohol or cannabis use, or smoking cessation plan.</p>
           </div>
         </details>
       </div>
@@ -1803,7 +1859,10 @@
     'Weigh yourself at the same time of day — morning, after the bathroom, before food — for the least noisy trend.',
     'Fiber-rich carbs (veggies, oats, beans) fill you up for far fewer calories than refined ones.',
     'Progress isn\'t linear — a stall of 1–2 weeks on the scale is normal, not a sign to panic.',
-    'Walking after meals can measurably lower the blood-sugar spike that follows.'
+    'Walking after meals can measurably lower the blood-sugar spike that follows.',
+    'Caffeine has a 3–5 hour half-life — a late-afternoon coffee is still partly active at bedtime.',
+    'THC switches on hunger signals — log those late-night snacks so your numbers stay honest.',
+    'Alcohol and THC both feel like sleep aids, but neither improves the quality of the sleep you get.'
   ];
 
   var EX_DB = {
@@ -2086,7 +2145,7 @@
           state.restSeconds = (typeof parsed.restSeconds==='number' && parsed.restSeconds>0) ? parsed.restSeconds : 90;
           state.meditation = Object.assign({}, DEFAULT_MEDITATION, parsed.meditation||{});
           if(!Array.isArray(state.meditation.sessions)) state.meditation.sessions = [];
-          return;
+          return true;
         }
       }
       // migrate legacy v1 key if present
@@ -2094,8 +2153,10 @@
       if(legacy){
         var lp = JSON.parse(legacy);
         state.profile = Object.assign({}, DEFAULT_PROFILE, lp||{});
+        return true;
       }
     }catch(e){ /* storage unavailable — use defaults */ }
+    return false;
   }
   function saveState(){
     try{ window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
@@ -3514,6 +3575,48 @@
     }).join('');
     listNode.innerHTML = '<div class="table-scroll"><table class="history-table"><tr><th>Date</th><th>Duration</th></tr>'+rows+'</table></div>';
   }
+  /* ============================================================
+     LEARN TAB — topic chips + expand/collapse all
+  ============================================================ */
+  function syncLearnExpandLabel(){
+    var btn = el('learnExpandAll');
+    if(!btn) return;
+    var cards = document.querySelectorAll('#learnBody details.methods');
+    var allOpen = cards.length && Array.prototype.every.call(cards, function(d){ return d.open; });
+    btn.textContent = allOpen ? 'Collapse all' : 'Expand all';
+  }
+  function initLearn(){
+    var chips = el('learnChips');
+    var body = el('learnBody');
+    if(!chips || !body) return;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    chips.addEventListener('click', function(e){
+      var b = e.target.closest('.chip-btn');
+      if(!b) return;
+      if(b.id === 'learnExpandAll'){
+        var cards = body.querySelectorAll('details.methods');
+        var anyClosed = Array.prototype.some.call(cards, function(d){ return !d.open; });
+        Array.prototype.forEach.call(cards, function(d){ d.open = anyClosed; });
+        syncLearnExpandLabel();
+        return;
+      }
+      var card = el(b.dataset.target);
+      if(!card) return;
+      var d = card.querySelector('details');
+      if(d) d.open = true;
+      Array.prototype.forEach.call(chips.querySelectorAll('.chip-btn[data-target]'), function(x){ x.classList.toggle('active', x === b); });
+      card.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
+      card.classList.remove('learn-flash');
+      void card.offsetWidth; // restart the highlight animation
+      card.classList.add('learn-flash');
+    });
+    body.addEventListener('animationend', function(e){
+      if(e.animationName === 'learnFlash') e.target.classList.remove('learn-flash');
+    });
+    // <details> 'toggle' doesn't bubble, so listen in the capture phase
+    body.addEventListener('toggle', syncLearnExpandLabel, true);
+  }
+
   function initMeditate(){
     var m = state.meditation || DEFAULT_MEDITATION;
     document.querySelectorAll('#medDurationChips .chip-btn').forEach(function(b){
@@ -4203,7 +4306,9 @@
      INIT
   ============================================================ */
   function init(){
-    loadState();
+    // Returning users (saved data on this device) land on Today; first-time
+    // visitors still start on Setup to enter their numbers.
+    var returning = loadState();
     applyTheme(state.theme);
     state.selectedDate = todayStr();
     populateInputs();
@@ -4348,6 +4453,9 @@
     el('gymPrevBtn').addEventListener('click', gymPrev);
     el('gymNextBtn').addEventListener('click', gymNext);
 
+    // learn tab
+    initLearn();
+
     // meditate tab
     initMeditate();
 
@@ -4379,7 +4487,8 @@
     el('resetAllBtn').addEventListener('click', resetAll);
 
     renderSetupResults();
-    renderToday();
+    if(returning) switchTab('today');
+    else renderToday();
   }
 
   function wireSimpleSegmented(id, cb){
