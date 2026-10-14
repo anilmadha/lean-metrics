@@ -227,6 +227,7 @@
   /* ---------- hero / rings ---------- */
   .hero{text-align:center; padding:0.4rem 0 1rem;}
   .hero .num{font-family:var(--font-mono); font-weight:600; font-size:3rem; letter-spacing:-0.03em; line-height:1;}
+  .hero .num.is-over{color:var(--danger);}
   .hero .unit{font-size:0.95rem; color:var(--text-2); font-family:var(--font-body); margin-left:0.3rem;}
   .hero .cap{font-size:0.82rem; color:var(--text-2); margin-top:0.45rem;}
 
@@ -257,7 +258,8 @@
   .gym-icon{flex:none; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--protein); background:color-mix(in srgb, var(--protein) 16%, transparent);}
   .gym-icon svg{width:20px; height:20px; animation:gymLift 1.8s ease-in-out infinite; transform-origin:50% 85%;}
   @keyframes gymLift{ 0%,100%{ transform:rotate(-16deg); } 50%{ transform:rotate(16deg); } }
-  .gym-text{flex:1; font-size:0.86rem; font-weight:600; color:var(--text); line-height:1.4;}
+  .gym-text{flex:1; font-size:0.84rem; font-weight:400; color:var(--text-2); line-height:1.45; margin:0;}
+  .gym-text strong{color:var(--text); font-weight:600;}
 
   .motivation-card{display:flex; align-items:center; gap:0.85rem; margin-top:1rem; padding:0.95rem 1.1rem; border-radius:18px;
     background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--surface)), color-mix(in srgb, var(--accent) 4%, var(--surface)));
@@ -301,6 +303,12 @@
   .meter-head .vals{font-family:var(--font-mono); color:var(--text-2); font-size:0.82rem;}
   .meter-track{position:relative; height:10px; border-radius:6px; background:var(--tint); overflow:visible;}
   .meter-fill{position:absolute; left:0; top:0; height:100%; border-radius:6px;}
+  .meter-status{font-size:0.72rem; color:var(--text-2); font-weight:500; white-space:nowrap;}
+  .meter-status.good{color:var(--good); font-weight:600;}
+  .meter-status.over{color:var(--danger); font-weight:600;}
+  .meter-over{position:absolute; top:0; height:100%; border-radius:0 6px 6px 0; background:repeating-linear-gradient(135deg, color-mix(in srgb, var(--danger) 70%, transparent) 0 4px, color-mix(in srgb, var(--danger) 30%, transparent) 4px 8px);}
+  .meter-over.ok{background:repeating-linear-gradient(135deg, color-mix(in srgb, var(--good) 70%, transparent) 0 4px, color-mix(in srgb, var(--good) 30%, transparent) 4px 8px);}
+  .meter-tick{position:absolute; top:-3px; bottom:-3px; width:2px; margin-left:-1px; border-radius:1px; background:var(--text);}
   .meter-tick{position:absolute; top:-3px; width:2px; height:16px; background:var(--text-2); opacity:0.55;}
 
   .note{font-size:0.82rem; line-height:1.5; padding:0.75rem 0.85rem; border-radius:14px; background:var(--tint); color:var(--text-2); margin-top:0.7rem;}
@@ -440,12 +448,78 @@
   .history-table th{color:var(--text-2); font-weight:600; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.02em;}
   .history-table tbody tr:hover td, .history-table tr:hover td{background:var(--tint);}
 
+
+
+  /* ---------- Setup: waist-to-height ---------- */
+  .whtr{margin:0 0 1rem; padding:0.8rem 0.95rem; border-radius:16px; background:var(--surface); border:1px solid var(--hairline);}
+  .whtr-head{display:flex; align-items:baseline; justify-content:space-between; gap:0.6rem;}
+  .whtr-l{font-size:0.78rem; color:var(--text-2); font-weight:600;}
+  .whtr-v{font-family:var(--font-mono); font-weight:600; font-size:1.1rem;}
+  .whtr-s{font-size:0.76rem; color:var(--text-2); margin-top:0.35rem; line-height:1.4;}
+  .whtr-gauge{position:relative; height:8px; border-radius:999px; margin-top:0.55rem; background:linear-gradient(90deg, #2fbf71 0%, #2fbf71 25%, #ffab2e 25%, #ffab2e 50%, #ff4757 50%, #ff4757 100%);}
+  .whtr-gauge i{position:absolute; top:50%; width:14px; height:14px; margin-left:-7px; border-radius:50%; background:#fff; border:3px solid var(--whtr-c, #2fbf71); transform:translateY(-50%); box-shadow:0 2px 6px rgba(0,0,0,.25); transition:left .5s var(--ease-spring);}
+  .whtr-ticks{position:relative; height:0.9rem; font-size:0.64rem; color:var(--text-2); margin-top:0.3rem; font-family:var(--font-mono);}
+  .whtr-ticks span{position:absolute; top:0; transform:translateX(-50%);}
+  .whtr-ticks span:first-child{transform:none;} .whtr-ticks span:last-child{transform:translateX(-100%);}
+  .whtr a{color:var(--text); text-decoration-color:var(--hairline);}
+  .whtr.empty .whtr-s{margin-top:0;}
+  /* ---------- Setup: live target pill ---------- */
+  .setup-live{position:fixed; left:50%; bottom:calc(5.4rem + env(safe-area-inset-bottom)); transform:translate(-50%, 140%); opacity:0; pointer-events:none; z-index:35; display:flex; align-items:center; gap:0.55rem; padding:0.55rem 1rem; border-radius:999px; border:1px solid var(--hairline); background:color-mix(in srgb, var(--surface) 88%, transparent); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); box-shadow:0 10px 28px rgba(0,0,0,.16); color:var(--text); font-family:var(--font-display); font-size:0.8rem; white-space:nowrap; transition:transform .35s var(--ease-spring), opacity .25s ease;}
+  .setup-live.show{transform:translate(-50%, 0); opacity:1; pointer-events:auto;}
+  .setup-live .sl-kcal{font-family:var(--font-mono); font-weight:700; font-size:0.92rem;}
+  .setup-live .sl-sep{width:1px; height:14px; background:var(--hairline);}
+  .setup-live .sl-m{color:var(--text-2);} .setup-live .sl-m b{font-family:var(--font-mono); color:var(--text); font-weight:600;}
+  .setup-live .sl-m.p b{color:var(--protein);} .setup-live .sl-m.c b{color:var(--carb);} .setup-live .sl-m.f b{color:var(--fat);}
+  .setup-live.bump{animation:liveBump .45s var(--ease-spring);}
+  @keyframes liveBump{ 0%{ transform:translate(-50%,0) scale(1);} 40%{ transform:translate(-50%,0) scale(1.07);} 100%{ transform:translate(-50%,0) scale(1);} }
+  @media (min-width:900px){ .setup-live{ left:calc(232px + (100% - 232px)/2); bottom:1.5rem; } }
+  /* ---------- Trends: period summary tiles ---------- */
+  .sum-grid{display:grid; grid-template-columns:1fr 1fr; gap:0.7rem;}
+  .sum-tile{padding:0.85rem 0.9rem 0.8rem; border-radius:16px; background:var(--surface); border:1px solid var(--hairline); min-width:0; animation:scaleIn .45s var(--ease-spring) both;}
+  .sum-tile:nth-child(2){animation-delay:.05s;} .sum-tile:nth-child(3){animation-delay:.1s;} .sum-tile:nth-child(4){animation-delay:.15s;} .sum-tile:nth-child(5){animation-delay:.2s;}
+  .sum-tile:last-child:nth-child(odd){grid-column:1 / -1;}
+  .sum-l{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-2); font-weight:600;}
+  .sum-v{font-family:var(--font-mono); font-weight:600; font-size:1.35rem; margin-top:0.25rem; color:var(--text); white-space:nowrap;}
+  .sum-v small{font-size:0.72rem; color:var(--text-2); font-weight:500;}
+  .sum-s{font-size:0.74rem; color:var(--text-2); margin-top:0.3rem; line-height:1.3;}
+  .sum-tile.good .sum-v{color:var(--good);} .sum-tile.warn .sum-v{color:var(--danger);}
+  .sum-bar{position:relative; height:6px; border-radius:4px; background:var(--tint); margin-top:0.5rem; overflow:hidden;}
+  .sum-bar span{position:absolute; left:0; top:0; bottom:0; border-radius:4px; background:var(--fill); animation:sumGrow .9s var(--ease-out) both; transform-origin:left;}
+  .sum-tile.good .sum-bar span{background:var(--good);} .sum-tile.warn .sum-bar span{background:var(--danger);}
+  .sum-bar i{position:absolute; top:-2px; bottom:-2px; width:2px; background:var(--text); opacity:.6;}
+  @keyframes sumGrow{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+  /* ---------- Trends: measured maintenance ---------- */
+  .maint-hero{display:flex; align-items:baseline; gap:0.4rem; margin:0.1rem 0 0.4rem;}
+  .maint-hero .num{font-family:var(--font-mono); font-weight:600; font-size:2.2rem; letter-spacing:-0.02em; color:var(--protein);}
+  .maint-hero .unit{color:var(--text-2); font-size:0.85rem;}
+  .maint-copy{font-size:0.84rem; color:var(--text-2); line-height:1.5; margin:0 0 0.8rem;}
+  .maint-note{font-size:0.74rem; color:var(--text-2); margin:0.7rem 0 0; line-height:1.4;}
+  .maint-note.warn-text{color:var(--danger); font-size:0.8rem;}
+  .maint-bars{display:grid; gap:0.45rem;}
+  .maint-bar{display:grid; grid-template-columns:5.2rem 1fr 3.4rem; align-items:center; gap:0.5rem; font-size:0.78rem;}
+  .maint-bar .mb-l{color:var(--text-2);}
+  .maint-bar .mb-v{font-family:var(--font-mono); text-align:right; font-weight:600;}
+  .maint-bar .mb-track{height:10px; border-radius:6px; background:var(--tint); overflow:hidden;}
+  .maint-bar .mb-fill{display:block; height:100%; border-radius:6px; transform-origin:left; animation:sumGrow 1s var(--ease-out) both;}
+  .maint-bar.is-measured .mb-fill{background:var(--protein);}
+  .maint-bar.is-formula .mb-fill{background:color-mix(in srgb, var(--text-2) 55%, transparent); animation-delay:.1s;}
+  .maint-bar.is-eaten .mb-fill{background:var(--carb); animation-delay:.2s;}
+  .maint-actions{display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; margin-top:0.9rem;}
+  .maint-btn{padding:0.6rem 1rem; border-radius:999px; border:none; background:var(--text); color:var(--bg); font-family:var(--font-display); font-weight:600; font-size:0.82rem;}
+  .maint-btn.ghost{background:transparent; color:var(--text); border:1px solid var(--hairline);}
+  .maint-using{font-size:0.8rem; font-weight:600; color:var(--good);}
+  .maint-prog{display:grid; grid-template-columns:1fr auto; gap:0.2rem 0.6rem; font-size:0.8rem; color:var(--text-2); margin-top:0.6rem;}
+  .maint-prog b{font-family:var(--font-mono); color:var(--text);}
+  .maint-prog .sum-bar{grid-column:1 / -1; margin-top:0.1rem;}
+  .link-btn{background:none; border:none; padding:0; color:var(--text); text-decoration:underline; font:inherit; cursor:pointer;}
+  .chart-caption{font-size:0.78rem; color:var(--text-2); margin-top:0.5rem; line-height:1.45;}
+  .history-details summary{font-family:var(--font-display); font-weight:600;}
   /* ---------- consistency heatmap ---------- */
-  .heatmap-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:0.2rem;}
-  .heatmap-grid{display:flex; gap:3px; width:max-content;}
-  .heatmap-col{display:grid; grid-template-rows:repeat(7,1fr); gap:3px;}
-  .heatmap-cell{width:11px; height:11px; border-radius:3px; background:var(--tint); display:inline-block; opacity:0; animation:heatmapPopIn .4s var(--ease-spring) both; animation-delay:calc(var(--i,0) * 0.045s);}
-  .heatmap-legend .heatmap-cell{margin-right:0.35rem; vertical-align:middle; animation:none; opacity:1;}
+  .heatmap-wrap{overflow:visible; padding-bottom:0.2rem;}
+  .heatmap-grid{display:grid; gap:4px; width:100%; max-width:520px;}
+  .heatmap-col{display:grid; grid-template-rows:repeat(7,auto); gap:4px;}
+  .heatmap-cell{width:100%; aspect-ratio:1; border-radius:4px; background:var(--tint); display:inline-block; opacity:0; animation:heatmapPopIn .4s var(--ease-spring) both; animation-delay:calc(var(--i,0) * 0.045s);}
+  .heatmap-legend .heatmap-cell{width:11px; height:11px; aspect-ratio:auto; border-radius:3px; margin-right:0.35rem; vertical-align:middle; animation:none; opacity:1;}
   .heatmap-cell.lvl-1{background:color-mix(in srgb, var(--good) 40%, var(--tint)); transition:background-color .3s ease;}
   .heatmap-cell.lvl-2{background:var(--good); transition:background-color .3s ease;}
   @keyframes heatmapPopIn{ from{opacity:0; transform:scale(0.3);} 70%{transform:scale(1.15);} to{opacity:1; transform:scale(1);} }
@@ -650,6 +724,9 @@
     #trendsBody .chart-empty{ grid-column:1 / -1; }
     #trendsBody .history-card{ grid-column:1 / -1; }
     #trendsBody .consistency-card{ grid-column:1 / -1; }
+    #trendsBody .summary-card{ grid-column:1 / -1; }
+    #trendsBody .summary-card .sum-grid{ grid-template-columns:repeat(5,1fr); }
+    #trendsBody .summary-card .sum-tile:last-child:nth-child(odd){ grid-column:auto; }
 
     /* workouts: day cards flow 2-up, same pattern as trends charts */
     #page-workouts.active{ display:block; }
@@ -889,7 +966,7 @@
     .bg-aura, nav.tabbar, nav.sidebar, .insights-rail, .sheet-overlay, .toast,
     .print-btn, #rangeToggle, #reminderPanel, #appearancePanel, #dataPanel,
     #methodsPanel, #setupFooter, header.top, #installPanel,
-    .gym-mode-overlay, .rest-timer-pill{ display:none !important; }
+    .gym-mode-overlay, .rest-timer-pill, .setup-live{ display:none !important; }
     .tabpage{ display:none !important; }
     #page-trends{ display:block !important; }
     body{ background:#fff !important; color:#0a0a0a !important; padding:0 !important; }
@@ -939,7 +1016,7 @@
 
     <section class="panel" id="ringPanel">
       <div class="hero">
-        <div><span class="num" id="calsRemaining">–</span><span class="unit">kcal left</span></div>
+        <div><span class="num" id="calsRemaining">–</span><span class="unit" id="calsUnit">kcal left</span></div>
         <div class="cap" id="calsCap">—</div>
       </div>
       <div class="donut-wrap">
@@ -1482,6 +1559,7 @@
         </div>
         <div class="bmi-gauge-ticks"><span>Under</span><span>Normal</span><span>Over</span><span>Obese</span></div>
       </div>
+      <div class="whtr" id="whtrBox"></div>
 
       <div class="donut-wrap">
         <svg viewBox="0 0 200 200">
@@ -1608,12 +1686,14 @@
       <details class="methods">
         <summary>How this is calculated</summary>
         <div class="body">
-          <p><strong>BMR</strong> uses the Mifflin–St Jeor equation, generally regarded as the most accurate resting-metabolism estimate for most adults: 10×weight(kg) + 6.25×height(cm) − 5×age + 5 (men) or −161 (women).</p>
-          <p><strong>TDEE</strong> multiplies BMR by an activity factor (1.2–1.9) to account for daily movement and exercise.</p>
+          <p><strong>BMR</strong> uses the Mifflin–St Jeor equation, generally regarded as the most accurate resting-metabolism estimate for most adults: 10×weight(kg) + 6.25×height(cm) − 5×age + 5 (men) or −161 (women). If you enter a body-fat %, it switches to Katch–McArdle (370 + 21.6×lean mass in kg), which accounts for how much of your weight is muscle.</p>
+          <p><strong>TDEE</strong> multiplies BMR by an activity factor (1.2–1.9) that covers all your daily movement — steps and workouts together. Because the target already includes your training, don't add exercise calories from a watch back on top. If you lose faster or slower than predicted for 2–3 weeks, adjust the activity level; real metabolism varies by 5–15%.</p>
           <p><strong>Calorie target</strong> adjusts TDEE up or down based on your goal, with a safety floor so it never drops suggested intake below roughly 1.1× your BMR (or 1,200/1,500 kcal), and estimates weekly weight change using the standard ≈7,700 kcal-per-kg energy equivalence.</p>
-          <p><strong>Protein</strong> follows the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/" target="_blank" rel="noopener">International Society of Sports Nutrition's position stand</a> — 1.4–2.0 g/kg for general training, and up to 2.3–3.1 g/kg of lean mass in a deficit to protect muscle. If you enter body fat %, the higher lean-mass-based range is used for fat-loss goals.</p>
+          <p><strong>Protein</strong> follows the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/" target="_blank" rel="noopener">International Society of Sports Nutrition's position stand</a> — 1.4–2.0 g/kg for general training, and up to 2.3–3.1 g/kg of lean mass in a deficit to protect muscle. If you enter body fat %, the higher lean-mass-based range is used for fat-loss goals. Without it, anyone above a BMI of 25 gets protein calculated on a reference weight (the weight at BMI 25, or goal weight if higher), since per-kg targets on full bodyweight overshoot.</p>
           <p><strong>Fat</strong> targets 22–30% of calories, with a floor of about 0.6 g/kg bodyweight to protect hormone health, per the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5470183/" target="_blank" rel="noopener">ISSN position stand on diets and body composition</a> and USDA dietary fat guidance (20–35% AMDR).</p>
           <p><strong>Carbs</strong> fill the remaining calories. A note appears if that falls under ~130 g/day, the amount the brain needs from glucose per Institute of Medicine guidance.</p>
+          <p><strong>Measured maintenance</strong> (Trends tab) looks at the last 28 days: your average logged intake, minus the energy implied by your weight trend (about 7,700 kcal per kg). With at least 14 days of food logs and 8 weigh-ins it's usually more accurate than any formula, as long as you log everything. You can switch your targets to it, and back, at any time.</p>
+          <p><strong>Waist-to-height ratio</strong> uses your latest waist from the Today check-in. NICE treats 0.5–0.59 as increased health risk and 0.6+ as higher risk; it's a better signal than BMI for people carrying muscle.</p>
           <p><strong>Water</strong> uses a common rule of thumb of about 33 ml per kg of bodyweight, plus an activity bump (0.1–1.1 L) for your selected activity level. Hotter climates, illness, or breastfeeding raise this further.</p>
           <p><strong>Fiber</strong> uses the widely cited 14 g per 1,000 kcal rule of thumb (derived from the ~25g/2,000 kcal and ~38g/2,900 kcal Adequate Intake values from the Institute of Medicine).</p>
           <p><strong>Sodium</strong> and <strong>added sugar</strong> are shown as ceilings, not targets: 2,300 mg/day sodium (FDA) and 25 g/day for women or 36 g/day for men on added sugar (American Heart Association) — lower if you have high blood pressure or your doctor advises otherwise. The app doesn't log these from your food yet, so treat them as things to keep an eye on rather than numbers it's tracking for you.</p>
@@ -1720,6 +1800,8 @@
     <div id="exDetailBody"><!-- filled by JS --></div>
   </div>
 </div>
+
+<button type="button" class="setup-live" id="setupLive" aria-label="Jump to your daily targets"><span class="sl-kcal" id="slKcal">–</span><span class="sl-sep"></span><span class="sl-m p">P <b id="slP">–</b></span><span class="sl-m c">C <b id="slC">–</b></span><span class="sl-m f">F <b id="slF">–</b></span></button>
 
 <div class="rest-timer-pill" id="restTimerPill" style="display:none;">
   <span class="rest-timer-label">Rest</span>
@@ -1831,11 +1913,11 @@
      CONSTANTS
   ============================================================ */
   var ACTIVITY = [
-    {id:'sedentary', mult:1.2, waterBumpL:0.1, label:'Sedentary', desc:'Little or no exercise, desk job'},
-    {id:'light', mult:1.375, waterBumpL:0.3, label:'Lightly active', desc:'Light exercise 1–3 days a week'},
-    {id:'moderate', mult:1.55, waterBumpL:0.5, label:'Moderately active', desc:'Moderate exercise 3–5 days a week'},
-    {id:'active', mult:1.725, waterBumpL:0.8, label:'Very active', desc:'Hard exercise 6–7 days a week'},
-    {id:'extra', mult:1.9, waterBumpL:1.1, label:'Extra active', desc:'Physical job, or training twice a day'}
+    {id:'sedentary', mult:1.2, waterBumpL:0.1, label:'Sedentary', desc:'Desk job, under ~5,000 steps a day, no workouts'},
+    {id:'light', mult:1.375, waterBumpL:0.3, label:'Lightly active', desc:'~5,000–7,500 steps a day, or 1–3 workouts a week'},
+    {id:'moderate', mult:1.55, waterBumpL:0.5, label:'Moderately active', desc:'~7,500–10,000 steps a day plus 3–5 workouts a week'},
+    {id:'active', mult:1.725, waterBumpL:0.8, label:'Very active', desc:'10,000+ steps a day plus hard training 6–7 days a week'},
+    {id:'extra', mult:1.9, waterBumpL:1.1, label:'Extra active', desc:'Physical job on your feet all day, or training twice a day'}
   ];
 
   var GOALS = [
@@ -2052,7 +2134,7 @@
   var STORAGE_KEY = 'leanMetrics.v2';
   var LEGACY_KEY = 'leanMetrics.profile';
 
-  var DEFAULT_PROFILE = {unit:'metric', sex:'male', age:30, height:175, weight:75, bodyfat:'', activity:'moderate', goal:'leanloss', goalWeight:''};
+  var DEFAULT_PROFILE = {unit:'metric', sex:'male', age:30, height:175, weight:75, bodyfat:'', activity:'moderate', goal:'leanloss', goalWeight:'', tdeeOverride:null};
 
   var DEFAULT_MILESTONES = {streak7:false, streak30:false, streak100:false, newLowWeight:false};
   var DEFAULT_WORKOUT = {gender:'male', split:'3', difficulty:'beginner', goal:'general', completed:{}};
@@ -2288,9 +2370,17 @@
 
     var m = toMetric(heightRaw, weightRaw, profile.unit);
     var heightCm = m.h, weightKg = m.w;
-    var bmr = 10*weightKg + 6.25*heightCm - 5*age + (profile.sex==='male' ? 5 : -161);
+    var bfValid = bfRaw && bfRaw>3 && bfRaw<60;
+    var lbmKg = bfValid ? weightKg * (1 - bfRaw/100) : null;
+    // With a body-fat % we know lean mass, so Katch-McArdle (370 + 21.6 x LBM)
+    // is the more accurate resting estimate; otherwise Mifflin-St Jeor.
+    var bmrMethod = bfValid ? 'katch' : 'mifflin';
+    var bmr = bfValid ? (370 + 21.6*lbmKg) : (10*weightKg + 6.25*heightCm - 5*age + (profile.sex==='male' ? 5 : -161));
     var activity = ACTIVITY.filter(function(a){return a.id===profile.activity;})[0] || ACTIVITY[2];
-    var tdee = bmr * activity.mult;
+    var formulaTdee = bmr * activity.mult;
+    var override = parseFloat(profile.tdeeOverride);
+    var usedMeasured = !isNaN(override) && override >= 1200 && override <= 6000;
+    var tdee = usedMeasured ? override : formulaTdee;
     var goal = GOALS.filter(function(g){return g.id===profile.goal;})[0] || GOALS[2];
     var rawTarget = tdee * (1 + goal.adj);
 
@@ -2299,16 +2389,27 @@
     var targetCalories = rawTarget;
     if(targetCalories < minCalories){ targetCalories = minCalories; flooredNote = true; }
 
+    // Per-kg protein and fat floors overshoot at higher body weights (the extra
+    // kilos are mostly fat, which doesn't need protein). Without a body-fat %,
+    // anyone above BMI 25 gets a reference weight: the weight at BMI 25, or
+    // their goal weight if that's higher, never more than current weight.
+    var heightMref = heightCm/100;
+    var refWeightKg = weightKg, usedRefWeight = false;
+    if(!bfValid && weightKg/(heightMref*heightMref) > 25){
+      var goalKg = parseFloat(profile.goalWeight);
+      if(!isNaN(goalKg) && goalKg>0 && profile.unit!=='metric') goalKg = goalKg*0.45359237;
+      refWeightKg = Math.min(weightKg, Math.max(25*heightMref*heightMref, (!isNaN(goalKg) && goalKg>0) ? goalKg : 0));
+      usedRefWeight = refWeightKg < weightKg - 0.5;
+    }
     var proteinGrams, usedLbm = false;
-    if(bfRaw && bfRaw>3 && bfRaw<60 && goal.adj<0){
-      var lbm = weightKg * (1 - bfRaw/100);
-      proteinGrams = lbm * goal.lbmProtein;
+    if(bfValid && goal.adj<0){
+      proteinGrams = lbmKg * goal.lbmProtein;
       usedLbm = true;
     } else {
-      proteinGrams = weightKg * goal.proteinPerKg;
+      proteinGrams = refWeightKg * goal.proteinPerKg;
     }
     var proteinCal = proteinGrams*4;
-    var fatGrams = Math.max(targetCalories*goal.fatPct/9, weightKg*0.6);
+    var fatGrams = Math.max(targetCalories*goal.fatPct/9, refWeightKg*0.6);
     var fatCal = fatGrams*9;
     var carbCal = targetCalories - proteinCal - fatCal;
     var overBudget = carbCal < 0;
@@ -2333,7 +2434,9 @@
       protein:proteinGrams, carbs:carbGrams, fat:fatGrams,
       proteinCal:proteinCal, carbCal:carbCal, fatCal:fatCal,
       flooredNote:flooredNote, usedLbm:usedLbm, overBudget:overBudget,
-      weeklyKg:weeklyKg, goal:goal, activity:activity,
+      weeklyKg:weeklyKg, weeklyPct:(weeklyKg/weightKg)*100, goal:goal, activity:activity,
+      bmrMethod:bmrMethod, refWeightKg:refWeightKg, usedRefWeight:usedRefWeight,
+      formulaTdee:formulaTdee, usedMeasured:usedMeasured,
       waterL:waterL, fiberG:fiberG, sodiumCapMg:sodiumCapMg, sugarCapG:sugarCapG
     };
   }
@@ -2385,7 +2488,9 @@
       var remaining = targets.calories - consumed.cal;
       var over = remaining < 0;
       animateNumber('calsRemaining', Math.abs(remaining));
-      el('calsCap').textContent = over ? (fmt(Math.abs(remaining))+' kcal over target') : ('of '+fmt(targets.calories)+' kcal target');
+      el('calsUnit').textContent = over ? 'kcal over' : 'kcal left';
+      el('calsRemaining').classList.toggle('is-over', over);
+      el('calsCap').textContent = over ? ('ate '+fmt(consumed.cal)+' of a '+fmt(targets.calories)+' kcal target') : ('of '+fmt(targets.calories)+' kcal target');
       animateNumber('ringConsumedTxt', consumed.cal);
       el('ringTargetTxt').textContent = 'of '+fmt(targets.calories)+' kcal';
       var frac = clamp(consumed.cal/targets.calories, 0, 1);
@@ -2585,19 +2690,28 @@
 
   function renderMacroBars(consumed, targets){
     var rows = [
-      {name:'Protein', color:'var(--protein)', have:consumed.p, target:targets.protein},
+      {name:'Protein', color:'var(--protein)', have:consumed.p, target:targets.protein, floor:true},
       {name:'Carbs', color:'var(--carb)', have:consumed.c, target:targets.carbs},
       {name:'Fat', color:'var(--fat)', have:consumed.f, target:targets.fat}
     ];
     el('macroBars').innerHTML = rows.map(function(r){
-      var pct = r.target>0 ? clamp(r.have/r.target,0,1.3) : 0;
-      var fillPct = Math.min(pct,1)*100;
-      var over = r.have > r.target;
+      var pct = r.target>0 ? r.have/r.target : 0;
+      var fillPct = clamp(pct,0,1)*100;
+      var diff = r.target - r.have;
+      var over = diff < -0.5;
+      var status;
+      if(r.have<=0) status = '<span class="meter-status">'+fmt(r.target)+' g to go</span>';
+      else if(over && r.floor) status = '<span class="meter-status good">target hit · +'+fmt(-diff)+' g</span>';
+      else if(over) status = '<span class="meter-status over">'+fmt(-diff)+' g over</span>';
+      else if(diff <= Math.max(3, r.target*0.03)) status = '<span class="meter-status good">target hit</span>';
+      else status = '<span class="meter-status">'+fmt(diff)+' g left</span>';
+      // overshoot shown as a striped tail past a target tick, not a faded bar
+      var overPct = over ? clamp((pct-1),0,0.5)*100 : 0;
       return '<div class="meter-row">'+
-        '<div class="meter-head"><span class="name">'+r.name+'</span><span class="vals">'+fmt(r.have)+'g / '+fmt(r.target)+'g</span></div>'+
-        '<div class="meter-track">'+
-          '<div class="meter-fill" style="width:'+fillPct+'%; background:'+r.color+(over?';opacity:0.55':'')+'"></div>'+
-          (over ? '<div class="meter-fill" style="width:100%; background:'+r.color+'; opacity:0.22;"></div>' : '')+
+        '<div class="meter-head"><span class="name">'+r.name+'</span>'+status+'<span class="vals">'+fmt(r.have)+' / '+fmt(r.target)+' g</span></div>'+
+        '<div class="meter-track'+(over?' is-over':'')+'">'+
+          '<div class="meter-fill" style="width:'+(over?100/(1+overPct/100):fillPct)+'%; background:'+r.color+'"></div>'+
+          (over ? '<div class="meter-over'+(r.floor?' ok':'')+'" style="left:'+(100/(1+overPct/100))+'%; width:'+(100-100/(1+overPct/100))+'%;"></div><span class="meter-tick" style="left:'+(100/(1+overPct/100))+'%"></span>' : '')+
         '</div>'+
       '</div>';
     }).join('');
@@ -2773,7 +2887,8 @@
       }
       var hasFood = !!(log && log.foods && log.foods.length);
       var logged = hasFood || (log && (log.weight!=null || log.steps!=null || (log.water&&log.water>0)));
-      var hitTarget = hasFood && targets ? (totals.cal <= targets.calories*1.05) : false;
+      // a partly logged day (e.g. breakfast only) shouldn't count as on target
+      var hitTarget = hasFood && targets ? (totals.cal >= targets.calories*0.8 && totals.cal <= targets.calories*1.05) : false;
       out.push({
         date:d,
         weight: log && log.weight!=null ? log.weight : null,
@@ -2813,12 +2928,8 @@
       return;
     }
 
-    html += '<div class="chart-card consistency-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg></span>Consistency</span><span class="aux">last 12 weeks</span></h2>' + heatmapHTML(84) + '</div>';
-
-    html += milestonesHTML();
-
-    html += '<div class="chart-card history-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.3 2"/></svg></span>History</span><span class="aux">'+trendRange+'-day log</span></h2>' + historyTable(days) + '</div>';
-
+    html += trendSummaryHTML(days, targets);
+    html += maintenanceCardHTML(targets);
     if(haveWeight){
       var eta = computeGoalEta(collectRange(Math.max(trendRange,30)));
       html += '<div class="chart-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="2.5"/><path d="M9 6h6M12 9V6"/><circle cx="12" cy="15" r="2.3"/></svg></span>Weight</span></h2>' + weightChartSVG(days) + weightTable(days) + (eta ? '<div class="note">'+eta.msg+'</div>' : '') + '</div>';
@@ -2834,7 +2945,118 @@
       html += '<div class="chart-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="1.5"/><path d="M7 8v3M11 8v3M15 8v3M19 8v3"/></svg></span>Measurements</span><span class="aux">chest · hips · arms · thighs</span></h2>' + measurementsTable(days) + '</div>';
     }
 
+    html += '<div class="chart-card consistency-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg></span>Consistency</span><span class="aux">last 12 weeks</span></h2>' + heatmapHTML(84) + '</div>';
+
+    html += milestonesHTML();
+
+    html += '<div class="chart-card history-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.3 2"/></svg></span>History</span><span class="aux">'+trendRange+'-day log</span></h2>' + historyTable(days) + '</div>';
+
     el('trendsBody').innerHTML = html;
+  }
+
+  // Least-squares slope of a series of {i, v} points (units per index/day).
+  function regressionSlope(pts){
+    var n = pts.length; if(n<2) return null;
+    var sx=0,sy=0,sxy=0,sxx=0;
+    pts.forEach(function(p){ sx+=p.i; sy+=p.v; sxy+=p.i*p.v; sxx+=p.i*p.i; });
+    var den = n*sxx - sx*sx;
+    return den===0 ? null : (n*sxy - sx*sy)/den;
+  }
+  function summaryTile(label, value, sub, frac, tone){
+    var bar = (frac==null) ? '' : '<div class="sum-bar"><span style="width:'+(clamp(frac,0,1)*100)+'%"></span>'+(frac>1?'<i style="left:'+(100/frac)+'%"></i>':'')+'</div>';
+    return '<div class="sum-tile'+(tone?' '+tone:'')+'"><div class="sum-l">'+label+'</div><div class="sum-v">'+value+'</div>'+bar+'<div class="sum-s">'+sub+'</div></div>';
+  }
+  function trendSummaryHTML(days, targets){
+    var unitW = state.profile.unit==='metric' ? 'kg' : 'lb';
+    var food = days.filter(function(d){ return d.hasFood; });
+    var tiles = [];
+    if(food.length){
+      var avgCal = food.reduce(function(a,d){return a+d.cal;},0)/food.length;
+      var avgP = food.reduce(function(a,d){return a+d.p;},0)/food.length;
+      if(targets){
+        var cf = avgCal/targets.calories;
+        tiles.push(summaryTile('Avg intake', fmt(avgCal)+'<small> kcal</small>', Math.round(cf*100)+'% of '+fmt(targets.calories)+' target', cf, cf>1.05?'warn':(cf>=0.8?'good':'')));
+        var pf = avgP/targets.protein;
+        tiles.push(summaryTile('Avg protein', fmt(avgP)+'<small> g</small>', Math.round(pf*100)+'% of '+fmt(targets.protein)+' g', pf, pf>=0.9?'good':(pf<0.7?'warn':'')));
+      } else {
+        tiles.push(summaryTile('Avg intake', fmt(avgCal)+'<small> kcal</small>', food.length+' days logged', null));
+      }
+    }
+    var wpts = days.map(function(d,i){ return {i:i, v:d.weight}; }).filter(function(p){ return p.v!=null; });
+    if(wpts.length>=3 && (wpts[wpts.length-1].i - wpts[0].i) >= 5){
+      var slope = regressionSlope(wpts);
+      if(slope!=null){
+        var wk = slope*7, total = slope*(wpts[wpts.length-1].i - wpts[0].i);
+        var goal = targets ? targets.goal.adj : 0;
+        var tone = Math.abs(wk) < 0.05 ? '' : ((goal<0 && wk<0) || (goal>0 && wk>0) ? 'good' : (goal===0 ? '' : 'warn'));
+        tiles.push(summaryTile('Weight trend', (wk>0?'+':(wk<0?'−':''))+round(Math.abs(wk),2)+'<small> '+unitW+'/wk</small>', (total>0?'+':(total<0?'−':''))+round(Math.abs(total),1)+' '+unitW+' over '+(wpts[wpts.length-1].i - wpts[0].i)+' days', null, tone));
+      }
+    }
+    var stepDays = days.filter(function(d){ return d.steps!=null; });
+    if(stepDays.length){
+      var avgS = stepDays.reduce(function(a,d){return a+d.steps;},0)/stepDays.length;
+      tiles.push(summaryTile('Avg steps', fmt(avgS), 'goal 10,000 a day', avgS/10000, avgS>=10000?'good':''));
+    }
+    var logged = days.filter(function(d){ return d.logged; }).length;
+    var onT = days.filter(function(d){ return d.hitTarget; }).length;
+    tiles.push(summaryTile('Consistency', logged+'<small>/'+days.length+' days</small>', onT+' on calorie target', logged/days.length, logged/days.length>=0.8?'good':''));
+    return '<div class="chart-card summary-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>This period</span><span class="aux">last '+days.length+' days</span></h2><div class="sum-grid">'+tiles.join('')+'</div></div>';
+  }
+
+  // "Measured maintenance": what your own logs say you burn. Over the last
+  // 28 days, average logged intake minus the energy implied by the weight
+  // trend (≈7,700 kcal per kg) estimates real TDEE, which beats any formula
+  // once there's enough data. Needs consistent food AND weight logging.
+  function estimateMaintenance(){
+    var days = collectRange(28);
+    var food = days.filter(function(d){ return d.hasFood && d.cal>=600; });
+    var wpts = days.map(function(d,i){ return {i:i, v:d.weight}; }).filter(function(p){ return p.v!=null; });
+    var span = wpts.length ? wpts[wpts.length-1].i - wpts[0].i : 0;
+    var need = {food:14, weights:8, span:14};
+    var have = {food:food.length, weights:wpts.length, span:span};
+    if(food.length<need.food || wpts.length<need.weights || span<need.span) return {ready:false, have:have, need:need};
+    var slope = regressionSlope(wpts);
+    if(slope==null) return {ready:false, have:have, need:need};
+    var slopeKg = state.profile.unit==='metric' ? slope : slope*0.45359237;
+    var avgIntake = food.reduce(function(a,d){return a+d.cal;},0)/food.length;
+    var tdee = avgIntake - slopeKg*7700;
+    if(tdee<1200 || tdee>6000) return {ready:false, have:have, need:need, implausible:true};
+    return {ready:true, tdee:Math.round(tdee/10)*10, avgIntake:avgIntake, weeklyKg:slopeKg*7, foodDays:food.length, weightDays:wpts.length};
+  }
+  function maintenanceCardHTML(targets){
+    var m = estimateMaintenance();
+    var head = '<h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-protein" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7v5l3 2"/><path d="M16 3h5v5"/></svg></span>Your measured maintenance</span><span class="aux">last 28 days</span></h2>';
+    if(!m.ready){
+      var pf = Math.min(m.have.food/m.need.food,1), pw = Math.min(m.have.weights/m.need.weights,1);
+      return '<div class="chart-card maint-card">'+head+'<p class="maint-copy">Log your food and weight for a few weeks and the app will work out what you actually burn from your own numbers, which is more accurate than any formula.</p>'+
+        '<div class="maint-prog"><span>Days with food logged</span><b>'+m.have.food+' / '+m.need.food+'</b><div class="sum-bar"><span style="width:'+(pf*100)+'%"></span></div></div>'+
+        '<div class="maint-prog"><span>Weigh-ins</span><b>'+m.have.weights+' / '+m.need.weights+'</b><div class="sum-bar"><span style="width:'+(pw*100)+'%"></span></div></div>'+
+        (m.implausible?'<p class="maint-note">The current numbers don\'t add up (often a sign some meals weren\'t logged), so no estimate yet.</p>':'')+'</div>';
+    }
+    var formula = targets ? targets.formulaTdee : null;
+    var using = targets && targets.usedMeasured;
+    var diff = formula ? m.tdee - formula : 0;
+    // A gap this big almost always means meals went unlogged, so don't offer it as a target.
+    var suspicious = formula && Math.abs(diff) > formula*0.25;
+    var cmp = formula ? (Math.abs(diff)<75 ? 'right in line with the formula estimate of '+fmt(formula)+' kcal.' : (Math.abs(diff)<1000 ? fmt(Math.abs(diff))+' kcal '+(diff>0?'higher':'lower')+' than the formula estimate of '+fmt(formula)+' kcal.' : 'very different from the formula, so double-check your logging.')) : '';
+    var mx = Math.max(m.tdee, formula||0, m.avgIntake)*1.08;
+    function bar(label, v, cls){ return '<div class="maint-bar '+cls+'"><span class="mb-l">'+label+'</span><span class="mb-track"><span class="mb-fill" style="width:'+(v/mx*100)+'%"></span></span><span class="mb-v">'+fmt(v)+'</span></div>'; }
+    return '<div class="chart-card maint-card">'+head+
+      '<div class="maint-hero"><span class="num">'+fmt(m.tdee)+'</span><span class="unit">kcal/day</span></div>'+
+      '<p class="maint-copy">You averaged '+fmt(m.avgIntake)+' kcal on '+m.foodDays+' logged days while your weight trended '+(m.weeklyKg<0?'down ':'up ')+(state.profile.unit==='metric' ? round(Math.abs(m.weeklyKg),2)+' kg' : round(Math.abs(m.weeklyKg)*2.20462,2)+' lb')+' a week. That puts your real maintenance at about '+fmt(m.tdee)+' kcal, '+cmp+'</p>'+
+      '<div class="maint-bars">'+bar('Measured', m.tdee, 'is-measured')+(formula?bar('Formula', formula, 'is-formula'):'')+bar('Avg eaten', m.avgIntake, 'is-eaten')+'</div>'+
+      (suspicious && !using ? '<p class="maint-note warn-text">That\'s more than 25% away from the formula, which usually means some meals or drinks weren\'t logged. Log every day in full for a couple of weeks before relying on it.</p>' : '<div class="maint-actions">'+(using
+        ? '<span class="maint-using">Targets use your measured maintenance</span><button type="button" class="maint-btn ghost" data-maint="formula">Use formula instead</button>'
+        : '<button type="button" class="maint-btn" data-maint="'+m.tdee+'">Use '+fmt(m.tdee)+' as my maintenance</button>')+'</div>')+
+      '<p class="maint-note">Only as good as your logging: skipped meals make it read low. Re-check every few weeks as your weight changes.</p></div>';
+  }
+  function setMaintenanceOverride(val){
+    state.profile.tdeeOverride = val;
+    saveState();
+    renderSetupResults();
+    renderTrends();
+    renderToday();
+    toast(val ? 'Targets now use your measured maintenance' : 'Targets back on the formula estimate');
   }
 
   var MILESTONE_DEFS = [
@@ -2864,7 +3086,7 @@
     while(cells.length % 7 !== 0) cells.push(null);
     var weeks = [];
     for(var w=0; w<cells.length; w+=7) weeks.push(cells.slice(w,w+7));
-    var html = '<div class="heatmap-wrap"><div class="heatmap-grid">';
+    var html = '<div class="heatmap-wrap"><div class="heatmap-grid" style="grid-template-columns:repeat('+weeks.length+',1fr)">';
     weeks.forEach(function(week, wi){
       html += '<div class="heatmap-col">';
       week.forEach(function(d){
@@ -3108,7 +3330,7 @@
     var allMetTop = last.sets.every(function(s){ return s.reps!=null && s.reps>=target.repsHigh; });
 
     if(sameWeight && allMetTop){
-      var inc = firstWeight >= 60 ? 5 : 2.5;
+      var inc = state.profile.unit==='metric' ? (firstWeight >= 40 ? 2.5 : 1.25) : (firstWeight >= 60 ? 5 : 2.5);
       return 'You hit '+target.repsHigh+'+ reps on every set at '+round(firstWeight,1)+' — try '+round(firstWeight+inc,1)+' next session.';
     }
     var topWeight = Math.max.apply(null, last.sets.map(function(s){ return s.weight; }));
@@ -3863,19 +4085,31 @@
     var vals = pts.map(function(p){return p.v;});
     var minV=Math.min.apply(null,vals), maxV=Math.max.apply(null,vals);
     if(minV===maxV){minV-=1;maxV+=1;}
-    var padV=(maxV-minV)*0.15; minV-=padV; maxV+=padV;
+    var padV=(maxV-minV)*0.2; minV-=padV; maxV+=padV;
     var n = days.length;
     function yScale(v){ return PAD_T + (CH-PAD_T-PAD_B) * (1 - (v-minV)/(maxV-minV)); }
     var path = pts.map(function(p,idx){ return (idx===0?'M':'L')+xScale(p.i,n).toFixed(1)+','+yScale(p.v).toFixed(1); }).join(' ');
-    var last = pts[pts.length-1];
+    var area = path + ' L'+xScale(pts[pts.length-1].i,n).toFixed(1)+','+(CH-PAD_B)+' L'+xScale(pts[0].i,n).toFixed(1)+','+(CH-PAD_B)+' Z';
+    var last = pts[pts.length-1], first = pts[0];
     var svg = '<svg viewBox="0 0 '+CW+' '+CH+'" preserveAspectRatio="xMidYMid meet">';
+    [maxV, minV].forEach(function(v){
+      svg += '<line x1="'+PAD_L+'" y1="'+yScale(v).toFixed(1)+'" x2="'+(CW-PAD_R)+'" y2="'+yScale(v).toFixed(1)+'" stroke="var(--hairline)" stroke-width="1"/>';
+      svg += '<text x="'+(PAD_L-6)+'" y="'+(yScale(v)+3).toFixed(1)+'" text-anchor="end" font-size="8" fill="var(--text-2)" font-family="IBM Plex Mono, monospace">'+round(v,1)+'</text>';
+    });
+    svg += '<path d="'+area+'" fill="var(--fat)" opacity="0.08" stroke="none"/>';
     svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--fat)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" style="filter:drop-shadow(0 0 3px color-mix(in srgb, var(--fat) 55%, transparent))"/>';
+    pts.forEach(function(p){ if(p!==last) svg += '<circle cx="'+xScale(p.i,n).toFixed(1)+'" cy="'+yScale(p.v).toFixed(1)+'" r="2.4" fill="var(--fat)"/>'; });
     svg += '<circle class="chart-pulse-ring" cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" stroke="var(--fat)" stroke-width="2"/>';
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="6" fill="var(--surface)"/>';
     svg += '<circle cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" fill="var(--fat)" style="filter:drop-shadow(0 0 4px var(--fat))"/>';
     svg += '<text x="'+clamp(xScale(last.i,n),PAD_L+18,CW-PAD_R-18).toFixed(1)+'" y="'+(yScale(last.v)-10).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)" font-family="IBM Plex Mono, monospace">'+round(last.v,1)+'</text>';
+    xTickIndices(n).forEach(function(i){
+      svg += '<text x="'+xScale(i,n).toFixed(1)+'" y="'+(CH-6)+'" text-anchor="middle" font-size="8" fill="var(--text-2)" font-family="Space Grotesk, sans-serif">'+shortLabel(days[i].date)+'</text>';
+    });
     svg += '</svg>';
-    return svg;
+    var change = last.v - first.v, u = state.profile.unit==='metric' ? 'cm' : 'in';
+    var note = '<div class="chart-caption">'+(change<0?'Down ':change>0?'Up ':'No change ')+(change!==0?round(Math.abs(change),1)+' '+u+' ':'')+'since '+shortLabel(days[first.i].date)+'. Waist dropping while weight holds usually means fat loss with muscle kept.</div>';
+    return svg + note;
   }
 
   function calorieChartSVG(days, targets){
@@ -3891,8 +4125,21 @@
       var y = yScale(d.cal);
       var h = Math.max((CH-PAD_B) - y, 3);
       var barY = (CH-PAD_B) - h;
-      svg += '<rect x="'+x.toFixed(1)+'" y="'+barY.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+Math.min(4,h/2).toFixed(1)+'" fill="var(--fill)" style="--i:'+i+'"/>';
+      var col = 'var(--fill)';
+      if(targets){
+        if(d.cal > targets.calories*1.05) col = 'var(--danger)';
+        else if(d.cal >= targets.calories*0.8) col = 'var(--good)';
+        else col = 'color-mix(in srgb, var(--text-2) 55%, transparent)';
+      }
+      svg += '<rect x="'+x.toFixed(1)+'" y="'+barY.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+Math.min(4,h/2).toFixed(1)+'" fill="'+col+'" style="--i:'+i+'"/>';
     });
+    var fdays = days.filter(function(d){ return d.cal>0; });
+    if(fdays.length>1){
+      var avg = fdays.reduce(function(a,d){return a+d.cal;},0)/fdays.length;
+      var ay = yScale(avg);
+      svg += '<line x1="'+PAD_L+'" y1="'+ay.toFixed(1)+'" x2="'+(CW-PAD_R)+'" y2="'+ay.toFixed(1)+'" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3 3"/>';
+      svg += '<text x="'+(PAD_L+2)+'" y="'+(ay-4).toFixed(1)+'" font-size="8" font-weight="600" fill="var(--accent)" stroke="var(--bg)" stroke-width="3" paint-order="stroke" font-family="IBM Plex Mono, monospace">avg '+fmt(avg)+'</text>';
+    }
     if(targets){
       var ty = yScale(targets.calories);
       svg += '<line x1="'+PAD_L+'" y1="'+ty.toFixed(1)+'" x2="'+(CW-PAD_R)+'" y2="'+ty.toFixed(1)+'" stroke="var(--text-2)" stroke-width="1"/>';
@@ -3903,7 +4150,8 @@
       svg += '<text x="'+xScale(i,n).toFixed(1)+'" y="'+(CH-6)+'" text-anchor="middle" font-size="8" fill="var(--text-2)" font-family="Space Grotesk, sans-serif">'+shortLabel(days[i].date)+'</text>';
     });
     svg += '</svg>';
-    return svg;
+    var legend = targets ? '<div class="chart-legend"><span class="li"><span class="swatch" style="background:var(--good)"></span>On target</span><span class="li"><span class="swatch" style="background:var(--danger)"></span>Over</span><span class="li"><span class="swatch" style="background:color-mix(in srgb, var(--text-2) 55%, transparent)"></span>Under 80% (partly logged?)</span></div>' : '';
+    return legend + svg;
   }
 
   function macroStackSVG(days){
@@ -3960,7 +4208,8 @@
       '</tr>';
     }).join('');
     if(!rows) return '<div class="chart-empty"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg></div>No entries logged in this range yet.</div>';
-    return '<div class="table-scroll"><table class="history-table"><tr><th>Date</th><th>Weight</th><th>Waist</th><th>Body fat</th><th>Steps</th><th>Calories</th></tr>'+rows+'</table></div>';
+    var count = rows.split('<tr>').length-1;
+    return '<details class="datatable history-details"><summary>Show '+count+' logged day'+(count===1?'':'s')+'</summary><div class="table-scroll"><table class="history-table"><tr><th>Date</th><th>Weight</th><th>Waist</th><th>Body fat</th><th>Steps</th><th>Calories</th></tr>'+rows+'</table></div></details>';
   }
   function weightTable(days){
     var rows = days.filter(function(d){return d.weight!=null;}).map(function(d){
@@ -4150,6 +4399,59 @@
       lastBmiCatKey = cat.key;
     }
   }
+
+  // Waist-to-height ratio: NICE (2022) treats 0.5–0.59 as increased risk and
+  // 0.6+ as higher risk. Unit-free, so cm/cm or in/in both work.
+  function latestWaist(){
+    for(var i=0;i<120;i++){
+      var d = addDays(todayStr(), -i), lg = state.logs[d];
+      if(lg && lg.waist!=null && !isNaN(lg.waist)) return {v:lg.waist, date:d};
+    }
+    return null;
+  }
+  function renderWhtr(heightRaw){
+    var box = el('whtrBox'); if(!box) return;
+    var w = latestWaist();
+    if(!w || !heightRaw){
+      box.className = 'whtr empty';
+      box.innerHTML = '<div class="whtr-s"><strong>Waist-to-height ratio.</strong> Log your waist in the Today check-in to see it. It\'s a better health signal than BMI for people who lift, since BMI can\'t tell muscle from fat.</div>';
+      return;
+    }
+    var r = w.v / heightRaw;
+    var cat = r < 0.5 ? {t:'Healthy range', c:'#2fbf71'} : (r < 0.6 ? {t:'Increased risk', c:'#ffab2e'} : {t:'Higher risk', c:'#ff4757'});
+    var pos = clamp((r - 0.4) / (0.8 - 0.4) * 100, 1, 99);
+    var u = state.profile.unit==='metric' ? 'cm' : 'in';
+    var aim = Math.floor(heightRaw*0.5*10)/10;
+    box.className = 'whtr';
+    box.style.setProperty('--whtr-c', cat.c);
+    box.innerHTML = '<div class="whtr-head"><span class="whtr-l">Waist-to-height ratio</span><span class="whtr-v" style="color:'+cat.c+'">'+r.toFixed(2)+'</span></div>'+
+      '<div class="whtr-gauge"><i style="left:'+pos+'%"></i></div><div class="whtr-ticks"><span style="left:0">0.4</span><span style="left:25%">0.5</span><span style="left:50%">0.6</span><span style="left:100%">0.8</span></div>'+
+      '<div class="whtr-s"><strong style="color:'+cat.c+'">'+cat.t+'.</strong> Waist '+round(w.v,1)+' '+u+' ('+shortLabel(w.date)+'). Keeping it under half your height, about '+aim+' '+u+', is the <a href="https://www.nice.org.uk/guidance/CG189/chapter/3-Other-information" target="_blank" rel="noopener">NICE</a> guideline.</div>';
+  }
+  var setupLiveLast = null;
+  function updateSetupLive(t){
+    if(!el('setupLive')) return;
+    el('slKcal').textContent = fmt(t.calories)+' kcal';
+    el('slP').textContent = fmt(t.protein); el('slC').textContent = fmt(t.carbs); el('slF').textContent = fmt(t.fat);
+    var key = Math.round(t.calories)+'|'+Math.round(t.protein);
+    var pill = el('setupLive');
+    if(setupLiveLast!==null && key!==setupLiveLast && pill.classList.contains('show')){
+      pill.classList.remove('bump'); void pill.offsetWidth; pill.classList.add('bump');
+    }
+    setupLiveLast = key;
+  }
+  function initSetupLive(){
+    var pill = el('setupLive'), results = el('resultsPanel');
+    var hero = el('targetCals') && el('targetCals').closest('.hero');
+    if(!pill || !results || !hero || !('IntersectionObserver' in window)) return;
+    var resultsVisible = false;
+    function sync(){ pill.classList.toggle('show', el('page-setup').classList.contains('active') && !resultsVisible); }
+    // show the pill whenever the big target number itself is off screen
+    new IntersectionObserver(function(entries){ resultsVisible = entries[0].isIntersecting; sync(); }, {threshold:0.6}).observe(hero);
+    pill.addEventListener('click', function(){ results.scrollIntoView({behavior:'smooth', block:'start'}); });
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(sync, 0); }); });
+    sync();
+  }
   function renderSetupResults(){
     var age = parseFloat(el('age').value);
     var heightRaw = parseFloat(el('height').value);
@@ -4170,6 +4472,8 @@
     animateNumber('tdeeOut', t.tdee);
     animateNumber('bmiOut', t.bmi, {decimals:1});
     updateBmiStatus(t.bmi);
+    renderWhtr(heightRaw);
+    updateSetupLive(t);
     updateMotivation(goal.id);
 
     animateNumber('donutCals', t.totalCal);
@@ -4191,20 +4495,35 @@
     setArc('arcCarb', cFrac, pFrac, C);
     setArc('arcFat', fFrac, pFrac+cFrac, C);
 
-    el('gymText').textContent = 'Gym target: aim to burn roughly '+goal.gymLow+'–'+goal.gymHigh+' kcal per session (cardio + strength combined) to support this goal. That\'s on top of — not instead of — your 10,000 daily steps; strength days won\'t always hit this number from "calories burned" alone, and that\'s fine, since progressive overload matters more there than the burn total.';
+    el('gymText').innerHTML = '<strong>'+fmt(t.calories)+' kcal already includes your training.</strong> Don\'t eat back watch or machine calories; that double-counts. Sessions of about '+goal.gymLow+'–'+goal.gymHigh+' kcal suit this goal.';
 
-    var notes = [];
+    var notes = [], noteArea_fast = false;
     if(goal.adj<0){
       var absKg = Math.abs(t.weeklyKg);
-      notes.push('At this target, expect to lose roughly '+round(absKg,2)+' kg ('+round(absKg*2.20462,2)+' lb) a week, on average.');
+      notes.push('At this target, expect to lose roughly '+round(absKg,2)+' kg ('+round(absKg*2.20462,2)+' lb) a week, about '+round(Math.abs(t.weeklyPct),1)+'% of your bodyweight, on average. The first week or two usually drops faster from water; judge progress on the 7-day average in Trends.');
     } else if(goal.adj>0){
       notes.push('At this target, expect to gain roughly '+round(Math.abs(t.weeklyKg),2)+' kg ('+round(Math.abs(t.weeklyKg)*2.20462,2)+' lb) a week — some of that will be muscle, some fat.');
     }
+    if(t.usedMeasured){
+      notes.push('Using your measured maintenance of '+fmt(t.tdee)+' kcal from Trends (formula estimate: '+fmt(t.formulaTdee)+'). <button type="button" class="link-btn" id="useFormulaBtn">Switch back to the formula</button>');
+    }
+    if(t.bmrMethod==='katch'){
+      notes.push('BMR uses the Katch–McArdle formula because you entered a body-fat %, which makes it more accurate than a height/weight/age estimate.');
+    }
     if(t.usedLbm){
       notes.push('Protein is based on your lean body mass (using the body-fat % you entered) — the higher end of the research range for preserving muscle in a deficit.');
+    } else if(t.usedRefWeight){
+      var refShown = state.profile.unit==='metric' ? round(t.refWeightKg,0)+' kg' : round(t.refWeightKg/0.45359237,0)+' lb';
+      notes.push('Protein and the fat minimum are based on a reference weight of '+refShown+' (a BMI of 25, or your goal weight if higher), because per-kg targets on full bodyweight overshoot. Enter a body-fat % for a lean-mass-based number.');
+    }
+    if(goal.adj<0 && Math.abs(t.weeklyPct) > 1){
+      noteArea_fast = true;
     }
     var noteArea = el('noteArea');
     noteArea.innerHTML = notes.map(function(n){return '<div class="note">'+n+'</div>';}).join('');
+    if(noteArea_fast){
+      noteArea.innerHTML += '<div class="note warn">That\'s faster than about 1% of bodyweight a week, the point where muscle loss and rebound get more likely. Consider the standard fat-loss goal.</div>';
+    }
     if(t.carbs>0 && t.carbs<130){
       noteArea.innerHTML += '<div class="note warn">Carbs land under 130 g/day, the amount the brain typically draws from glucose. Consider a smaller deficit or more activity if focus or energy suffers.</div>';
     }
@@ -4457,6 +4776,14 @@
     // trends tab
     wireSimpleSegmented('rangeToggle', function(val){ trendRange = parseInt(val,10); renderTrends(); });
     el('printReportBtn').addEventListener('click', function(){ window.print(); });
+    el('noteArea').addEventListener('click', function(e){
+      if(e.target && e.target.id==='useFormulaBtn') setMaintenanceOverride(null);
+    });
+    el('trendsBody').addEventListener('click', function(e){
+      var b = e.target.closest('[data-maint]');
+      if(!b) return;
+      setMaintenanceOverride(b.dataset.maint==='formula' ? null : parseFloat(b.dataset.maint));
+    });
 
     // workouts tab
     syncWorkoutToggles();
@@ -4480,6 +4807,7 @@
 
     // learn tab
     initLearn();
+    initSetupLive();
 
     // meditate tab
     initMeditate();
