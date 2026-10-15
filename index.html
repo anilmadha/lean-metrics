@@ -1343,7 +1343,7 @@
           <button data-val="fat">Fat Loss</button>
         </div>
       </div>
-      <div class="note">Either plan works no matter your goal — pick whichever split fits your schedule and recovery. Swap any exercise for an equivalent if the equipment isn't free. Check off exercises as you complete them. The demo loop shows the start and end position of each rep, not full-speed video.</div>
+      <div class="note">Pick the split that fits your schedule. Difficulty sets the number of sets (beginners do one fewer), and the goal sets reps and rest: Muscle Building adds a set for intermediates, Fat Loss uses higher reps with shorter rest. Swap any exercise for an equivalent if the equipment isn't free. Check off exercises as you complete them. The demo loop shows the start and end position of each rep, not full-speed video.</div>
     </section>
 
     <section class="panel" id="workoutsBody">
@@ -1838,14 +1838,14 @@
         <div class="body">
           <p><strong>BMR</strong> uses the Mifflin–St Jeor equation, generally regarded as the most accurate resting-metabolism estimate for most adults: 10×weight(kg) + 6.25×height(cm) − 5×age + 5 (men) or −161 (women). If you enter a body-fat %, it switches to Katch–McArdle (370 + 21.6×lean mass in kg), which accounts for how much of your weight is muscle.</p>
           <p><strong>TDEE</strong> multiplies BMR by an activity factor (1.2–1.9) that covers all your daily movement — steps and workouts together. Because the target already includes your training, don't add exercise calories from a watch back on top. If you lose faster or slower than predicted for 2–3 weeks, adjust the activity level; real metabolism varies by 5–15%.</p>
-          <p><strong>Calorie target</strong> adjusts TDEE up or down based on your goal, with a safety floor so it never drops suggested intake below your BMR (or 1,200/1,500 kcal). Goals step down evenly: 10%, 20% and 30% below maintenance for mild, standard and aggressive fat loss, and estimates weekly weight change using the standard ≈7,700 kcal-per-kg energy equivalence.</p>
-          <p><strong>Protein</strong> follows the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/" target="_blank" rel="noopener">International Society of Sports Nutrition's position stand</a> — 1.4–2.0 g/kg for general training, and up to 2.3–3.1 g/kg of lean mass in a deficit to protect muscle. If you enter body fat %, the higher lean-mass-based range is used for fat-loss goals. Without it, anyone above a BMI of 25 gets protein calculated on a reference weight (the weight at BMI 25, or goal weight if higher), since per-kg targets on full bodyweight overshoot.</p>
+          <p><strong>Calorie target</strong> adjusts TDEE up or down based on your goal, with a safety floor for fat-loss goals of 1,200 kcal (women) or 1,500 kcal (men), never above 90% of maintenance. Goals step down evenly: 10%, 20% and 30% below maintenance for mild, standard and aggressive fat loss, and about 10% above it for lean gain. It estimates weekly weight change using the standard ≈7,700 kcal-per-kg energy equivalence.</p>
+          <p><strong>Protein</strong> follows the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/" target="_blank" rel="noopener">International Society of Sports Nutrition's position stand</a> — 1.4–2.0 g/kg for general training, and up to 2.3–3.1 g/kg of lean mass in a deficit to protect muscle. If you enter body fat %, protein is set on lean mass instead (the higher 2.3–3.1 g/kg range for fat-loss goals). Without it, anyone above a BMI of 25 gets protein calculated on a reference weight (the weight at BMI 25, or goal weight if higher), since per-kg targets on full bodyweight overshoot.</p>
           <p><strong>Fat</strong> targets 22–30% of calories, with a floor of about 0.6 g/kg bodyweight to protect hormone health, per the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5470183/" target="_blank" rel="noopener">ISSN position stand on diets and body composition</a> and USDA dietary fat guidance (20–35% AMDR).</p>
           <p><strong>Carbs</strong> fill the remaining calories. A note appears if that falls under ~130 g/day, the amount the brain needs from glucose per Institute of Medicine guidance.</p>
-          <p><strong>Measured maintenance</strong> (Trends tab) looks at the last 28 days: your average logged intake, minus the energy implied by your weight trend (about 7,700 kcal per kg). With at least 14 days of food logs and 8 weigh-ins it's usually more accurate than any formula, as long as you log everything. You can switch your targets to it, and back, at any time.</p>
+          <p><strong>Measured maintenance</strong> (Trends tab) looks at the last 28 days: your average logged intake, minus the energy implied by your weight trend (about 7,700 kcal per kg). With at least 14 full days of food logs and 8 weigh-ins spread over two weeks it's usually more accurate than any formula, as long as you log everything. You can switch your targets to it, and back, at any time.</p>
           <p><strong>Waist-to-height ratio</strong> uses your latest waist from the Today check-in. NICE treats 0.5–0.59 as increased health risk and 0.6+ as higher risk; it's a better signal than BMI for people carrying muscle.</p>
           <p><strong>Water</strong> uses a common rule of thumb of about 33 ml per kg of bodyweight, plus an activity bump (0.1–1.1 L) for your selected activity level. Hotter climates, illness, or breastfeeding raise this further.</p>
-          <p><strong>Fiber</strong> uses the widely cited 14 g per 1,000 kcal rule of thumb (derived from the ~25g/2,000 kcal and ~38g/2,900 kcal Adequate Intake values from the Institute of Medicine).</p>
+          <p><strong>Fiber</strong> uses the widely cited 14 g per 1,000 kcal rule of thumb, but never less than the Institute of Medicine Adequate Intake for your sex and age (38 g men / 25 g women, or 30 g / 21 g over 50), so a lower calorie target doesn't shrink it.</p>
           <p><strong>Sodium</strong> and <strong>added sugar</strong> are shown as ceilings, not targets: 2,300 mg/day sodium (FDA) and 25 g/day for women or 36 g/day for men on added sugar (American Heart Association) — lower if you have high blood pressure or your doctor advises otherwise. The app doesn't log these from your food yet, so treat them as things to keep an eye on rather than numbers it's tracking for you.</p>
           <p>Food-log macros come from a small built-in reference list of common foods (typical USDA-style values) or whatever you enter manually — they're estimates, not lab measurements.</p>
           <p>These are population-level formulas, not a medical assessment. Individual metabolism varies by 5–15% or more. If you have a health condition, are pregnant, or are under 18, talk to a doctor or registered dietitian before changing your diet.</p>
@@ -2073,11 +2073,11 @@
   ];
 
   var GOALS = [
-    {id:'maintain', adj:0, proteinPerKg:1.6, lbmProtein:1.8, fatPct:0.30, gymLow:200, gymHigh:350, label:'Maintain weight', desc:'Hold current weight and composition', cap:'Maintenance calories'},
+    {id:'maintain', adj:0, proteinPerKg:1.6, lbmProtein:2.0, fatPct:0.30, gymLow:200, gymHigh:350, label:'Maintain weight', desc:'Hold current weight and composition', cap:'Maintenance calories'},
     {id:'mildloss', adj:-0.10, proteinPerKg:1.8, lbmProtein:2.4, fatPct:0.27, gymLow:300, gymHigh:450, label:'Mild fat loss', desc:'Slow, steady loss — easiest to sustain', cap:'≈10% below maintenance'},
     {id:'leanloss', adj:-0.20, proteinPerKg:2.0, lbmProtein:2.6, fatPct:0.25, gymLow:350, gymHigh:500, label:'Fat loss (lean body)', desc:'Standard cut — the best balance of speed and muscle kept', cap:'≈20% below maintenance'},
     {id:'aggressiveloss', adj:-0.30, proteinPerKg:2.2, lbmProtein:2.9, fatPct:0.22, gymLow:450, gymHigh:600, label:'Aggressive fat loss', desc:'Fastest loss — more hunger, more muscle-loss risk; best for short phases', cap:'≈30% below maintenance'},
-    {id:'gain', adj:0.15, proteinPerKg:1.8, lbmProtein:1.8, fatPct:0.28, gymLow:250, gymHigh:400, label:'Lean muscle gain', desc:'Slight surplus to build muscle, limit fat gain', cap:'≈15% above maintenance'}
+    {id:'gain', adj:0.10, proteinPerKg:1.8, lbmProtein:2.2, fatPct:0.28, gymLow:250, gymHigh:400, label:'Lean muscle gain', desc:'Small surplus to build muscle, limit fat gain', cap:'≈10% above maintenance'}
   ];
 
   // per-serving macros, calories are recomputed from macros for internal consistency
@@ -2286,11 +2286,11 @@
   var STORAGE_KEY = 'leanMetrics.v2';
   var LEGACY_KEY = 'leanMetrics.profile';
 
-  var DEFAULT_PROFILE = {unit:'metric', sex:'male', age:30, height:175, weight:75, bodyfat:'', activity:'moderate', goal:'leanloss', goalWeight:'', tdeeOverride:null};
+  var DEFAULT_PROFILE = {unit:'metric', sex:'male', age:30, height:175, weight:75, bodyfat:'', activity:'moderate', goal:'leanloss', goalWeight:'', tdeeOverride:null, tdeeOverrideDate:null};
 
   var DEFAULT_MILESTONES = {streak7:false, streak30:false, streak100:false, newLowWeight:false};
   var DEFAULT_WORKOUT = {gender:'male', split:'3', difficulty:'beginner', goal:'general', completed:{}};
-  var DEFAULT_MEDITATION = {sessions:[], lastSound:'none', volume:45, bell:true};
+  var DEFAULT_MEDITATION = {sessions:[], lastSound:'none', volume:45, bell:true, lifetimeCount:0};
 
   var state = {
     profile: Object.assign({}, DEFAULT_PROFILE),
@@ -2300,10 +2300,10 @@
     logs: {},
     favorites: [],
     milestones: Object.assign({}, DEFAULT_MILESTONES),
-    workout: Object.assign({}, DEFAULT_WORKOUT),
+    workout: {gender:'male', split:'3', difficulty:'beginner', goal:'general', completed:{}},
     workoutLogs: {},
     restSeconds: 90,
-    meditation: Object.assign({}, DEFAULT_MEDITATION)
+    meditation: {sessions:[], lastSound:'none', volume:45, bell:true, lifetimeCount:0}
   };
 
   /* ============================================================
@@ -2387,38 +2387,110 @@
   /* ============================================================
      STATE
   ============================================================ */
+  // Builds a clean state from anything (saved data, an imported file):
+  // fresh nested objects every time, with every field type-checked, so a
+  // hand-edited or partial backup can't leave the app in a broken state.
+  function freshState(){
+    return {
+      profile: Object.assign({}, DEFAULT_PROFILE),
+      reminder: {enabled:false, time:'08:00', lastFired:''},
+      theme: 'auto', selectedDate: null, logs: {}, favorites: [],
+      milestones: Object.assign({}, DEFAULT_MILESTONES),
+      workout: {gender:'male', split:'3', difficulty:'beginner', goal:'general', completed:{}},
+      workoutLogs: {}, restSeconds: 90,
+      meditation: {sessions:[], lastSound:'none', volume:45, bell:true, lifetimeCount:0}
+    };
+  }
+  function isObj(v){ return !!v && typeof v==='object' && !Array.isArray(v); }
+  function posNum(v){ var n = parseFloat(v); return (isFinite(n) && n>0) ? n : null; }
+  function nonNeg(v){ var n = parseFloat(v); return (isFinite(n) && n>0) ? n : 0; }
+  function cleanFood(f){
+    if(!isObj(f)) return null;
+    return {id: f.id!=null ? String(f.id) : (Date.now()+'-'+Math.floor(Math.random()*1e6)), name: String(f.name||'Food').slice(0,80), cal: nonNeg(f.cal), p: nonNeg(f.p), c: nonNeg(f.c), f: nonNeg(f.f)};
+  }
+  function hydrate(parsed){
+    var s = freshState();
+    if(!isObj(parsed)) return s;
+    var p = isObj(parsed.profile) ? parsed.profile : {};
+    Object.keys(DEFAULT_PROFILE).forEach(function(k){ if(p[k]!==undefined) s.profile[k] = p[k]; });
+    if(s.profile.unit!=='imperial') s.profile.unit = 'metric';
+    if(s.profile.sex!=='female') s.profile.sex = 'male';
+    if(!ACTIVITY.some(function(a){ return a.id===s.profile.activity; })) s.profile.activity = DEFAULT_PROFILE.activity;
+    if(!GOALS.some(function(g){ return g.id===s.profile.goal; })) s.profile.goal = DEFAULT_PROFILE.goal;
+    if(isObj(parsed.reminder)){
+      s.reminder.enabled = !!parsed.reminder.enabled;
+      if(/^\d\d:\d\d$/.test(parsed.reminder.time||'')) s.reminder.time = parsed.reminder.time;
+      if(typeof parsed.reminder.lastFired==='string') s.reminder.lastFired = parsed.reminder.lastFired;
+    }
+    s.theme = (parsed.theme==='light'||parsed.theme==='dark') ? parsed.theme : 'auto';
+    if(isObj(parsed.logs)){
+      Object.keys(parsed.logs).forEach(function(d){
+        var l = parsed.logs[d];
+        if(!/^\d{4}-\d\d-\d\d$/.test(d) || !isObj(l)) return;
+        var out = {weight:posNum(l.weight), waist:posNum(l.waist), bodyfat:posNum(l.bodyfat), steps:null, water:nonNeg(l.water), chest:posNum(l.chest), hips:posNum(l.hips), arms:posNum(l.arms), thighs:posNum(l.thighs), foods:[]};
+        var st = parseFloat(l.steps); if(isFinite(st) && st>=0) out.steps = Math.round(st);
+        if(Array.isArray(l.foods)) out.foods = l.foods.map(cleanFood).filter(Boolean);
+        if(posNum(l.target)) out.target = Math.round(posNum(l.target));
+        s.logs[d] = out;
+      });
+    }
+    if(Array.isArray(parsed.favorites)) s.favorites = parsed.favorites.map(cleanFood).filter(Boolean).map(function(f){ return {name:f.name, cal:f.cal, p:f.p, c:f.c, f:f.f}; });
+    if(isObj(parsed.milestones)) Object.keys(DEFAULT_MILESTONES).forEach(function(k){ s.milestones[k] = !!parsed.milestones[k]; });
+    if(isObj(parsed.workout)){
+      ['gender','split','difficulty','goal'].forEach(function(k){ if(typeof parsed.workout[k]==='string') s.workout[k] = parsed.workout[k]; });
+      if(isObj(parsed.workout.completed)) Object.keys(parsed.workout.completed).forEach(function(k){
+        var v = parsed.workout.completed[k];
+        if(typeof v==='string') s.workout.completed[k] = v;
+      });
+    }
+    if(isObj(parsed.workoutLogs)){
+      Object.keys(parsed.workoutLogs).forEach(function(slug){
+        var arr = parsed.workoutLogs[slug];
+        if(!Array.isArray(arr)) return;
+        var clean = arr.filter(function(x){ return isObj(x) && typeof x.date==='string' && Array.isArray(x.sets); }).map(function(x){
+          return {date:x.date, sets:x.sets.filter(isObj).map(function(st){ var r = posNum(st.reps); return r ? {weight: (isFinite(parseFloat(st.weight)) && parseFloat(st.weight)>=0) ? parseFloat(st.weight) : null, reps:r} : null; }).filter(Boolean)};
+        });
+        if(clean.length) s.workoutLogs[slug] = clean.slice(-150);
+      });
+    }
+    var rs = parseFloat(parsed.restSeconds);
+    if(isFinite(rs) && rs>=10 && rs<=900) s.restSeconds = rs;
+    if(isObj(parsed.meditation)){
+      var md = parsed.meditation;
+      if(Array.isArray(md.sessions)) s.meditation.sessions = md.sessions.filter(function(x){ return isObj(x) && typeof x.date==='string' && posNum(x.seconds); }).slice(0,400);
+      if(typeof md.lastSound==='string') s.meditation.lastSound = md.lastSound;
+      var vol = parseFloat(md.volume); if(isFinite(vol)) s.meditation.volume = clamp(vol,0,100);
+      s.meditation.bell = md.bell !== false;
+      var lc = parseFloat(md.lifetimeCount); s.meditation.lifetimeCount = isFinite(lc) && lc>0 ? Math.round(lc) : 0;
+    }
+    return s;
+  }
   function loadState(){
     try{
       var raw = window.localStorage.getItem(STORAGE_KEY);
       if(raw){
         var parsed = JSON.parse(raw);
-        if(parsed && typeof parsed === 'object'){
-          state.profile = Object.assign({}, DEFAULT_PROFILE, parsed.profile||{});
-          state.reminder = Object.assign({enabled:false,time:'08:00',lastFired:''}, parsed.reminder||{});
-          state.theme = (parsed.theme==='light'||parsed.theme==='dark') ? parsed.theme : 'auto';
-          state.logs = parsed.logs || {};
-          state.favorites = Array.isArray(parsed.favorites) ? parsed.favorites : [];
-          state.milestones = Object.assign({}, DEFAULT_MILESTONES, parsed.milestones||{});
-          state.workout = Object.assign({}, DEFAULT_WORKOUT, parsed.workout||{});
-          state.workoutLogs = (parsed.workoutLogs && typeof parsed.workoutLogs==='object') ? parsed.workoutLogs : {};
-          state.restSeconds = (typeof parsed.restSeconds==='number' && parsed.restSeconds>0) ? parsed.restSeconds : 90;
-          state.meditation = Object.assign({}, DEFAULT_MEDITATION, parsed.meditation||{});
-          if(!Array.isArray(state.meditation.sessions)) state.meditation.sessions = [];
+        if(isObj(parsed)){
+          state = hydrate(parsed);
           return true;
         }
       }
       // migrate legacy v1 key if present
       var legacy = window.localStorage.getItem(LEGACY_KEY);
       if(legacy){
-        var lp = JSON.parse(legacy);
-        state.profile = Object.assign({}, DEFAULT_PROFILE, lp||{});
+        state = hydrate({profile: JSON.parse(legacy)});
         return true;
       }
     }catch(e){ /* storage unavailable — use defaults */ }
     return false;
   }
+  var suspendSave = false;
   function saveState(){
-    try{ window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+    if(suspendSave) return;
+    try{ window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch(e){
+      if(!saveState._warned){ saveState._warned = true; setTimeout(function(){ toast('Couldn\'t save — storage is full or blocked on this device'); }, 0); }
+    }
   }
   function getLog(dateStr){
     if(!state.logs[dateStr]) state.logs[dateStr] = {weight:null, waist:null, bodyfat:null, steps:null, water:0, chest:null, hips:null, arms:null, thighs:null, foods:[]};
@@ -2518,11 +2590,12 @@
   function computeTargets(profile){
     var age = parseFloat(profile.age), heightRaw = parseFloat(profile.height), weightRaw = parseFloat(profile.weight);
     var bfRaw = profile.bodyfat!=='' && profile.bodyfat!=null ? parseFloat(profile.bodyfat) : null;
-    if(!age || !heightRaw || !weightRaw || age<10 || heightRaw<=0 || weightRaw<=0) return null;
+    if(profileProblems(profile).length) return null;
 
     var m = toMetric(heightRaw, weightRaw, profile.unit);
     var heightCm = m.h, weightKg = m.w;
-    var bfValid = bfRaw && bfRaw>3 && bfRaw<60;
+    var bfValid = bfRaw!=null && !isNaN(bfRaw) && bfRaw>=3 && bfRaw<=60;
+    var bfIgnored = bfRaw!=null && !isNaN(bfRaw) && !bfValid;
     var lbmKg = bfValid ? weightKg * (1 - bfRaw/100) : null;
     // With a body-fat % we know lean mass, so Katch-McArdle (370 + 21.6 x LBM)
     // is the more accurate resting estimate; otherwise Mifflin-St Jeor.
@@ -2536,10 +2609,15 @@
     var goal = GOALS.filter(function(g){return g.id===profile.goal;})[0] || GOALS[2];
     var rawTarget = tdee * (1 + goal.adj);
 
-    var minCalories = Math.max(bmr, profile.sex==='male' ? 1500 : 1200);
+    // Safety floor for fat-loss goals only: the usual 1,500 / 1,200 kcal
+    // minimum without supervision, but never at or above maintenance, so a
+    // loss goal always stays a deficit. (Eating under BMR is fine when TDEE
+    // is higher; flooring at BMR collapsed the goals into one number.)
+    var sexMin = profile.sex==='male' ? 1500 : 1200;
+    var minCalories = goal.adj<0 ? Math.min(sexMin, tdee*0.9) : 0;
     var flooredNote = false;
     var targetCalories = rawTarget;
-    if(targetCalories < minCalories){ targetCalories = minCalories; flooredNote = true; }
+    if(goal.adj<0 && targetCalories < minCalories){ targetCalories = minCalories; flooredNote = true; }
 
     // Per-kg protein and fat floors overshoot at higher body weights (the extra
     // kilos are mostly fat, which doesn't need protein). Without a body-fat %,
@@ -2547,14 +2625,14 @@
     // their goal weight if that's higher, never more than current weight.
     var heightMref = heightCm/100;
     var refWeightKg = weightKg, usedRefWeight = false;
-    if(!bfValid && weightKg/(heightMref*heightMref) > 25){
+    if(weightKg/(heightMref*heightMref) > 25){
       var goalKg = parseFloat(profile.goalWeight);
       if(!isNaN(goalKg) && goalKg>0 && profile.unit!=='metric') goalKg = goalKg*0.45359237;
       refWeightKg = Math.min(weightKg, Math.max(25*heightMref*heightMref, (!isNaN(goalKg) && goalKg>0) ? goalKg : 0));
       usedRefWeight = refWeightKg < weightKg - 0.5;
     }
     var proteinGrams, usedLbm = false;
-    if(bfValid && goal.adj<0){
+    if(bfValid){
       proteinGrams = lbmKg * goal.lbmProtein;
       usedLbm = true;
     } else {
@@ -2576,7 +2654,10 @@
 
     // extra daily targets: water, fiber, sodium cap, added-sugar cap
     var waterL = round(weightKg*0.033 + activity.waterBumpL, 1);
-    var fiberG = Math.round(targetCalories/1000 * 14);
+    // 14 g per 1,000 kcal, but never under the IOM Adequate Intake for
+    // sex and age (a deficit shouldn't shrink the fiber target)
+    var fiberAI = profile.sex==='male' ? (age>50 ? 30 : 38) : (age>50 ? 21 : 25);
+    var fiberG = Math.round(Math.max(targetCalories/1000 * 14, fiberAI));
     var sodiumCapMg = 2300;
     var sugarCapG = profile.sex==='male' ? 36 : 25;
 
@@ -2589,11 +2670,23 @@
       weeklyKg:weeklyKg, weeklyPct:(weeklyKg/weightKg)*100, goal:goal, activity:activity,
       bmrMethod:bmrMethod, refWeightKg:refWeightKg, usedRefWeight:usedRefWeight,
       formulaTdee:formulaTdee, usedMeasured:usedMeasured,
+      minCalories:minCalories, bfIgnored:bfIgnored, age:age, heightCm:heightCm,
       waterL:waterL, fiberG:fiberG, sodiumCapMg:sodiumCapMg, sugarCapG:sugarCapG
     };
   }
 
   function currentTargets(){ return computeTargets(state.profile); }
+
+  // Plausible-range checks shared by the calculator and every target user.
+  function profileProblems(profile){
+    var out = [], metric = profile.unit==='metric';
+    var age = parseFloat(profile.age), h = parseFloat(profile.height), w = parseFloat(profile.weight);
+    if(!age || isNaN(age) || age<10 || age>110) out.push('an age between 10 and 110');
+    var hc = metric ? h : h*2.54, wk = metric ? w : w*0.45359237;
+    if(!h || isNaN(h) || hc<100 || hc>250) out.push(metric ? 'a height between 100 and 250 cm' : 'a height between 3 ft 4 in and 8 ft 2 in');
+    if(!w || isNaN(w) || wk<25 || wk>350) out.push(metric ? 'a weight between 25 and 350 kg' : 'a weight between 55 and 770 lb');
+    return out;
+  }
 
   /* ============================================================
      TAB NAVIGATION
@@ -2804,7 +2897,7 @@
       var goalL = currentTargets() ? currentTargets().waterL : null;
       if(goalL && log.water>=goalL && before<goalL){
         spawnConfetti(el('waterPanel'));
-        toast('Water goal hit for today');
+        toast(dateStr===todayStr() ? 'Water goal hit for today' : 'Water goal hit for '+shortLabel(dateStr));
       }
     }
   }
@@ -2821,9 +2914,11 @@
     var wKg = toMetric(parseFloat(el('height').value)||0, parseFloat(el('weight').value)||state.profile.weight, state.profile.unit).w || 75;
     var kcal = Math.round(s * 0.0005 * wKg);
     var remaining = Math.max(10000 - s, 0);
+    var sel = state.selectedDate || todayStr();
+    var when = sel===todayStr() ? 'today' : 'on '+shortLabel(sel);
     note.textContent = remaining>0
-      ? fmt(s)+' steps logged today (~'+kcal+' kcal) — '+fmt(remaining)+' to go for the 10,000/day minimum.'
-      : fmt(s)+' steps logged today (~'+kcal+' kcal) — past the 10,000/day minimum. Nice.';
+      ? fmt(s)+' steps logged '+when+' (~'+kcal+' kcal) — '+fmt(remaining)+' short of the 10,000/day minimum.'
+      : fmt(s)+' steps logged '+when+' (~'+kcal+' kcal) — past the 10,000/day minimum. Nice.';
   }
 
   function saveSteps(){
@@ -2843,8 +2938,10 @@
   /* ============================================================
      STREAK TRACKER
   ============================================================ */
+  // One definition of a "logged" day, used by the streak, Trends,
+  // consistency and the reminder alike.
   function isLoggedDay(log){
-    return !!(log && ((log.foods && log.foods.length) || log.weight!=null || log.steps!=null || (log.water && log.water>0)));
+    return !!(log && ((log.foods && log.foods.length) || log.weight!=null || log.waist!=null || log.bodyfat!=null || log.steps!=null || (log.water && log.water>0)));
   }
   function computeStreak(){
     var d = todayStr();
@@ -2870,16 +2967,16 @@
     maybeCelebrateStreak(streak);
   }
   function maybeCelebrateStreak(streak){
-    var milestones = [[100,'streak100'],[30,'streak30'],[7,'streak7']];
-    for(var i=0;i<milestones.length;i++){
-      var n = milestones[i][0], key = milestones[i][1];
-      if(streak>=n && !state.milestones[key]){
-        state.milestones[key] = true;
-        saveState();
-        spawnConfetti(el('streakChip'));
-        toast(n+'-day streak — keep it going.');
-        break;
-      }
+    // mark every milestone reached in one pass and celebrate only the
+    // biggest, so jumping past several (e.g. after an import) is one toast
+    var milestones = [[100,'streak100'],[30,'streak30'],[7,'streak7']], top = 0;
+    milestones.forEach(function(m){
+      if(streak>=m[0] && !state.milestones[m[1]]){ state.milestones[m[1]] = true; top = Math.max(top, m[0]); }
+    });
+    if(top){
+      saveState();
+      spawnConfetti(el('streakChip'));
+      toast(top+'-day streak — keep it going.');
     }
   }
   function maybeCelebrateWeight(dateStr, weight){
@@ -3031,11 +3128,14 @@
     setArc('railStepsRing', clamp(steps/10000, 0, 1), 0, railC);
     animateNumber('railStepsTxt', steps);
 
+    var sel = state.selectedDate || todayStr(), isToday = sel===todayStr();
+    var railH = document.querySelector('#insightsRail .rail-card h3');
+    if(railH) railH.textContent = isToday ? 'Today at a glance' : shortLabel(sel)+' at a glance';
     if(targets){
       var frac = clamp((consumed?consumed.cal:0)/targets.calories, 0, 1);
       setArc('railCalRing', frac, 0, railC);
       animateNumber('railCalTxt', consumed?consumed.cal:0);
-      el('railGoalTxt').textContent = fmt(consumed?consumed.cal:0)+' of '+fmt(targets.calories)+' kcal today · '+fmt(steps)+' / 10,000 steps.';
+      el('railGoalTxt').textContent = fmt(consumed?consumed.cal:0)+' of '+fmt(targets.calories)+' kcal '+(isToday?'today':'on '+shortLabel(sel))+' · '+fmt(steps)+' / 10,000 steps.';
     } else {
       setArc('railCalRing', 0, 0, railC);
       animateNumber('railCalTxt', 0);
@@ -3063,33 +3163,46 @@
     renderToday();
   }
 
+  // Most recent weigh-in before `dateStr` (within `maxBack` days).
+  function priorWeight(dateStr, maxBack){
+    for(var k=1;k<=maxBack;k++){
+      var d = addDays(dateStr, -k), l = state.logs[d];
+      if(l && l.weight!=null) return {date:d, weight:l.weight};
+    }
+    return null;
+  }
   function saveCheckin(){
     var dateStr = state.selectedDate || todayStr();
     var log = getLog(dateStr);
-    var w = parseFloat(el('logWeight').value);
-    var wa = parseFloat(el('logWaist').value);
-    var bf = parseFloat(el('logBodyfat').value);
-    var chest = parseFloat(el('logChest').value);
-    var hips = parseFloat(el('logHips').value);
-    var arms = parseFloat(el('logArms').value);
-    var thighs = parseFloat(el('logThighs').value);
-    log.weight = isNaN(w) ? null : w;
-    log.waist = isNaN(wa) ? null : wa;
-    log.bodyfat = isNaN(bf) ? null : bf;
-    log.chest = isNaN(chest) ? null : chest;
-    log.hips = isNaN(hips) ? null : hips;
-    log.arms = isNaN(arms) ? null : arms;
-    log.thighs = isNaN(thighs) ? null : thighs;
-    // keep the Setup-tab profile weight current so targets track reality
-    if(!isNaN(w) && dateStr === todayStr()){
-      state.profile.weight = w;
-      el('weight').value = w;
+    var metric = state.profile.unit==='metric';
+    function val(id){ var n = parseFloat(el(id).value); return (isFinite(n) && n>0) ? n : null; }
+    var w = val('logWeight'), wa = val('logWaist'), bf = val('logBodyfat');
+    var wKg = w==null ? null : (metric ? w : w*0.45359237);
+    if(w!=null && (wKg<25 || wKg>350)){ toast('That weight looks off — check the number and units'); return; }
+    if(bf!=null && (bf<3 || bf>60)){ toast('Body fat % should be between 3 and 60'); return; }
+    // catch typos like 7.5 for 75 before they skew the trend
+    var prev = w!=null ? priorWeight(dateStr, 14) : null;
+    if(prev && w!==log.weight){
+      var jump = Math.abs(w - prev.weight), limit = Math.max(metric ? 3 : 6.6, prev.weight*0.04);
+      if(jump > limit && !confirm('That\'s '+round(jump,1)+(metric?' kg':' lb')+' different from your weigh-in on '+shortLabel(prev.date)+'. Save it anyway?')) return;
+    }
+    var prevWeight = log.weight;
+    log.weight = w;
+    log.waist = wa;
+    log.bodyfat = bf;
+    log.chest = val('logChest');
+    log.hips = val('logHips');
+    log.arms = val('logArms');
+    log.thighs = val('logThighs');
+    // keep the Setup-tab profile current so targets track reality
+    if(dateStr === todayStr()){
+      if(w!=null){ state.profile.weight = w; el('weight').value = w; }
+      if(bf!=null){ state.profile.bodyfat = bf; el('bodyfat').value = bf; }
     }
     saveState();
     toast('Check-in saved');
-    if(!isNaN(w)) maybeCelebrateWeight(dateStr, w);
-    updateStreakUI();
-    renderSetupResults();
+    if(w!=null && w!==prevWeight && dateStr === todayStr()) maybeCelebrateWeight(dateStr, w);
+    renderSetupResults(); // also re-renders Today and the rail
   }
 
   /* ============================================================
@@ -3156,6 +3269,7 @@
     entry.id = Date.now()+'-'+Math.floor(Math.random()*1000);
     var pBefore = log.foods.reduce(function(a,f){ return a+(f.p||0); }, 0);
     log.foods.push(entry);
+    stampTarget(log);
     saveState();
     renderToday();
     var t = currentTargets();
@@ -3167,10 +3281,17 @@
     }
   }
 
+  // Remember the calorie target that applied when a day was logged, so
+  // changing goals later doesn't re-grade past days against the new number.
+  function stampTarget(log){
+    var t = currentTargets();
+    if(t && log.foods.length) log.target = Math.round(t.calories);
+  }
   function removeFoodFromLog(id){
     var dateStr = state.selectedDate || todayStr();
     var log = getLog(dateStr);
     log.foods = log.foods.filter(function(f){ return String(f.id)!==String(id); });
+    stampTarget(log);
     saveState();
     renderToday();
   }
@@ -3191,9 +3312,11 @@
         log.foods.forEach(function(f){ totals.cal+=f.cal; totals.p+=f.p; totals.c+=f.c; totals.f+=f.f; });
       }
       var hasFood = !!(log && log.foods && log.foods.length);
-      var logged = hasFood || (log && (log.weight!=null || log.steps!=null || (log.water&&log.water>0)));
+      var logged = isLoggedDay(log);
+      // grade each day against the target that applied when it was logged
+      var dayTarget = (log && log.target) ? log.target : (targets ? targets.calories : null);
       // a partly logged day (e.g. breakfast only) shouldn't count as on target
-      var hitTarget = hasFood && targets ? (totals.cal >= targets.calories*0.8 && totals.cal <= targets.calories*1.05) : false;
+      var hitTarget = hasFood && dayTarget ? (totals.cal >= dayTarget*0.8 && totals.cal <= dayTarget*1.05) : false;
       out.push({
         date:d,
         weight: log && log.weight!=null ? log.weight : null,
@@ -3206,7 +3329,7 @@
         arms: log && log.arms!=null ? log.arms : null,
         thighs: log && log.thighs!=null ? log.thighs : null,
         cal: totals.cal, p: totals.p, c: totals.c, f: totals.f,
-        hasFood: hasFood, logged: !!logged, hitTarget: hitTarget
+        hasFood: hasFood, logged: !!logged, hitTarget: hitTarget, target: dayTarget, isToday: i===0
       });
     }
     return out;
@@ -3236,7 +3359,7 @@
     html += trendSummaryHTML(days, targets);
     html += maintenanceCardHTML(targets);
     if(haveWeight){
-      var eta = computeGoalEta(collectRange(Math.max(trendRange,30)));
+      var eta = computeGoalEta();
       html += '<div class="chart-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="2.5"/><path d="M9 6h6M12 9V6"/><circle cx="12" cy="15" r="2.3"/></svg></span>Weight</span></h2>' + weightChartSVG(days) + weightTable(days) + (eta ? '<div class="note">'+eta.msg+'</div>' : '') + '</div>';
     }
     if(haveFood){
@@ -3273,18 +3396,24 @@
   }
   function trendSummaryHTML(days, targets){
     var unitW = state.profile.unit==='metric' ? 'kg' : 'lb';
-    var food = days.filter(function(d){ return d.hasFood; });
+    // today is still in progress, so averages use finished days only
+    // (falling back to today alone if it's the only day with food)
+    var food = days.filter(function(d){ return d.hasFood && !d.isToday; });
+    var partial = false;
+    if(!food.length){ food = days.filter(function(d){ return d.hasFood; }); partial = food.length>0; }
     var tiles = [];
     if(food.length){
       var avgCal = food.reduce(function(a,d){return a+d.cal;},0)/food.length;
       var avgP = food.reduce(function(a,d){return a+d.p;},0)/food.length;
-      if(targets){
-        var cf = avgCal/targets.calories;
-        tiles.push(summaryTile('Avg intake', fmt(avgCal)+'<small> kcal</small>', Math.round(cf*100)+'% of '+fmt(targets.calories)+' target', cf, cf>1.05?'warn':(cf>=0.8?'good':'')));
+      var avgT = food.reduce(function(a,d){return a+(d.target||0);},0)/food.length;
+      var basis = partial ? 'today so far' : food.length+' full day'+(food.length===1?'':'s');
+      if(targets && avgT>0){
+        var cf = avgCal/avgT;
+        tiles.push(summaryTile('Avg intake', fmt(avgCal)+'<small> kcal</small>', Math.round(cf*100)+'% of '+fmt(avgT)+' kcal · '+basis, cf, partial?'':(cf>1.05?'warn':(cf>=0.8?'good':''))));
         var pf = avgP/targets.protein;
-        tiles.push(summaryTile('Avg protein', fmt(avgP)+'<small> g</small>', Math.round(pf*100)+'% of '+fmt(targets.protein)+' g', pf, pf>=0.9?'good':(pf<0.7?'warn':'')));
+        tiles.push(summaryTile('Avg protein', fmt(avgP)+'<small> g</small>', Math.round(pf*100)+'% of '+fmt(targets.protein)+' g', pf, partial?'':(pf>=0.9?'good':(pf<0.7?'warn':''))));
       } else {
-        tiles.push(summaryTile('Avg intake', fmt(avgCal)+'<small> kcal</small>', food.length+' days logged', null));
+        tiles.push(summaryTile('Avg intake', fmt(avgCal)+'<small> kcal</small>', basis, null));
       }
     }
     var wpts = days.map(function(d,i){ return {i:i, v:d.weight}; }).filter(function(p){ return p.v!=null; });
@@ -3293,18 +3422,23 @@
       if(slope!=null){
         var wk = slope*7, total = slope*(wpts[wpts.length-1].i - wpts[0].i);
         var goal = targets ? targets.goal.adj : 0;
-        var tone = Math.abs(wk) < 0.05 ? '' : ((goal<0 && wk<0) || (goal>0 && wk>0) ? 'good' : (goal===0 ? '' : 'warn'));
+        var flat = state.profile.unit==='metric' ? 0.05 : 0.1;
+        var tone = Math.abs(wk) < flat ? '' : ((goal<0 && wk<0) || (goal>0 && wk>0) ? 'good' : (goal===0 ? '' : 'warn'));
         tiles.push(summaryTile('Weight trend', (wk>0?'+':(wk<0?'−':''))+round(Math.abs(wk),2)+'<small> '+unitW+'/wk</small>', (total>0?'+':(total<0?'−':''))+round(Math.abs(total),1)+' '+unitW+' over '+(wpts[wpts.length-1].i - wpts[0].i)+' days', null, tone));
       }
     }
-    var stepDays = days.filter(function(d){ return d.steps!=null; });
+    var stepDays = days.filter(function(d){ return d.steps!=null && !d.isToday; });
+    if(!stepDays.length) stepDays = days.filter(function(d){ return d.steps!=null; });
     if(stepDays.length){
       var avgS = stepDays.reduce(function(a,d){return a+d.steps;},0)/stepDays.length;
       tiles.push(summaryTile('Avg steps', fmt(avgS), 'goal 10,000 a day', avgS/10000, avgS>=10000?'good':''));
     }
-    var logged = days.filter(function(d){ return d.logged; }).length;
-    var onT = days.filter(function(d){ return d.hitTarget; }).length;
-    tiles.push(summaryTile('Consistency', logged+'<small>/'+days.length+' days</small>', onT+' on calorie target', logged/days.length, logged/days.length>=0.8?'good':''));
+    // an empty today isn't a missed day yet
+    var counted = days.filter(function(d){ return !(d.isToday && !d.logged); });
+    var logged = counted.filter(function(d){ return d.logged; }).length;
+    var onT = counted.filter(function(d){ return d.hitTarget && !d.isToday; }).length;
+    var lf = counted.length ? logged/counted.length : 0;
+    tiles.push(summaryTile('Consistency', logged+'<small>/'+counted.length+' days</small>', onT+' on calorie target', lf, lf>=0.8?'good':''));
     return '<div class="chart-card summary-card"><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>This period</span><span class="aux">last '+days.length+' days</span></h2><div class="sum-grid">'+tiles.join('')+'</div></div>';
   }
 
@@ -3313,50 +3447,60 @@
   // trend (≈7,700 kcal per kg) estimates real TDEE, which beats any formula
   // once there's enough data. Needs consistent food AND weight logging.
   function estimateMaintenance(){
-    var days = collectRange(28);
-    var food = days.filter(function(d){ return d.hasFood && d.cal>=600; });
+    // the 28 finished days before today (today's food is still partial)
+    var days = collectRange(29);
+    var food = days.filter(function(d){ return d.hasFood && d.cal>=600 && !d.isToday; });
     var wpts = days.map(function(d,i){ return {i:i, v:d.weight}; }).filter(function(p){ return p.v!=null; });
     var span = wpts.length ? wpts[wpts.length-1].i - wpts[0].i : 0;
     var need = {food:14, weights:8, span:14};
     var have = {food:food.length, weights:wpts.length, span:span};
-    if(food.length<need.food || wpts.length<need.weights || span<need.span) return {ready:false, have:have, need:need};
+    if(food.length<need.food || wpts.length<need.weights || span<need.span) return {ready:false, have:have, need:need, span:span};
     var slope = regressionSlope(wpts);
     if(slope==null) return {ready:false, have:have, need:need};
     var slopeKg = state.profile.unit==='metric' ? slope : slope*0.45359237;
     var avgIntake = food.reduce(function(a,d){return a+d.cal;},0)/food.length;
     var tdee = avgIntake - slopeKg*7700;
     if(tdee<1200 || tdee>6000) return {ready:false, have:have, need:need, implausible:true};
-    return {ready:true, tdee:Math.round(tdee/10)*10, avgIntake:avgIntake, weeklyKg:slopeKg*7, foodDays:food.length, weightDays:wpts.length};
+    return {ready:true, tdee:Math.round(tdee/10)*10, avgIntake:avgIntake, weeklyKg:slopeKg*7, foodDays:food.length, weightDays:wpts.length, span:span};
   }
   function maintenanceCardHTML(targets){
     var m = estimateMaintenance();
     var head = '<h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-protein" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7v5l3 2"/><path d="M16 3h5v5"/></svg></span>Your measured maintenance</span><span class="aux">last 28 days</span></h2>';
+    var using = targets && targets.usedMeasured;
+    var stored = using ? targets.tdee : null;
+    var since = state.profile.tdeeOverrideDate ? ' (set '+shortLabel(state.profile.tdeeOverrideDate)+')' : '';
     if(!m.ready){
-      var pf = Math.min(m.have.food/m.need.food,1), pw = Math.min(m.have.weights/m.need.weights,1);
+      var pf = Math.min(m.have.food/m.need.food,1), pw = Math.min(m.have.weights/m.need.weights,1), ps = Math.min(m.have.span/m.need.span,1);
       return '<div class="chart-card maint-card">'+head+'<p class="maint-copy">Log your food and weight for a few weeks and the app will work out what you actually burn from your own numbers, which is more accurate than any formula.</p>'+
-        '<div class="maint-prog"><span>Days with food logged</span><b>'+m.have.food+' / '+m.need.food+'</b><div class="sum-bar"><span style="width:'+(pf*100)+'%"></span></div></div>'+
+        '<div class="maint-prog"><span>Full days with food logged</span><b>'+m.have.food+' / '+m.need.food+'</b><div class="sum-bar"><span style="width:'+(pf*100)+'%"></span></div></div>'+
         '<div class="maint-prog"><span>Weigh-ins</span><b>'+m.have.weights+' / '+m.need.weights+'</b><div class="sum-bar"><span style="width:'+(pw*100)+'%"></span></div></div>'+
-        (m.implausible?'<p class="maint-note">The current numbers don\'t add up (often a sign some meals weren\'t logged), so no estimate yet.</p>':'')+'</div>';
+        '<div class="maint-prog"><span>Days between first and last weigh-in</span><b>'+m.have.span+' / '+m.need.span+'</b><div class="sum-bar"><span style="width:'+(ps*100)+'%"></span></div></div>'+
+        (m.implausible?'<p class="maint-note">The current numbers don\'t add up (often a sign some meals weren\'t logged), so no estimate yet.</p>':'')+
+        (using?'<div class="maint-actions"><span class="maint-using">Targets use your saved measured maintenance of '+fmt(stored)+' kcal'+since+'</span><button type="button" class="maint-btn ghost" data-maint="formula">Use formula instead</button></div>':'')+'</div>';
     }
     var formula = targets ? targets.formulaTdee : null;
-    var using = targets && targets.usedMeasured;
     var diff = formula ? m.tdee - formula : 0;
     // A gap this big almost always means meals went unlogged, so don't offer it as a target.
     var suspicious = formula && Math.abs(diff) > formula*0.25;
+    var stale = using && Math.abs(m.tdee - stored) >= 50;
     var cmp = formula ? (Math.abs(diff)<75 ? 'right in line with the formula estimate of '+fmt(formula)+' kcal.' : (Math.abs(diff)<1000 ? fmt(Math.abs(diff))+' kcal '+(diff>0?'higher':'lower')+' than the formula estimate of '+fmt(formula)+' kcal.' : 'very different from the formula, so double-check your logging.')) : '';
     var mx = Math.max(m.tdee, formula||0, m.avgIntake)*1.08;
     function bar(label, v, cls){ return '<div class="maint-bar '+cls+'"><span class="mb-l">'+label+'</span><span class="mb-track"><span class="mb-fill" style="width:'+(v/mx*100)+'%"></span></span><span class="mb-v">'+fmt(v)+'</span></div>'; }
     return '<div class="chart-card maint-card">'+head+
       '<div class="maint-hero"><span class="num">'+fmt(m.tdee)+'</span><span class="unit">kcal/day</span></div>'+
-      '<p class="maint-copy">You averaged '+fmt(m.avgIntake)+' kcal on '+m.foodDays+' logged days while your weight trended '+(m.weeklyKg<0?'down ':'up ')+(state.profile.unit==='metric' ? round(Math.abs(m.weeklyKg),2)+' kg' : round(Math.abs(m.weeklyKg)*2.20462,2)+' lb')+' a week. That puts your real maintenance at about '+fmt(m.tdee)+' kcal, '+cmp+'</p>'+
+      '<p class="maint-copy">You averaged '+fmt(m.avgIntake)+' kcal on '+m.foodDays+' full days with food logged while your weight trended '+(m.weeklyKg<0?'down ':'up ')+(state.profile.unit==='metric' ? round(Math.abs(m.weeklyKg),2)+' kg' : round(Math.abs(m.weeklyKg)*2.20462,2)+' lb')+' a week. That puts your real maintenance at about '+fmt(m.tdee)+' kcal, '+cmp+'</p>'+
       '<div class="maint-bars">'+bar('Measured', m.tdee, 'is-measured')+(formula?bar('Formula', formula, 'is-formula'):'')+bar('Avg eaten', m.avgIntake, 'is-eaten')+'</div>'+
-      (suspicious && !using ? '<p class="maint-note warn-text">That\'s more than 25% away from the formula, which usually means some meals or drinks weren\'t logged. Log every day in full for a couple of weeks before relying on it.</p>' : '<div class="maint-actions">'+(using
-        ? '<span class="maint-using">Targets use your measured maintenance</span><button type="button" class="maint-btn ghost" data-maint="formula">Use formula instead</button>'
-        : '<button type="button" class="maint-btn" data-maint="'+m.tdee+'">Use '+fmt(m.tdee)+' as my maintenance</button>')+'</div>')+
+      (suspicious ? '<p class="maint-note warn-text">That\'s more than 25% away from the formula, which usually means some meals or drinks weren\'t logged. Log every day in full for a couple of weeks before relying on it.</p>' : '')+
+      '<div class="maint-actions">'+(using
+        ? '<span class="maint-using">Targets use '+(stale ? 'your saved '+fmt(stored)+' kcal'+since+', not this new estimate' : 'your measured maintenance'+since)+'</span>'+
+          (stale && !suspicious ? '<button type="button" class="maint-btn" data-maint="'+m.tdee+'">Update to '+fmt(m.tdee)+'</button>' : '')+
+          '<button type="button" class="maint-btn ghost" data-maint="formula">Use formula instead</button>'
+        : (suspicious ? '' : '<button type="button" class="maint-btn" data-maint="'+m.tdee+'">Use '+fmt(m.tdee)+' as my maintenance</button>'))+'</div>'+
       '<p class="maint-note">Only as good as your logging: skipped meals make it read low. Re-check every few weeks as your weight changes.</p></div>';
   }
   function setMaintenanceOverride(val){
     state.profile.tdeeOverride = val;
+    state.profile.tdeeOverrideDate = val ? todayStr() : null;
     saveState();
     renderSetupResults();
     renderTrends();
@@ -3396,9 +3540,9 @@
       html += '<div class="heatmap-col">';
       week.forEach(function(d){
         if(!d){ html += '<span class="heatmap-cell lvl-0" aria-hidden="true" style="--i:'+wi+'"></span>'; return; }
-        var lvl = d.hitTarget ? 2 : (d.logged ? 1 : 0);
-        var title = shortLabel(d.date) + (d.logged ? (d.hitTarget?' — on target':' — logged') : ' — no entry');
-        html += '<span class="heatmap-cell lvl-'+lvl+'" title="'+title+'" style="--i:'+wi+'"></span>';
+        var lvl = (d.hitTarget && !d.isToday) ? 2 : (d.logged ? 1 : 0);
+        var title = shortLabel(d.date) + (d.logged ? ((d.hitTarget && !d.isToday)?' — on target':' — logged') : (d.isToday ? ' — nothing logged yet today' : ' — no entry'));
+        html += '<span class="heatmap-cell lvl-'+lvl+(d.isToday?' is-today':'')+'" title="'+title+'" style="--i:'+wi+'"></span>';
       });
       html += '</div>';
     });
@@ -3426,11 +3570,20 @@
     }
     return {src:e.img, credit:null};
   }
+  // Monday of the current week, used to expire last week's check-offs.
+  function weekKey(){
+    var d = new Date(); var dow = (d.getDay()+6)%7; d.setDate(d.getDate()-dow);
+    return toDateStr(d);
+  }
+  function isExDone(dayIndex, slug){
+    var c = state.workout && state.workout.completed;
+    return !!(c && c[dayIndex+':'+slug] === weekKey());
+  }
   function exerciseRowHTML(slug, dayIndex){
     var e = EX_DB[slug];
     if(!e) return '';
-    var reps = EX_REPS[slug] || '3 x 10-12';
-    var completed = (state.workout.completed && state.workout.completed[dayIndex+':'+slug]) || false;
+    var reps = schemeText(slug);
+    var completed = isExDone(dayIndex, slug);
     var cbId = 'ex-cb-'+dayIndex+'-'+slug;
     var photo = exercisePhoto(e);
     return '<div class="workout-ex '+(completed?'completed':'')+'" data-slug="'+slug+'" data-day="'+dayIndex+'">'+
@@ -3494,7 +3647,7 @@
           '<h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-dumbbell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="9" width="3" height="6" rx="1"/><rect x="4.5" y="7" width="2" height="10" rx="1"/><line x1="6.5" y1="12" x2="17.5" y2="12"/><rect x="17.5" y="7" width="2" height="10" rx="1"/><rect x="20" y="9" width="3" height="6" rx="1"/></svg></span>'+escapeHtml(day.title)+'</span></h2>'+
           '<button type="button" class="gym-start-btn" data-day="'+dayIndex+'">Start</button>'+
         '</div>'+
-        '<div class="workout-day-sub">'+day.ex.length+' exercises · rest 60–90 sec between sets</div>'+
+        '<div class="workout-day-sub">'+day.ex.length+' exercises · rest '+restText()+' between sets</div>'+
         day.ex.map(function(slug){ return exerciseRowHTML(slug, dayIndex); }).join('') +
       '</div>';
     });
@@ -3509,7 +3662,7 @@
         var slug = this.dataset.slug;
         var key = dayIndex+':'+slug;
         if(!state.workout.completed) state.workout.completed = {};
-        state.workout.completed[key] = this.checked;
+        if(this.checked) state.workout.completed[key] = weekKey(); else delete state.workout.completed[key];
         saveState();
         // Update UI
         var row = this.closest('.workout-ex');
@@ -3568,11 +3721,25 @@
     var reps = EX_REPS[slug] || '3 x 10-12';
     var m = reps.match(/^(\d+)\s*x\s*(\d+)(?:-(\d+))?/i);
     var isTimed = /sec/i.test(reps);
-    if(!m) return {sets:3, repsLow:10, repsHigh:12, isTimed:isTimed};
-    var sets = parseInt(m[1],10);
-    var repsLow = parseInt(m[2],10);
-    var repsHigh = m[3] ? parseInt(m[3],10) : repsLow;
+    var sets = 3, repsLow = 10, repsHigh = 12;
+    if(m){ sets = parseInt(m[1],10); repsLow = parseInt(m[2],10); repsHigh = m[3] ? parseInt(m[3],10) : repsLow; }
+    // Difficulty and goal toggles shape the prescription:
+    // beginners do one fewer set; fat-loss goal uses higher reps / shorter rest;
+    // muscle-building keeps the classic ranges with an extra set for intermediates.
+    var w = state.workout || {};
+    if(w.difficulty !== 'intermediate') sets = Math.max(2, sets-1);
+    else if(w.goal === 'muscle' && sets < 4) sets += 1;
+    if(!isTimed && w.goal === 'fat'){ repsLow += 2; repsHigh += 3; }
+    if(isTimed && w.difficulty === 'intermediate'){ repsLow += 15; repsHigh += 15; }
     return {sets:sets, repsLow:repsLow, repsHigh:repsHigh, isTimed:isTimed};
+  }
+  function schemeText(slug){
+    var t = parseSetTarget(slug);
+    return t.sets+' x '+t.repsLow+(t.repsHigh!==t.repsLow?'-'+t.repsHigh:'')+(t.isTimed?' sec':'');
+  }
+  function restText(){
+    var g = (state.workout||{}).goal;
+    return g==='fat' ? '45–60 sec' : (g==='muscle' ? '90–120 sec' : '60–90 sec');
   }
 
   // Bodyweight and timed (e.g. plank) exercises don't get a weight input —
@@ -3604,7 +3771,7 @@
     for(var i=0;i<arr.length;i++){ if(arr[i].date===today){ idx = i; break; } }
     var entry = {date:today, sets:setsArr};
     if(idx>=0) arr[idx] = entry; else arr.push(entry);
-    if(arr.length > 20) arr.splice(0, arr.length-20);
+    if(arr.length > 150) arr.splice(0, arr.length-150);
   }
 
   // Pure function: looks at the most recent logged session for `slug` and
@@ -3628,18 +3795,18 @@
       return 'Keep working toward '+target.repsHigh+' '+unit+' on every set before increasing difficulty.';
     }
 
-    var weightsPresent = last.sets.every(function(s){ return s.weight!=null && !isNaN(s.weight); });
-    if(!weightsPresent) return null;
-    var firstWeight = last.sets[0].weight;
-    var sameWeight = last.sets.every(function(s){ return s.weight === firstWeight; });
-    var allMetTop = last.sets.every(function(s){ return s.reps!=null && s.reps>=target.repsHigh; });
-
-    if(sameWeight && allMetTop){
-      var inc = state.profile.unit==='metric' ? (firstWeight >= 40 ? 2.5 : 1.25) : (firstWeight >= 60 ? 5 : 2.5);
-      return 'You hit '+target.repsHigh+'+ reps on every set at '+round(firstWeight,1)+' — try '+round(firstWeight+inc,1)+' next session.';
+    var weighted = last.sets.filter(function(s){ return s.weight!=null && !isNaN(s.weight); });
+    if(!weighted.length) return null;
+    var u = ' '+weightUnit();
+    // judge only the working sets (the heaviest weight); lighter warm-up sets don't block progress
+    var topWeight = Math.max.apply(null, weighted.map(function(s){ return s.weight; }));
+    var working = weighted.filter(function(s){ return s.weight === topWeight; });
+    var allMetTop = working.every(function(s){ return s.reps!=null && s.reps>=target.repsHigh; });
+    if(allMetTop && working.length >= Math.min(2, target.sets)){
+      var inc = state.profile.unit==='metric' ? (topWeight >= 40 ? 2.5 : 1.25) : (topWeight >= 60 ? 5 : 2.5);
+      return 'You hit '+target.repsHigh+'+ reps on every working set at '+round(topWeight,1)+u+' — try '+round(topWeight+inc,1)+u+' next session.';
     }
-    var topWeight = Math.max.apply(null, last.sets.map(function(s){ return s.weight; }));
-    return 'Repeat ~'+round(topWeight,1)+' and aim to add a rep on your working sets before increasing weight.';
+    return 'Repeat ~'+round(topWeight,1)+u+' and aim to add a rep on your working sets before increasing weight.';
   }
 
   function setRowHTML(i, s, noWeight, isTimed){
@@ -3648,8 +3815,8 @@
     var repsPlaceholder = isTimed ? 'sec' : 'reps';
     return '<div class="set-row" data-idx="'+i+'">'+
       '<span class="set-num">'+(i+1)+'</span>'+
-      (noWeight ? '' : '<input type="number" inputmode="decimal" class="set-weight" placeholder="wt" value="'+w+'">')+
-      '<input type="number" inputmode="numeric" class="set-reps" placeholder="'+repsPlaceholder+'" value="'+r+'">'+
+      (noWeight ? '' : '<input type="number" inputmode="decimal" min="0" class="set-weight" placeholder="'+weightUnit()+'" value="'+w+'">')+
+      '<input type="number" inputmode="numeric" min="0" class="set-reps" placeholder="'+repsPlaceholder+'" value="'+r+'">'+
       '<button type="button" class="set-log-btn" aria-label="Log set">&#10003;</button>'+
     '</div>';
   }
@@ -3676,28 +3843,41 @@
   // Reads the logger's rows, keeping only complete sets (weight+reps, or
   // reps alone for bodyweight/timed exercises), and upserts them into
   // state.workoutLogs, marking the day/exercise as completed.
-  function finishExerciseLog(logger, slug, dayIndex, noWeight, onFinish){
-    var rows = logger.querySelectorAll('.set-row');
+  function weightUnit(){ return state.profile.unit==='metric' ? 'kg' : 'lb'; }
+  // Reads complete sets from a logger. A blank weight counts as bodyweight,
+  // so dips/pull-ups etc. can be logged by reps alone.
+  function collectLoggerSets(logger, noWeight){
     var sets = [];
-    Array.prototype.forEach.call(rows, function(row){
+    Array.prototype.forEach.call(logger.querySelectorAll('.set-row'), function(row){
       var repsEl = row.querySelector('.set-reps');
       var reps = (repsEl && repsEl.value !== '') ? parseFloat(repsEl.value) : null;
       var weight = null;
       if(!noWeight){
         var wEl = row.querySelector('.set-weight');
         weight = (wEl && wEl.value !== '') ? parseFloat(wEl.value) : null;
+        if(weight!=null && (isNaN(weight) || weight<0)) weight = null;
       }
-      if(noWeight){
-        if(reps!=null && !isNaN(reps)) sets.push({weight:null, reps:reps});
-      } else {
-        if(weight!=null && !isNaN(weight) && reps!=null && !isNaN(reps)) sets.push({weight:weight, reps:reps});
-      }
+      if(reps!=null && !isNaN(reps) && reps>0) sets.push({weight:weight, reps:reps});
     });
-    if(!sets.length){ toast('Log at least one complete set'); return; }
+    return sets;
+  }
+  // Saves whatever is filled in so far, without marking the exercise done.
+  function autosaveLogger(container){
+    var logger = container && container.querySelector('.set-logger');
+    if(!logger) return false;
+    var sets = collectLoggerSets(logger, logger.dataset.noweight === '1');
+    if(!sets.length) return false;
+    upsertWorkoutLog(logger.dataset.slug, sets);
+    saveState();
+    return true;
+  }
+  function finishExerciseLog(logger, slug, dayIndex, noWeight, onFinish){
+    var sets = collectLoggerSets(logger, noWeight);
+    if(!sets.length){ toast('Log at least one set with reps'); return; }
     upsertWorkoutLog(slug, sets);
     if(dayIndex!==null && dayIndex!==undefined){
       if(!state.workout.completed) state.workout.completed = {};
-      state.workout.completed[dayIndex+':'+slug] = true;
+      state.workout.completed[dayIndex+':'+slug] = weekKey();
     }
     saveState();
     var e = EX_DB[slug];
@@ -3723,6 +3903,7 @@
       var logBtn = ev.target.closest('.set-log-btn');
       if(logBtn){
         logBtn.classList.add('logged');
+        autosaveLogger(container);
         startRestTimer(state.restSeconds || 90);
         return;
       }
@@ -3741,8 +3922,8 @@
     var last3 = arr.slice(-3).reverse();
     var items = last3.map(function(sess){
       var setsTxt = sess.sets.map(function(s){
-        return s.weight!=null ? (round(s.weight,1)+'×'+s.reps) : (s.reps+'');
-      }).join(', ');
+        return s.weight!=null ? (round(s.weight,1)+'×'+s.reps) : ('BW×'+s.reps);
+      }).join(', ') + (sess.sets.some(function(s){ return s.weight!=null; }) ? ' '+weightUnit() : '');
       return '<li><span class="ex-history-date">'+shortLabel(sess.date)+'</span><span class="ex-history-sets">'+escapeHtml(setsTxt)+'</span></li>';
     }).join('');
     return '<div class="ex-history"><div class="ex-history-title">Previous sessions</div><ul class="ex-history-list">'+items+'</ul></div>';
@@ -3772,7 +3953,7 @@
         var e = EX_DB[it.slug];
         var name = e ? e.name : it.slug;
         var t = it.top;
-        var setTxt = t ? (t.weight!=null ? (round(t.weight,1)+'×'+t.reps) : (t.reps+'')) : '';
+        var setTxt = t ? (t.weight!=null ? (round(t.weight,1)+' '+weightUnit()+' × '+t.reps) : (t.reps+' reps')) : '';
         return '<div class="recent-workout-ex"><span>'+escapeHtml(name)+'</span><span class="recent-workout-set">'+escapeHtml(setTxt)+'</span></div>';
       }).join('');
       return '<div class="recent-workout-day"><div class="recent-workout-date">'+dayLabel(d)+'</div>'+items+'</div>';
@@ -3791,13 +3972,15 @@
     el('exerciseDetailOverlay').classList.add('open');
   }
   function closeExerciseDetail(){
+    var saved = autosaveLogger(el('exDetailBody'));
     el('exerciseDetailOverlay').classList.remove('open');
+    if(saved){ renderWorkouts(); toast('Sets saved'); }
   }
   function renderExerciseDetailBody(slug, dayIndex){
     var e = EX_DB[slug];
     if(!e) return;
     el('exDetailName').textContent = e.name;
-    var reps = EX_REPS[slug] || '';
+    var reps = schemeText(slug);
     var suggestion = suggestNextLoad(slug);
     var history = exerciseHistoryHTML(slug);
     var restOptions = [60,90,120,180];
@@ -3840,22 +4023,27 @@
   /* ============================================================
      REST TIMER (floating, global — survives modal close)
   ============================================================ */
-  var restTimer = {remaining:0, intervalId:null};
+  var restTimer = {remaining:0, intervalId:null, endAt:0, hideT:null};
 
+  // Counts down against the wall clock, so a locked phone or background tab
+  // doesn't stretch the rest period.
   function startRestTimer(seconds){
     clearInterval(restTimer.intervalId);
+    clearTimeout(restTimer.hideT);
+    getAudioCtx();
+    restTimer.endAt = Date.now() + seconds*1000;
     restTimer.remaining = seconds;
     el('restTimerPill').style.display = 'flex';
     renderRestTimerDisplay();
     restTimer.intervalId = setInterval(function(){
-      restTimer.remaining--;
+      restTimer.remaining = Math.max(0, Math.ceil((restTimer.endAt - Date.now())/1000));
       renderRestTimerDisplay();
       if(restTimer.remaining <= 0){
         clearInterval(restTimer.intervalId);
         restTimer.intervalId = null;
         restTimerComplete();
       }
-    }, 1000);
+    }, 250);
   }
   function renderRestTimerDisplay(){
     var r = Math.max(0, restTimer.remaining);
@@ -3874,20 +4062,32 @@
   }
   function addRestTime(sec){
     if(restTimer.intervalId==null && restTimer.remaining<=0) return;
-    restTimer.remaining += sec;
+    restTimer.endAt += sec*1000;
+    restTimer.remaining = Math.max(0, Math.ceil((restTimer.endAt - Date.now())/1000));
     renderRestTimerDisplay();
   }
   function restTimerComplete(){
     try{ if(navigator.vibrate) navigator.vibrate([200,80,200]); }catch(err){}
     playBeep();
     toast('Rest complete — go!');
-    setTimeout(hideRestTimer, 2200);
+    clearTimeout(restTimer.hideT);
+    restTimer.hideT = setTimeout(hideRestTimer, 2200);
   }
+  // One shared AudioContext, unlocked by the first tap, so sounds that fire
+  // later from a timer (rest beep, meditation bell) aren't blocked by iOS.
+  var sharedAudio = null;
+  function getAudioCtx(){
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if(!Ctx) return null;
+    if(!sharedAudio){ try{ sharedAudio = new Ctx(); }catch(e){ return null; } }
+    if(sharedAudio.state === 'suspended'){ try{ sharedAudio.resume(); }catch(e){} }
+    return sharedAudio;
+  }
+  document.addEventListener('pointerdown', function unlockAudio(){ getAudioCtx(); document.removeEventListener('pointerdown', unlockAudio); }, {once:true});
   function playBeep(){
     try{
-      var Ctx = window.AudioContext || window.webkitAudioContext;
-      if(!Ctx) return;
-      var ctx = new Ctx();
+      var ctx = getAudioCtx();
+      if(!ctx) return;
       var osc = ctx.createOscillator();
       var gain = ctx.createGain();
       osc.type = 'sine';
@@ -3899,7 +4099,6 @@
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime+0.42);
-      osc.onended = function(){ ctx.close(); };
     }catch(err){ /* Web Audio unavailable — silently skip the beep */ }
   }
 
@@ -3912,8 +4111,7 @@
   function medEnsureCtx(){
     var Ctx = window.AudioContext || window.webkitAudioContext;
     if(!Ctx) return null;
-    if(!medAudio.ctx) medAudio.ctx = new Ctx();
-    if(medAudio.ctx.state === 'suspended') { try{ medAudio.ctx.resume(); }catch(e){} }
+    medAudio.ctx = getAudioCtx();
     return medAudio.ctx;
   }
   function medMakeNoiseBuffer(ctx, brown){
@@ -3938,6 +4136,7 @@
     medAudio.extraNodes.forEach(function(n){ try{ n.disconnect(); }catch(e){} });
     medAudio.extraNodes = [];
     if(medAudio.gain){ try{ medAudio.gain.disconnect(); }catch(e){} medAudio.gain = null; }
+    medAudio.lfoGain = null;
   }
   function medStartSound(type, volume){
     medStopSound();
@@ -3962,7 +4161,7 @@
       var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900;
       src.connect(lp); lp.connect(gain);
       var lfo = ctx.createOscillator(); lfo.frequency.value = 0.09;
-      var lfoGain = ctx.createGain(); lfoGain.gain.value = volume*0.5;
+      var lfoGain = ctx.createGain(); lfoGain.gain.value = volume*0.5; medAudio.lfoGain = lfoGain;
       lfo.connect(lfoGain); lfoGain.connect(gain.gain);
       lfo.start();
       medAudio.lfo = lfo;
@@ -3976,12 +4175,12 @@
   }
   function medSetVolume(v){
     if(medAudio.gain) medAudio.gain.gain.value = v;
+    if(medAudio.lfoGain) medAudio.lfoGain.gain.value = v*0.5; // ocean swell scales with volume too
   }
   function playChime(){
     try{
-      var Ctx = window.AudioContext || window.webkitAudioContext;
-      if(!Ctx) return;
-      var ctx = new Ctx();
+      var ctx = getAudioCtx();
+      if(!ctx) return;
       [1, 2, 2.4].forEach(function(mult, i){
         var osc = ctx.createOscillator();
         var gain = ctx.createGain();
@@ -3996,7 +4195,6 @@
         osc.start();
         osc.stop(ctx.currentTime+3.3);
       });
-      setTimeout(function(){ try{ ctx.close(); }catch(e){} }, 3500);
     }catch(err){ /* Web Audio unavailable — silently skip the chime */ }
   }
 
@@ -4046,13 +4244,15 @@
     var startBtn = el('medStartBtn');
     if(startBtn) startBtn.textContent = 'Pause';
     renderMedTimerDisplay();
+    medTimer.endAt = Date.now() + medTimer.remaining*1000;
     medTimer.intervalId = setInterval(function(){
-      medTimer.remaining--;
-      renderMedTimerDisplay();
+      var r = Math.max(0, Math.ceil((medTimer.endAt - Date.now())/1000));
+      if(r !== medTimer.remaining){ medTimer.remaining = r; renderMedTimerDisplay(); }
       if(medTimer.remaining<=0) medCompleteSession();
-    }, 1000);
+    }, 250);
   }
   function medPauseTimer(){
+    if(medTimer.endAt) medTimer.remaining = Math.max(0, Math.ceil((medTimer.endAt - Date.now())/1000));
     clearInterval(medTimer.intervalId);
     medTimer.intervalId = null;
     medTimer.running = false;
@@ -4100,10 +4300,11 @@
   }
   function logMeditationSession(seconds){
     if(!seconds || seconds<=0) return;
-    if(!state.meditation) state.meditation = Object.assign({}, DEFAULT_MEDITATION);
+    if(!state.meditation) state.meditation = freshState().meditation;
     if(!Array.isArray(state.meditation.sessions)) state.meditation.sessions = [];
+    state.meditation.lifetimeCount = Math.max(state.meditation.lifetimeCount||0, state.meditation.sessions.length) + 1;
     state.meditation.sessions.unshift({date: todayStr(), seconds: seconds, ts: Date.now()});
-    if(state.meditation.sessions.length > 50) state.meditation.sessions.length = 50;
+    if(state.meditation.sessions.length > 400) state.meditation.sessions.length = 400;
     saveState();
   }
   function renderMeditateHistory(){
@@ -4112,9 +4313,10 @@
     var weekCutoff = addDays(todayStr(), -6);
     var weekSec = sessions.filter(function(s){ return s.date >= weekCutoff; }).reduce(function(a,s){ return a+s.seconds; }, 0);
     animateNumber('medWeekStat', Math.round(weekSec/60));
-    animateNumber('medLifetimeStat', sessions.length);
+    var lifetime = Math.max((state.meditation && state.meditation.lifetimeCount)||0, sessions.length);
+    animateNumber('medLifetimeStat', lifetime);
     var unitNode = el('medLifetimeUnit');
-    if(unitNode) unitNode.textContent = sessions.length===1 ? 'session' : 'sessions';
+    if(unitNode) unitNode.textContent = lifetime===1 ? 'session' : 'sessions';
     var listNode = el('medSessionList');
     if(!listNode) return;
     if(!sessions.length){
@@ -4169,6 +4371,12 @@
     body.addEventListener('toggle', syncLearnExpandLabel, true);
   }
 
+  function syncMeditateControls(){
+    var m = state.meditation;
+    document.querySelectorAll('#medSoundChips .chip-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.sound === m.lastSound); });
+    if(el('medVolume')) el('medVolume').value = (typeof m.volume==='number') ? m.volume : 45;
+    if(el('medBellToggle')) el('medBellToggle').checked = m.bell !== false;
+  }
   function initMeditate(){
     var m = state.meditation || DEFAULT_MEDITATION;
     document.querySelectorAll('#medDurationChips .chip-btn').forEach(function(b){
@@ -4223,6 +4431,7 @@
     renderGymMode();
   }
   function closeGymMode(){
+    autosaveLogger(el('gymModeBody'));
     el('gymModeOverlay').style.display = 'none';
     gymState = null;
     renderWorkouts();
@@ -4235,7 +4444,7 @@
     var slug = day.ex[gymState.exIndex];
     var e = EX_DB[slug];
     if(!e) return;
-    var reps = EX_REPS[slug] || '';
+    var reps = schemeText(slug);
     var photo = exercisePhoto(e);
     el('gymModeProgress').textContent = 'Exercise '+(gymState.exIndex+1)+' of '+day.ex.length+' · '+day.title;
     el('gymModeBody').innerHTML =
@@ -4258,6 +4467,7 @@
   }
   function gymPrev(){
     if(!gymState || gymState.exIndex<=0) return;
+    autosaveLogger(el('gymModeBody'));
     gymState.exIndex--;
     renderGymMode();
   }
@@ -4266,6 +4476,14 @@
     var days = currentWorkoutDays();
     var day = days[gymState.dayIndex];
     if(!day) return;
+    var body = el('gymModeBody'), lg = body && body.querySelector('.set-logger');
+    if(lg && collectLoggerSets(lg, lg.dataset.noweight==='1').length){
+      // moving on counts as finishing this exercise
+      autosaveLogger(body);
+      if(!state.workout.completed) state.workout.completed = {};
+      state.workout.completed[gymState.dayIndex+':'+day.ex[gymState.exIndex]] = weekKey();
+      saveState();
+    }
     if(gymState.exIndex >= day.ex.length-1){
       toast('Workout complete!');
       spawnConfetti(el('gymModeOverlay'));
@@ -4289,27 +4507,37 @@
     return '<div class="table-scroll"><table class="history-table"><tr><th>Date</th><th>Chest</th><th>Hips</th><th>Arms</th><th>Thighs</th></tr>'+rows+'</table></div>';
   }
 
-  function computeGoalEta(days){
+  // Projects the goal-weight date from the weight trend over the selected
+  // range (at least the last 28 days), extended to today.
+  function computeGoalEta(){
     var goalW = parseFloat(state.profile.goalWeight);
-    if(!goalW) return null;
+    if(!goalW || goalW<=0) return null;
+    var windowDays = Math.max(trendRange, 28);
+    var days = collectRange(windowDays);
     var pts = days.map(function(d,i){ return {i:i, v:d.weight}; }).filter(function(p){ return p.v!=null; });
-    var unitLbl = state.profile.unit==='metric' ? 'kg':'lb';
-    if(pts.length<3) return {msg:'Log weight on a few more days to project a date toward your '+round(goalW,1)+' '+unitLbl+' goal.'};
-    var n = pts.length, sumX=0,sumY=0,sumXY=0,sumXX=0;
-    pts.forEach(function(p){ sumX+=p.i; sumY+=p.v; sumXY+=p.i*p.v; sumXX+=p.i*p.i; });
-    var denom = (n*sumXX - sumX*sumX);
-    if(denom===0) return {msg:'Not enough variation yet to project a date.'};
-    var slope = (n*sumXY - sumX*sumY)/denom;
+    var metric = state.profile.unit==='metric', unitLbl = metric ? 'kg':'lb';
+    var goalTxt = round(goalW,1)+' '+unitLbl;
+    var span = pts.length ? pts[pts.length-1].i - pts[0].i : 0;
+    if(pts.length<4 || span<14) return {msg:'A projection toward your '+goalTxt+' goal needs weigh-ins spread over at least two weeks (so far: '+pts.length+' over '+span+' day'+(span===1?'':'s')+').'};
+    var slope = regressionSlope(pts);
+    if(slope==null) return {msg:'Not enough variation yet to project a date.'};
+    var n = pts.length, sumX=0, sumY=0;
+    pts.forEach(function(p){ sumX+=p.i; sumY+=p.v; });
     var intercept = (sumY - slope*sumX)/n;
-    var lastVal = slope*pts[pts.length-1].i + intercept;
-    var diff = goalW - lastVal;
-    if(Math.abs(diff) < 0.15) return {msg:'You\'re already at your goal weight based on your latest trend.'};
-    if(Math.abs(slope) < 0.01) return {msg:'Weight has been flat recently — no clear trend to project a date from yet.'};
-    if(Math.sign(slope) !== Math.sign(diff)) return {msg:'The recent trend is moving away from your '+round(goalW,1)+' '+unitLbl+' goal, not toward it.'};
-    var daysNeeded = diff/slope;
-    var targetDate = addDays(todayStr(), Math.round(daysNeeded));
-    var weeklyRate = slope*7;
-    return {msg:'At the recent trend ('+(weeklyRate>=0?'+':'')+round(weeklyRate,2)+' '+unitLbl+'/week), projected to reach '+round(goalW,1)+' '+unitLbl+' around '+dayLabel(targetDate)+'.'};
+    var nowVal = slope*(days.length-1) + intercept; // trend value today
+    var diff = goalW - nowVal;
+    var tol = metric ? 0.3 : 0.7, flat = metric ? 0.01 : 0.02; // per day
+    var dir = currentTargets() ? currentTargets().goal.adj : 0;
+    var rateTxt = (slope>=0?'+':'−')+round(Math.abs(slope*7),2)+' '+unitLbl+'/week over the last '+windowDays+' days';
+    if(Math.abs(diff) < tol) return {msg:'Your trend weight is at your '+goalTxt+' goal. Time to switch to maintenance, or set a new goal.'};
+    if((dir<0 && diff>0) || (dir>0 && diff<0)) return {msg:'Your trend weight ('+round(nowVal,1)+' '+unitLbl+') is already past your '+goalTxt+' goal. Consider maintenance or a new goal weight.'};
+    if(Math.abs(slope) < flat) return {msg:'Weight has been flat ('+rateTxt+'), so there\'s no clear trend toward '+goalTxt+' yet.'};
+    if(Math.sign(slope) !== Math.sign(diff)) return {msg:'The recent trend ('+rateTxt+') is moving away from your '+goalTxt+' goal, not toward it.'};
+    var daysNeeded = Math.round(diff/slope);
+    if(daysNeeded > 730) return {msg:'At '+rateTxt+', '+goalTxt+' is more than two years away.'};
+    var etaDate = addDays(todayStr(), daysNeeded), ep = etaDate.split('-').map(Number);
+    var etaTxt = new Date(ep[0], ep[1]-1, ep[2]).toLocaleDateString(undefined, ep[0]===new Date().getFullYear() ? {weekday:'short', month:'short', day:'numeric'} : {month:'short', day:'numeric', year:'numeric'});
+    return {msg:'At '+rateTxt+', projected to reach '+goalTxt+' around '+etaTxt+'.'};
   }
 
   // ---- shared chart geometry ----
@@ -4331,6 +4559,7 @@
       return '<div class="chart-empty"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></svg></div>Log weight on at least two days to see a trend line.</div>';
     }
     var vals = pts.map(function(p){return p.v;});
+    pts.forEach(function(p){ for(var k=1;k<7;k++){ var l = state.logs[addDays(p.date,-k)]; if(l && l.weight!=null) vals.push(l.weight); } });
     var minV = Math.min.apply(null, vals), maxV = Math.max.apply(null, vals);
     if(minV===maxV){ minV -= 1; maxV += 1; }
     var padV = (maxV-minV)*0.15;
@@ -4346,10 +4575,12 @@
     var showAvg = pts.length>=4;
     var avgPath = '';
     if(showAvg){
-      var avgPts = pts.map(function(p,idx){
-        var slice = pts.slice(Math.max(0,idx-6), idx+1);
-        var avg = slice.reduce(function(s,q){return s+q.v;},0)/slice.length;
-        return {i:p.i, v:avg};
+      // a real 7-calendar-day average (reaching back before the range),
+      // not the last 7 weigh-ins however far apart
+      var avgPts = pts.map(function(p){
+        var sum = 0, cnt = 0;
+        for(var k=0;k<7;k++){ var l = state.logs[addDays(p.date,-k)]; if(l && l.weight!=null){ sum += l.weight; cnt++; } }
+        return {i:p.i, v:cnt ? sum/cnt : p.v};
       });
       avgPath = avgPts.map(function(p,idx){ return (idx===0?'M':'L')+xScale(p.i,n).toFixed(1)+','+yScale(p.v).toFixed(1); }).join(' ');
     }
@@ -4421,9 +4652,9 @@
 
   function calorieChartSVG(days, targets){
     var n = days.length;
-    var maxVal = Math.max.apply(null, days.map(function(d){return d.cal;}).concat([targets?targets.calories:0, 1]));
+    var maxVal = Math.max.apply(null, days.map(function(d){return Math.max(d.cal, d.target||0);}).concat([targets?targets.calories:0, 1]));
     maxVal *= 1.12;
-    var barW = Math.min(24, (CW-PAD_L-PAD_R)/n - 4);
+    var barW = Math.max(1.5, Math.min(24, (CW-PAD_L-PAD_R)/n - (n>40 ? 1 : 4)));
     function yScale(v){ return PAD_T + (CH-PAD_T-PAD_B) * (1 - v/maxVal); }
     var svg = '<svg viewBox="0 0 '+CW+' '+CH+'" preserveAspectRatio="xMidYMid meet">';
     days.forEach(function(d,i){
@@ -4432,20 +4663,20 @@
       var y = yScale(d.cal);
       var h = Math.max((CH-PAD_B) - y, 3);
       var barY = (CH-PAD_B) - h;
-      var col = 'var(--fill)';
-      if(targets){
-        if(d.cal > targets.calories*1.05) col = 'var(--danger)';
-        else if(d.cal >= targets.calories*0.8) col = 'var(--good)';
-        else col = 'color-mix(in srgb, var(--text-2) 55%, transparent)';
+      var col = 'var(--fill)', tg = d.target;
+      if(tg){
+        if(d.cal > tg*1.05) col = 'var(--danger)';
+        else if(d.cal >= tg*0.8) col = d.isToday ? 'var(--fill)' : 'var(--good)';
+        else col = d.isToday ? 'var(--fill)' : 'color-mix(in srgb, var(--text-2) 55%, transparent)';
       }
       svg += '<rect x="'+x.toFixed(1)+'" y="'+barY.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+Math.min(4,h/2).toFixed(1)+'" fill="'+col+'" style="--i:'+i+'"/>';
     });
-    var fdays = days.filter(function(d){ return d.cal>0; });
+    var fdays = days.filter(function(d){ return d.cal>0 && !d.isToday; });
     if(fdays.length>1){
       var avg = fdays.reduce(function(a,d){return a+d.cal;},0)/fdays.length;
       var ay = yScale(avg);
       svg += '<line x1="'+PAD_L+'" y1="'+ay.toFixed(1)+'" x2="'+(CW-PAD_R)+'" y2="'+ay.toFixed(1)+'" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3 3"/>';
-      svg += '<text x="'+(PAD_L+2)+'" y="'+(ay-4).toFixed(1)+'" font-size="8" font-weight="600" fill="var(--accent)" stroke="var(--bg)" stroke-width="3" paint-order="stroke" font-family="IBM Plex Mono, monospace">avg '+fmt(avg)+'</text>';
+      svg += '<text x="'+(PAD_L+2)+'" y="'+(ay-4).toFixed(1)+'" font-size="8" font-weight="600" fill="var(--accent)" stroke="var(--bg)" stroke-width="3" paint-order="stroke" font-family="IBM Plex Mono, monospace">avg '+fmt(avg)+' (full days)</text>';
     }
     if(targets){
       var ty = yScale(targets.calories);
@@ -4465,7 +4696,7 @@
     var n = days.length;
     var maxVal = Math.max.apply(null, days.map(function(d){return d.p*4+d.c*4+d.f*9;}).concat([1]));
     maxVal *= 1.1;
-    var barW = Math.min(20, (CW-PAD_L-PAD_R)/n - 4);
+    var barW = Math.max(1.5, Math.min(20, (CW-PAD_L-PAD_R)/n - (n>40 ? 1 : 4)));
     var gap = 1.5; // surface gap between stacked segments
     function yScale(v){ return PAD_T + (CH-PAD_T-PAD_B) * (1 - v/maxVal); }
     var svg = '<svg viewBox="0 0 '+CW+' '+CH+'" preserveAspectRatio="xMidYMid meet">';
@@ -4526,7 +4757,7 @@
   }
   function calorieTable(days, targets){
     var rows = days.filter(function(d){return d.cal>0;}).map(function(d){
-      return '<tr><td>'+shortLabel(d.date)+'</td><td>'+fmt(d.cal)+'</td><td>'+(targets?fmt(targets.calories):'–')+'</td></tr>';
+      return '<tr><td>'+shortLabel(d.date)+(d.isToday?' (so far)':'')+'</td><td>'+fmt(d.cal)+'</td><td>'+(d.target?fmt(d.target):'–')+'</td></tr>';
     }).join('');
     return '<details class="datatable"><summary>Show data table</summary><table><tr><th>Date</th><th>Calories</th><th>Target</th></tr>'+rows+'</table></details>';
   }
@@ -4566,10 +4797,12 @@
     var group = el(id);
     Array.prototype.forEach.call(group.children, function(btn){
       btn.addEventListener('click', function(){
-        state.profile[key] = btn.dataset.val;
+        var prev = state.profile[key];
         Array.prototype.forEach.call(group.children, function(b){ b.classList.toggle('active', b===btn); });
+        if(prev === btn.dataset.val) return; // re-tapping the active option changes nothing
+        state.profile[key] = btn.dataset.val;
         saveState();
-        if(onChange) onChange();
+        if(onChange) onChange(prev, btn.dataset.val);
         renderSetupResults();
       });
     });
@@ -4608,6 +4841,33 @@
     var ft = parseFloat(el('heightFt').value)||0;
     var inches = parseFloat(el('heightIn').value)||0;
     el('height').value = round(ft*12 + inches, 1);
+  }
+
+  // Switching kg/cm <-> lb/in converts everything stored in body units:
+  // the calculator, goal weight, every check-in and every logged lift, so
+  // charts, maintenance and progress stay correct after the switch.
+  function convertUnits(toImperial){
+    var wf = toImperial ? 1/0.45359237 : 0.45359237, lf = toImperial ? 1/2.54 : 2.54;
+    function cv(v, f, d){ var n = parseFloat(v); return (v===null || v==='' || v===undefined || isNaN(n)) ? v : round(n*f, d); }
+    var p = state.profile;
+    p.height = cv(p.height, lf, 1); p.weight = cv(p.weight, wf, 1);
+    if(p.goalWeight!=='' && p.goalWeight!=null) p.goalWeight = String(cv(p.goalWeight, wf, 1));
+    ['height','weight','goalWeight'].forEach(function(id){
+      var v = el(id).value;
+      if(v!=='' && !isNaN(parseFloat(v))) el(id).value = cv(v, id==='height'?lf:wf, 1);
+    });
+    Object.keys(state.logs).forEach(function(d){
+      var l = state.logs[d];
+      if(l.weight!=null) l.weight = cv(l.weight, wf, 2);
+      ['waist','chest','hips','arms','thighs'].forEach(function(k){ if(l[k]!=null) l[k] = cv(l[k], lf, 2); });
+    });
+    Object.keys(state.workoutLogs||{}).forEach(function(slug){
+      (state.workoutLogs[slug]||[]).forEach(function(sess){
+        (sess.sets||[]).forEach(function(st){ if(st.weight!=null) st.weight = cv(st.weight, wf, 1); });
+      });
+    });
+    saveState();
+    renderToday();
   }
 
   function populateInputs(){
@@ -4768,11 +5028,13 @@
       var t = computeTargets(Object.assign({}, state.profile, o));
       if(!t){ node.innerHTML = ''; return; }
       if(node.dataset.group==='activity'){
-        node.innerHTML = fmt(t.formulaTdee)+'<small>maintenance</small>';
+        node.innerHTML = fmt(t.formulaTdee)+'<small>'+(t.usedMeasured ? 'formula · not in use' : 'maintenance')+'</small>';
       } else {
+        // weeklyKg > 0 means a deficit (loss); sign comes from the real
+        // number, not the goal, so a floored target can't mislabel itself
         var wk = Math.abs(t.weeklyKg), unitW = state.profile.unit==='metric';
-        var rate = t.goal.adj===0 ? 'hold weight' : ((t.goal.adj<0?'−':'+')+(unitW ? round(wk,2)+' kg' : round(wk*2.20462,1)+' lb')+'/wk');
-        node.innerHTML = fmt(t.calories)+' kcal<small>'+rate+'</small>';
+        var rate = wk < 0.005 ? 'hold weight' : ((t.weeklyKg>0?'−':'+')+(unitW ? round(wk,2)+' kg' : round(wk*2.20462,1)+' lb')+'/wk');
+        node.innerHTML = fmt(t.calories)+' kcal<small>'+rate+(t.flooredNote?' · floor':'')+'</small>';
       }
     });
   }
@@ -4781,9 +5043,15 @@
     var heightRaw = parseFloat(el('height').value);
     var weightRaw = parseFloat(el('weight').value);
     var bfRaw = el('bodyfat').value ? parseFloat(el('bodyfat').value) : null;
-    if(!age || !heightRaw || !weightRaw || age<10 || heightRaw<=0 || weightRaw<=0) return;
+    var noteArea = el('noteArea');
+    var problems = profileProblems({unit:state.profile.unit, age:age, height:heightRaw, weight:weightRaw});
+    if(problems.length){
+      // keep the last valid profile; just explain what's wrong
+      noteArea.innerHTML = '<div class="note warn">Enter '+problems.join(', ')+' to calculate your targets.</div>';
+      return;
+    }
 
-    state.profile.age = age; state.profile.height = heightRaw; state.profile.weight = weightRaw; state.profile.bodyfat = bfRaw;
+    state.profile.age = age; state.profile.height = heightRaw; state.profile.weight = weightRaw; state.profile.bodyfat = (bfRaw!=null && !isNaN(bfRaw)) ? bfRaw : '';
     saveState();
 
     var t = computeTargets(state.profile);
@@ -4791,7 +5059,7 @@
     var goal = t.goal;
 
     animateNumber('targetCals', t.calories);
-    el('goalCap').textContent = goal.cap + (t.flooredNote ? ' (raised to a safe minimum)' : '');
+    el('goalCap').textContent = t.flooredNote ? ('Held at the '+fmt(t.calories)+' kcal minimum') : goal.cap;
     animateNumber('bmrOut', t.bmr);
     animateNumber('tdeeOut', t.tdee);
     animateNumber('bmiOut', t.bmi, {decimals:1});
@@ -4823,11 +5091,17 @@
     el('gymText').innerHTML = '<strong>'+fmt(t.calories)+' kcal already includes your training.</strong> Don\'t eat back watch or machine calories; that double-counts. Sessions of about '+goal.gymLow+'–'+goal.gymHigh+' kcal suit this goal.';
 
     var notes = [], noteArea_fast = false;
-    if(goal.adj<0){
-      var absKg = Math.abs(t.weeklyKg);
+    var absKg = Math.abs(t.weeklyKg);
+    if(t.weeklyKg > 0.005){
       notes.push('At this target, expect to lose roughly '+round(absKg,2)+' kg ('+round(absKg*2.20462,2)+' lb) a week, about '+round(Math.abs(t.weeklyPct),1)+'% of your bodyweight, on average. The first week or two usually drops faster from water; judge progress on the 7-day average in Trends.');
-    } else if(goal.adj>0){
-      notes.push('At this target, expect to gain roughly '+round(Math.abs(t.weeklyKg),2)+' kg ('+round(Math.abs(t.weeklyKg)*2.20462,2)+' lb) a week — some of that will be muscle, some fat.');
+    } else if(t.weeklyKg < -0.005){
+      notes.push('At this target, expect to gain roughly '+round(absKg,2)+' kg ('+round(absKg*2.20462,2)+' lb) a week — some of that will be muscle, some fat.');
+    }
+    if(t.age<18){
+      notes.push('These formulas are built for adults. Under 18, growth needs come first — check with a doctor or dietitian before eating in a deficit.');
+    }
+    if(t.bfIgnored){
+      notes.push('Body fat % should be between 3 and 60, so the value entered is being ignored.');
     }
     if(t.usedMeasured){
       notes.push('Using your measured maintenance of '+fmt(t.tdee)+' kcal from Trends (formula estimate: '+fmt(t.formulaTdee)+'). <button type="button" class="link-btn" id="useFormulaBtn">Switch back to the formula</button>');
@@ -4836,7 +5110,9 @@
       notes.push('BMR uses the Katch–McArdle formula because you entered a body-fat %, which makes it more accurate than a height/weight/age estimate.');
     }
     if(t.usedLbm){
-      notes.push('Protein is based on your lean body mass (using the body-fat % you entered) — the higher end of the research range for preserving muscle in a deficit.');
+      notes.push(goal.adj<0
+        ? 'Protein is based on your lean body mass (using the body-fat % you entered) — the higher end of the research range for preserving muscle in a deficit.'
+        : 'Protein is based on your lean body mass (using the body-fat % you entered).');
     } else if(t.usedRefWeight){
       var refShown = state.profile.unit==='metric' ? round(t.refWeightKg,0)+' kg' : round(t.refWeightKg/0.45359237,0)+' lb';
       notes.push('Protein and the fat minimum are based on a reference weight of '+refShown+' (a BMI of 25, or your goal weight if higher), because per-kg targets on full bodyweight overshoot. Enter a body-fat % for a lean-mass-based number.');
@@ -4844,10 +5120,10 @@
     if(goal.adj<0 && Math.abs(t.weeklyPct) > 1){
       noteArea_fast = true;
     }
-    var noteArea = el('noteArea');
     noteArea.innerHTML = notes.map(function(n){return '<div class="note">'+n+'</div>';}).join('');
     if(noteArea_fast){
-      noteArea.innerHTML += '<div class="note warn">That\'s faster than about 1% of bodyweight a week, the point where muscle loss and rebound get more likely. Consider the standard fat-loss goal.</div>';
+      var slower = goal.id==='aggressiveloss' ? 'Consider the standard fat-loss goal, or keep this for short phases.' : (goal.id==='leanloss' ? 'Consider the mild fat-loss goal.' : 'Double-check your activity level; it may be set too high.');
+      noteArea.innerHTML += '<div class="note warn">That\'s faster than about 1% of bodyweight a week, the point where muscle loss and rebound get more likely. '+slower+'</div>';
     }
     if(t.carbs>0 && t.carbs<130){
       noteArea.innerHTML += '<div class="note warn">Carbs land under 130 g/day, the amount the brain typically draws from glucose. Consider a smaller deficit or more activity if focus or energy suffers.</div>';
@@ -4856,8 +5132,10 @@
       noteArea.innerHTML += '<div class="note warn">Protein and fat targets alone exceed your calorie target — try a smaller deficit or a higher activity level.</div>';
     }
     if(t.flooredNote){
-      noteArea.innerHTML += '<div class="note warn">Your goal would drop intake below a safe minimum, so the target was raised. A deficit this large usually isn\'t sustainable anyway.</div>';
+      noteArea.innerHTML += '<div class="note warn">This goal would put intake under '+fmt(t.minCalories)+' kcal, below the usual minimum without medical supervision, so the target is held there. Milder goals may land on the same number for you.</div>';
     }
+    // targets feed Today and the desktop rail too
+    renderToday();
   }
 
   /* ============================================================
@@ -4869,28 +5147,43 @@
     el('reminderTime').value = state.reminder.time || '08:00';
     el('reminderTimeField').style.opacity = state.reminder.enabled ? '1' : '0.45';
   }
+  function nowHHMM(){ var n = new Date(); return pad2(n.getHours())+':'+pad2(n.getMinutes()); }
   function toggleReminder(){
     state.reminder.enabled = !state.reminder.enabled;
+    // switching on after today's time has passed shouldn't fire instantly
+    if(state.reminder.enabled && nowHHMM() >= (state.reminder.time||'08:00')) state.reminder.lastFired = todayStr();
     if(state.reminder.enabled && 'Notification' in window && Notification.permission==='default'){
       Notification.requestPermission();
     }
     saveState();
     applyReminderUI();
   }
+  // Fires once a day at or after the set time (timers are throttled in the
+  // background, so an exact-minute match was often missed), and skips the
+  // nudge if today already has entries.
   function checkReminder(){
     if(!state.reminder.enabled) return;
-    var now = new Date();
-    var hhmm = pad2(now.getHours())+':'+pad2(now.getMinutes());
     var today = todayStr();
-    if(hhmm === (state.reminder.time||'08:00') && state.reminder.lastFired !== today){
+    if(nowHHMM() >= (state.reminder.time||'08:00') && state.reminder.lastFired !== today){
       state.reminder.lastFired = today;
       saveState();
-      if('Notification' in window && Notification.permission==='granted'){
-        try{ new Notification('Lean Metrics', {body:'Time to log today\'s weight and meals.'}); }catch(e){}
-      } else {
-        toast('Reminder: log today\'s weight & meals');
-      }
+      if(isLoggedDay(state.logs[today])) return;
+      showReminder('Time to log today\'s weight and meals.');
     }
+  }
+  function showReminder(body){
+    function fallback(){ toast('Reminder: log today\'s weight & meals'); }
+    if(!('Notification' in window) || Notification.permission!=='granted'){ fallback(); return; }
+    var opts = {body:body, icon:'icon-192.png', badge:'icon-192.png', tag:'lean-metrics-reminder'};
+    // Android Chrome only allows notifications through the service worker
+    if(navigator.serviceWorker && navigator.serviceWorker.getRegistration){
+      navigator.serviceWorker.getRegistration().then(function(reg){
+        if(reg && reg.showNotification) return reg.showNotification('Lean Metrics', opts);
+        new Notification('Lean Metrics', opts);
+      }).catch(function(){ try{ new Notification('Lean Metrics', opts); }catch(e){ fallback(); } });
+      return;
+    }
+    try{ new Notification('Lean Metrics', opts); }catch(e){ fallback(); }
   }
 
   /* ============================================================
@@ -4928,47 +5221,57 @@
   function importData(file){
     var reader = new FileReader();
     reader.onload = function(){
+      var parsed;
+      try{ parsed = JSON.parse(reader.result); }catch(e){ toast('That file isn\'t a Lean Metrics backup'); return; }
+      if(!isObj(parsed) || !(isObj(parsed.profile) || isObj(parsed.logs))){ toast('That file isn\'t a Lean Metrics backup'); return; }
+      var dayCount = isObj(parsed.logs) ? Object.keys(parsed.logs).length : 0;
+      if(!confirm('Replace everything on this device with this backup ('+dayCount+' logged day'+(dayCount===1?'':'s')+')? Export a backup first if you want to keep the current data.')) return;
+      var before = JSON.stringify(state);
       try{
-        var parsed = JSON.parse(reader.result);
-        if(parsed && typeof parsed==='object'){
-          state.profile = Object.assign({}, DEFAULT_PROFILE, parsed.profile||{});
-          state.reminder = Object.assign({enabled:false,time:'08:00',lastFired:''}, parsed.reminder||{});
-          state.logs = parsed.logs || {};
-          state.favorites = Array.isArray(parsed.favorites) ? parsed.favorites : [];
-          state.milestones = Object.assign({}, DEFAULT_MILESTONES, parsed.milestones||{});
-          state.workout = Object.assign({}, DEFAULT_WORKOUT, parsed.workout||{});
-          state.workoutLogs = (parsed.workoutLogs && typeof parsed.workoutLogs==='object') ? parsed.workoutLogs : {};
-          state.restSeconds = (typeof parsed.restSeconds==='number' && parsed.restSeconds>0) ? parsed.restSeconds : 90;
-          state.meditation = Object.assign({}, DEFAULT_MEDITATION, parsed.meditation||{});
-          if(!Array.isArray(state.meditation.sessions)) state.meditation.sessions = [];
-          saveState();
-          populateInputs();
-          applyUnitLabels();
-          applyReminderUI();
-          syncWorkoutToggles();
-          renderSetupResults();
-          renderToday();
-          renderWorkouts();
-          toast('Backup imported');
-        }
-      }catch(e){ toast('Could not read that file'); }
+        state = hydrate(parsed);
+        state.selectedDate = todayStr();
+        saveState();
+        refreshAllViews();
+        toast('Backup imported');
+      }catch(e){
+        state = hydrate(JSON.parse(before));
+        state.selectedDate = todayStr();
+        saveState();
+        refreshAllViews();
+        toast('Import failed — your data was left as it was');
+      }
     };
     reader.readAsText(file);
   }
   function resetAll(){
     if(!confirm('Reset all data? This clears your profile, logs, and reminders on this device.')) return;
-    state = {profile:Object.assign({},DEFAULT_PROFILE), reminder:{enabled:false,time:'08:00',lastFired:''}, theme:'auto', selectedDate:null, logs:{}, favorites:[], milestones:Object.assign({},DEFAULT_MILESTONES), workout:Object.assign({},DEFAULT_WORKOUT), workoutLogs:{}, restSeconds:90, meditation:Object.assign({},DEFAULT_MEDITATION)};
+    state = freshState();
+    state.selectedDate = todayStr();
+    celebratedSteps = {};
     saveState();
+    refreshAllViews();
+    toast('All data reset');
+  }
+
+  // Re-syncs every control and view with `state` (after import, reset, or
+  // a change made in another tab/window of the app).
+  function refreshAllViews(){
     populateInputs();
     applyUnitLabels();
     applyReminderUI();
     applyTheme(state.theme);
     Array.prototype.forEach.call(el('themeToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.theme); });
+    Array.prototype.forEach.call(el('unitToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.unit); });
+    Array.prototype.forEach.call(el('sexToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.sex); });
+    refreshOptionList(el('activityList'),'activity');
+    refreshOptionList(el('goalList'),'goal');
     syncWorkoutToggles();
+    syncMeditateControls();
     renderSetupResults();
     renderToday();
     renderWorkouts();
-    toast('All data reset');
+    renderMeditateHistory();
+    if(currentTab==='trends') renderTrends();
   }
 
   /* ============================================================
@@ -4989,24 +5292,10 @@
     Array.prototype.forEach.call(el('unitToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.unit); });
     Array.prototype.forEach.call(el('sexToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.sex); });
 
-    wireSegmented('unitToggle','unit', function(){
-      var h = parseFloat(el('height').value), w = parseFloat(el('weight').value);
-      var gw = parseFloat(el('goalWeight').value);
-      if(h && w){
-        if(state.profile.unit==='imperial'){
-          el('height').value = round(h/2.54,1);
-          el('weight').value = round(w/0.45359237,1);
-        } else {
-          el('height').value = round(h*2.54,1);
-          el('weight').value = round(w*0.45359237,1);
-        }
-      }
-      if(!isNaN(gw)){
-        el('goalWeight').value = state.profile.unit==='imperial' ? round(gw/0.45359237,1) : round(gw*0.45359237,1);
-        state.profile.goalWeight = el('goalWeight').value;
-        saveState();
-      }
+    wireSegmented('unitToggle','unit', function(prev, next){
+      convertUnits(next==='imperial');
       applyUnitLabels();
+      if(currentTab==='trends') renderTrends();
     });
     wireSegmented('sexToggle','sex');
 
@@ -5017,8 +5306,10 @@
       el(id).addEventListener('input', renderSetupResults);
     });
     el('goalWeight').addEventListener('input', function(){
-      state.profile.goalWeight = this.value;
+      var v = parseFloat(this.value);
+      state.profile.goalWeight = (this.value==='' || (v>0 && isFinite(v))) ? this.value : '';
       saveState();
+      renderSetupResults(); // goal weight feeds the protein reference weight
     });
     ['heightFt','heightIn'].forEach(function(id){
       el(id).addEventListener('input', function(){
@@ -5028,7 +5319,11 @@
     });
 
     el('resetBtn').addEventListener('click', function(){
-      state.profile = Object.assign({}, DEFAULT_PROFILE);
+      if(!confirm('Reset age, height, weight, body fat, activity and goal to the defaults? Your logs, units and goal weight stay.')) return;
+      var keep = {unit:state.profile.unit, goalWeight:state.profile.goalWeight, tdeeOverride:state.profile.tdeeOverride, tdeeOverrideDate:state.profile.tdeeOverrideDate};
+      state.profile = Object.assign({}, DEFAULT_PROFILE, keep);
+      if(keep.unit==='imperial'){ state.profile.height = round(DEFAULT_PROFILE.height/2.54,1); state.profile.weight = round(DEFAULT_PROFILE.weight/0.45359237,1); }
+      saveState();
       populateInputs();
       applyUnitLabels();
       Array.prototype.forEach.call(el('unitToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.unit); });
@@ -5083,12 +5378,16 @@
       this.setAttribute('aria-checked', this.classList.contains('on'));
     });
     el('addCustomBtn').addEventListener('click', function(){
-      var name = el('cName').value.trim();
+      var name = el('cName').value.trim().slice(0,80);
       var cal = parseFloat(el('cCal').value);
       var p = parseFloat(el('cP').value)||0;
       var c = parseFloat(el('cC').value)||0;
       var f = parseFloat(el('cF').value)||0;
-      if(!name || isNaN(cal)){ toast('Add a name and calories'); return; }
+      if(p<0 || c<0 || f<0 || cal<0){ toast('Values can\'t be negative'); return; }
+      // calories left blank: work them out from the macros
+      if(isNaN(cal) && (p||c||f)) cal = Math.round(p*4 + c*4 + f*9);
+      if(!name || isNaN(cal)){ toast('Add a name and calories (or macros)'); return; }
+      if(cal>5000){ toast('Over 5,000 kcal — check the number'); return; }
       var entry = {name:name, cal:cal, p:p, c:c, f:f};
       if(el('saveFavToggle').classList.contains('on')) addFavorite(entry);
       addFoodToLog(entry);
@@ -5139,8 +5438,39 @@
 
     // reminders
     el('reminderSwitch').addEventListener('click', toggleReminder);
-    el('reminderTime').addEventListener('change', function(){ state.reminder.time = this.value; saveState(); });
+    el('reminderTime').addEventListener('change', function(){
+      if(!/^\d\d:\d\d$/.test(this.value)) return;
+      state.reminder.time = this.value;
+      // a new time later today should still fire today
+      if(state.reminder.lastFired===todayStr() && nowHHMM() < this.value) state.reminder.lastFired = '';
+      saveState();
+    });
     setInterval(checkReminder, 20000);
+    // coming back to the app: catch a missed reminder and roll Today over
+    // to the new date if the app was left open past midnight
+    var lastDay = todayStr();
+    document.addEventListener('visibilitychange', function(){
+      if(document.visibilityState!=='visible') return;
+      var now = todayStr();
+      if(now !== lastDay){
+        if(state.selectedDate === lastDay) state.selectedDate = now;
+        lastDay = now;
+        renderToday();
+        if(currentTab==='trends') renderTrends();
+      }
+      checkReminder();
+    });
+    // keep two open copies of the app (tabs/windows) in sync
+    window.addEventListener('storage', function(e){
+      if(e.key!==STORAGE_KEY || !e.newValue) return;
+      try{
+        var sel = state.selectedDate;
+        state = hydrate(JSON.parse(e.newValue));
+        state.selectedDate = sel;
+        suspendSave = true;
+        refreshAllViews();
+      }catch(err){} finally { suspendSave = false; }
+    });
 
     // insights rail tip ticker
     if(el('railTipText')){
