@@ -713,6 +713,13 @@
   details.methods .body{padding-top:0.9rem; font-size:0.85rem; line-height:1.6; color:var(--text-2);}
   details.methods .body p{margin:0 0 0.7rem;}
   details.methods .body a{color:var(--text); text-decoration-color:var(--hairline);}
+  details.methods .body h4{margin:1.1rem 0 0.45rem; font-family:var(--font-display); font-size:0.8rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text);}
+  .ref-table{width:100%; border-collapse:collapse; margin:0.2rem 0 0.9rem; font-size:0.78rem;}
+  .ref-table th{font-weight:600; color:var(--text); text-align:right; padding:0.35rem 0.4rem; border-bottom:1px solid var(--hairline); white-space:nowrap;}
+  .ref-table td{padding:0.38rem 0.4rem; text-align:right; border-bottom:1px solid var(--hairline); font-family:var(--font-mono); white-space:nowrap;}
+  .ref-table th:first-child,.ref-table td:first-child{text-align:left; font-family:var(--font-body); color:var(--text);}
+  .ref-table tr:last-child td{border-bottom:none;}
+  .ref-note{font-size:0.74rem; opacity:0.85;}
 
   .data-actions{display:flex; gap:0.6rem;}
   .data-actions button, .data-actions label{flex:1; text-align:center; padding:0.7rem; border-radius:14px; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-size:0.85rem; font-weight:600;}
@@ -1366,9 +1373,11 @@
         <button type="button" class="chip-btn" data-target="learn-alcohol">Alcohol</button>
         <button type="button" class="chip-btn" data-target="learn-thc">THC</button>
         <button type="button" class="chip-btn" data-target="learn-vitamins">Vitamins</button>
+        <button type="button" class="chip-btn" data-target="learn-minerals">Magnesium &amp; zinc</button>
         <button type="button" class="chip-btn" data-target="learn-supplements">Supplements</button>
         <button type="button" class="chip-btn" data-target="learn-caffeine">Caffeine</button>
         <button type="button" class="chip-btn" data-target="learn-sleep">Sleep</button>
+        <button type="button" class="chip-btn" data-target="learn-hormones">Testosterone</button>
         <button type="button" class="chip-btn" data-target="learn-smoking">Smoking</button>
         <button type="button" class="chip-btn" data-target="learn-more">More</button>
       </div>
@@ -1460,15 +1469,65 @@
 
       <div class="chart-card" id="learn-vitamins">
         <details class="methods">
-          <summary><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9.5" width="18" height="5" rx="2.5" transform="rotate(-30 12 12)"/><path d="M9.7 8.2L14.3 15.8" transform="rotate(-30 12 12)"/></svg></span>Essential vitamins & minerals</span></summary>
+          <summary><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9.5" width="18" height="5" rx="2.5" transform="rotate(-30 12 12)"/><path d="M9.7 8.2L14.3 15.8" transform="rotate(-30 12 12)"/></svg></span>Essential vitamins</span></summary>
           <div class="body">
             <p><strong>Fat-soluble (A, D, E, K).</strong> Stored in body fat and the liver, absorbed best alongside dietary fat. Vitamin D (bone health, immune function) and vitamin K (blood clotting, bone) are the two most commonly under-target with low sun exposure or very low-fat diets.</p>
             <p><strong>Water-soluble (B-complex, C).</strong> Not stored in meaningful amounts, so they need regular intake. B12 (nerve function, red blood cells) is the one most worth watching if you eat little or no animal product, since it's almost exclusively found in animal foods.</p>
-            <p><strong>Calcium & magnesium.</strong> Bone structure, muscle contraction (including your heart), and nerve signaling. Dairy, leafy greens, and nuts/seeds are the main sources.</p>
-            <p><strong>Iron.</strong> Carries oxygen in red blood cells; low iron shows up as fatigue and poor exercise performance. Red meat provides the most easily absorbed form (heme iron); plant sources (beans, spinach) absorb better alongside vitamin C.</p>
-            <p><strong>Potassium & sodium.</strong> Work together to regulate fluid balance and blood pressure. Most people get plenty of sodium but fall short on potassium (bananas, potatoes, beans, leafy greens).</p>
-            <p><strong>Zinc.</strong> Immune function, wound healing, and hormone synthesis. Oysters, red meat, and pumpkin seeds are the richest sources.</p>
+            <p><strong>Minerals</strong> — magnesium, zinc, iron, calcium, potassium, sodium and the trace minerals — have their own card just below, with daily targets and food sources.</p>
             <p>Full detail on any of these — daily targets, deficiency signs, upper limits — is in the <a href="https://ods.od.nih.gov/factsheets/list-all/" target="_blank" rel="noopener">NIH Office of Dietary Supplements' consumer fact sheets</a>.</p>
+          </div>
+        </details>
+      </div>
+
+
+      <div class="chart-card" id="learn-minerals">
+        <details class="methods">
+          <summary><span class="title-flex"><span class="title-icon title-icon-fat" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.8 4.6v9.2L12 21.2l-7.8-4.6V7.4z"/><path d="M12 2.8v18.4M4.2 7.4l15.6 9.2M19.8 7.4L4.2 16.6"/></svg></span>Minerals: magnesium, zinc &amp; the rest</span></summary>
+          <div class="body">
+            <p><strong>Why they matter.</strong> Minerals don't give you energy themselves, but almost every step that turns food into energy, contracts a muscle, or builds new tissue needs one. Training and dieting both raise the stakes: you lose some in sweat, and eating less food means less room to get them in. Targets below are U.S. daily values from the <a href="https://ods.od.nih.gov/factsheets/list-all/" target="_blank" rel="noopener">NIH Office of Dietary Supplements</a> (ODS).</p>
+
+            <h4>Magnesium</h4>
+            <p><strong>What it does.</strong> Helps run more than 300 enzyme systems, including the ones that make ATP (your cells' energy currency), and is needed for muscle contraction and relaxation, nerve signals, blood-sugar control and bone. <a href="https://ods.od.nih.gov/factsheets/Magnesium-Consumer/" target="_blank" rel="noopener">ODS</a> notes that many people in the U.S. get less than recommended.</p>
+            <p><strong>How much.</strong> Men 400 mg a day (420 mg from age 31); women 310 mg (320 mg from 31).</p>
+            <p><strong>Best sources.</strong> Pumpkin seeds (about 156 mg per ounce), chia seeds (111 mg/oz), almonds (80 mg/oz), cooked spinach (78 mg per half cup), cashews, black beans, edamame, whole grains and dark chocolate. A handful of seeds or nuts a day closes most of the gap.</p>
+            <p><strong>Supplements.</strong> The upper limit is 350 mg a day <em>from supplements</em> (food doesn't count toward it); going over mainly causes diarrhea and cramping. Citrate and glycinate absorb better than oxide. For sleep, the evidence is thin: <a href="https://www.nccih.nih.gov/health/in-the-news-magnesium-supplements-for-sleep-disorders" target="_blank" rel="noopener">NIH's NCCIH</a> says a 2021 review of three small, low-quality trials in older adults found people may fall asleep a little faster, which isn't enough to rely on.</p>
+
+            <h4>Zinc</h4>
+            <p><strong>What it does.</strong> Immune function, wound healing, building protein and DNA, taste and smell, and making testosterone and sperm. A real shortfall clearly lowers testosterone (see the testosterone card), which is why zinc turns up in almost every "booster".</p>
+            <p><strong>How much.</strong> Men 11 mg a day; women 8 mg. Vegetarians may need up to 50% more, because compounds in grains and beans (phytates) block some absorption.</p>
+            <p><strong>Best sources.</strong> Oysters are in a league of their own: one serving covers several days. Then red meat (about 3–5 mg per 3 oz), crab and lobster, poultry, pork and fortified cereals, with smaller amounts in beans, nuts, pumpkin seeds, whole grains, eggs and dairy.</p>
+            <p><strong>Don't overdo it.</strong> The upper limit is 40 mg a day from all sources. <a href="https://ods.od.nih.gov/factsheets/Zinc-Consumer/" target="_blank" rel="noopener">ODS</a> warns that long-term excess lowers copper, weakens immunity and lowers HDL ("good") cholesterol. Typical ZMA blends supply about 30 mg zinc and 450 mg magnesium, so with food you can pass the zinc limit, and the magnesium is above the 350 mg supplement limit on its own.</p>
+
+            <h4>Iron</h4>
+            <p>Carries oxygen in your blood; low iron shows up as fatigue, breathlessness and workouts that feel harder than they should. Men need 8 mg a day; women 18 mg until menopause, then 8 mg. Red meat, poultry and fish give the best-absorbed (heme) form; beans, lentils, tofu, spinach and fortified cereals absorb better with vitamin C and worse with tea or coffee at the same meal. Vegetarians need about 1.8 times as much. Get a blood test before supplementing: too much iron is harmful, and the upper limit is 45 mg a day (<a href="https://ods.od.nih.gov/factsheets/Iron-Consumer/" target="_blank" rel="noopener">ODS</a>).</p>
+
+            <h4>Calcium</h4>
+            <p>Bone strength, plus every muscle contraction and heartbeat. 1,000 mg a day for most adults; 1,200 mg for women from 51 and men from 71. Dairy, fortified plant milks, calcium-set tofu, canned sardines or salmon with the bones, kale and bok choy. Large doses taken with an iron-rich meal reduce iron absorption, so split them up (<a href="https://ods.od.nih.gov/factsheets/Calcium-Consumer/" target="_blank" rel="noopener">ODS</a>).</p>
+
+            <h4>Potassium &amp; sodium</h4>
+            <p><strong>Potassium</strong> balances fluids and counters sodium's effect on blood pressure. Targets are 3,400 mg a day for men and 2,600 mg for women, and most people fall short. Potatoes, beans, lentils, bananas, dried apricots, yogurt, squash and leafy greens are the easy wins (<a href="https://ods.od.nih.gov/factsheets/Potassium-Consumer/" target="_blank" rel="noopener">ODS</a>). If you have kidney disease or take blood-pressure medication, ask before using potassium supplements or salt substitutes.</p>
+            <p><strong>Sodium</strong> is the one most people get too much of: keep it under 2,300 mg a day (the ceiling on the Setup tab). Heavy sweaters are the exception. In <a href="https://www.gssiweb.org/en/research/article/normative-data-for-regional-sweat-sodium-concentration-and-whole-body-sweating-rate-in-athletes-" target="_blank" rel="noopener">a study of 506 athletes</a>, sweat averaged about 1.2 litres an hour and roughly 830 mg of sodium per litre (anywhere from about 420 to 1,630 mg). For workouts under an hour, water and normal meals cover it. For long or hot sessions with a lot of sweat, a salty meal afterwards or an electrolyte drink helps.</p>
+
+            <h4>The trace minerals</h4>
+            <p><strong>Iodine</strong> (150 mcg a day) is needed to make thyroid hormone, which sets your metabolic rate. Iodized salt, dairy, eggs and seafood supply it; if you only cook with sea salt or kosher salt, you may be getting very little (<a href="https://ods.od.nih.gov/factsheets/Iodine-Consumer/" target="_blank" rel="noopener">ODS</a>).</p>
+            <p><strong>Selenium</strong> (55 mcg a day) supports thyroid function and antioxidant defenses. Seafood, eggs, meat and whole grains are steady sources. Brazil nuts are so rich (about 544 mcg per ounce, or 6–8 nuts) that one or two a day is plenty; the upper limit is 400 mcg (<a href="https://ods.od.nih.gov/factsheets/Selenium-Consumer/" target="_blank" rel="noopener">ODS</a>).</p>
+            <p><strong>Vitamin D</strong> isn't a mineral, but you can't absorb calcium well without it: 600 IU a day (800 IU over 70), with an upper limit of 4,000 IU. Fatty fish, fortified milk and sunlight are the main sources (<a href="https://ods.od.nih.gov/factsheets/VitaminD-Consumer/" target="_blank" rel="noopener">ODS</a>).</p>
+
+            <h4>Quick reference</h4>
+            <div class="table-scroll"><table class="ref-table">
+              <tr><th>Per day</th><th>Men</th><th>Women</th><th>Upper limit</th></tr>
+              <tr><td>Magnesium</td><td>400–420 mg</td><td>310–320 mg</td><td>350 mg*</td></tr>
+              <tr><td>Zinc</td><td>11 mg</td><td>8 mg</td><td>40 mg</td></tr>
+              <tr><td>Iron</td><td>8 mg</td><td>18 mg†</td><td>45 mg</td></tr>
+              <tr><td>Calcium</td><td>1,000 mg</td><td>1,000 mg†</td><td>2,500 mg</td></tr>
+              <tr><td>Potassium</td><td>3,400 mg</td><td>2,600 mg</td><td>–</td></tr>
+              <tr><td>Sodium</td><td colspan="2" style="text-align:center">keep under 2,300 mg</td><td>–</td></tr>
+              <tr><td>Iodine</td><td>150 mcg</td><td>150 mcg</td><td>1,100 mcg</td></tr>
+              <tr><td>Selenium</td><td>55 mcg</td><td>55 mcg</td><td>400 mcg</td></tr>
+              <tr><td>Vitamin D</td><td>600 IU</td><td>600 IU</td><td>4,000 IU</td></tr>
+            </table></div>
+            <p class="ref-note">* From supplements only. † Women's iron drops to 8 mg after menopause; calcium rises to 1,200 mg from 51 (men from 71). Calcium's upper limit is 2,000 mg from age 51. Pregnancy and breastfeeding change most of these, so check with a doctor.</p>
+            <p><strong>Food first, test before you supplement.</strong> A varied diet with meat or fish, dairy (or fortified alternatives), beans, nuts, seeds, whole grains and plenty of vegetables covers nearly all of these. Supplements make sense for a measured shortfall or a diet that leaves an obvious gap, such as B12 or zinc on a vegan diet or vitamin D in winter. Big doses of zinc, iron, calcium and magnesium compete for absorption, so space them apart.</p>
           </div>
         </details>
       </div>
@@ -1481,7 +1540,7 @@
             <p><strong>Creatine monohydrate.</strong> One of the <a href="https://pubmed.ncbi.nlm.nih.gov/?term=ISSN+position+stand+creatine+supplementation" target="_blank" rel="noopener">most well-researched supplements in sports nutrition</a> — about 3–5g/day, every day, improves strength and power output. Timing barely matters since it works by saturating muscle stores over time; take it with any meal, consistently, rather than specifically around training.</p>
             <p><strong>Vitamin D3.</strong> Worth considering with limited sun exposure — supports bone health and immune function. Take it with a meal containing some fat, since it's fat-soluble and absorbs better that way. Typical over-the-counter doses run 1,000–2,000 IU/day; get your level checked before going higher.</p>
             <p><strong>Omega-3 / fish oil.</strong> Supports heart and brain health if you don't eat <a href="https://ods.od.nih.gov/factsheets/Omega3FattyAcids-Consumer/" target="_blank" rel="noopener">fatty fish</a> a couple times a week. Take it with meals — it reduces the "fishy burps" some people get on an empty stomach.</p>
-            <p><strong>Magnesium.</strong> Involved in muscle relaxation, nerve function, and sleep quality; many diets fall short. Gentler forms like magnesium glycinate are easier on digestion. Best taken in the evening, 30–60 minutes before bed, for its mild relaxing effect.</p>
+            <p><strong>Magnesium.</strong> Worth it if your diet is light on nuts, seeds, beans and greens, since many people fall short. Glycinate and citrate absorb well; keep supplements to 350 mg a day or less. Evening is fine, though the evidence that it improves sleep is weak. Targets and food sources are in the minerals card above.</p>
             <p><strong>Caffeine.</strong> Reliably improves focus and workout performance taken 30–60 minutes beforehand. Dose, timing and daily limits are covered in the caffeine card below.</p>
             <p>Supplements fill gaps in a diet — they don't fix a bad one. None of the above are essential if food already covers it, and as always, check with a doctor before starting anything new, especially if you take medication or have a health condition.</p>
           </div>
@@ -1511,6 +1570,39 @@
             <p><strong>REM sleep repairs the mind.</strong> Later sleep cycles are REM-heavy — tied to memory consolidation, learning, and emotional regulation. Alcohol and short sleep duration both suppress REM disproportionately (see the alcohol card above).</p>
             <p><strong>It directly affects fat loss and hunger.</strong> <a href="https://pubmed.ncbi.nlm.nih.gov/?term=sleep+restriction+fat+loss+Nedeltcheva" target="_blank" rel="noopener">Sleep-restriction studies</a> found that cutting sleep to ~5.5 hours while dieting shifted weight loss away from fat and toward lean mass, and raised hunger hormones — the same calorie deficit performed noticeably worse on too little sleep.</p>
             <p><strong>Practical sleep hygiene.</strong> A consistent sleep/wake time (even on weekends), a cool dark room, cutting caffeine by early afternoon, and keeping screens and bright light out of the last 30–60 minutes before bed are the highest-leverage, best-evidenced habits — more impactful than any supplement. The Meditate tab's timer can help wind down before bed.</p>
+          </div>
+        </details>
+      </div>
+
+
+      <div class="chart-card" id="learn-hormones">
+        <details class="methods">
+          <summary><span class="title-flex"><span class="title-icon title-icon-muscle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="12" cy="17" r="2.4"/><path d="M8.2 8.2l2.6 6.6M15.8 8.2l-2.6 6.6M8.4 7h7.2"/></svg></span>Testosterone &amp; your other hormones</span></summary>
+          <div class="body">
+            <p><strong>What testosterone does.</strong> In men it drives muscle and bone strength, red blood cell production, sex drive and sperm production, and it affects mood and energy. Women make it too, in much smaller amounts (most of it is converted to estradiol), and need it for sex drive, energy, and bone and muscle strength (<a href="https://my.clevelandclinic.org/health/body/24101-testosterone" target="_blank" rel="noopener">Cleveland Clinic</a>).</p>
+            <p><strong>What's normal.</strong> A <a href="https://www.endocrine.org/news-and-advocacy/news-room/2017/landmark-study-defines-normal-ranges-for-testosterone-levels" target="_blank" rel="noopener">large 2017 Endocrine Society study</a> of more than 9,000 men set the normal range for healthy, non-obese men aged 19–39 at 264–916 ng/dL. The <a href="https://www.auanet.org/guidelines-and-quality/guidelines/testosterone-deficiency-guideline" target="_blank" rel="noopener">American Urological Association</a> treats a total testosterone below about 300 ng/dL as low, but only diagnoses deficiency when it's low on two early-morning tests <em>and</em> there are symptoms. Symptoms such as low sex drive, erection problems, fatigue, low mood, losing muscle or gaining fat are vague and have many other causes. Levels are highest in the morning and fall by about 1–2% a year with age.</p>
+
+            <h4>What lowers it, and what you can do</h4>
+            <p><strong>Short sleep.</strong> In a <a href="https://www.uchicagomedicine.org/forefront/health-and-wellness-articles/sleep-loss-lowers-testosterone" target="_blank" rel="noopener">University of Chicago study</a> (JAMA, 2011), healthy young men who slept under 5 hours a night for one week had 10–15% less testosterone, about what 10–15 years of aging would do. This is the cheapest fix there is: 7–9 hours.</p>
+            <p><strong>Extra body fat.</strong> Fat tissue converts testosterone into estrogen, and obesity suppresses the signal that tells the testes to make more. In a <a href="https://pubmed.ncbi.nlm.nih.gov/23482592/" target="_blank" rel="noopener">meta-analysis of 24 studies</a>, losing weight raised testosterone, and the more weight people lost, the bigger the rise.</p>
+            <p><strong>Eating too little for too long.</strong> Under-eating relative to your training (what the <a href="https://pubmed.ncbi.nlm.nih.gov/37752011/" target="_blank" rel="noopener">IOC calls low energy availability</a>) suppresses reproductive hormones in both men and women, along with bone health and performance. That's one reason this app keeps a calorie floor and warns when you're losing more than about 1% of bodyweight a week.</p>
+            <p><strong>Very low-fat diets.</strong> A <a href="https://pubmed.ncbi.nlm.nih.gov/33741447/" target="_blank" rel="noopener">2021 meta-analysis</a> (Whittaker &amp; Wu) of six studies found men on low-fat diets (about 19% of calories from fat) had lower testosterone than on higher-fat diets (about 39%). Your targets keep fat at 22–30% of calories with a minimum per kg of bodyweight.</p>
+            <p><strong>Heavy drinking.</strong> Chronic heavy alcohol use lowers testosterone and can shrink the testes and reduce fertility (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6761906/" target="_blank" rel="noopener">NIAAA review</a>). A few drinks a week isn't the issue; regular heavy nights are.</p>
+            <p><strong>A real zinc shortfall.</strong> In a <a href="https://pubmed.ncbi.nlm.nih.gov/8875519/" target="_blank" rel="noopener">small study</a>, 20 weeks of a low-zinc diet dropped young men's testosterone from about 40 to 11 nmol/L, and zinc supplements roughly doubled it in older men who were mildly deficient. Extra zinc doesn't raise testosterone if you already get enough.</p>
+            <p><strong>Lifting helps, but not through post-workout spikes.</strong> Strength training builds muscle and helps you lose fat, both of which support healthy levels. The brief hormone rise after a workout doesn't decide how much muscle you build, though: <a href="https://sciencedaily.com/releases/2012/06/120614130946.htm" target="_blank" rel="noopener">McMaster University studies</a> found no link between post-exercise testosterone and muscle or strength gains, and men and women built new muscle protein at the same rate after training despite a 45-fold difference in the testosterone rise.</p>
+
+            <h4>Boosters, TRT and steroids</h4>
+            <p><strong>"Testosterone boosters" mostly don't deliver.</strong> A <a href="https://keck.usc.edu/news/are-testosterone-boosting-supplements-effective-not-likely-says-new-study/" target="_blank" rel="noopener">USC review of 50 top-selling products</a> (World Journal of Men's Health) found about 90% claimed to boost testosterone, but fewer than 25% had any research behind their claims, and some contained vitamins and minerals above safe upper limits.</p>
+            <p><strong>Testosterone therapy (TRT)</strong> is a prescription treatment for diagnosed deficiency. It switches off your own production and lowers sperm count, so it isn't a performance shortcut, and anyone hoping to have children should discuss that first.</p>
+            <p><strong>Steroids and SARMs.</strong> Products sold for bodybuilding that contain steroids or SARMs carry serious risks: the <a href="https://www.fda.gov/drugs/fraudulent-products/certain-bodybuilding-products-put-consumers-risk-heart-attack-stroke-serious-liver-damage-and-more" target="_blank" rel="noopener">FDA warns</a> of heart attack, stroke, blood clots, liver and kidney injury, psychosis, infertility and testicular shrinkage.</p>
+
+            <h4>Other hormones that shape your results</h4>
+            <p><strong>Cortisol</strong> is the stress hormone. A rise during and after a hard workout is normal; what hurts is staying high from chronic stress and short sleep, which pushes up appetite and makes recovery harder.</p>
+            <p><strong>Insulin</strong> moves glucose and amino acids into muscle after a meal. Strength training, regular walking (your 10,000 steps) and losing excess fat all make your body more sensitive to it.</p>
+            <p><strong>Thyroid hormones</strong> set your metabolic rate, and they need iodine and selenium (see the minerals card). Unexplained fatigue, feeling cold, or weight changes that don't match your logging are worth a blood test (TSH) with your doctor.</p>
+            <p><strong>Leptin and ghrelin</strong> run hunger. Leptin falls and ghrelin rises when you diet or sleep too little, which is why hunger climbs late in a cut. Enough protein, fiber and sleep, plus a moderate rather than extreme deficit, keep them in check.</p>
+            <p><strong>Estrogen and progesterone</strong> shift across the menstrual cycle and can move scale weight by a pound or two of water within a month. Compare weigh-ins from the same phase of each cycle, and trust the 7-day average in Trends over any single day.</p>
+            <p>If you think your hormones are off, see a doctor for a proper blood test before trying to fix it with supplements. This card is general education, not a diagnosis.</p>
           </div>
         </details>
       </div>
