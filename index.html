@@ -450,6 +450,69 @@
 
 
 
+
+  /* ---------- Today: activity rings ---------- */
+  #ringPanel .donut-wrap svg.activity-rings{width:232px; height:232px; overflow:visible;}
+  .activity-rings .ring-track{fill:none; opacity:0.14;}
+  .activity-rings .ring-arc{fill:none; transition:stroke-dasharray 1.1s var(--ease-out); filter:drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 45%, transparent));}
+  #ringPro{filter:drop-shadow(0 0 5px color-mix(in srgb, var(--protein) 50%, transparent));}
+  #ringStep{filter:drop-shadow(0 0 5px color-mix(in srgb, var(--good) 50%, transparent));}
+  .activity-rings .ring-cap{transform-origin:110px 110px; transition:transform 1.1s var(--ease-out), opacity .3s ease;}
+  .activity-rings .ring-cap-dot{fill:#fff; opacity:0.95; filter:drop-shadow(0 0 4px rgba(255,255,255,0.9));}
+  .activity-rings .ring-cap.is-zero{opacity:0;}
+  .activity-rings .ring-arc.is-full{animation:ringPulse 2.6s ease-in-out infinite;}
+  @keyframes ringPulse{ 0%,100%{ stroke-opacity:1; } 50%{ stroke-opacity:0.72; } }
+  #ringPanel .donut-wrap .donut-spark{animation-name:donutSparkOrbitLg;}
+  @keyframes donutSparkOrbitLg{
+    0%{ transform:rotate(0deg) translateX(-118px) scale(0.6); opacity:0; }
+    8%{ opacity:0.9; } 50%{ opacity:0.55; } 92%{ opacity:0; }
+    100%{ transform:rotate(360deg) translateX(-118px) scale(0.6); opacity:0; }
+  }
+  .ring-legend{display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; margin-top:0.9rem;}
+  .rl-item{display:grid; grid-template-columns:auto 1fr; grid-template-rows:auto auto auto; column-gap:0.4rem; padding:0.6rem 0.7rem; border-radius:14px; background:color-mix(in srgb, var(--surface) 70%, transparent); border:1px solid var(--hairline); position:relative; overflow:hidden;}
+  .rl-item::after{content:""; position:absolute; left:0; bottom:0; height:3px; width:var(--p,0%); background:var(--rl-c); border-radius:0 3px 3px 0; transition:width 1.1s var(--ease-out); box-shadow:0 0 8px var(--rl-c);}
+  .rl-cal{--rl-c:var(--accent);} .rl-pro{--rl-c:var(--protein);} .rl-step{--rl-c:var(--good);}
+  .rl-dot{width:8px; height:8px; border-radius:50%; background:var(--rl-c); align-self:center; box-shadow:0 0 6px var(--rl-c);}
+  .rl-name{font-size:0.7rem; color:var(--text-2); font-weight:600; text-transform:uppercase; letter-spacing:0.04em;}
+  .rl-val{grid-column:1 / -1; font-family:var(--font-mono); margin-top:0.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .rl-val b{font-size:0.98rem; font-weight:600; color:var(--text);}
+  .rl-val i{display:none;}
+  .rl-pct small{font-weight:500; color:var(--text-2); font-size:0.66rem;}
+  .rl-pct{grid-column:1 / -1; font-size:0.68rem; font-weight:700; color:var(--rl-c); margin-top:0.1rem;}
+  .rl-item.is-over{--rl-c:var(--danger);}
+
+  /* ---------- Today: water glass ---------- */
+  .water-glass-row{gap:1.2rem; align-items:center;}
+  .water-glass{position:relative; width:104px; flex:none;}
+  .water-glass svg{width:104px; height:auto; display:block; overflow:visible;}
+  .glass-body{fill:color-mix(in srgb, #7cc8ff 8%, transparent);}
+  .glass-outline{fill:none; stroke:color-mix(in srgb, var(--text) 35%, transparent); stroke-width:2; stroke-linejoin:round;}
+  .glass-shine{stroke:rgba(255,255,255,0.55); stroke-width:3; stroke-linecap:round; fill:none;}
+  .glass-ticks path{stroke:color-mix(in srgb, var(--text) 25%, transparent); stroke-width:1.4; stroke-linecap:round; fill:none;}
+  .water-level{transition:transform 1.1s cubic-bezier(.34,1.3,.64,1);}
+  .wave{animation:waveSlide 3.2s linear infinite;}
+  .wave-back{opacity:0.75; animation-duration:5.2s; animation-direction:reverse;}
+  .wave-front{transform:translateY(3px);}
+  @keyframes waveSlide{ from{ transform:translateX(0); } to{ transform:translateX(-100px); } }
+  .wave-front{animation-name:waveSlideF;}
+  @keyframes waveSlideF{ from{ transform:translate(0,3px); } to{ transform:translate(-100px,3px); } }
+  .bubble{fill:rgba(255,255,255,0.75); animation:bubbleUp 3.6s ease-in infinite; opacity:0;}
+  .bubble.b2{animation-delay:1.1s; animation-duration:4.2s;} .bubble.b3{animation-delay:2s;} .bubble.b4{animation-delay:.6s; animation-duration:3s;}
+  @keyframes bubbleUp{ 0%{ transform:translateY(0); opacity:0; } 15%{ opacity:.9; } 85%{ opacity:.6; } 100%{ transform:translateY(-60px); opacity:0; } }
+  .water-glass.slosh .wave-wrap{animation:slosh .9s var(--ease-spring);}
+  .wave-wrap{transform-box:fill-box; transform-origin:50% 0;}
+  @keyframes slosh{ 0%{ transform:scaleY(1) skewX(0); } 25%{ transform:scaleY(1.6) skewX(-6deg); } 55%{ transform:scaleY(.8) skewX(4deg); } 100%{ transform:scaleY(1) skewX(0); } }
+  .water-drop{position:absolute; left:50%; top:-14px; width:12px; height:16px; margin-left:-6px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%; background:linear-gradient(#a8dcff,#1f7fd6); opacity:0; pointer-events:none;}
+  .water-glass.slosh .water-drop{animation:dropFall .55s ease-in;}
+  @keyframes dropFall{ 0%{ transform:translateY(-20px) scale(.6); opacity:0; } 30%{ opacity:1; } 100%{ transform:translateY(60px) scale(1); opacity:0; } }
+  .water-glass.is-full .glass-outline{stroke:#1f7fd6; filter:drop-shadow(0 0 6px rgba(77,171,247,.7));}
+  .water-info{flex:1; min-width:0;}
+  .water-info .water-amount{font-size:2rem; text-align:left; min-width:0; letter-spacing:-0.02em; color:#1f7fd6;}
+  :root[data-theme="dark"] .water-info .water-amount{color:#7cc8ff;}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .water-info .water-amount{color:#7cc8ff;} }
+  .water-pct{font-size:0.8rem; color:var(--text-2); margin:0.15rem 0 0.6rem;}
+  .water-mini{height:6px;}
+  .water-mini .meter-fill{background:linear-gradient(90deg,#7cc8ff,#1f7fd6);}
   /* ---------- Setup: waist-to-height ---------- */
   .whtr{margin:0 0 1rem; padding:0.8rem 0.95rem; border-radius:16px; background:var(--surface); border:1px solid var(--hairline);}
   .whtr-head{display:flex; align-items:baseline; justify-content:space-between; gap:0.6rem;}
@@ -848,7 +911,7 @@
     background:radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
     filter:blur(18px); animation:shimmerGlow 3.4s ease-in-out infinite;
   }
-  #ringConsumed, #arcProtein, #arcCarb, #arcFat{
+  #arcProtein, #arcCarb, #arcFat{
     transition:stroke-dasharray .9s var(--ease-out), stroke-dashoffset .9s var(--ease-out), stroke .3s ease;
   }
 
@@ -947,8 +1010,64 @@
   @media (prefers-reduced-motion: reduce){ .bg-blob{ animation:none; } }
 
   /* ---------- tab switch transition ---------- */
-  .tabpage.active{ animation:tabFade .4s var(--ease-out); }
-  @keyframes tabFade{ from{ opacity:0.35; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+  .tabpage.active{ animation:tabSlideIn .45s var(--ease-out); }
+  @keyframes tabSlideIn{ from{ opacity:0; transform:translateX(calc(var(--dir,1) * 26px)); } to{ opacity:1; transform:none; } }
+
+  /* ---------- sliding nav indicator ---------- */
+  nav.tabbar .inner{ position:relative; }
+  nav.tabbar button, nav.sidebar .tab-btn{ position:relative; z-index:1; }
+  .tab-indicator{ position:absolute; left:0; top:0; width:0; height:0; z-index:0; pointer-events:none; opacity:0; border-radius:16px;
+    background:linear-gradient(180deg, color-mix(in srgb, var(--accent) 20%, transparent), color-mix(in srgb, var(--accent) 8%, transparent));
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent), 0 8px 22px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+    transition:transform .55s cubic-bezier(.34,1.45,.64,1), width .55s cubic-bezier(.34,1.45,.64,1), height .3s ease, opacity .3s ease; }
+  .tab-indicator.ready{ opacity:1; }
+  nav.tabbar .tab-indicator::after{ content:""; position:absolute; top:-1px; left:50%; width:22px; height:3px; margin-left:-11px; border-radius:0 0 3px 3px; background:var(--accent); box-shadow:0 0 10px var(--accent); }
+  nav.tabbar button.active{ color:var(--text); }
+  nav.tabbar button.active svg{ filter:drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent)); }
+  @media (min-width:900px){ nav.sidebar .tab-btn.active{ background:transparent; } }
+
+  .chart-card svg .chart-area{ animation:areaRise 1.2s var(--ease-out) both; animation-delay:.3s; transform-box:fill-box; transform-origin:bottom; }
+  @keyframes areaRise{ from{ opacity:0; transform:scaleY(0.4); } to{ opacity:1; transform:scaleY(1); } }
+
+  /* ---------- progress bars: gradient + moving sheen ---------- */
+  #stepsFill{ background:linear-gradient(90deg, color-mix(in srgb, var(--good) 55%, #b8f5d6), var(--good)) !important; box-shadow:0 0 12px color-mix(in srgb, var(--good) 45%, transparent); }
+  #macroBars .meter-fill, #stepsFill, .water-mini .meter-fill{ overflow:hidden; }
+  #macroBars .meter-fill::after, #stepsFill::after, .water-mini .meter-fill::after{
+    content:""; position:absolute; top:0; bottom:0; width:40%; left:-45%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+    animation:barSheen 3.2s ease-in-out infinite; animation-delay:1.2s;
+  }
+  @keyframes barSheen{ 0%{ left:-45%; } 55%,100%{ left:110%; } }
+
+  /* ---------- particle canvas ---------- */
+  .fx-canvas{ position:fixed; inset:0; z-index:90; pointer-events:none; }
+  @media print{ .fx-canvas{ display:none !important; } }
+
+  /* ---------- hero card: rotating gradient rim ---------- */
+  @property --rim-ang{ syntax:'<angle>'; initial-value:0deg; inherits:false; }
+  #ringPanel{ position:relative; isolation:isolate; box-shadow:0 18px 40px -22px color-mix(in srgb, var(--accent) 55%, transparent); }
+  @media (max-width:899px){
+    #ringPanel{ border-top:none; border-radius:26px; padding:1.3rem 0.9rem 1.1rem; margin:0.4rem 0 0.9rem; }
+    #ringPanel + section.panel{ border-top:none; }
+  }
+  #ringPanel::before{
+    content:""; position:absolute; inset:0; border-radius:inherit; padding:1.5px; z-index:-1; pointer-events:none;
+    background:conic-gradient(from var(--rim-ang), transparent 0deg, color-mix(in srgb, var(--accent) 80%, transparent) 60deg, color-mix(in srgb, var(--protein) 70%, transparent) 120deg, transparent 180deg, color-mix(in srgb, var(--good) 70%, transparent) 260deg, transparent 320deg);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation:rimSpin 9s linear infinite; opacity:.75;
+  }
+  #ringPanel::after{ content:""; position:absolute; inset:1.5px; border-radius:inherit; z-index:-2; pointer-events:none; background:color-mix(in srgb, var(--surface) 55%, transparent); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+  @keyframes rimSpin{ to{ --rim-ang:360deg; } }
+
+  /* ---------- title shimmer ---------- */
+  header.top h1{ background-size:220% 100%; animation:titleShimmer 7s ease-in-out infinite; }
+  @keyframes titleShimmer{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+
+  /* ---------- scroll reveal ---------- */
+  .pre-reveal{ opacity:0; transform:translateY(26px) scale(.985); animation:none !important; }
+  .revealed{ animation:revealIn .75s var(--ease-out) both !important; }
+  @keyframes revealIn{ from{ opacity:0; transform:translateY(26px) scale(.985); } to{ opacity:1; transform:none; } }
+  @media print{ .pre-reveal{ opacity:1 !important; transform:none !important; } }
 
   /* ---------- button ripple ---------- */
   .add-btn,.addfood-btn,.danger-btn{ position:relative; overflow:hidden; }
@@ -1023,19 +1142,26 @@
         <span class="donut-spark" aria-hidden="true"></span>
         <span class="donut-spark" aria-hidden="true"></span>
         <span class="donut-spark" aria-hidden="true"></span>
-        <svg viewBox="0 0 200 200">
-          <g transform="rotate(-90 100 100)">
-            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--hairline)" stroke-width="22"></circle>
-            <circle id="ringConsumed" cx="100" cy="100" r="80" fill="none" stroke="var(--fill)" stroke-width="22" stroke-linecap="round"></circle>
+        <svg class="activity-rings" viewBox="0 0 220 220" aria-hidden="true">
+          <defs>
+            <linearGradient id="gRingCal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--accent-2)"/><stop offset="1" style="stop-color:var(--accent)"/></linearGradient>
+            <linearGradient id="gRingPro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:color-mix(in srgb, var(--protein) 70%, #ffb199)"/><stop offset="1" style="stop-color:var(--protein)"/></linearGradient>
+            <linearGradient id="gRingStep" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:color-mix(in srgb, var(--good) 60%, #b8f5d6)"/><stop offset="1" style="stop-color:var(--fat)"/></linearGradient>
+            <linearGradient id="gRingOver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:#ff8a6b"/><stop offset="1" style="stop-color:var(--danger)"/></linearGradient>
+          </defs>
+          <g transform="rotate(-90 110 110)">
+            <circle class="ring-track" cx="110" cy="110" r="95" stroke="url(#gRingCal)" stroke-width="17"/><circle class="ring-arc" id="ringCal" cx="110" cy="110" r="95" stroke="url(#gRingCal)" stroke-width="17" stroke-linecap="round" style="stroke-dasharray:0 596.90"/><g class="ring-cap" id="ringCalCap" style="transform:rotate(0deg)"><circle cx="205" cy="110" r="6.5" class="ring-cap-dot"/></g>
+            <circle class="ring-track" cx="110" cy="110" r="73" stroke="url(#gRingPro)" stroke-width="15"/><circle class="ring-arc" id="ringPro" cx="110" cy="110" r="73" stroke="url(#gRingPro)" stroke-width="15" stroke-linecap="round" style="stroke-dasharray:0 458.67"/><g class="ring-cap" id="ringProCap" style="transform:rotate(0deg)"><circle cx="183" cy="110" r="5.5" class="ring-cap-dot"/></g>
+            <circle class="ring-track" cx="110" cy="110" r="53" stroke="url(#gRingStep)" stroke-width="13"/><circle class="ring-arc" id="ringStep" cx="110" cy="110" r="53" stroke="url(#gRingStep)" stroke-width="13" stroke-linecap="round" style="stroke-dasharray:0 333.01"/><g class="ring-cap" id="ringStepCap" style="transform:rotate(0deg)"><circle cx="163" cy="110" r="4.5" class="ring-cap-dot"/></g>
           </g>
-          <text x="100" y="96" text-anchor="middle" class="donut-center" fill="var(--text)" font-size="22" font-family="IBM Plex Mono, monospace" id="ringConsumedTxt">–</text>
-          <text x="100" y="116" text-anchor="middle" fill="var(--text-2)" font-size="11" font-family="Space Grotesk, sans-serif" id="ringTargetTxt">of – kcal</text>
+          <text x="110" y="108" text-anchor="middle" class="donut-center" fill="var(--text)" font-size="21" font-family="IBM Plex Mono, monospace" id="ringConsumedTxt">–</text>
+          <text x="110" y="126" text-anchor="middle" fill="var(--text-2)" font-size="10" font-family="Space Grotesk, sans-serif" id="ringTargetTxt">of – kcal</text>
         </svg>
       </div>
-      <div class="hero-stats-row">
-        <div class="hero-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.5 3-5 5.5-5 10a5 5 0 0 0 10 0c0-1.5-.5-2.5-1.5-3.5.3 2-.8 3-1.8 3-1.4 0-2.1-1.1-1.6-2.6C12.7 7 12.6 4.3 12 2z"/></svg><span class="hero-stat-v" id="heroStatCals">0</span> kcal</div>
-        <div class="hero-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="7" cy="15.5" rx="2.4" ry="3.6" transform="rotate(-18 7 15.5)"/><circle cx="8.6" cy="10.6" r="1" fill="currentColor" stroke="none"/><ellipse cx="16" cy="8.8" rx="2.4" ry="3.6" transform="rotate(14 16 8.8)"/><circle cx="17.4" cy="14" r="1" fill="currentColor" stroke="none"/></svg><span class="hero-stat-v" id="heroStatSteps">0</span></div>
-        <div class="hero-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 7.2 6 11.2A6 6 0 0 1 6 14.2C6 10.2 12 3 12 3z"/></svg><span class="hero-stat-v" id="heroStatWater">0.0</span> L</div>
+      <div class="ring-legend">
+        <div class="rl-item rl-cal"><span class="rl-dot"></span><span class="rl-name">Calories</span><span class="rl-val"><b id="heroStatCals">0</b><i id="rlCalOf">/ –</i></span><span class="rl-pct" id="rlCalPct">0%</span></div>
+        <div class="rl-item rl-pro"><span class="rl-dot"></span><span class="rl-name">Protein</span><span class="rl-val"><b id="rlPro">0</b><i id="rlProOf">/ – g</i></span><span class="rl-pct" id="rlProPct">0%</span></div>
+        <div class="rl-item rl-step"><span class="rl-dot"></span><span class="rl-name">Steps</span><span class="rl-val"><b id="heroStatSteps">0</b><i>/ 10k</i></span><span class="rl-pct" id="rlStepPct">0%</span></div>
       </div>
     </section>
 
@@ -1059,13 +1185,33 @@
 
     <section class="panel" id="waterPanel">
       <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-muted" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 7.2 6 11.2A6 6 0 0 1 6 14.2C6 10.2 12 3 12 3z"/></svg></span>Water</span><span class="aux" id="waterCapTxt">goal –</span></h2>
-      <div class="water-row">
-        <div class="water-track-wrap">
-          <div class="meter-track">
-            <div class="meter-fill" id="waterFill" style="width:0%; background:#4dabf7;"></div>
-          </div>
+      <div class="water-row water-glass-row">
+        <div class="water-glass" id="waterGlass">
+          <svg viewBox="0 0 100 136" aria-hidden="true">
+            <defs>
+              <clipPath id="glassClip"><path d="M12 8 L88 8 L79.5 121 Q78.8 128 71.5 128 L28.5 128 Q21.2 128 20.5 121 Z"/></clipPath>
+              <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:#7cc8ff"/><stop offset="1" style="stop-color:#1f7fd6"/></linearGradient>
+              <linearGradient id="gWaterBack" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:#a8dcff"/><stop offset="1" style="stop-color:#3b95e0"/></linearGradient>
+            </defs>
+            <path d="M12 8 L88 8 L79.5 121 Q78.8 128 71.5 128 L28.5 128 Q21.2 128 20.5 121 Z" class="glass-body"/>
+            <g clip-path="url(#glassClip)">
+              <g class="water-level" id="waterLevel" style="transform:translateY(128px)">
+                <g class="wave-wrap"><path class="wave wave-back" d="M0 8 Q12.5 0 25 8 T50 8 T75 8 T100 8 T125 8 T150 8 T175 8 T200 8 V160 H0 Z" fill="url(#gWaterBack)"/></g>
+                <g class="wave-wrap"><path class="wave wave-front" d="M0 8 Q12.5 0 25 8 T50 8 T75 8 T100 8 T125 8 T150 8 T175 8 T200 8 V160 H0 Z" fill="url(#gWater)"/></g>
+                <circle class="bubble b1" cx="32" cy="70" r="2.2"/><circle class="bubble b2" cx="55" cy="90" r="1.6"/><circle class="bubble b3" cx="70" cy="60" r="2"/><circle class="bubble b4" cx="44" cy="110" r="1.4"/>
+              </g>
+            </g>
+            <path d="M22 16 L29 112" class="glass-shine"/>
+            <path d="M12 8 L88 8 L79.5 121 Q78.8 128 71.5 128 L28.5 128 Q21.2 128 20.5 121 Z" class="glass-outline"/>
+            <g class="glass-ticks"><path d="M82 39h-6M81 66h-6M79 93h-6"/></g>
+          </svg>
+          <div class="water-drop" id="waterDrop"></div>
         </div>
-        <div class="water-amount" id="waterAmountTxt">0.0 L</div>
+        <div class="water-info">
+          <div class="water-amount" id="waterAmountTxt">0.0 L</div>
+          <div class="water-pct" id="waterPctTxt">0% of goal</div>
+          <div class="meter-track water-mini"><div class="meter-fill" id="waterFill" style="width:0%;"></div></div>
+        </div>
       </div>
       <div class="water-btn-row">
         <button class="water-btn" id="waterMinus" aria-label="Remove a glass">
@@ -1827,6 +1973,7 @@
 <!-- ============ BOTTOM TAB BAR (phone) ============ -->
 <nav class="tabbar">
   <div class="inner">
+    <span class="tab-indicator" aria-hidden="true"></span>
     <button class="tab-btn" data-tab="today">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4l2.6 2.6" stroke-linecap="round"/></svg>
       <span class="tlabel">Today</span>
@@ -1862,6 +2009,7 @@
     </span>
     <span class="sidebar-title">Lean Metrics</span>
   </div>
+  <span class="tab-indicator" aria-hidden="true"></span>
   <button class="tab-btn" data-tab="today">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4l2.6 2.6" stroke-linecap="round"/></svg>
     <span class="tlabel">Today</span>
@@ -2446,16 +2594,62 @@
   /* ============================================================
      TAB NAVIGATION
   ============================================================ */
+  var TAB_ORDER = ['today','trends','workouts','learn','meditate','setup'];
+  var currentTab = 'setup';
+  var REDUCE_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   function switchTab(name){
+    var dir = TAB_ORDER.indexOf(name) >= TAB_ORDER.indexOf(currentTab) ? 1 : -1;
+    var changed = name !== currentTab;
+    currentTab = name;
     document.querySelectorAll('.tabpage').forEach(function(p){ p.classList.remove('active'); });
-    el('page-'+name).classList.add('active');
+    var page = el('page-'+name);
+    page.style.setProperty('--dir', dir);
+    page.classList.toggle('from-left', changed && dir<0);
+    page.classList.add('active');
     document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===name); });
+    moveTabIndicators();
     if(name==='today') renderToday();
     if(name==='trends') renderTrends();
     if(name==='workouts') renderWorkouts();
     if(name==='meditate') renderMeditateHistory();
     if(name==='setup') renderSetupResults();
     window.scrollTo(0,0);
+    armReveal(page);
+  }
+
+  // Sliding "liquid" pill that follows the active tab in both navs.
+  function moveTabIndicators(){
+    document.querySelectorAll('nav.tabbar, nav.sidebar').forEach(function(nav){
+      var ind = nav.querySelector('.tab-indicator');
+      var btn = nav.querySelector('.tab-btn.active');
+      if(!ind || !btn || !btn.offsetParent) return;
+      var host = ind.offsetParent || nav;
+      var br = btn.getBoundingClientRect(), hr = host.getBoundingClientRect();
+      var ix = nav.classList.contains('tabbar') ? 7 : 0, iy = nav.classList.contains('tabbar') ? 4 : 0;
+      ind.style.width = (br.width-ix*2)+'px'; ind.style.height = (br.height-iy*2)+'px';
+      ind.style.transform = 'translate('+(br.left-hr.left+ix)+'px,'+(br.top-hr.top+iy)+'px)';
+      ind.classList.add('ready');
+    });
+  }
+
+  // Panels below the fold fade/slide in as they scroll into view.
+  var revealObserver = null;
+  function armReveal(page){
+    if(REDUCE_MOTION || !('IntersectionObserver' in window) || !page) return;
+    if(!revealObserver){
+      revealObserver = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){ en.target.classList.add('revealed'); en.target.classList.remove('pre-reveal'); revealObserver.unobserve(en.target); }
+        });
+      }, {rootMargin:'0px 0px -6% 0px', threshold:0.08});
+    }
+    var nodes = page.querySelectorAll('section.panel:not(#trendsBody):not(#learnBody):not(#workoutsBody):not(#meditateBody), #trendsBody > .chart-card, #learnBody > .chart-card, #workoutsBody > .chart-card, #meditateBody > .chart-card');
+    var vh = window.innerHeight;
+    Array.prototype.forEach.call(nodes, function(n){
+      n.classList.remove('revealed');
+      if(n.getBoundingClientRect().top > vh*0.9){ n.classList.add('pre-reveal'); revealObserver.observe(n); }
+      else n.classList.remove('pre-reveal');
+    });
   }
 
   /* ============================================================
@@ -2481,7 +2675,7 @@
       el('calsCap').textContent = 'Set up your numbers in the Setup tab first.';
       el('ringConsumedTxt').textContent = '–';
       el('ringTargetTxt').textContent = 'no target yet';
-      setArc('ringConsumed', 0, 0, 2*Math.PI*80);
+      renderRings(consumed, null, log);
       el('macroBars').innerHTML = '<div class="empty-hint"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></div>Add your numbers in Setup to see macro targets.</div>';
       el('macroCapTxt').textContent = '';
     } else {
@@ -2493,10 +2687,7 @@
       el('calsCap').textContent = over ? ('ate '+fmt(consumed.cal)+' of a '+fmt(targets.calories)+' kcal target') : ('of '+fmt(targets.calories)+' kcal target');
       animateNumber('ringConsumedTxt', consumed.cal);
       el('ringTargetTxt').textContent = 'of '+fmt(targets.calories)+' kcal';
-      var frac = clamp(consumed.cal/targets.calories, 0, 1);
-      var ring = el('ringConsumed');
-      ring.setAttribute('stroke', over ? 'var(--danger)' : 'var(--fill)');
-      setArc('ringConsumed', frac, 0, 2*Math.PI*80);
+      renderRings(consumed, targets, log);
 
       el('macroCapTxt').textContent = fmt(consumed.cal)+' / '+fmt(targets.calories)+' kcal logged';
       renderMacroBars(consumed, targets);
@@ -2517,9 +2708,6 @@
     }
     el('foodTotalTxt').textContent = log.foods.length ? (fmt(consumed.cal)+' kcal') : '';
 
-    if(el('heroStatCals')) el('heroStatCals').textContent = fmt(consumed.cal);
-    if(el('heroStatSteps')) el('heroStatSteps').textContent = log.steps!=null ? fmt(log.steps) : '0';
-    if(el('heroStatWater')) el('heroStatWater').textContent = round(log.water||0, 1);
 
     el('logWeight').value = log.weight!=null ? log.weight : '';
     el('logWaist').value = log.waist!=null ? log.waist : '';
@@ -2538,14 +2726,64 @@
   /* ============================================================
      WATER TRACKER
   ============================================================ */
+
+  /* ============================================================
+     ACTIVITY RINGS (Today): calories, protein, steps
+  ============================================================ */
+  var RING_R = {ringCal:95, ringPro:73, ringStep:53};
+  var ringsPrimed = false;
+  function setRing(id, frac){
+    var arc = el(id), cap = el(id+'Cap');
+    if(!arc) return;
+    var C = 2*Math.PI*RING_R[id];
+    var f = clamp(frac, 0, 1);
+    var len = f*C;
+    arc.style.strokeDasharray = len.toFixed(2)+' '+(C-len+0.01).toFixed(2);
+    arc.classList.toggle('is-full', frac>=1);
+    if(cap){ cap.style.transform = 'rotate('+(f*360).toFixed(2)+'deg)'; cap.classList.toggle('is-zero', f<=0.005); }
+  }
+  function renderRings(consumed, targets, log){
+    var cF = targets ? consumed.cal/targets.calories : 0;
+    var pF = targets && targets.protein ? consumed.p/targets.protein : 0;
+    var steps = log && log.steps!=null ? log.steps : 0;
+    var sF = steps/10000;
+    var over = targets && consumed.cal > targets.calories*1.0;
+    var calArc = el('ringCal');
+    if(calArc) calArc.setAttribute('stroke', over ? 'url(#gRingOver)' : 'url(#gRingCal)');
+    function apply(){ setRing('ringCal', cF); setRing('ringPro', pF); setRing('ringStep', sF); }
+    if(!ringsPrimed){
+      // first paint: start from zero so the rings sweep in
+      ringsPrimed = true;
+      setRing('ringCal',0); setRing('ringPro',0); setRing('ringStep',0);
+      requestAnimationFrame(function(){ requestAnimationFrame(apply); });
+    } else apply();
+    // legend
+    if(el('heroStatCals')) animateNumber('heroStatCals', consumed.cal);
+    if(el('rlCalOf')) el('rlCalOf').textContent = '/ '+(targets?fmt(targets.calories):'–');
+    if(el('rlPro')) animateNumber('rlPro', consumed.p);
+    if(el('rlProOf')) el('rlProOf').textContent = '/ '+(targets?fmt(targets.protein):'–')+' g';
+    if(el('heroStatSteps')) animateNumber('heroStatSteps', steps);
+    function pct(id, f, item, of){
+      var node = el(id); if(!node) return;
+      node.innerHTML = Math.round(f*100)+'%'+(of?' <small>of '+of+'</small>':'');
+      var it = node.closest('.rl-item'); if(it){ it.style.setProperty('--p', (clamp(f,0,1)*100)+'%'); if(item) it.classList.toggle('is-over', item); }
+    }
+    pct('rlCalPct', cF, over, targets?fmt(targets.calories):''); pct('rlProPct', pF, false, targets?fmt(targets.protein)+' g':''); pct('rlStepPct', sF, false, '10k');
+  }
+
   function updateWaterUI(log, targets){
     var fill = el('waterFill'), amt = el('waterAmountTxt'), cap = el('waterCapTxt');
     var have = log.water || 0;
     var goalL = targets ? targets.waterL : null;
     amt.textContent = round(have,2)+' L';
     cap.textContent = goalL ? ('goal '+round(goalL,1)+' L') : 'goal –';
-    var pct = goalL ? clamp(have/goalL, 0, 1)*100 : 0;
-    fill.style.width = pct+'%';
+    var f = goalL ? have/goalL : 0;
+    fill.style.width = clamp(f,0,1)*100+'%';
+    if(el('waterPctTxt')) el('waterPctTxt').textContent = goalL ? (Math.round(f*100)+'% of goal'+(f>=1?' · done':' · '+round(Math.max(goalL-have,0),2)+' L to go')) : '';
+    // glass: liquid surface sits between y=128 (empty) and y=12 (full)
+    var lvl = el('waterLevel');
+    if(lvl){ var y = 128 - clamp(f,0,1)*112; lvl.style.transform = 'translateY('+y.toFixed(1)+'px)'; }
+    if(el('waterGlass')) el('waterGlass').classList.toggle('is-full', f>=1);
     el('waterMinus').disabled = have<=0;
   }
   function addWater(deltaL){
@@ -2554,6 +2792,8 @@
     var before = log.water||0;
     log.water = Math.max(0, round(before + deltaL, 2));
     saveState();
+    var g = el('waterGlass');
+    if(g && deltaL>0){ g.classList.remove('slosh'); void g.offsetWidth; g.classList.add('slosh'); setTimeout(function(){ g.classList.remove('slosh'); }, 950); }
     updateWaterUI(log, currentTargets());
     updateStreakUI();
     if(deltaL>0){
@@ -2589,7 +2829,9 @@
     log.steps = isNaN(s) ? null : Math.max(0, Math.round(s));
     saveState();
     updateStepsUI(log.steps);
-    renderRail(log, currentTargets(), log.foods.reduce(function(acc,f){ acc.cal+=f.cal; return acc; }, {cal:0}));
+    var cons = log.foods.reduce(function(acc,f){ acc.cal+=f.cal; acc.p+=f.p; return acc; }, {cal:0,p:0});
+    renderRings(cons, currentTargets(), log);
+    renderRail(log, currentTargets(), cons);
     maybeCelebrateSteps(dateStr, log.steps);
     updateStreakUI();
   }
@@ -2662,19 +2904,71 @@
       toast('10,000 steps — nice work!');
     }
   }
-  function spawnConfetti(container){
-    if(!container) return;
-    var colors = ['var(--protein)','var(--carb)','var(--fat)','var(--good)'];
-    for(var i=0;i<14;i++){
-      var p = document.createElement('span');
-      p.className = 'confetti-piece';
-      p.style.left = (5 + Math.random()*90)+'%';
-      p.style.background = colors[i % colors.length];
-      p.style.animationDelay = (Math.random()*0.15)+'s';
-      container.appendChild(p);
-      (function(node){ setTimeout(function(){ node.remove(); }, 1300); })(p);
-    }
+  /* ============================================================
+     PARTICLES — one full-screen canvas, physics confetti + sparkles.
+     Only animates while particles are alive; skipped for reduced motion.
+  ============================================================ */
+  var fx = {canvas:null, ctx:null, parts:[], raf:null, dpr:1};
+  function initParticles(){
+    var c = document.createElement('canvas');
+    c.className = 'fx-canvas'; c.setAttribute('aria-hidden','true');
+    document.body.appendChild(c);
+    fx.canvas = c; fx.ctx = c.getContext('2d');
+    function size(){ fx.dpr = Math.min(window.devicePixelRatio||1, 2); c.width = innerWidth*fx.dpr; c.height = innerHeight*fx.dpr; c.style.width = innerWidth+'px'; c.style.height = innerHeight+'px'; }
+    size(); window.addEventListener('resize', size);
   }
+  function fxPalette(){
+    var cs = getComputedStyle(document.documentElement);
+    return ['--protein','--carb','--fat','--good','--accent','--accent-2'].map(function(v){ return cs.getPropertyValue(v).trim() || '#c9a227'; });
+  }
+  function burst(x, y, opts){
+    if(REDUCE_MOTION || !fx.ctx) return;
+    opts = opts || {};
+    var n = opts.count || 70, pal = opts.colors || fxPalette();
+    for(var i=0;i<n;i++){
+      var a = (opts.spread!=null ? -Math.PI/2 + (Math.random()-0.5)*opts.spread : Math.random()*Math.PI*2);
+      var sp = (opts.speed||9) * (0.45 + Math.random()*0.75);
+      fx.parts.push({
+        x:x, y:y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp - (opts.lift||3),
+        g:0.28 + Math.random()*0.12, drag:0.985, life:0, max:70 + Math.random()*50,
+        rot:Math.random()*6.28, vr:(Math.random()-0.5)*0.35,
+        w:5+Math.random()*5, h:3+Math.random()*4,
+        shape: opts.sparkle ? 'star' : (['rect','rect','circle','star'])[i%4],
+        color: pal[i % pal.length]
+      });
+    }
+    if(!fx.raf) fx.raf = requestAnimationFrame(fxTick);
+  }
+  function fxStar(ctx, r){
+    ctx.beginPath();
+    for(var i=0;i<8;i++){ var rr = i%2 ? r*0.38 : r; var a = i*Math.PI/4; ctx.lineTo(Math.cos(a)*rr, Math.sin(a)*rr); }
+    ctx.closePath(); ctx.fill();
+  }
+  function fxTick(){
+    var ctx = fx.ctx, d = fx.dpr;
+    ctx.clearRect(0,0,fx.canvas.width,fx.canvas.height);
+    fx.parts = fx.parts.filter(function(p){ return p.life < p.max && p.y < innerHeight+40; });
+    fx.parts.forEach(function(p){
+      p.life++; p.vx*=p.drag; p.vy = p.vy*p.drag + p.g; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+      var alpha = 1 - Math.max(0, (p.life - p.max*0.6)/(p.max*0.4));
+      ctx.save(); ctx.globalAlpha = alpha; ctx.translate(p.x*d, p.y*d); ctx.rotate(p.rot); ctx.fillStyle = p.color;
+      if(p.shape==='circle'){ ctx.beginPath(); ctx.arc(0,0,p.h*0.6*d,0,6.283); ctx.fill(); }
+      else if(p.shape==='star'){ ctx.shadowColor = p.color; ctx.shadowBlur = 8*d; fxStar(ctx, p.w*0.75*d); }
+      else { ctx.scale(1, Math.cos(p.life*0.18)); ctx.fillRect(-p.w*d/2, -p.h*d/2, p.w*d, p.h*d); }
+      ctx.restore();
+    });
+    fx.raf = fx.parts.length ? requestAnimationFrame(fxTick) : null;
+    if(!fx.raf) ctx.clearRect(0,0,fx.canvas.width,fx.canvas.height);
+  }
+  function burstAt(node, opts){
+    if(!node) return;
+    var r = node.getBoundingClientRect();
+    var y = r.top + Math.min(r.height*0.35, 120);
+    // if the target is scrolled out of view, celebrate where the user is looking
+    if(y < 0 || y > innerHeight) burst(innerWidth/2, innerHeight*0.42, opts);
+    else burst(r.left + r.width/2, y, opts);
+  }
+  function spawnConfetti(container){ burstAt(container); }
   function addRipple(e){
     var btn = e.currentTarget;
     var rect = btn.getBoundingClientRect();
@@ -2856,10 +3150,17 @@
     var dateStr = state.selectedDate || todayStr();
     var log = getLog(dateStr);
     entry.id = Date.now()+'-'+Math.floor(Math.random()*1000);
+    var pBefore = log.foods.reduce(function(a,f){ return a+(f.p||0); }, 0);
     log.foods.push(entry);
     saveState();
     renderToday();
-    toast(entry.name+' added');
+    var t = currentTargets();
+    if(t && pBefore < t.protein && pBefore + (entry.p||0) >= t.protein){
+      setTimeout(function(){ burstAt(el('ringPanel'), {sparkle:true, count:46, speed:7}); }, 650);
+      toast('Protein target hit — ring closed');
+    } else {
+      toast(entry.name+' added');
+    }
   }
 
   function removeFoodFromLog(id){
@@ -4056,7 +4357,8 @@
     svg += '<text x="'+(PAD_L-6)+'" y="'+(yScale(maxV)+3).toFixed(1)+'" text-anchor="end" font-size="8" fill="var(--text-2)" font-family="IBM Plex Mono, monospace">'+round(maxV,1)+'</text>';
     svg += '<text x="'+(PAD_L-6)+'" y="'+(yScale(minV)+3).toFixed(1)+'" text-anchor="end" font-size="8" fill="var(--text-2)" font-family="IBM Plex Mono, monospace">'+round(minV,1)+'</text>';
     // area wash
-    svg += '<path d="'+areaPath+'" fill="var(--fill)" opacity="0.08" stroke="none"/>';
+    svg += '<defs><linearGradient id="gWeightArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--good);stop-opacity:0.32"/><stop offset="1" style="stop-color:var(--good);stop-opacity:0"/></linearGradient></defs>';
+    svg += '<path d="'+areaPath+'" fill="url(#gWeightArea)" stroke="none" class="chart-area"/>';
     // line
     svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--fill)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="'+(showAvg?0.45:1)+'"/>';
     // smoothed trailing-average overlay — the line that actually shows the trend
@@ -4096,7 +4398,8 @@
       svg += '<line x1="'+PAD_L+'" y1="'+yScale(v).toFixed(1)+'" x2="'+(CW-PAD_R)+'" y2="'+yScale(v).toFixed(1)+'" stroke="var(--hairline)" stroke-width="1"/>';
       svg += '<text x="'+(PAD_L-6)+'" y="'+(yScale(v)+3).toFixed(1)+'" text-anchor="end" font-size="8" fill="var(--text-2)" font-family="IBM Plex Mono, monospace">'+round(v,1)+'</text>';
     });
-    svg += '<path d="'+area+'" fill="var(--fat)" opacity="0.08" stroke="none"/>';
+    svg += '<defs><linearGradient id="gWaistArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--fat);stop-opacity:0.3"/><stop offset="1" style="stop-color:var(--fat);stop-opacity:0"/></linearGradient></defs>';
+    svg += '<path d="'+area+'" fill="url(#gWaistArea)" stroke="none" class="chart-area"/>';
     svg += '<path d="'+path+'" pathLength="1" data-anim="line" fill="none" stroke="var(--fat)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" style="filter:drop-shadow(0 0 3px color-mix(in srgb, var(--fat) 55%, transparent))"/>';
     pts.forEach(function(p){ if(p!==last) svg += '<circle cx="'+xScale(p.i,n).toFixed(1)+'" cy="'+yScale(p.v).toFixed(1)+'" r="2.4" fill="var(--fat)"/>'; });
     svg += '<circle class="chart-pulse-ring" cx="'+xScale(last.i,n).toFixed(1)+'" cy="'+yScale(last.v).toFixed(1)+'" r="4" stroke="var(--fat)" stroke-width="2"/>';
@@ -4841,7 +5144,10 @@
 
     renderSetupResults();
     if(returning) switchTab('today');
-    else renderToday();
+    else { renderToday(); moveTabIndicators(); armReveal(el('page-setup')); }
+    window.addEventListener('resize', moveTabIndicators);
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(moveTabIndicators);
+    initParticles();
   }
 
   function wireSimpleSegmented(id, cb){
