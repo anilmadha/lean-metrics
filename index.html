@@ -579,6 +579,38 @@
   .maint-prog b{font-family:var(--font-mono); color:var(--text);}
   .maint-prog .sum-bar{grid-column:1 / -1; margin-top:0.1rem;}
   .link-btn{background:none; border:none; padding:0; color:var(--text); text-decoration:underline; font:inherit; cursor:pointer;}
+  /* activity from steps */
+  #activityModeToggle{margin-bottom:0.85rem;}
+  .seg-compact button{padding:0.5rem 0; font-size:0.85rem; font-family:var(--font-mono);}
+  .steps-hint{font-size:0.76rem; color:var(--text-2); margin-top:0.45rem; line-height:1.45;}
+  .steps-logged{font-size:0.78rem; margin-top:0.45rem; display:inline-block;}
+  .act-break{border:1px solid var(--hairline); border-radius:16px; padding:0.85rem 0.9rem; margin-top:0.2rem;}
+  .act-break-head{display:flex; justify-content:space-between; align-items:baseline; gap:0.6rem; margin-bottom:0.6rem;}
+  .act-break-head b{font-family:var(--font-mono); font-size:1.15rem; color:var(--text);}
+  .act-break-head span{font-size:0.76rem; color:var(--text-2); text-align:right;}
+  .act-bar{display:flex; height:12px; border-radius:7px; overflow:hidden; gap:2px; background:var(--tint); margin-bottom:0.7rem;}
+  .act-bar i{display:block; height:100%; transition:width .6s var(--ease-out);}
+  .act-rows{display:grid; grid-template-columns:auto 1fr auto; gap:0.3rem 0.55rem; align-items:center; font-size:0.8rem;}
+  .act-rows .sw{width:10px; height:10px; border-radius:3px;}
+  .act-rows .l{color:var(--text-2);}
+  .act-rows .v{font-family:var(--font-mono); color:var(--text); text-align:right;}
+  .act-note{font-size:0.76rem; color:var(--text-2); margin-top:0.6rem; line-height:1.45;}
+  /* spoons & add-ons */
+  .addon-section{margin-bottom:0.9rem; padding-bottom:0.8rem; border-bottom:1px solid var(--hairline);}
+  .addon-section .fav-heading span{font-weight:500; text-transform:none; letter-spacing:0; opacity:0.85;}
+  .addon-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(132px, 1fr)); gap:0.45rem; margin-top:0.45rem;}
+  .addon-tile{position:relative; text-align:left; border:1px solid var(--hairline); background:var(--surface); color:var(--text); border-radius:12px; padding:0.55rem 0.65rem; font:inherit; cursor:pointer; transition:transform .15s ease, border-color .2s ease;}
+  .addon-tile:active{transform:scale(0.97);}
+  .addon-tile .an{display:block; font-size:0.84rem; font-weight:600; line-height:1.25;}
+  .addon-tile .am{display:block; font-size:0.72rem; color:var(--text-2); margin-top:0.15rem; font-family:var(--font-mono);}
+  .addon-tile .ac{position:absolute; top:6px; right:7px; min-width:20px; height:20px; padding:0 5px; border-radius:10px; background:var(--accent); color:var(--bg); font-size:0.7rem; font-weight:700; line-height:20px; text-align:center; font-family:var(--font-mono);}
+  .addon-tile.has{border-color:var(--accent);}
+  .fqty{display:flex; align-items:center; gap:0.3rem; flex:none;}
+  .fqty button{width:24px; height:24px; border-radius:50%; border:1px solid var(--hairline); background:var(--surface); color:var(--text); font-size:0.9rem; line-height:1; padding:0;}
+  .fqty span{font-family:var(--font-mono); font-size:0.8rem; min-width:1.2em; text-align:center;}
+  .sugar-note{font-size:0.78rem; color:var(--text-2); margin-top:0.6rem;}
+  .sugar-note b{font-family:var(--font-mono); color:var(--text);}
+  .sugar-note.over b{color:var(--danger);}
   .chart-caption{font-size:0.78rem; color:var(--text-2); margin-top:0.5rem; line-height:1.45;}
   .history-details summary{font-family:var(--font-display); font-weight:600;}
   /* ---------- consistency heatmap ---------- */
@@ -1764,7 +1796,33 @@
 
     <section class="panel" id="activityPanel">
       <h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-dumbbell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="9" width="3" height="6" rx="1"/><rect x="4.5" y="7" width="2" height="10" rx="1"/><line x1="6.5" y1="12" x2="17.5" y2="12"/><rect x="17.5" y="7" width="2" height="10" rx="1"/><rect x="20" y="9" width="3" height="6" rx="1"/></svg></span>Activity level</span></h2>
+      <div class="segmented" id="activityModeToggle" role="group" aria-label="How to set activity">
+        <button data-val="level" class="active">Pick a level</button>
+        <button data-val="steps">Use my steps</button>
+      </div>
       <div id="activityList"></div>
+      <p class="steps-hint" id="levelHint">Know your daily step count? Choose <b>Use my steps</b> for an estimate built from your own steps and workouts instead of a broad level.</p>
+      <div id="stepsModeBox" style="display:none;">
+        <div class="field">
+          <label for="avgSteps">Your average steps a day</label>
+          <input type="number" id="avgSteps" inputmode="numeric" min="0" max="60000" step="100" placeholder="e.g. 4,000">
+          <button type="button" class="link-btn steps-logged" id="useLoggedSteps" style="display:none;"></button>
+        </div>
+        <div class="field">
+          <label>Workouts a week</label>
+          <div class="segmented seg-compact" id="workoutsWeekToggle">
+            <button data-val="0">0</button><button data-val="1">1</button><button data-val="2">2</button><button data-val="3" class="active">3</button><button data-val="4">4</button><button data-val="5">5</button><button data-val="6">6</button><button data-val="7">7</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Typical workout</label>
+          <div class="segmented" id="workoutIntensityToggle">
+            <button data-val="light">Light</button><button data-val="moderate" class="active">Moderate</button><button data-val="hard">Hard</button>
+          </div>
+          <p class="steps-hint" id="intensityHint"></p>
+        </div>
+        <div id="stepsBreakdown"></div>
+      </div>
     </section>
 
     <section class="panel" id="goalPanel">
@@ -1929,6 +1987,7 @@
         <summary>How this is calculated</summary>
         <div class="body">
           <p><strong>BMR</strong> uses the Mifflin–St Jeor equation, generally regarded as the most accurate resting-metabolism estimate for most adults: 10×weight(kg) + 6.25×height(cm) − 5×age + 5 (men) or −161 (women). If you enter a body-fat %, it switches to Katch–McArdle (370 + 21.6×lean mass in kg), which accounts for how much of your weight is muscle.</p>
+          <p><strong>Use my steps</strong> (Activity level) builds maintenance from your own numbers instead of a broad level: BMR × 1.15 (digestion and everyday movement other than walking), plus your average steps × 0.0005 kcal per kg of bodyweight per step (about 37 kcal per 1,000 steps at 75 kg), plus workouts: sessions per week × 1.4 / 3.5 / 7 kcal per kg for light / moderate / hard, spread over 7 days. Those per-kg figures come from standard exercise MET values, counting only the energy above resting. With about 3,000 steps and no workouts it lands right on the standard sedentary factor (1.2); for more active people it usually comes out a little lower than the broad levels, which tend to overestimate.</p>
           <p><strong>TDEE</strong> multiplies BMR by an activity factor (1.2–1.9) that covers all your daily movement — steps and workouts together. Because the target already includes your training, don't add exercise calories from a watch back on top. If you lose faster or slower than predicted for 2–3 weeks, adjust the activity level; real metabolism varies by 5–15%.</p>
           <p><strong>Calorie target</strong> adjusts TDEE up or down based on your goal, with a safety floor for fat-loss goals of 1,200 kcal (women) or 1,500 kcal (men), never above 90% of maintenance. Goals step down evenly: 10%, 20% and 30% below maintenance for mild, standard and aggressive fat loss, and about 10% above it for lean gain. It estimates weekly weight change using the standard ≈7,700 kcal-per-kg energy equivalence.</p>
           <p><strong>Protein</strong> follows the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/" target="_blank" rel="noopener">International Society of Sports Nutrition's position stand</a> — 1.4–2.0 g/kg for general training, and up to 2.3–3.1 g/kg of lean mass in a deficit to protect muscle. If you enter body fat %, protein is set on lean mass instead (the higher 2.3–3.1 g/kg range for fat-loss goals). Without it, anyone above a BMI of 25 gets protein calculated on a reference weight (the weight at BMI 25, or goal weight if higher), since per-kg targets on full bodyweight overshoot.</p>
@@ -1938,7 +1997,7 @@
           <p><strong>Waist-to-height ratio</strong> uses your latest waist from the Today check-in. NICE treats 0.5–0.59 as increased health risk and 0.6+ as higher risk; it's a better signal than BMI for people carrying muscle.</p>
           <p><strong>Water</strong> uses a common rule of thumb of about 33 ml per kg of bodyweight, plus an activity bump (0.1–1.1 L) for your selected activity level. Hotter climates, illness, or breastfeeding raise this further.</p>
           <p><strong>Fiber</strong> uses the widely cited 14 g per 1,000 kcal rule of thumb, but never less than the Institute of Medicine Adequate Intake for your sex and age (38 g men / 25 g women, or 30 g / 21 g over 50), so a lower calorie target doesn't shrink it.</p>
-          <p><strong>Sodium</strong> and <strong>added sugar</strong> are shown as ceilings, not targets: 2,300 mg/day sodium (FDA) and 25 g/day for women or 36 g/day for men on added sugar (American Heart Association) — lower if you have high blood pressure or your doctor advises otherwise. The app doesn't log these from your food yet, so treat them as things to keep an eye on rather than numbers it's tracking for you.</p>
+          <p><strong>Sodium</strong> and <strong>added sugar</strong> are shown as ceilings, not targets: 2,300 mg/day sodium (FDA) and 25 g/day for women or 36 g/day for men on added sugar (American Heart Association) — lower if you have high blood pressure or your doctor advises otherwise. Added sugar you log with the spoon add-ons (sugar, jaggery, honey, ketchup) is totalled on the Today tab against this ceiling; sugar inside other foods and sodium aren't tracked, so treat those as things to keep an eye on.</p>
           <p>Food-log macros come from a small built-in reference list of common foods (typical USDA-style values) or whatever you enter manually — they're estimates, not lab measurements.</p>
           <p>These are population-level formulas, not a medical assessment. Individual metabolism varies by 5–15% or more. If you have a health condition, are pregnant, or are under 18, talk to a doctor or registered dietitian before changing your diet.</p>
         </div>
@@ -2010,6 +2069,10 @@
       </div>
       <div class="field" style="margin-bottom:0.7rem;">
         <input type="text" id="foodSearch" placeholder="Search foods…">
+      </div>
+      <div class="addon-section" id="addonSection">
+        <div class="fav-heading">Spoons &amp; add-ons <span>— tap once per spoon</span></div>
+        <div class="addon-grid" id="addonGrid"></div>
       </div>
       <div id="quickList"></div>
     </div>
@@ -2173,6 +2236,40 @@
   ];
 
   // per-serving macros, calories are recomputed from macros for internal consistency
+  // "Use my steps" activity model (see the Methods card)
+  var WORKOUT_INTENSITY = {
+    light:{kcalPerKg:1.4, label:'Light', desc:'About 30–45 minutes of easy work: yoga, mobility, an easy bike or light weights.'},
+    moderate:{kcalPerKg:3.5, label:'Moderate', desc:'About 45–60 minutes of regular weight training or steady cardio.'},
+    hard:{kcalPerKg:7, label:'Hard', desc:'60+ minutes of heavy lifting, HIIT, running or sports.'}
+  };
+  var STEP_KCAL_PER_KG = 0.0005;
+  var BASE_LIVING_MULT = 1.15;
+  function stepsModeInputs(profile){
+    if(profile.activityMode!=='steps') return null;
+    if(profile.avgSteps==='' || profile.avgSteps==null) return null;
+    var st = parseFloat(profile.avgSteps);
+    if(!isFinite(st) || st<0 || st>60000) return null;
+    var w = parseInt(profile.workoutsWeek,10); if(!isFinite(w)) w = 0;
+    return {steps:st, workouts:clamp(w,0,14), intensity:WORKOUT_INTENSITY[profile.workoutIntensity] || WORKOUT_INTENSITY.moderate};
+  }
+
+  // Small extras that quietly add up: logged per spoon, stacked on one row per day.
+  var ADDONS = [
+    {id:'sugar', name:'Sugar', unit:'tsp', serving:'1 tsp · 4 g', cal:16, p:0, c:4.2, f:0, sug:4.2},
+    {id:'jaggery', name:'Jaggery / brown sugar', unit:'tsp', serving:'1 tsp · 5 g', cal:19, p:0, c:4.9, f:0, sug:4.9},
+    {id:'honey', name:'Honey', unit:'tsp', serving:'1 tsp · 7 g', cal:21, p:0, c:5.8, f:0, sug:5.8},
+    {id:'oiltsp', name:'Oil, teaspoon', unit:'tsp', serving:'1 tsp · 4.5 g', cal:40, p:0, c:0, f:4.5},
+    {id:'oiltbsp', name:'Oil, tablespoon', unit:'tbsp', serving:'1 tbsp · 13.5 g', cal:120, p:0, c:0, f:13.5},
+    {id:'ghee', name:'Ghee', unit:'tsp', serving:'1 tsp · 5 g', cal:45, p:0, c:0, f:5},
+    {id:'butter', name:'Butter', unit:'tsp', serving:'1 tsp · 5 g', cal:36, p:0, c:0, f:4.1},
+    {id:'cream', name:'Heavy cream', unit:'tbsp', serving:'1 tbsp · 15 ml', cal:51, p:0.4, c:0.4, f:5.4},
+    {id:'milk', name:'Milk in tea/coffee', unit:'tbsp', serving:'1 tbsp whole · 15 ml', cal:9, p:0.5, c:0.7, f:0.5},
+    {id:'mayo', name:'Mayonnaise', unit:'tbsp', serving:'1 tbsp · 14 g', cal:94, p:0.1, c:0.1, f:10.3},
+    {id:'ketchup', name:'Ketchup', unit:'tbsp', serving:'1 tbsp · 17 g', cal:17, p:0.2, c:4.7, f:0, sug:3.7}
+  ];
+  var ADDON_BY_ID = {};
+  ADDONS.forEach(function(a){ ADDON_BY_ID[a.id] = a; });
+
   var QUICK_FOODS = [
     {name:'Chicken breast, cooked', serving:'100 g', p:31, c:0, f:3.6},
     {name:'Salmon, cooked', serving:'100 g', p:20, c:0, f:13},
@@ -2213,7 +2310,9 @@
     'Walking after meals can measurably lower the blood-sugar spike that follows.',
     'Caffeine has a 3–5 hour half-life — a late-afternoon coffee is still partly active at bedtime.',
     'THC switches on hunger signals — log those late-night snacks so your numbers stay honest.',
-    'Alcohol and THC both feel like sleep aids, but neither improves the quality of the sleep you get.'
+    'Alcohol and THC both feel like sleep aids, but neither improves the quality of the sleep you get.',
+    'A tablespoon of oil is about 120 kcal. Measuring it instead of pouring is one of the easiest cuts there is.',
+    'Two teaspoons of sugar in three cups of tea or coffee is about 100 kcal and 25 g of added sugar a day.'
   ];
 
   var EX_DB = {
@@ -2378,7 +2477,7 @@
   var STORAGE_KEY = 'leanMetrics.v2';
   var LEGACY_KEY = 'leanMetrics.profile';
 
-  var DEFAULT_PROFILE = {unit:'metric', sex:'male', age:30, height:175, weight:75, bodyfat:'', activity:'moderate', goal:'leanloss', goalWeight:'', tdeeOverride:null, tdeeOverrideDate:null};
+  var DEFAULT_PROFILE = {unit:'metric', sex:'male', age:30, height:175, weight:75, bodyfat:'', activity:'moderate', goal:'leanloss', goalWeight:'', tdeeOverride:null, tdeeOverrideDate:null, activityMode:'level', avgSteps:'', workoutsWeek:'3', workoutIntensity:'moderate'};
 
   var DEFAULT_MILESTONES = {streak7:false, streak30:false, streak100:false, newLowWeight:false};
   var DEFAULT_WORKOUT = {gender:'male', split:'3', difficulty:'beginner', goal:'general', completed:{}};
@@ -2498,7 +2597,10 @@
   function nonNeg(v){ var n = parseFloat(v); return (isFinite(n) && n>0) ? n : 0; }
   function cleanFood(f){
     if(!isObj(f)) return null;
-    return {id: f.id!=null ? String(f.id) : (Date.now()+'-'+Math.floor(Math.random()*1e6)), name: String(f.name||'Food').slice(0,80), cal: nonNeg(f.cal), p: nonNeg(f.p), c: nonNeg(f.c), f: nonNeg(f.f)};
+    var out = {id: f.id!=null ? String(f.id) : (Date.now()+'-'+Math.floor(Math.random()*1e6)), name: String(f.name||'Food').slice(0,80), cal: nonNeg(f.cal), p: nonNeg(f.p), c: nonNeg(f.c), f: nonNeg(f.f)};
+    if(typeof f.addon==='string' && ADDON_BY_ID[f.addon]){ out.addon = f.addon; out.qty = clamp(Math.round(parseFloat(f.qty)||1), 1, 99); }
+    if(nonNeg(f.sug)) out.sug = nonNeg(f.sug);
+    return out;
   }
   function hydrate(parsed){
     var s = freshState();
@@ -2509,6 +2611,10 @@
     if(s.profile.sex!=='female') s.profile.sex = 'male';
     if(!ACTIVITY.some(function(a){ return a.id===s.profile.activity; })) s.profile.activity = DEFAULT_PROFILE.activity;
     if(!GOALS.some(function(g){ return g.id===s.profile.goal; })) s.profile.goal = DEFAULT_PROFILE.goal;
+    if(s.profile.activityMode!=='steps') s.profile.activityMode = 'level';
+    if(!WORKOUT_INTENSITY[s.profile.workoutIntensity]) s.profile.workoutIntensity = 'moderate';
+    var wkw = parseInt(s.profile.workoutsWeek,10); s.profile.workoutsWeek = String(isFinite(wkw) ? clamp(wkw,0,7) : 3);
+    var avs = parseFloat(s.profile.avgSteps); s.profile.avgSteps = (isFinite(avs) && avs>=0 && avs<=60000) ? String(Math.round(avs)) : '';
     if(isObj(parsed.reminder)){
       s.reminder.enabled = !!parsed.reminder.enabled;
       if(/^\d\d:\d\d$/.test(parsed.reminder.time||'')) s.reminder.time = parsed.reminder.time;
@@ -2694,7 +2800,20 @@
     var bmrMethod = bfValid ? 'katch' : 'mifflin';
     var bmr = bfValid ? (370 + 21.6*lbmKg) : (10*weightKg + 6.25*heightCm - 5*age + (profile.sex==='male' ? 5 : -161));
     var activity = ACTIVITY.filter(function(a){return a.id===profile.activity;})[0] || ACTIVITY[2];
-    var formulaTdee = bmr * activity.mult;
+    var formulaTdee, activityParts = null, sm = stepsModeInputs(profile);
+    if(sm){
+      // resting + digestion/everyday movement + walking + training
+      var livingKcal = bmr*(BASE_LIVING_MULT-1);
+      var stepKcal = sm.steps * STEP_KCAL_PER_KG * weightKg;
+      var trainKcal = sm.workouts * sm.intensity.kcalPerKg * weightKg / 7;
+      formulaTdee = bmr + livingKcal + stepKcal + trainKcal;
+      var eqMult = formulaTdee / bmr;
+      // nearest broad level, used for its label and water bump
+      activity = ACTIVITY.reduce(function(best, a){ return Math.abs(a.mult-eqMult) < Math.abs(best.mult-eqMult) ? a : best; }, ACTIVITY[0]);
+      activityParts = {bmr:bmr, living:livingKcal, steps:stepKcal, training:trainKcal, mult:eqMult, stepCount:sm.steps, sessions:sm.workouts, intensity:sm.intensity};
+    } else {
+      formulaTdee = bmr * activity.mult;
+    }
     var override = parseFloat(profile.tdeeOverride);
     var usedMeasured = !isNaN(override) && override >= 1200 && override <= 6000;
     var tdee = usedMeasured ? override : formulaTdee;
@@ -2761,7 +2880,7 @@
       flooredNote:flooredNote, usedLbm:usedLbm, overBudget:overBudget,
       weeklyKg:weeklyKg, weeklyPct:(weeklyKg/weightKg)*100, goal:goal, activity:activity,
       bmrMethod:bmrMethod, refWeightKg:refWeightKg, usedRefWeight:usedRefWeight,
-      formulaTdee:formulaTdee, usedMeasured:usedMeasured,
+      formulaTdee:formulaTdee, usedMeasured:usedMeasured, activityParts:activityParts,
       minCalories:minCalories, bfIgnored:bfIgnored, age:age, heightCm:heightCm,
       waterL:waterL, fiberG:fiberG, sodiumCapMg:sodiumCapMg, sugarCapG:sugarCapG
     };
@@ -2888,6 +3007,16 @@
       listEl.innerHTML = '<div class="empty-hint"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>No food logged for this day yet.</div>';
     } else {
       listEl.innerHTML = log.foods.map(function(f){
+        var def = f.addon ? ADDON_BY_ID[f.addon] : null;
+        if(def){
+          var q = f.qty||1;
+          return '<div class="food-row is-addon">'+
+            '<div class="fname"><strong>'+escapeHtml(def.name)+'</strong><span>'+q+' '+def.unit+' · '+(f.f>=f.c ? 'F '+round(f.f,1)+'g' : 'C '+round(f.c,1)+'g')+(f.sug?' · '+round(f.sug,1)+'g added sugar':'')+'</span></div>'+
+            '<div class="fqty"><button type="button" class="fq" data-addon="'+f.addon+'" data-d="-1" aria-label="One less">−</button><span>'+q+'</span><button type="button" class="fq" data-addon="'+f.addon+'" data-d="1" aria-label="One more">+</button></div>'+
+            '<div class="fcal">'+fmt(f.cal)+'</div>'+
+            '<button class="fdel" data-id="'+f.id+'" aria-label="Remove">&times;</button>'+
+          '</div>';
+        }
         return '<div class="food-row">'+
           '<div class="fname"><strong>'+escapeHtml(f.name)+'</strong><span>P '+round(f.p,1)+'g · C '+round(f.c,1)+'g · F '+round(f.f,1)+'g</span></div>'+
           '<div class="fcal">'+fmt(f.cal)+'</div>'+
@@ -2896,6 +3025,11 @@
       }).join('');
     }
     el('foodTotalTxt').textContent = log.foods.length ? (fmt(consumed.cal)+' kcal') : '';
+    var addedSugar = log.foods.reduce(function(a,f){ return a+(f.sug||0); }, 0);
+    if(addedSugar>0){
+      var cap = targets ? targets.sugarCapG : null;
+      listEl.insertAdjacentHTML('beforeend', '<div class="sugar-note'+(cap && addedSugar>cap?' over':'')+'">Added sugar from spoons &amp; sauces: <b>'+round(addedSugar,1)+' g</b>'+(cap?' of your '+cap+' g daily limit':'')+'</div>');
+    }
 
 
     el('logWeight').value = log.weight!=null ? log.weight : '';
@@ -3342,7 +3476,51 @@
     el('quickPane').style.display = which==='quick' ? 'block':'none';
     el('customPane').style.display = which==='custom' ? 'block':'none';
   }
+  function renderAddons(filter){
+    var f = (filter||'').trim().toLowerCase();
+    var log = getLog(state.selectedDate || todayStr());
+    var counts = {};
+    log.foods.forEach(function(x){ if(x.addon) counts[x.addon] = (counts[x.addon]||0) + (x.qty||1); });
+    var items = ADDONS.filter(function(a){ return !f || a.name.toLowerCase().indexOf(f)>-1 || ('spoon sugar oil fat '+a.unit).indexOf(f)>-1; });
+    el('addonSection').style.display = items.length ? '' : 'none';
+    el('addonGrid').innerHTML = items.map(function(a){
+      var n = counts[a.id]||0;
+      return '<button type="button" class="addon-tile'+(n?' has':'')+'" data-addon="'+a.id+'" aria-label="Add '+escapeHtml(a.serving)+' '+escapeHtml(a.name)+'">'+
+        '<span class="an">'+escapeHtml(a.name)+'</span><span class="am">'+escapeHtml(a.serving)+' · '+a.cal+' kcal</span>'+
+        (n ? '<span class="ac">'+n+'</span>' : '')+'</button>';
+    }).join('');
+  }
+  // Sets an add-on's spoon count for the selected day (0 removes it);
+  // macros are always recomputed from the per-spoon values.
+  function setAddonQty(addonId, qty){
+    var def = ADDON_BY_ID[addonId]; if(!def) return;
+    var dateStr = state.selectedDate || todayStr();
+    var log = getLog(dateStr);
+    var entry = log.foods.filter(function(x){ return x.addon===addonId; })[0];
+    qty = clamp(Math.round(qty), 0, 99);
+    if(!qty){ if(entry) log.foods = log.foods.filter(function(x){ return x!==entry; }); }
+    else {
+      if(!entry){ entry = {id:Date.now()+'-'+Math.floor(Math.random()*1000), addon:addonId}; log.foods.push(entry); }
+      entry.qty = qty;
+      entry.name = def.name;
+      entry.cal = def.cal*qty; entry.p = round(def.p*qty,1); entry.c = round(def.c*qty,1); entry.f = round(def.f*qty,1);
+      if(def.sug) entry.sug = round(def.sug*qty,1); else delete entry.sug;
+    }
+    stampTarget(log);
+    saveState();
+    renderToday();
+    if(el('addFoodOverlay').classList.contains('open')) renderAddons(el('foodSearch').value);
+    return entry && qty ? entry : null;
+  }
+  function addAddon(addonId){
+    var log = getLog(state.selectedDate || todayStr());
+    var cur = log.foods.filter(function(x){ return x.addon===addonId; })[0];
+    var e = setAddonQty(addonId, (cur ? cur.qty||1 : 0) + 1);
+    var def = ADDON_BY_ID[addonId];
+    if(e) toast(def.name+': '+e.qty+' '+def.unit+' · '+fmt(e.cal)+' kcal');
+  }
   function renderQuickList(filter){
+    renderAddons(filter);
     var f = filter.trim().toLowerCase();
     var items = QUICK_FOODS.filter(function(it){ return !f || it.name.toLowerCase().indexOf(f)>-1; });
     var listEl = el('quickList');
@@ -4962,6 +5140,49 @@
     renderToday();
   }
 
+  function loggedStepsAverage(){
+    var sum = 0, n = 0;
+    for(var k=1;k<=14;k++){ var l = state.logs[addDays(todayStr(),-k)]; if(l && l.steps!=null){ sum += l.steps; n++; } }
+    return n>=3 ? {avg:Math.round(sum/n/100)*100, days:n} : null;
+  }
+  function syncActivityModeUI(){
+    var p = state.profile, stepsMode = p.activityMode==='steps';
+    [['activityModeToggle', p.activityMode], ['workoutsWeekToggle', String(p.workoutsWeek)], ['workoutIntensityToggle', p.workoutIntensity]].forEach(function(g){
+      Array.prototype.forEach.call(el(g[0]).children, function(b){ b.classList.toggle('active', b.dataset.val===g[1]); });
+    });
+    el('activityList').style.display = stepsMode ? 'none' : '';
+    el('levelHint').style.display = stepsMode ? 'none' : '';
+    el('stepsModeBox').style.display = stepsMode ? '' : 'none';
+    if(document.activeElement !== el('avgSteps')) el('avgSteps').value = p.avgSteps || '';
+    var it = WORKOUT_INTENSITY[p.workoutIntensity] || WORKOUT_INTENSITY.moderate;
+    el('intensityHint').textContent = it.desc + ' Count walks and runs that your phone or watch already tracks as steps, not as workouts.';
+    var la = loggedStepsAverage(), btn = el('useLoggedSteps');
+    if(la && String(la.avg)!==String(p.avgSteps)){ btn.style.display = ''; btn.textContent = 'Use my logged average: '+fmt(la.avg)+' (last '+la.days+' days)'; btn.dataset.val = la.avg; }
+    else btn.style.display = 'none';
+  }
+  function renderStepsBreakdown(t){
+    var box = el('stepsBreakdown');
+    if(state.profile.activityMode!=='steps'){ box.innerHTML = ''; return; }
+    if(!t || !t.activityParts){
+      box.innerHTML = '<div class="note">Enter your average steps a day to calculate. Until then, targets use the <b>'+escapeHtml((t&&t.activity?t.activity.label:'Moderately active'))+'</b> level.</div>';
+      return;
+    }
+    var a = t.activityParts, total = t.formulaTdee;
+    var parts = [
+      {l:'Resting (BMR)', v:a.bmr, c:'color-mix(in srgb, var(--text-2) 55%, transparent)'},
+      {l:'Digestion &amp; daily living', v:a.living, c:'var(--carb)'},
+      {l:fmt(a.stepCount)+' steps', v:a.steps, c:'var(--good)'},
+      {l:a.sessions+' '+a.intensity.label.toLowerCase()+' workout'+(a.sessions===1?'':'s')+'/wk', v:a.training, c:'var(--protein)'}
+    ];
+    box.innerHTML = '<div class="act-break">'+
+      '<div class="act-break-head"><b>'+fmt(total)+' kcal</b><span>maintenance from your steps<br>≈ '+escapeHtml(t.activity.label)+' (×'+round(a.mult,2).toFixed(2)+')</span></div>'+
+      '<div class="act-bar">'+parts.map(function(p){ return p.v>0.5 ? '<i style="width:'+(p.v/total*100).toFixed(2)+'%;background:'+p.c+'"></i>' : ''; }).join('')+'</div>'+
+      '<div class="act-rows">'+parts.map(function(p){ return '<span class="sw" style="background:'+p.c+'"></span><span class="l">'+p.l+'</span><span class="v">'+fmt(p.v)+'</span>'; }).join('')+'</div>'+
+      (t.usedMeasured ? '<div class="act-note">Your targets are using your measured maintenance from Trends ('+fmt(t.tdee)+' kcal) instead. Switch back to the formula in the note below to use this.</div>'
+        : '<div class="act-note">Every 1,000 extra steps a day adds about '+fmt(1000*STEP_KCAL_PER_KG*t.weightKg)+' kcal. After 2–3 weeks of logging, the measured maintenance on Trends will tell you how close this is.</div>')+
+    '</div>';
+  }
+
   function populateInputs(){
     el('age').value = state.profile.age;
     el('height').value = state.profile.height;
@@ -5159,6 +5380,7 @@
     renderWhtr(heightRaw);
     updateSetupLive(t);
     updateOptionPreviews();
+    renderStepsBreakdown(t);
     updateMotivation(goal.id);
 
     animateNumber('donutCals', t.totalCal);
@@ -5357,6 +5579,7 @@
     Array.prototype.forEach.call(el('sexToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.sex); });
     refreshOptionList(el('activityList'),'activity');
     refreshOptionList(el('goalList'),'goal');
+    syncActivityModeUI();
     syncWorkoutToggles();
     syncMeditateControls();
     renderSetupResults();
@@ -5390,9 +5613,37 @@
       if(currentTab==='trends') renderTrends();
     });
     wireSegmented('sexToggle','sex');
+    wireSegmented('activityModeToggle','activityMode', function(prev, next){
+      if(next==='steps'){
+        // sensible first values: logged steps, and the workout split already chosen
+        if(state.profile.avgSteps===''){
+          var la = loggedStepsAverage(); if(la) state.profile.avgSteps = String(la.avg);
+          if(state.workout && /^\d$/.test(String(state.workout.split))) state.profile.workoutsWeek = String(state.workout.split);
+        }
+        saveState();
+      }
+      syncActivityModeUI();
+    });
+    wireSegmented('workoutsWeekToggle','workoutsWeek', syncActivityModeUI);
+    wireSegmented('workoutIntensityToggle','workoutIntensity', syncActivityModeUI);
+    el('avgSteps').addEventListener('input', function(){
+      var v = parseFloat(this.value);
+      state.profile.avgSteps = (this.value!=='' && isFinite(v) && v>=0 && v<=60000) ? String(Math.round(v)) : '';
+      saveState();
+      renderSetupResults();
+      syncActivityModeUI();
+    });
+    el('useLoggedSteps').addEventListener('click', function(){
+      state.profile.avgSteps = String(this.dataset.val);
+      el('avgSteps').value = this.dataset.val;
+      saveState();
+      renderSetupResults();
+      syncActivityModeUI();
+    });
 
     buildOptionList(el('activityList'), ACTIVITY, 'activity');
     buildOptionList(el('goalList'), GOALS, 'goal');
+    syncActivityModeUI();
 
     ['age','height','weight','bodyfat'].forEach(function(id){
       el(id).addEventListener('input', renderSetupResults);
@@ -5422,6 +5673,7 @@
       Array.prototype.forEach.call(el('sexToggle').children, function(b){ b.classList.toggle('active', b.dataset.val===state.profile.sex); });
       refreshOptionList(el('activityList'),'activity');
       refreshOptionList(el('goalList'),'goal');
+      syncActivityModeUI();
       renderSetupResults();
     });
 
@@ -5442,8 +5694,18 @@
     el('closeAddFood').addEventListener('click', closeSheet);
     el('addFoodOverlay').addEventListener('click', function(e){ if(e.target===el('addFoodOverlay')) closeSheet(); });
     el('foodList').addEventListener('click', function(e){
+      var q = e.target.closest('.fq');
+      if(q){
+        var cur = getLog(state.selectedDate || todayStr()).foods.filter(function(x){ return x.addon===q.dataset.addon; })[0];
+        setAddonQty(q.dataset.addon, (cur ? cur.qty||1 : 0) + parseInt(q.dataset.d,10));
+        return;
+      }
       var btn = e.target.closest('.fdel');
       if(btn) removeFoodFromLog(btn.dataset.id);
+    });
+    el('addonGrid').addEventListener('click', function(e){
+      var t = e.target.closest('.addon-tile');
+      if(t) addAddon(t.dataset.addon);
     });
 
     el('tabQuick').addEventListener('click', function(){ switchSheetTab('quick'); });
