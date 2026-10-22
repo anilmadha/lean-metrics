@@ -1400,14 +1400,18 @@
     box-shadow:0 24px 60px -28px color-mix(in srgb, var(--accent) 55%, transparent), inset 0 1px 0 rgba(255,255,255,0.06) !important;
   }
   #ringPanel::before, #ringPanel::after{display:none;}
-  .hero{padding:0.3rem 0 0.4rem;}
-  .hero .num{font-family:var(--font-display); font-weight:800; font-size:4.6rem; letter-spacing:-0.05em; line-height:0.95; font-variant-numeric:tabular-nums;
+  .hero{padding:0.3rem 0 0.4rem; min-width:0; container-type:inline-size;}
+  .hero .num{font-family:var(--font-display); font-weight:800; font-size:4.6rem; letter-spacing:-0.05em; line-height:0.95; font-variant-numeric:tabular-nums; white-space:nowrap;
     color:var(--accent); filter:drop-shadow(0 0 16px color-mix(in srgb, var(--accent) 40%, transparent));}
+  /* shrink the giant number to its column so it never wraps (e.g. 480–720px two-column hero) */
+  .hero .num{font-size:clamp(2.2rem, 34cqw, 4.6rem);}
   .hero .num.is-over{color:var(--danger); filter:drop-shadow(0 0 16px color-mix(in srgb, var(--danger) 40%, transparent));}
-  .hero .unit{font-family:var(--font-display); font-weight:600; font-size:1rem; color:var(--text-2); margin-left:0.35rem;}
+  .hero .unit{font-family:var(--font-display); font-weight:600; font-size:1rem; color:var(--text-2); margin-left:0.35rem; white-space:nowrap; display:inline-block;}
   .hero .cap{font-size:0.8rem; margin-top:0.35rem;}
-  @media (min-width:480px){
-    #ringPanel{display:grid; grid-template-columns:1fr auto; grid-template-areas:"num rings" "legend legend"; align-items:center; column-gap:0.4rem;}
+  /* number-left / rings-right only when the panel is wide enough: full-width phones & tablets,
+     or large desktops (900–1299px desktop puts the hero in a half-width column, so it stacks there) */
+  @media (min-width:480px) and (max-width:899px), (min-width:1300px){
+    #ringPanel{display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"num rings" "legend legend"; align-items:center; column-gap:0.4rem;}
     #ringPanel .hero{grid-area:num; text-align:left; padding-left:0.4rem;}
     #ringPanel .donut-wrap{grid-area:rings; padding:0.4rem 0 0;}
     #ringPanel .ring-legend{grid-area:legend;}
