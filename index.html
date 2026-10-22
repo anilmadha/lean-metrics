@@ -571,13 +571,14 @@
   .whtr a{color:var(--text); text-decoration-color:var(--hairline);}
   .whtr.empty .whtr-s{margin-top:0;}
   /* ---------- Setup: live target pill ---------- */
-  .setup-live{position:fixed; left:50%; bottom:calc(5.4rem + env(safe-area-inset-bottom)); transform:translate(-50%, 140%); opacity:0; pointer-events:none; z-index:35; display:flex; align-items:center; gap:0.55rem; padding:0.55rem 1rem; border-radius:999px; border:1px solid var(--hairline); background:color-mix(in srgb, var(--surface) 92%, transparent); box-shadow:0 10px 28px rgba(0,0,0,.16); color:var(--text); font-family:var(--font-display); font-size:0.8rem; white-space:nowrap; visibility:hidden; transition:transform .35s var(--ease-spring), opacity .25s ease, visibility 0s linear .35s;}
-  .setup-live.show{transform:translate(-50%, 0); opacity:1; pointer-events:auto; visibility:visible; transition-delay:0s; -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);}
+  .setup-live{position:fixed; left:50%; bottom:calc(5.4rem + env(safe-area-inset-bottom)); transform:translate(-50%, 0); pointer-events:none; z-index:35; display:none; align-items:center; gap:0.55rem; padding:0.55rem 1rem; border-radius:999px; border:1px solid var(--hairline); background:color-mix(in srgb, var(--surface) 92%, transparent); box-shadow:0 10px 28px rgba(0,0,0,.16); color:var(--text); font-family:var(--font-display); font-size:0.8rem; white-space:nowrap;}
+  .setup-live.show{display:flex; pointer-events:auto; -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); animation:slUp .35s var(--ease-spring) both;}
+  @keyframes slUp{ from{ transform:translate(-50%, 140%); opacity:0; } to{ transform:translate(-50%, 0); opacity:1; } }
   .setup-live .sl-kcal{font-family:var(--font-mono); font-weight:700; font-size:0.92rem;}
   .setup-live .sl-sep{width:1px; height:14px; background:var(--hairline);}
   .setup-live .sl-m{color:var(--text-2);} .setup-live .sl-m b{font-family:var(--font-mono); color:var(--text); font-weight:600;}
   .setup-live .sl-m.p b{color:var(--protein);} .setup-live .sl-m.c b{color:var(--carb);} .setup-live .sl-m.f b{color:var(--fat);}
-  .setup-live.bump{animation:liveBump .45s var(--ease-spring);}
+  .setup-live.show.bump{animation:liveBump .45s var(--ease-spring);}
   @keyframes liveBump{ 0%{ transform:translate(-50%,0) scale(1);} 40%{ transform:translate(-50%,0) scale(1.07);} 100%{ transform:translate(-50%,0) scale(1);} }
   @media (min-width:900px){ .setup-live{ left:calc(232px + (100% - 232px)/2); bottom:1.5rem; } }
   /* ---------- Trends: period summary tiles ---------- */
