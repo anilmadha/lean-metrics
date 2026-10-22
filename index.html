@@ -3550,8 +3550,9 @@
   }
   function initAurora(){
     var c = el('aurora'); if(!c) return;
-    var gl = c.getContext('webgl', {alpha:false, antialias:false, depth:false, stencil:false, preserveDrawingBuffer:false, powerPreference:'low-power'});
-    if(!gl) return;
+    var gl = null;
+    try{ gl = c.getContext('webgl', {alpha:false, antialias:false, depth:false, stencil:false, preserveDrawingBuffer:false, powerPreference:'low-power'}); }catch(e){}
+    if(!gl){ initAurora2D(c); return; }
     var vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
     var fs = 'precision mediump float;uniform vec2 r;uniform float t;uniform vec3 bg,c1,c2,c3;uniform float k;'+
       'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}'+
@@ -3592,6 +3593,46 @@
     else aurora.raf = requestAnimationFrame(auroraFrame);
     document.addEventListener('visibilitychange', function(){ if(!document.hidden && !aurora.raf && !aurora.static) aurora.raf = requestAnimationFrame(auroraFrame); });
     if(window.matchMedia){ try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){ setTimeout(auroraRecolor, 30); }); }catch(e){} }
+  }
+
+  // Canvas-2D fallback for browsers without WebGL: drifting soft blobs,
+  // blurred by CSS, recoloured from the same theme tokens.
+  var aurora2d = {ctx:null, raf:null, last:0, cols:null, dark:true};
+  function aurora2dRecolor(){
+    aurora2d.dark = isDarkTheme();
+    aurora2d.cols = {bg:cssColor('--bg'), c:[cssColor('--accent'), cssColor(aurora2d.dark ? '--good' : '--fat'), cssColor('--protein'), cssColor('--accent-2')]};
+  }
+  function initAurora2D(c){
+    var ctx = c.getContext('2d'); if(!ctx) return;
+    aurora2d.ctx = ctx;
+    function size(){ c.width = 240; c.height = Math.max(120, Math.round(240*innerHeight/Math.max(innerWidth,1))); }
+    size(); window.addEventListener('resize', size);
+    aurora2dRecolor();
+    window.auroraRecolor = function(){ aurora2dRecolor(); if(REDUCE_MOTION) frame(performance.now(), true); };
+    function rgba(col, a){ return 'rgba('+Math.round(col[0]*255)+','+Math.round(col[1]*255)+','+Math.round(col[2]*255)+','+a+')'; }
+    var blobs = [ {x:0.2,y:0.25,r:0.55,s:0.00011,p:0}, {x:0.8,y:0.3,r:0.5,s:0.00009,p:2.1}, {x:0.5,y:0.85,r:0.6,s:0.00013,p:4.2}, {x:0.15,y:0.8,r:0.45,s:0.00008,p:1.3} ];
+    function frame(now, once){
+      if(!once && now - aurora2d.last < 40){ aurora2d.raf = requestAnimationFrame(frame); return; }
+      aurora2d.last = now;
+      var w = c.width, h = c.height, k = aurora2d.dark ? 0.55 : 0.32, cols = aurora2d.cols;
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = rgba(cols.bg, 1); ctx.fillRect(0,0,w,h);
+      blobs.forEach(function(b,i){
+        var t = now*b.s + b.p;
+        var x = (b.x + Math.sin(t)*0.14 + Math.cos(t*0.7)*0.08)*w, y = (b.y + Math.cos(t*0.9)*0.12 + Math.sin(t*0.5)*0.06)*h;
+        var r = b.r*Math.max(w,h)*(0.85 + Math.sin(t*1.3)*0.12);
+        var g = ctx.createRadialGradient(x,y,0,x,y,r);
+        g.addColorStop(0, rgba(cols.c[i%cols.c.length], k)); g.addColorStop(0.55, rgba(cols.c[i%cols.c.length], k*0.35)); g.addColorStop(1, rgba(cols.c[i%cols.c.length], 0));
+        ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+      });
+      if(!once && !document.hidden) aurora2d.raf = requestAnimationFrame(frame); else aurora2d.raf = null;
+    }
+    c.style.filter = 'blur(28px)';
+    document.body.classList.add('has-aurora');
+    c.classList.add('on');
+    if(REDUCE_MOTION) frame(performance.now(), true); else aurora2d.raf = requestAnimationFrame(frame);
+    document.addEventListener('visibilitychange', function(){ if(!document.hidden && !aurora2d.raf && !REDUCE_MOTION) aurora2d.raf = requestAnimationFrame(frame); });
+    if(window.matchMedia){ try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){ setTimeout(window.auroraRecolor, 30); }); }catch(e){} }
   }
 
   /* ---------- Hero parallax: the rings tilt toward the pointer / device tilt ---------- */
