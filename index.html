@@ -1500,67 +1500,157 @@
   .act-bar i:nth-child(3){background:var(--accent);}
 
   /* ============================================================
-     HEALTH CHECK TAB (v25)
+     HEALTH CHECK TAB (v26) — guided check-up, nutrient panel, report
   ============================================================ */
   nav.tabbar .tlabel{font-size:0.62rem;}
   nav.tabbar svg{width:21px; height:21px;}
-  .hc-score-card{overflow:hidden; position:relative;}
-  .hc-score-wrap{display:grid; grid-template-columns:auto 1fr; gap:1rem; align-items:center;}
-  .hc-ring{position:relative; width:124px; height:124px;}
-  .hc-ring svg{width:100%; height:100%; overflow:visible;}
-  .hc-track{fill:none; stroke:color-mix(in srgb, var(--text) 10%, transparent); stroke-width:10;}
-  .hc-prog{fill:none; stroke:url(#hcGrad); stroke-width:10; stroke-linecap:round; stroke-dasharray:326.7; stroke-dashoffset:326.7; transition:stroke-dashoffset .9s var(--ease-out); filter:drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 55%, transparent));}
-  .hc-prog.low{stroke:var(--danger); filter:drop-shadow(0 0 8px color-mix(in srgb, var(--danger) 55%, transparent));}
-  .hc-prog.mid{stroke:var(--carb); filter:drop-shadow(0 0 8px color-mix(in srgb, var(--carb) 55%, transparent));}
-  .hc-ring-num{position:absolute; inset:0; display:flex; align-items:baseline; justify-content:center; padding-top:40px; gap:2px;}
-  .hc-ring-num b{font-family:var(--font-display); font-weight:800; font-size:2.3rem; letter-spacing:-0.04em; line-height:1; font-variant-numeric:tabular-nums;}
-  .hc-ring-num span{font-size:0.72rem; color:var(--text-2); font-weight:600;}
-  .hc-kicker{font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-2); font-weight:700;}
-  .hc-grade{font-family:var(--font-display); font-weight:800; font-size:1.5rem; letter-spacing:-0.02em; margin:0.15rem 0 0.25rem; line-height:1.1;}
-  .hc-summary{margin:0; font-size:0.85rem; color:var(--text-2); line-height:1.45;}
-  .hc-mini{display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.55rem;}
-  .hc-mini span{font-size:0.68rem; font-weight:700; padding:0.22rem 0.55rem; border-radius:999px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-2);}
+  .hc-kicker{font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-2); font-weight:700;}
+  .hc-sec-note{font-size:0.78rem; color:var(--text-2); margin:0 0 0.7rem; line-height:1.45;}
+  .hc-empty{font-size:0.82rem; color:var(--text-2); padding:0.4rem 0;}
+  .hc-foot{font-size:0.7rem; color:var(--text-2); line-height:1.45; margin-top:0.7rem;}
+  /* hero */
+  .hc-hero{position:relative; overflow:hidden;}
+  .hc-hero::before{content:""; position:absolute; inset:0; background:radial-gradient(90% 70% at 0% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%), radial-gradient(80% 70% at 100% 100%, color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 60%); pointer-events:none;}
+  .hc-hero-grid{position:relative; display:grid; grid-template-columns:auto 1fr; gap:0.9rem; align-items:center;}
+  .hc-orb-wrap{position:relative; width:150px; height:150px; flex:none;}
+  .hc-orb-wrap canvas{width:100%; height:100%; display:block;}
+  .hc-orb-num{position:absolute; inset:0; display:flex; align-items:baseline; justify-content:center; padding-top:52px; gap:2px; pointer-events:none;}
+  .hc-orb-num b{font-family:var(--font-display); font-weight:800; font-size:2.6rem; letter-spacing:-0.04em; line-height:1; color:#fff; text-shadow:0 2px 14px rgba(0,0,0,0.45); font-variant-numeric:tabular-nums;}
+  .hc-orb-num span{font-size:0.7rem; color:rgba(255,255,255,0.75); font-weight:700;}
+  .hc-grade{font-family:var(--font-display); font-weight:800; font-size:1.45rem; letter-spacing:-0.02em; margin:0.15rem 0 0.25rem; line-height:1.1;}
+  .hc-summary{margin:0; font-size:0.82rem; color:var(--text-2); line-height:1.45;}
+  .hc-mini{display:flex; flex-wrap:wrap; gap:0.3rem; margin-top:0.5rem;}
+  .hc-mini span{font-size:0.64rem; font-weight:700; padding:0.2rem 0.5rem; border-radius:999px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-2);}
   .hc-mini span.ok{color:var(--good); border-color:color-mix(in srgb, var(--good) 45%, transparent);}
   .hc-mini span.short{color:var(--carb); border-color:color-mix(in srgb, var(--carb) 45%, transparent);}
   .hc-mini span.miss{color:var(--danger); border-color:color-mix(in srgb, var(--danger) 45%, transparent);}
-  .hc-actions{display:flex; flex-wrap:wrap; gap:0.45rem; margin-top:0.9rem;}
-  .hc-actions .chip-btn{padding:0.5rem 0.9rem; font-size:0.8rem;}
-  .hc-actions .chip-btn.ghost{background:transparent;}
-  .hc-sec-note{font-size:0.78rem; color:var(--text-2); margin:-0.2rem 0 0.6rem; line-height:1.45;}
-  .hc-grid{display:grid; grid-template-columns:1fr 1fr; gap:0.55rem;}
-  .hc-grid.one{grid-template-columns:1fr;}
-  .hc-item{display:flex; align-items:center; justify-content:space-between; gap:0.5rem; padding:0.55rem 0.55rem 0.55rem 0.7rem; border-radius:14px; border:1px solid var(--glass-border); background:var(--glass); min-width:0;}
-  .hc-item.has{border-color:color-mix(in srgb, var(--accent) 55%, transparent);}
-  .hc-item.bad.has{border-color:color-mix(in srgb, var(--danger) 55%, transparent);}
+  .hc-trend{display:flex; align-items:center; gap:0.6rem; margin-top:0.45rem; font-size:0.72rem; font-weight:700; color:var(--text-2);}
+  .hc-trend .up{color:var(--good);} .hc-trend .down{color:var(--danger);}
+  .hc-spark{width:110px; height:28px;}
+  /* stepper */
+  .hc-stepper{position:relative; display:flex; align-items:center; margin-top:1rem; padding-top:0.9rem; border-top:1px solid var(--glass-border);}
+  .hc-stepdot{background:none; border:none; padding:0; display:flex; flex-direction:column; align-items:center; gap:0.25rem; color:var(--text-2); font:inherit; cursor:pointer; flex:none;}
+  .hc-stepdot .d{width:26px; height:26px; border-radius:50%; border:1.5px solid var(--glass-border); background:var(--glass); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:800; font-size:0.72rem; transition:transform .25s var(--ease-spring), background .2s;}
+  .hc-stepdot .l{font-size:0.6rem; font-weight:700; letter-spacing:0.02em;}
+  .hc-stepdot.cur .d{background:var(--grad); color:var(--on-accent); border-color:transparent; transform:scale(1.18); box-shadow:0 6px 18px -8px var(--accent);}
+  .hc-stepdot.cur{color:var(--text);}
+  .hc-stepdot.done .d{background:color-mix(in srgb, var(--good) 22%, transparent); color:var(--good); border-color:color-mix(in srgb, var(--good) 45%, transparent);}
+  .hc-stepline{flex:1; height:1.5px; background:var(--glass-border); margin:0 0.2rem; margin-bottom:0.95rem;}
+  /* step card */
+  .hc-step-card{animation:none;}
+  .hc-step-card.hc-enter{animation:hcEnter .4s var(--ease-out);}
+  @keyframes hcEnter{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+  .hc-step-head{margin-bottom:0.6rem;}
+  .hc-step-title{font-family:var(--font-display); font-weight:800; font-size:1.35rem; letter-spacing:-0.02em; margin:0.1rem 0 0;}
+  .hc-nav{display:flex; justify-content:space-between; align-items:center; gap:0.5rem; margin-top:1.1rem; padding-top:0.9rem; border-top:1px solid var(--glass-border);}
+  .hc-nav .chip-btn{padding:0.6rem 1.1rem; font-size:0.85rem;}
+  .chip-btn.primary{background:var(--grad); color:var(--on-accent); border-color:transparent; box-shadow:0 10px 24px -12px var(--accent);}
+  .chip-btn.ghost{background:transparent;}
+  .hc-targets{display:flex; flex-wrap:wrap; gap:0.35rem; margin:0.2rem 0 0.9rem;}
+  .hc-targets span{font-size:0.7rem; color:var(--text-2); padding:0.3rem 0.6rem; border-radius:999px; border:1px solid var(--glass-border); background:var(--glass);}
+  .hc-targets b{color:var(--text); font-family:var(--font-display);}
+  .hc-inline{display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem; margin-top:0.4rem;}
+  .hc-inline .chip-btn{padding:0.45rem 0.85rem; font-size:0.78rem;}
+  .hc-chips{display:flex; flex-wrap:wrap; gap:0.4rem; margin:0.35rem 0 0.9rem;}
+  .hc-chips .chip-btn{padding:0.45rem 0.85rem; font-size:0.8rem;}
+  /* food step */
+  .hc-search{position:relative; margin-bottom:0.5rem;}
+  .hc-search-ic{position:absolute; left:0.8rem; top:50%; transform:translateY(-50%); width:18px; height:18px; color:var(--text-2); pointer-events:none;}
+  .hc-search-ic svg{width:18px; height:18px;}
+  .hc-search input{width:100%; padding:0.75rem 0.9rem 0.75rem 2.5rem; border-radius:16px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text); font:inherit; font-size:0.95rem;}
+  .hc-search input:focus{outline:2px solid var(--fill); outline-offset:1px;}
+  .hc-groups{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; margin:0 -1rem 0.6rem; padding:0 1rem 2px;}
+  .hc-groups::-webkit-scrollbar{display:none;}
+  .hc-groups .chip-btn{flex:none; white-space:nowrap; padding:0.4rem 0.8rem; font-size:0.76rem;}
+  .hc-foodlist{display:grid; grid-template-columns:1fr; gap:0.35rem; max-height:330px; overflow-y:auto; padding-right:2px; -webkit-overflow-scrolling:touch;}
+  .hc-food{display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:0.5rem; text-align:left; padding:0.5rem 0.55rem 0.5rem 0.75rem; border-radius:14px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text); font:inherit; cursor:pointer; transition:border-color .2s, transform .15s;}
+  .hc-food:active{transform:scale(0.98);}
+  .hc-food.added{border-color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent);}
+  .hc-food .fn{font-size:0.82rem; font-weight:700; line-height:1.2; min-width:0;}
+  .hc-food .fn small{display:block; font-size:0.66rem; color:var(--text-2); font-weight:600; margin-top:0.1rem;}
+  .hc-food .fm{font-size:0.64rem; color:var(--text-2); font-family:var(--font-mono); white-space:nowrap;}
+  .hc-food .fplus{width:28px; height:28px; border-radius:50%; background:var(--grad); color:var(--on-accent); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1rem;}
+  .hc-custom{padding:0.7rem 0.75rem 0.2rem; border-radius:16px; border:1px dashed var(--glass-border); margin-top:0.5rem;}
+  .hc-custom .field{margin-bottom:0.7rem;}
+  .hc-items{display:flex; flex-direction:column; gap:0.4rem;}
+  .hc-item{display:flex; align-items:center; justify-content:space-between; gap:0.5rem; padding:0.5rem 0.5rem 0.5rem 0.7rem; border-radius:14px; border:1px solid var(--glass-border); background:var(--glass); min-width:0;}
+  .hc-item.has{border-color:color-mix(in srgb, var(--accent) 45%, transparent);}
   .hc-item > div:first-child{min-width:0;}
   .hc-item .hn{display:block; font-size:0.8rem; font-weight:700; line-height:1.2;}
-  .hc-item .hh{display:block; font-size:0.66rem; color:var(--text-2); margin-top:0.1rem; line-height:1.25;}
+  .hc-item .hh{display:block; font-size:0.64rem; color:var(--text-2); margin-top:0.1rem; line-height:1.25; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .hc-step{display:flex; align-items:center; gap:0.15rem; flex:none;}
   .hc-step button{width:28px; height:28px; border-radius:50%; border:1px solid var(--glass-border); background:var(--surface); color:var(--text); font-size:1rem; font-weight:700; line-height:1; display:flex; align-items:center; justify-content:center; padding:0;}
   .hc-step button:active{transform:scale(0.9);}
-  .hc-step b{min-width:1.4rem; text-align:center; font-family:var(--font-display); font-weight:800; font-variant-numeric:tabular-nums; font-size:0.95rem;}
-  .hc-item.has .hc-step b{color:var(--accent);}
-  .hc-item.bad.has .hc-step b{color:var(--danger);}
-  .hc-chips{display:flex; flex-wrap:wrap; gap:0.4rem; margin:0.35rem 0 0.9rem;}
-  .hc-chips .chip-btn{padding:0.45rem 0.85rem; font-size:0.8rem;}
+  .hc-step b{min-width:1.6rem; text-align:center; font-family:var(--font-display); font-weight:800; font-variant-numeric:tabular-nums; font-size:0.92rem; color:var(--accent);}
+  .hc-totals{display:grid; grid-template-columns:repeat(4,1fr); gap:0.35rem; margin-top:0.6rem;}
+  .hc-tot{position:relative; padding:0.5rem 0.5rem 0.6rem; border-radius:12px; background:var(--glass); border:1px solid var(--glass-border); overflow:hidden; min-width:0;}
+  .hc-tot .l{display:block; font-size:0.58rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-2); font-weight:700;}
+  .hc-tot b{font-family:var(--font-display); font-weight:800; font-size:1.05rem; letter-spacing:-0.02em;}
+  .hc-tot small{display:block; font-size:0.6rem; color:var(--text-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .hc-tot i{position:absolute; left:0; bottom:0; height:3px; background:var(--grad); transition:width .5s var(--ease-out);}
+  .hc-manual{margin-top:0.8rem; font-size:0.8rem;}
+  .hc-manual summary{cursor:pointer; color:var(--accent-2); font-weight:700; font-size:0.78rem;}
+  /* supplements */
   .hc-supps{display:grid; grid-template-columns:1fr 1fr; gap:0.45rem;}
   .hc-supp{text-align:left; padding:0.55rem 0.7rem; border-radius:14px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text); font:inherit; cursor:pointer; display:flex; align-items:center; gap:0.5rem; min-width:0;}
   .hc-supp .tick{width:18px; height:18px; border-radius:6px; border:1.5px solid var(--glass-border); flex:none; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--on-accent);}
   .hc-supp.on{border-color:color-mix(in srgb, var(--accent) 55%, transparent);}
   .hc-supp.on .tick{background:var(--grad); border-color:transparent;}
-  .hc-supp .sn{font-size:0.8rem; font-weight:700; line-height:1.2;}
-  .hc-inline{display:flex; align-items:center; gap:0.5rem; margin-top:0.4rem;}
-  .hc-inline .chip-btn{padding:0.4rem 0.8rem; font-size:0.76rem;}
-  .hc-est{font-size:0.72rem; color:var(--text-2);}
-  .hc-pillars{display:flex; flex-direction:column; gap:0.6rem;}
-  .hc-pill{display:grid; grid-template-columns:1fr auto; gap:0.1rem 0.6rem; padding:0.6rem 0.75rem; border-radius:14px; border:1px solid var(--glass-border); background:var(--glass);}
-  .hc-pill .pn{font-weight:700; font-size:0.86rem;}
+  .hc-supp .sn{display:block; font-size:0.8rem; font-weight:700; line-height:1.2;}
+  .hc-supp .sd{display:block; font-size:0.62rem; color:var(--text-2);}
+  /* report: wheel, body, risks, nutrients */
+  .hc-wheel-wrap{display:flex; justify-content:center; margin:0.2rem 0 0.6rem;}
+  .hc-wheel{width:min(100%, 340px); height:auto; overflow:visible;}
+  .hc-wheel-wrap.small .hc-wheel{width:min(100%, 280px);}
+  .hc-wheel .wg{fill:none; stroke:color-mix(in srgb, var(--text) 10%, transparent); stroke-width:1;}
+  .hc-wheel .wg.w75{stroke:color-mix(in srgb, var(--good) 35%, transparent); stroke-dasharray:3 3;}
+  .hc-wheel .wa{stroke:color-mix(in srgb, var(--text) 8%, transparent); stroke-width:1;}
+  .hc-wheel .wp{fill:url(#hcWheelG); fill-opacity:0.28; stroke:url(#hcWheelG); stroke-width:2.2; stroke-linejoin:round; transform-origin:160px 132px; animation:hcWheelIn .8s var(--ease-out);}
+  .hc-wheel .wprev{fill:none; stroke:var(--text-2); stroke-width:1.4; stroke-dasharray:4 3; opacity:0.7;}
+  .hc-wheel .wd{animation:scaleIn .5s var(--ease-spring) both; transform-box:fill-box; transform-origin:center;}
+  .hc-wheel .wl{font-size:9.5px; font-weight:700; font-family:var(--font-display);}
+  .hc-wheel .wv{font-weight:800;}
+  @keyframes hcWheelIn{ from{ transform:scale(0.15); opacity:0; } to{ transform:scale(1); opacity:1; } }
+  .hc-pillars{display:flex; flex-direction:column; gap:0.5rem;}
+  .hc-pill{display:grid; grid-template-columns:1fr auto; gap:0.1rem 0.6rem; padding:0.55rem 0.7rem; border-radius:14px; border:1px solid var(--glass-border); background:var(--glass);}
+  .hc-pill .pn{font-weight:700; font-size:0.84rem;} .hc-pill .pn small{color:var(--text-2); font-weight:600;}
   .hc-pill .ps{font-family:var(--font-display); font-weight:800; font-size:1rem; text-align:right; font-variant-numeric:tabular-nums;}
-  .hc-pill .pd{grid-column:1 / -1; font-size:0.74rem; color:var(--text-2); line-height:1.35;}
+  .hc-pill .pd{grid-column:1 / -1; font-size:0.72rem; color:var(--text-2); line-height:1.35;}
   .hc-pill .pb{grid-column:1 / -1; height:6px; border-radius:3px; background:color-mix(in srgb, var(--text) 10%, transparent); overflow:hidden; margin-top:0.2rem;}
   .hc-pill .pb span{display:block; height:100%; border-radius:3px; background:var(--grad); transition:width .7s var(--ease-out);}
   .hc-pill.short .pb span{background:var(--carb);} .hc-pill.miss .pb span{background:var(--danger);}
   .hc-pill.short .ps{color:var(--carb);} .hc-pill.miss .ps{color:var(--danger);} .hc-pill.ok .ps{color:var(--good);}
+  .hc-body-grid{display:grid; grid-template-columns:1fr; gap:0.6rem; align-items:start;}
+  .hc-body-wrap{display:flex; justify-content:center;}
+  .hc-body{width:100%; max-width:168px; height:auto; overflow:visible;}
+  .hc-body-grid .hc-risks{display:grid; grid-template-columns:1fr 1fr; gap:0.4rem;}
+  .hc-body .bsil *{fill:url(#hcBodyG); stroke:color-mix(in srgb, var(--text) 30%, transparent); stroke-width:1.5;}
+  .hc-body .bspot{cursor:pointer;}
+  .hc-body .bp{animation:hcPulse 2.4s ease-in-out infinite; transform-box:fill-box; transform-origin:center;}
+  .hc-body .bspot:nth-child(odd) .bp{animation-delay:-1.2s;}
+  .hc-body .bspot.focus .bp{opacity:0.45;}
+  .hc-body .bt{font-size:8.5px; font-weight:800; fill:#07080B; font-family:var(--font-display);}
+  @keyframes hcPulse{ 0%,100%{ transform:scale(1); opacity:0.18; } 50%{ transform:scale(1.45); opacity:0.05; } }
+  .hc-risks{display:flex; flex-direction:column; gap:0.4rem; min-width:0;}
+  .hc-risk{display:grid; grid-template-columns:1fr auto; gap:0 0.5rem; padding:0.45rem 0.65rem; border-radius:12px; border:1px solid var(--glass-border); background:var(--glass); border-left:3px solid var(--carb); cursor:pointer; transition:border-color .2s;}
+  .hc-risk.ok{border-left-color:var(--good);} .hc-risk.miss{border-left-color:var(--danger);}
+  .hc-risk.focus{border-color:var(--accent);}
+  .hc-risk .rn{font-weight:700; font-size:0.78rem;}
+  .hc-risk .rs{font-family:var(--font-display); font-weight:800; font-size:0.95rem; text-align:right;}
+  .hc-risk.ok .rs{color:var(--good);} .hc-risk.short .rs{color:var(--carb);} .hc-risk.miss .rs{color:var(--danger);}
+  .hc-risk .rl{font-size:0.66rem; font-weight:700; color:var(--text-2);}
+  .hc-risk .rw{grid-column:1 / -1; font-size:0.62rem; color:var(--text-2); line-height:1.3;}
+  .hc-risks.compact .hc-risk{padding:0.35rem 0.55rem;}
+  .hc-nutri{display:flex; flex-direction:column; gap:0.35rem;}
+  .hc-nu{display:grid; grid-template-columns:1fr auto 44px; gap:0.1rem 0.5rem; align-items:center; padding:0.4rem 0.65rem; border-radius:12px; border:1px solid var(--glass-border); background:var(--glass);}
+  .hc-nu .nn{font-weight:700; font-size:0.78rem;}
+  .hc-nu .nv{font-size:0.68rem; color:var(--text-2); font-family:var(--font-mono); white-space:nowrap;} .hc-nu .nv b{color:var(--text); font-weight:600;}
+  .hc-nu .np{font-family:var(--font-display); font-weight:800; font-size:0.8rem; text-align:right;}
+  .hc-nu .nb{grid-column:1 / 3; height:5px; border-radius:3px; background:color-mix(in srgb, var(--text) 10%, transparent); overflow:hidden;}
+  .hc-nu .nb span{display:block; height:100%; border-radius:3px; background:var(--grad); transition:width .6s var(--ease-out);}
+  .hc-nu.short .nb span{background:var(--carb);} .hc-nu.miss .nb span{background:var(--danger);}
+  .hc-nu.ok .np{color:var(--good);} .hc-nu.short .np{color:var(--carb);} .hc-nu.miss .np{color:var(--danger);}
+  .hc-nu .ns{grid-column:1 / -1; font-size:0.62rem; color:var(--text-2); line-height:1.3;}
   .hc-gap{padding:0.75rem 0.85rem; border-radius:16px; border:1px solid var(--glass-border); background:var(--glass); margin-bottom:0.55rem; border-left:3px solid var(--carb);}
   .hc-gap.miss{border-left-color:var(--danger);} .hc-gap.good{border-left-color:var(--good);} .hc-gap.excess{border-left-color:var(--protein);}
   .hc-gap h4{margin:0 0 0.2rem; font-family:var(--font-display); font-weight:800; font-size:0.95rem; letter-spacing:-0.01em;}
@@ -1574,22 +1664,32 @@
   .hc-sr .n{font-weight:700; font-size:0.82rem;} .hc-sr .v{font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; align-self:center;}
   .hc-sr .v.keep{color:var(--good);} .hc-sr .v.skip{color:var(--text-2);} .hc-sr .v.add{color:var(--accent);} .hc-sr .v.care{color:var(--danger);}
   .hc-sr .t{grid-column:1 / -1; font-size:0.74rem; color:var(--text-2); line-height:1.35;}
-  .hc-empty{font-size:0.82rem; color:var(--text-2); padding:0.4rem 0;}
-  .hc-foot{font-size:0.7rem; color:var(--text-2); line-height:1.45; margin-top:0.6rem;}
+  .hc-actions{display:flex; flex-wrap:wrap; gap:0.45rem;}
+  .hc-actions .chip-btn{padding:0.55rem 0.95rem; font-size:0.8rem;}
+  .hc-side{display:none;}
   @media (min-width:900px){
     #page-health.active{display:block;}
     #page-health.active > section.panel:first-child{border:none; padding:0 0 1rem; background:none;}
-    #healthBody{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1.2rem 1.6rem; align-items:start; border:none !important; padding:0 !important; background:none !important;}
+    #healthBody{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:1.2rem 1.6rem; align-items:start; border:none !important; padding:0 !important; background:none !important;}
     #healthBody .chart-card{margin:0;}
-    #hcForm, #hcResults{display:contents;}
-    .hc-score-card{grid-column:1 / -1;}
-    .hc-score-wrap{grid-template-columns:auto 1fr; gap:1.6rem;}
-    .hc-ring{width:150px; height:150px;}
-    .hc-ring-num{padding-top:52px;} .hc-ring-num b{font-size:2.8rem;}
+    .hc-hero{grid-column:1 / -1;}
+    .hc-hero-grid{gap:1.6rem;}
+    .hc-orb-wrap{width:190px; height:190px;}
+    .hc-orb-num{padding-top:68px;} .hc-orb-num b{font-size:3.2rem;}
     .hc-grade{font-size:1.9rem;}
-    .hc-res-title{grid-column:1 / -1;}
+    .hc-stepdot .l{font-size:0.68rem;} .hc-stepdot .d{width:30px; height:30px; font-size:0.8rem;}
+    .hc-main{display:flex; flex-direction:column; gap:1.2rem; min-width:0;}
+    .hc-main.report{grid-column:1 / -1;}
+    .hc-main.report #hcReport{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1.2rem 1.6rem; align-items:start;}
+    .hc-main.report #hcShareCard, .hc-main.report #hcGaps{grid-column:auto;}
+    .hc-side{display:block; position:sticky; top:1.4rem;}
+    .hc-main.report ~ .hc-side{display:none;}
+    .hc-foodlist{max-height:420px;}
+    .hc-body-grid{grid-template-columns:160px 1fr;}
+    .hc-body{max-width:160px;}
+    .hc-body-grid .hc-risks{grid-template-columns:1fr;}
   }
-  @media (max-width:479px){ .hc-grid{grid-template-columns:1fr;} .hc-item .hh{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;} }
+  @media (max-width:420px){ .hc-totals{grid-template-columns:repeat(2,1fr);} .hc-orb-wrap{width:128px; height:128px;} .hc-orb-num{padding-top:44px;} .hc-orb-num b{font-size:2.2rem;} }
 </style>
 </head>
 <body>
@@ -2130,38 +2230,16 @@
   <div class="tabpage" id="page-health">
 
     <section class="panel" style="padding-top:0.2rem; border-top:none;">
-      <div class="note">A daily health check anyone can use — no account, no setup. Tap in what you ate, how much you moved, what you took and how you slept, and get a score, what's missing and exactly how to fill the gaps today. General guidance from nutrition and activity guidelines, not medical advice.</div>
+      <div class="note">A guided daily health check anyone can use — no account, no setup. Log what you ate, how you moved, what you took and how you slept; get a score, a nutrient panel, a body map and exactly how to fill today's gaps. General guidance, not medical advice.</div>
     </section>
 
     <section class="panel" id="healthBody">
-
-      <div class="chart-card hc-score-card" id="hcScoreCard">
-        <div class="hc-score-wrap">
-          <div class="hc-ring" aria-hidden="true">
-            <svg viewBox="0 0 120 120">
-              <defs><linearGradient id="hcGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs>
-              <circle class="hc-track" cx="60" cy="60" r="52"/>
-              <circle class="hc-prog" id="hcProg" cx="60" cy="60" r="52" transform="rotate(-90 60 60)"/>
-            </svg>
-            <div class="hc-ring-num"><b id="hcScoreNum">–</b><span>/100</span></div>
-          </div>
-          <div class="hc-score-text">
-            <span class="hc-kicker">Today's health score</span>
-            <h2 class="hc-grade" id="hcGrade">Fill in your day</h2>
-            <p class="hc-summary" id="hcSummary">Each answer updates the score instantly. Nothing leaves this device.</p>
-            <div class="hc-mini" id="hcMini"></div>
-          </div>
-        </div>
-        <div class="hc-actions">
-          <button type="button" class="chip-btn" id="hcPrefill">Use today's log</button>
-          <button type="button" class="chip-btn" id="hcToResults">See what's missing ↓</button>
-          <button type="button" class="chip-btn ghost" id="hcReset">Reset</button>
-        </div>
+      <div class="chart-card hc-hero" id="hcHero"></div>
+      <div class="hc-main" id="hcMain">
+        <div class="chart-card hc-step-card" id="hcStepCard"></div>
+        <div id="hcReport"></div>
       </div>
-
-      <div id="hcForm"></div>
-      <div id="hcResults"></div>
-
+      <div class="chart-card hc-side" id="hcSide"></div>
     </section>
   </div>
 
@@ -3191,8 +3269,12 @@
     if(isObj(parsed.health)){
       if(isObj(parsed.health.inp)) s.health.inp = hcClean(parsed.health.inp);
       if(isObj(parsed.health.history)) Object.keys(parsed.health.history).forEach(function(d){
-        var v = parseFloat(parsed.health.history[d]);
-        if(/^\d{4}-\d\d-\d\d$/.test(d) && isFinite(v)) s.health.history[d] = clamp(Math.round(v),0,100);
+        if(!/^\d{4}-\d\d-\d\d$/.test(d)) return;
+        var h = parsed.health.history[d], t = parseFloat(isObj(h) ? h.t : h);
+        if(!isFinite(t)) return;
+        var e = {t:clamp(Math.round(t),0,100)};
+        if(isObj(h) && Array.isArray(h.p)) e.p = h.p.slice(0,8).map(function(v){ var n = parseFloat(v); return isFinite(n) ? clamp(Math.round(n),0,100) : 0; });
+        s.health.history[d] = e;
       });
     }
     return s;
@@ -6864,48 +6946,189 @@
   ============================================================ */
 
   /* ============================================================
-     HEALTH CHECK (v25) — a daily score anyone can use without setup
+     HEALTH CHECK (v26) — guided check-up with a real food database
   ============================================================ */
-  var HC_FOODS = [
-    {id:'veg', name:'Vegetables', hint:'1 cup raw or ½ cup cooked', good:3, fiber:3},
-    {id:'fruit', name:'Fruit', hint:'1 piece or 1 cup', good:2, fiber:3},
-    {id:'grains', name:'Whole grains', hint:'oats, brown rice, whole-wheat roti', good:2, fiber:3},
-    {id:'legumes', name:'Beans & lentils', hint:'½ cup cooked dal, chickpeas', good:1, fiber:7},
-    {id:'nuts', name:'Nuts & seeds', hint:'a small handful', good:1, fiber:2},
-    {id:'dairy', name:'Dairy or curd', hint:'glass of milk, cup of yogurt', good:1, fiber:0},
-    {id:'fish', name:'Fish or seafood', hint:'palm-sized portion', good:0, fiber:0},
-    {id:'meatEggs', name:'Eggs, chicken, meat', hint:'palm-sized or 2 eggs', good:0, fiber:0},
-    {id:'processedMeat', name:'Processed or red meat', hint:'bacon, sausage, salami, kebab', bad:true},
-    {id:'sugary', name:'Sugary drinks', hint:'soda, juice, sweet tea or coffee', bad:true},
-    {id:'junk', name:'Sweets, fried & packaged snacks', hint:'chips, biscuits, pastries, fries', bad:true},
-    {id:'alcohol', name:'Alcohol', hint:'standard drinks', bad:true}
+  // ---- food database (per listed serving; USDA-style estimates) --------
+  // fields: id, name, group, serving, kcal, protein g, carbs g, fat g, fibre g,
+  //         vitD IU, B12 mcg, iron mg, calcium mg, magnesium mg, zinc mg, potassium mg,
+  //         omega-3 g (EPA+DHA; plant ALA counted at 10%), vitC mg, vitA mcg RAE, folate mcg, sodium mg, added sugar g
+  var HC_DB_FIELDS = ['id','name','group','serving','kcal','p','c','f','fib','vd','b12','fe','ca','mg','zn','k','o3','vc','va','fol','na','sug'];
+  var HC_DB_ROWS = [
+    // vegetables
+    ['spinach','Spinach, cooked','veg','1 cup',41,5.3,6.8,0.5,4.3,0,0,6.4,245,157,1.4,839,0.02,17.6,943,263,126,0],
+    ['broccoli','Broccoli, cooked','veg','1 cup',55,3.7,11,0.6,5.1,0,0,1,62,33,0.7,457,0.01,101,120,168,64,0],
+    ['mixedveg','Mixed vegetables, cooked','veg','1 cup',60,2.6,12,0.2,5,0,0,0.8,36,26,0.5,308,0,6,389,35,32,0],
+    ['sabzi','Vegetable curry / sabzi','veg','1 cup',150,3,12,10,4,0,0,1.5,50,30,0.6,400,0.01,20,300,40,500,0],
+    ['salad','Salad greens, raw','veg','2 cups',20,1.5,3.5,0.3,2,0,0,1,40,15,0.3,250,0.01,15,300,60,20,0],
+    ['tomato','Tomato','veg','1 medium',22,1.1,4.8,0.2,1.5,0,0,0.3,12,14,0.2,292,0,17,51,18,6,0],
+    ['carrot','Carrot','veg','1 medium',25,0.6,6,0.1,1.7,0,0,0.2,20,7,0.1,195,0,3.6,509,12,42,0],
+    ['pepper','Bell pepper / capsicum','veg','1 medium',30,1,7,0.3,2.5,0,0,0.5,8,14,0.3,251,0,152,187,55,5,0],
+    ['cauli','Cauliflower, cooked','veg','1 cup',29,2.3,5,0.6,2.9,0,0,0.4,20,11,0.2,176,0,55,1,55,19,0],
+    ['mushroom','Mushrooms, cooked','veg','1 cup',44,3.4,8,0.7,3.4,20,0.1,2.7,9,19,1.4,555,0,6,0,28,3,0],
+    ['sweetpot','Sweet potato, baked','veg','1 medium',103,2.3,24,0.2,3.8,0,0,0.7,43,31,0.4,542,0,22,1096,7,41,0],
+    ['potato','Potato, baked with skin','veg','1 medium',161,4.3,37,0.2,3.8,0,0,1.9,26,48,0.6,926,0,17,0,48,17,0],
+    ['onion','Onion','veg','1 medium',44,1.2,10,0.1,1.9,0,0,0.2,25,11,0.2,161,0,8,0,21,4,0],
+    ['cucumber','Cucumber','veg','1 cup',16,0.7,3.8,0.1,0.5,0,0,0.3,16,13,0.2,150,0,3,5,7,2,0],
+    // fruit
+    ['apple','Apple','fruit','1 medium',95,0.5,25,0.3,4.4,0,0,0.2,11,9,0.1,195,0,8.4,5,5,2,0],
+    ['banana','Banana','fruit','1 medium',105,1.3,27,0.4,3.1,0,0,0.3,6,32,0.2,422,0,10,4,24,1,0],
+    ['orange','Orange','fruit','1 medium',62,1.2,15,0.2,3.1,0,0,0.1,52,13,0.1,237,0,70,14,40,0,0],
+    ['berries','Berries (mixed)','fruit','1 cup',70,1,17,0.4,5,0,0,0.5,25,15,0.3,140,0,40,5,20,1,0],
+    ['mango','Mango','fruit','1 cup',99,1.4,25,0.6,2.6,0,0,0.3,18,17,0.1,277,0,60,89,71,2,0],
+    ['grapes','Grapes','fruit','1 cup',104,1.1,27,0.2,1.4,0,0,0.5,15,11,0.1,288,0,16,5,3,3,0],
+    ['melon','Watermelon / melon','fruit','1 cup',46,0.9,11.5,0.2,0.6,0,0,0.4,11,15,0.2,170,0,12,43,5,2,0],
+    ['avocado','Avocado','fruit','half',120,1.5,6.4,11,5,0,0,0.4,9,22,0.5,364,0.01,7.5,5,61,5,0],
+    ['dates','Dates','fruit','3 pieces',200,1.5,54,0.1,5.7,0,0,0.7,46,39,0.3,501,0,0,0,14,1,0],
+    ['pomegranate','Pomegranate arils','fruit','½ cup',72,1.5,16,1,3.5,0,0,0.3,9,10,0.3,205,0,9,0,33,3,0],
+    // whole grains
+    ['oats','Oats, cooked','grains','1 cup',150,5.5,27,2.5,4,0,0,1.9,20,60,1.4,160,0.01,0,0,14,5,0],
+    ['brownrice','Brown rice, cooked','grains','1 cup',218,4.5,46,1.6,3.5,0,0,0.8,20,84,1.2,154,0,0,0,8,2,0],
+    ['roti','Whole-wheat roti / chapati','grains','1 roti',100,3.5,18,2,2.5,0,0,1,12,30,0.7,110,0,0,0,10,120,0],
+    ['paratha','Paratha','grains','1 piece',260,6,35,11,4,0,0,1.5,30,40,1,150,0,0,20,20,350,0],
+    ['wwbread','Whole-grain bread','grains','1 slice',80,4,14,1,2,0,0,0.9,40,23,0.6,80,0,0,0,15,130,0],
+    ['quinoa','Quinoa, cooked','grains','1 cup',222,8,39,3.6,5.2,0,0,2.8,31,118,2,318,0.01,0,0,78,13,0],
+    ['khichdi','Khichdi (rice + dal)','legumes','1 cup',220,8,38,4,5,0,0,2,30,45,1.2,300,0,2,20,80,400,0],
+    ['museli','Muesli / granola','grains','½ cup',210,5,35,6,4,0,0,1.8,30,50,1.2,200,0,0,0,20,60,8],
+    // refined grains
+    ['whiterice','White rice, cooked','refined','1 cup',205,4.3,45,0.4,0.6,0,0,1.9,16,19,0.8,55,0,0,0,92,2,0],
+    ['whitebread','White bread','refined','1 slice',75,2.6,14,1,0.7,0,0,0.9,40,7,0.2,35,0,0,0,30,140,1],
+    ['pasta','Pasta, cooked','refined','1 cup',220,8,43,1.3,2.5,0,0,1.8,10,25,0.7,62,0,0,0,102,1,0],
+    ['idli','Idli','refined','2 pieces',130,4,26,0.6,1.5,0,0,1,20,20,0.6,90,0,0,0,20,250,0],
+    ['dosa','Dosa','refined','1 piece',170,3.5,28,5,1.5,0,0,1,20,20,0.5,90,0,0,0,15,300,0],
+    ['poha','Poha','refined','1 cup',250,4,45,6,2,0,0,1.5,20,25,0.6,150,0,2,10,10,400,0],
+    ['upma','Upma','refined','1 cup',230,5,35,8,3,0,0,1.5,20,30,0.7,150,0,2,10,15,500,0],
+    ['cereal','Breakfast cereal, fortified','refined','1 cup',100,2,24,0.2,1,40,1.5,8,2,4,0.3,30,0,6,150,100,200,3],
+    ['biryani','Biryani','refined','1 plate',450,20,55,15,3,0,0.5,2.5,40,45,2,400,0,2,20,20,900,0],
+    // legumes
+    ['dal','Dal / lentils, cooked','legumes','1 cup',230,18,40,0.8,15.6,0,0,6.6,38,71,2.5,731,0,3,0,358,300,0],
+    ['chickpeas','Chickpeas / chana','legumes','1 cup',269,14.5,45,4.2,12.5,0,0,4.7,80,79,2.5,477,0,2,0,282,11,0],
+    ['rajma','Rajma / kidney beans','legumes','1 cup',225,15,40,0.9,11.3,0,0,5.2,62,74,1.8,717,0,2,0,230,4,0],
+    ['blackbeans','Black beans','legumes','1 cup',227,15,41,0.9,15,0,0,3.6,46,120,1.9,611,0,0,0,256,2,0],
+    ['sprouts','Sprouts (moong)','legumes','1 cup',60,6,12,0.3,3,0,0,1.5,30,40,0.8,300,0,15,0,60,10,0],
+    ['tofu','Tofu, firm','legumes','150 g',210,20,5,12,2,0,0,4,500,55,2.3,220,0.02,0,0,40,20,0],
+    ['soymilk','Soy milk, fortified','legumes','1 cup',100,7,8,4,1,120,1.2,1.1,300,39,0.6,300,0.02,0,150,25,90,4],
+    ['edamame','Edamame','legumes','1 cup',188,18,14,8,8,0,0,3.5,98,99,2.1,676,0.03,9.5,0,482,9,0],
+    ['hummus','Hummus','legumes','¼ cup',100,4.8,9,6,3.6,0,0,1.5,30,30,1.1,140,0,0,0,36,240,0],
+    // nuts & seeds
+    ['almonds','Almonds','nuts','28 g (23)',164,6,6,14,3.5,0,0,1,76,76,0.9,208,0,0,0,12,0,0],
+    ['walnuts','Walnuts','nuts','28 g',185,4.3,3.9,18.5,1.9,0,0,0.8,28,45,0.9,125,0.26,0,0,28,0,0],
+    ['peanuts','Peanuts','nuts','28 g',161,7.3,4.6,14,2.4,0,0,1.3,26,48,0.9,200,0,0,0,68,5,0],
+    ['pb','Peanut butter','nuts','2 tbsp',190,7,7,16,2,0,0,0.6,15,50,0.9,200,0,0,0,25,140,2],
+    ['chia','Chia seeds','nuts','2 tbsp',138,4.7,12,8.7,9.8,0,0,2.2,179,95,1.3,115,0.5,0,0,14,5,0],
+    ['flax','Flax seeds, ground','nuts','2 tbsp',75,2.6,4,6,3.8,0,0,0.8,36,55,0.6,114,0.32,0,0,12,4,0],
+    ['pumpkin','Pumpkin seeds','nuts','28 g',160,8.5,3,14,1.7,0,0,2.5,13,156,2.2,229,0,0,0,16,5,0],
+    ['mixednuts','Mixed nuts','nuts','28 g',170,5,6,15,2.5,0,0,1,40,70,1.2,170,0.03,0,0,20,5,0],
+    // dairy
+    ['milk','Milk','dairy','1 glass (250 ml)',150,8,12,8,0,100,1.1,0.1,276,24,1,322,0,0,112,12,105,0],
+    ['curd','Curd / plain yogurt','dairy','1 cup',150,8.5,11,8,0,0,0.9,0.1,296,29,1.4,380,0,1,68,18,113,0],
+    ['greek','Greek yogurt','dairy','200 g',150,20,8,4,0,0,1.5,0.1,220,22,1.2,280,0,0,10,25,70,0],
+    ['paneer','Paneer','dairy','100 g',265,18,3,21,0,0,0.8,0.2,480,20,1.5,100,0,0,200,15,20,0],
+    ['cheese','Cheese','dairy','30 g',120,7,0.4,10,0,5,0.3,0.1,200,8,0.9,23,0,0,80,6,185,0],
+    ['whey','Whey protein','dairy','1 scoop',120,24,3,1.5,0,0,0.5,0.1,120,25,0.5,150,0,0,0,0,60,1],
+    ['lassi','Lassi / sweet yogurt drink','sugary','1 glass',180,6,30,4,0,0,0.6,0.1,200,20,0.9,280,0,1,40,10,80,18],
+    // fish
+    ['salmon','Salmon','fish','150 g',310,34,0,18,0,600,4.8,0.5,15,45,1,550,2.2,0,60,40,80,0],
+    ['sardines','Sardines, canned','fish','1 can (90 g)',190,22,0,10,0,240,8,2.6,350,35,1.2,360,1.3,0,30,9,450,0],
+    ['tuna','Tuna, canned','fish','1 can (100 g)',110,25,0,1,0,80,2.5,1.3,10,27,0.7,230,0.3,0,5,4,320,0],
+    ['whitefish','White fish (rohu, tilapia, cod)','fish','150 g',190,38,0,3.5,0,150,2.3,1,20,45,0.6,560,0.3,0,10,10,80,0],
+    ['prawns','Prawns / shrimp','fish','100 g',100,24,0,0.3,0,5,1.1,0.5,70,35,1.6,260,0.3,0,0,20,220,0],
+    ['fishcurry','Fish curry','fish','1 cup',280,26,6,16,1,120,2,1.2,50,45,0.8,500,0.5,5,30,20,650,0],
+    // eggs, poultry, meat
+    ['egg','Egg','meatEggs','1 large',72,6.3,0.4,4.8,0,41,0.5,0.9,28,6,0.6,69,0.04,0,80,24,71,0],
+    ['chicken','Chicken breast','meatEggs','150 g',248,46,0,5.4,0,0,0.5,1,8,44,1.5,384,0.02,0,9,6,110,0],
+    ['thigh','Chicken thigh','meatEggs','150 g',320,38,0,17,0,0,0.9,1.4,15,35,3.5,360,0.03,0,20,8,130,0],
+    ['chickencurry','Chicken curry','meatEggs','1 cup',300,28,8,17,1.5,0,0.4,1.5,40,40,1.6,450,0.02,5,40,15,700,0],
+    ['beef','Beef / lamb, lean','redMeat','150 g',330,40,0,18,0,0,3.5,3.5,10,30,7,450,0.03,0,0,10,90,0],
+    ['mutton','Mutton curry','redMeat','1 cup',350,30,6,22,1,0,3,3,30,30,6,400,0.03,3,20,15,600,0],
+    ['processed','Bacon, sausage, salami','processed','1 serving',250,12,2,22,0,10,0.8,0.6,8,14,1.5,200,0.02,0,0,2,750,0],
+    ['burger','Burger','junk','1',540,30,40,28,2,0,2,4,200,40,5,400,0.02,2,30,60,1000,5],
+    ['pizza','Pizza','junk','2 slices',570,24,70,22,4,0,0.8,4,360,40,2.6,400,0,2,60,80,1300,4],
+    // fats
+    ['oliveoil','Olive oil','fats','1 tbsp',120,0,0,14,0,0,0,0,0,0,0,0,0.01,0,0,0,0,0],
+    ['ghee','Ghee','fats','1 tsp',45,0,0,5,0,0,0,0,0,0,0,0,0,0,40,0,0,0],
+    ['butter','Butter','fats','1 tbsp',100,0.1,0,11,0,0,0,0,3,0,0,3,0,0,100,0,90,0],
+    // junk & sweets
+    ['chips','Chips / crisps','junk','1 bag (50 g)',270,3,27,17,2,0,0,0.6,10,25,0.3,460,0,5,0,20,300,0],
+    ['biscuits','Biscuits / cookies','junk','3 pieces',160,2,22,7,0.5,0,0,0.8,10,8,0.2,40,0,0,0,10,120,10],
+    ['chocolate','Chocolate bar','junk','50 g',270,3.5,30,16,2,0,0.2,2,100,40,0.8,200,0,0,10,5,40,22],
+    ['darkchoc','Dark chocolate (70%+)','nuts','20 g',120,1.5,9,8,2.2,0,0,2.4,15,46,0.7,145,0,0,0,0,4,5],
+    ['fries','French fries','junk','medium',365,4,48,17,4,0,0,0.8,20,35,0.6,580,0,10,0,30,250,0],
+    ['icecream','Ice cream','junk','1 cup',270,4.6,32,14,0,0,0.5,0.2,170,20,0.9,260,0,1,120,10,100,28],
+    ['samosa','Samosa / pakora','junk','1 piece',260,5,30,14,2,0,0,1,20,20,0.5,150,0,2,10,20,400,0],
+    ['sweets','Indian sweets (gulab jamun, barfi)','junk','1 piece',200,3,30,8,0,0,0.1,0.3,60,10,0.3,80,0,0,20,5,60,20],
+    ['noodles','Instant noodles','junk','1 pack',380,8,54,14,2,0,0,3,20,25,0.6,150,0,0,0,20,1700,0],
+    ['cake','Cake / pastry','junk','1 slice',350,4,50,15,1,0,0.1,1,40,10,0.3,80,0,0,50,20,300,25],
+    // sugary drinks
+    ['soda','Soft drink / soda','sugary','1 can (330 ml)',140,0,39,0,0,0,0,0,0,0,0,5,0,0,0,0,15,39],
+    ['juice','Fruit juice','sugary','1 glass (250 ml)',110,1,26,0,0.5,0,0,0.3,20,15,0.1,200,0,50,10,30,5,22],
+    ['sweettea','Tea / coffee with sugar & milk','sugary','1 cup',60,1.5,10,1.5,0,10,0.1,0,50,5,0.2,60,0,0,15,2,15,8],
+    ['energy','Energy drink','sugary','250 ml',110,0,28,0,0,0,2,0,0,0,0,10,0,0,0,0,100,27],
+    // alcohol
+    ['beer','Beer','alcohol','330 ml',150,1.6,13,0,0,0,0.1,0,14,20,0,90,0,0,0,20,14,0],
+    ['wine','Wine','alcohol','150 ml',125,0.1,4,0,0,0,0,0.5,12,18,0.2,190,0,0,0,2,8,0],
+    ['spirits','Spirits (whisky, vodka)','alcohol','45 ml',100,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+    // drinks
+    ['coffee','Black coffee / tea','drinks','1 cup',2,0.3,0,0,0,0,0,0,5,7,0,116,0,0,0,5,5,0],
+    ['proteinbar','Protein bar','drinks','1 bar',220,20,25,7,8,0,0.5,2,100,40,2,200,0,0,0,40,200,8]
   ];
+  var HC_DB = HC_DB_ROWS.map(function(r){ var o = {}; HC_DB_FIELDS.forEach(function(k,ix){ o[k] = r[ix]; }); return o; });
+  var HC_DB_BY_ID = {}; HC_DB.forEach(function(f){ HC_DB_BY_ID[f.id] = f; });
+  var HC_GROUPS = {
+    veg:{name:'Vegetables', good:true}, fruit:{name:'Fruit', good:true}, grains:{name:'Whole grains', good:true}, refined:{name:'Refined grains'},
+    legumes:{name:'Beans & lentils', good:true}, nuts:{name:'Nuts & seeds', good:true}, dairy:{name:'Dairy & curd', good:true}, fish:{name:'Fish & seafood', good:true},
+    meatEggs:{name:'Eggs & poultry', good:true}, redMeat:{name:'Red meat'}, processed:{name:'Processed meat'}, fats:{name:'Oils & fats'},
+    junk:{name:'Snacks, sweets & fried'}, sugary:{name:'Sugary drinks'}, alcohol:{name:'Alcohol'}, drinks:{name:'Drinks & bars'}, custom:{name:'Custom'}
+  };
+  var HC_QUICK = ['oats','egg','milk','curd','dal','roti','whiterice','chicken','paneer','salad','mixedveg','banana','apple','almonds','whey','greek','chickpeas','salmon','sweettea','coffee'];
   var HC_SUPPS = [
-    {id:'d3', name:'Vitamin D3', learn:'learn-vitamins'},
-    {id:'omega3', name:'Omega-3 / fish oil', learn:'learn-supplements'},
-    {id:'magnesium', name:'Magnesium', learn:'learn-minerals'},
-    {id:'zinc', name:'Zinc', learn:'learn-minerals'},
-    {id:'creatine', name:'Creatine', learn:'learn-supplements'},
-    {id:'whey', name:'Protein powder', learn:'learn-protein'},
-    {id:'multi', name:'Multivitamin', learn:'learn-vitamins'},
-    {id:'b12', name:'Vitamin B12', learn:'learn-vitamins'},
-    {id:'iron', name:'Iron', learn:'learn-minerals'},
-    {id:'calcium', name:'Calcium', learn:'learn-minerals'},
-    {id:'probiotic', name:'Probiotic', learn:'learn-digestion'},
-    {id:'caffeine', name:'Caffeine / pre-workout', learn:'learn-caffeine'}
+    {id:'d3', name:'Vitamin D3', dose:'1,000 IU', learn:'learn-vitamins', add:{vd:1000}},
+    {id:'omega3', name:'Omega-3 / fish oil', dose:'1 g EPA+DHA', learn:'learn-supplements', add:{o3:1}},
+    {id:'magnesium', name:'Magnesium', dose:'300 mg', learn:'learn-minerals', add:{mg:300}},
+    {id:'zinc', name:'Zinc', dose:'10 mg', learn:'learn-minerals', add:{zn:10}},
+    {id:'creatine', name:'Creatine', dose:'3–5 g', learn:'learn-supplements', add:{}},
+    {id:'multi', name:'Multivitamin', dose:'1 tablet', learn:'learn-vitamins', add:{vd:400, b12:6, fe:8, zn:11, fol:400, vc:90, va:900, mg:50, ca:200}},
+    {id:'b12', name:'Vitamin B12', dose:'500 mcg', learn:'learn-vitamins', add:{b12:500}},
+    {id:'iron', name:'Iron', dose:'18 mg', learn:'learn-minerals', add:{fe:18}},
+    {id:'calcium', name:'Calcium', dose:'500 mg', learn:'learn-minerals', add:{ca:500}},
+    {id:'vitc', name:'Vitamin C', dose:'500 mg', learn:'learn-vitamins', add:{vc:500}},
+    {id:'probiotic', name:'Probiotic', dose:'1 capsule', learn:'learn-digestion', add:{}},
+    {id:'caffeine', name:'Caffeine / pre-workout', dose:'', learn:'learn-caffeine', add:{}}
+  ];
+  var HC_NUTRIENTS = [
+    {k:'protein', name:'Protein', unit:'g', learn:'learn-protein'},
+    {k:'fib', name:'Fibre', unit:'g', learn:'learn-digestion'},
+    {k:'vd', name:'Vitamin D', unit:'IU', learn:'learn-vitamins', src:'sun, oily fish, eggs, fortified milk'},
+    {k:'b12', name:'Vitamin B12', unit:'mcg', learn:'learn-vitamins', src:'eggs, dairy, fish, meat'},
+    {k:'fe', name:'Iron', unit:'mg', learn:'learn-minerals', src:'lentils, beans, red meat, spinach (+ vitamin C)'},
+    {k:'ca', name:'Calcium', unit:'mg', learn:'learn-minerals', src:'curd, milk, paneer, tofu, sardines'},
+    {k:'mg', name:'Magnesium', unit:'mg', learn:'learn-minerals', src:'pumpkin seeds, nuts, dal, spinach, oats'},
+    {k:'zn', name:'Zinc', unit:'mg', learn:'learn-minerals', src:'meat, pumpkin seeds, chickpeas, dairy'},
+    {k:'k', name:'Potassium', unit:'mg', learn:'learn-vitamins', src:'potato, banana, dal, curd, spinach'},
+    {k:'o3', name:'Omega-3', unit:'g', learn:'learn-supplements', src:'salmon, sardines, chia, walnuts'},
+    {k:'vc', name:'Vitamin C', unit:'mg', learn:'learn-vitamins', src:'capsicum, orange, berries, broccoli'},
+    {k:'va', name:'Vitamin A', unit:'mcg', learn:'learn-vitamins', src:'carrot, sweet potato, spinach, eggs'},
+    {k:'fol', name:'Folate', unit:'mcg', learn:'learn-vitamins', src:'dal, chickpeas, spinach, edamame'},
+    {k:'na', name:'Sodium', unit:'mg', learn:'learn-vitamins', upper:true, src:'limit: packaged food, curries with lots of salt, pickles'}
   ];
   var HC_PROTEIN_FILLS = [
-    {n:'Greek yogurt, 200 g', g:20}, {n:'Chicken breast, 150 g', g:35}, {n:'3 whole eggs', g:19}, {n:'Whey, 1 scoop', g:24},
-    {n:'Paneer, 100 g', g:18}, {n:'Dal or lentils, 1 cup cooked', g:18}, {n:'Tofu, 150 g', g:16}, {n:'Tuna, 1 can', g:25}, {n:'Milk, 1 glass', g:8}
+    {n:'Greek yogurt, 200 g', g:20}, {n:'Chicken breast, 150 g', g:46}, {n:'3 whole eggs', g:19}, {n:'Whey, 1 scoop', g:24},
+    {n:'Paneer, 100 g', g:18}, {n:'Dal, 1 cup cooked', g:18}, {n:'Tofu, 150 g', g:20}, {n:'Tuna, 1 can', g:25}, {n:'Milk, 1 glass', g:8}
   ];
   var HC_FIBER_FILLS = [
-    {n:'Chia seeds, 2 tbsp', g:10}, {n:'Lentils, 1 cup cooked', g:15}, {n:'Raspberries, 1 cup', g:8}, {n:'Chickpeas, ½ cup', g:6},
-    {n:'Broccoli, 1 cup', g:5}, {n:'Avocado, half', g:5}, {n:'Apple with skin', g:4.5}, {n:'Oats, 1 cup cooked', g:4}, {n:'Whole-wheat roti, 2', g:4}
+    {n:'Chia seeds, 2 tbsp', g:10}, {n:'Dal, 1 cup cooked', g:16}, {n:'Raspberries, 1 cup', g:8}, {n:'Chickpeas, ½ cup', g:6},
+    {n:'Broccoli, 1 cup', g:5}, {n:'Avocado, half', g:5}, {n:'Apple with skin', g:4.5}, {n:'Oats, 1 cup cooked', g:4}, {n:'Whole-wheat roti, 2', g:5}
+  ];
+  var HC_STEPS = [
+    {id:'you', name:'You', title:'About you'},
+    {id:'move', name:'Move', title:'Movement'},
+    {id:'food', name:'Food', title:'What you ate today'},
+    {id:'supps', name:'Supps', title:'Supplements'},
+    {id:'rest', name:'Rest', title:'Sleep & lifestyle'},
+    {id:'report', name:'Report', title:'Your report'}
   ];
 
   function hcDefaults(){
-    var foods = {}; HC_FOODS.forEach(function(f){ foods[f.id] = 0; });
-    return {sex:'male', age:30, weight:'', steps:'', strength:0, cardio:0, protein:'', fiber:'', water:'', sleep:7, sun:0, smoke:'no', foods:foods, supps:{}};
+    return {sex:'male', age:30, weight:'', steps:'', strength:0, cardio:0, items:[], protein:'', fiber:'', water:'', sleep:7, sun:0, smoke:'no', supps:{}, step:0};
   }
   function hcClean(x){
     var d = hcDefaults();
@@ -6917,16 +7140,30 @@
     var sl = parseFloat(x.sleep); d.sleep = isFinite(sl) ? clamp(sl, 3, 12) : 7;
     var sun = parseFloat(x.sun); d.sun = isFinite(sun) ? clamp(Math.round(sun), 0, 300) : 0;
     d.smoke = x.smoke==='yes' ? 'yes' : 'no';
-    if(isObj(x.foods)) HC_FOODS.forEach(function(f){ var n = parseInt(x.foods[f.id],10); d.foods[f.id] = isFinite(n) ? clamp(n,0,12) : 0; });
+    var st = parseInt(x.step,10); d.step = isFinite(st) ? clamp(st, 0, HC_STEPS.length-1) : 0;
+    if(Array.isArray(x.items)) d.items = x.items.map(function(it){
+      if(!isObj(it)) return null;
+      var q = parseFloat(it.q); q = (isFinite(q) && q>0) ? Math.min(q, 20) : 1;
+      if(typeof it.id==='string' && HC_DB_BY_ID[it.id]) return {id:it.id, q:q};
+      if(typeof it.id==='string' && it.id.indexOf('c:')===0 && it.name){
+        var ci = {id:it.id, q:q, name:String(it.name).slice(0,60), kcal:nonNeg(it.kcal), p:nonNeg(it.p), c:nonNeg(it.c), f:nonNeg(it.f), fib:nonNeg(it.fib), sug:nonNeg(it.sug)};
+        if(typeof it.group==='string' && HC_GROUPS[it.group]) ci.group = it.group;
+        if(isObj(it.nu)){ ci.nu = {}; ['vd','b12','fe','ca','mg','zn','k','o3','vc','va','fol','na'].forEach(function(k){ ci.nu[k] = nonNeg(it.nu[k]); }); }
+        return ci;
+      }
+      return null;
+    }).filter(Boolean).slice(0,80);
+    // v25 serving counters → generic items
+    if(isObj(x.foods) && !d.items.length){
+      var map = {veg:'mixedveg', fruit:'apple', grains:'roti', legumes:'dal', nuts:'mixednuts', dairy:'curd', fish:'whitefish', meatEggs:'egg', processedMeat:'processed', sugary:'soda', junk:'biscuits', alcohol:'beer'};
+      Object.keys(map).forEach(function(k){ var n = parseInt(x.foods[k],10); if(isFinite(n) && n>0) d.items.push({id:map[k], q:n}); });
+    }
     if(isObj(x.supps)) HC_SUPPS.forEach(function(sp){ if(x.supps[sp.id]) d.supps[sp.id] = true; });
     return d;
   }
   function hcInp(){ if(!state.health) state.health = {inp:null, history:{}}; if(!state.health.inp) state.health.inp = hcDefaults(); return state.health.inp; }
   function hcHasInput(i){
-    var any = i.steps!=='' || i.protein!=='' || i.fiber!=='' || i.water!=='' || i.strength>0 || i.cardio>0 || i.sun>0 || i.sleep!==7;
-    HC_FOODS.forEach(function(f){ if(i.foods[f.id]>0) any = true; });
-    HC_SUPPS.forEach(function(sp){ if(i.supps[sp.id]) any = true; });
-    return any;
+    return i.items.length>0 || i.steps!=='' || i.protein!=='' || i.fiber!=='' || i.water!=='' || i.strength>0 || i.cardio>0 || i.sun>0 || i.sleep!==7 || Object.keys(i.supps).length>0;
   }
   function hcWeightKg(i){
     var w = parseFloat(i.weight);
@@ -6934,9 +7171,64 @@
     var m = toMetric(parseFloat(state.profile.height)||175, parseFloat(state.profile.weight)||75, state.profile.unit);
     return (m && m.w) ? m.w : 75;
   }
-  function hcFiberEstimate(i){
-    var g = 0; HC_FOODS.forEach(function(f){ if(f.fiber) g += f.fiber * (i.foods[f.id]||0); });
-    return Math.round(g);
+  function hcItemFood(it){
+    if(HC_DB_BY_ID[it.id]) return HC_DB_BY_ID[it.id];
+    var nu = it.nu||{};
+    return {id:it.id, name:it.name||'Custom food', group:it.group||'custom', serving:'1 serving', kcal:it.kcal||0, p:it.p||0, c:it.c||0, f:it.f||0, fib:it.fib||0, vd:nu.vd||0, b12:nu.b12||0, fe:nu.fe||0, ca:nu.ca||0, mg:nu.mg||0, zn:nu.zn||0, k:nu.k||0, o3:nu.o3||0, vc:nu.vc||0, va:nu.va||0, fol:nu.fol||0, na:nu.na||0, sug:it.sug||0};
+  }
+  // ---- targets (RDA-style, by sex and age) ---------------------------
+  function hcTargets(i){
+    var kg = hcWeightKg(i), f = i.sex==='female', a = i.age, t = {};
+    t.protein = Math.round(kg*1.6); t.proteinMin = Math.round(kg*1.2);
+    t.fib = f ? (a>=51 ? 21 : 25) : (a>=51 ? 30 : 38);
+    t.vd = a>=70 ? 800 : 600;
+    t.b12 = 2.4;
+    t.fe = f ? (a>=51 ? 8 : 18) : 8;
+    t.ca = (a>=71 || (f && a>=51)) ? 1200 : 1000;
+    t.mg = f ? (a<=30 ? 310 : 320) : (a<=30 ? 400 : 420);
+    t.zn = f ? 8 : 11;
+    t.k = f ? 2600 : 3400;
+    t.o3 = 0.5;
+    t.vc = (f ? 75 : 90) + (i.smoke==='yes' ? 35 : 0);
+    t.va = f ? 700 : 900;
+    t.fol = 400;
+    t.na = 2300;
+    var steps = parseFloat(i.steps)||0;
+    t.water = (f ? 2.0 : 2.5) + (steps>10000 ? 0.5 : 0);
+    return t;
+  }
+  function hcTotals(i){
+    var tot = {kcal:0,p:0,c:0,f:0,fib:0,vd:0,b12:0,fe:0,ca:0,mg:0,zn:0,k:0,o3:0,vc:0,va:0,fol:0,na:0,sug:0};
+    var groups = {}; Object.keys(HC_GROUPS).forEach(function(g){ groups[g] = 0; });
+    var plantKinds = {};
+    i.items.forEach(function(it){
+      var fd = hcItemFood(it), q = it.q||1;
+      Object.keys(tot).forEach(function(k){ tot[k] += (fd[k]||0)*q; });
+      groups[fd.group] = (groups[fd.group]||0) + q;
+      if(/^(veg|fruit|grains|legumes|nuts)$/.test(fd.group)) plantKinds[fd.id] = true;
+    });
+    var fromFood = i.items.length>0;
+    // manual totals when nothing is logged (or to top up)
+    if(!fromFood){ tot.p = parseFloat(i.protein)||0; tot.fib = parseFloat(i.fiber)||0; }
+    var supp = {};
+    HC_SUPPS.forEach(function(sp){ if(i.supps[sp.id]) Object.keys(sp.add).forEach(function(k){ supp[k] = (supp[k]||0) + sp.add[k]; }); });
+    var withSupp = Object.assign({}, tot); Object.keys(supp).forEach(function(k){ withSupp[k] += supp[k]; });
+    withSupp.protein = withSupp.p; tot.protein = tot.p;
+    return {food:tot, all:withSupp, supp:supp, groups:groups, plantKinds:Object.keys(plantKinds).length, fromFood:fromFood};
+  }
+  function hcPct(v, target, upper){ if(!target) return 0; return upper ? Math.round(clamp((2*target - v)/target, 0, 1)*100) : Math.round(clamp(v/target, 0, 1.2)*100); }
+
+  // ---- prefill from Today's log ---------------------------------------
+  var HC_STOP = {large:1, cup:1, cooked:1, with:1, and:1, the:1, plain:1, whole:1, raw:1, piece:1, medium:1, small:1, glass:1, bowl:1, slice:1, boiled:1, grilled:1, fresh:1, tbsp:1, tsp:1};
+  function hcMatchFood(name){
+    var toks = String(name).toLowerCase().replace(/[^a-z ]/g,' ').split(/\s+/).filter(function(t){ return t.length>=3 && !HC_STOP[t]; });
+    var best = null, bestScore = 0;
+    HC_DB.forEach(function(f){
+      var n = f.name.toLowerCase(); var sc = 0;
+      toks.forEach(function(t){ if(n.indexOf(t)>-1) sc += t.length; });
+      if(sc>bestScore){ bestScore = sc; best = f; }
+    });
+    return bestScore>=3 ? best : null;
   }
   function hcPrefillFromLog(){
     var i = hcInp(), log = getLog(todayStr());
@@ -6945,127 +7237,143 @@
     var age = parseFloat(state.profile.age); if(isFinite(age)) i.age = clamp(Math.round(age),10,100);
     if(m && m.w) i.weight = Math.round(m.w*10)/10;
     if(log.steps!=null) i.steps = log.steps; else if(state.profile.avgSteps) i.steps = parseFloat(state.profile.avgSteps);
-    var p = log.foods.reduce(function(a,f){ return a+(f.p||0); }, 0); if(p>0) i.protein = Math.round(p);
     if(log.water>0) i.water = Math.round(log.water*10)/10;
     var wk = parseInt(state.profile.workoutsWeek,10); if(isFinite(wk)) i.strength = clamp(wk,0,7);
+    var added = 0;
+    log.foods.forEach(function(f){
+      // keep the logged food's own calories and macros (they are exact), and borrow
+      // fibre, vitamins, minerals and the food group from the closest database match
+      var hit = hcMatchFood(f.name), cid = 'c:'+String(f.name).toLowerCase().slice(0,40)+(f.addon?'-'+f.addon:'');
+      var ex = i.items.filter(function(it){ return it.id===cid; })[0];
+      if(ex){ ex.q = Math.min(20, ex.q+1); added++; return; }
+      var item = {id:cid, q:1, name:f.name+(f.addon&&f.qty>1?' ×'+f.qty:''), kcal:f.cal||0, p:f.p||0, c:f.c||0, f:f.f||0, fib:0, sug:f.sug||0};
+      if(hit){
+        var ratio = (f.cal>0 && hit.kcal>0) ? clamp(f.cal/hit.kcal, 0.2, 4) : 1;
+        item.group = hit.group; item.fib = Math.round(hit.fib*ratio*10)/10; item.nu = {};
+        ['vd','b12','fe','ca','mg','zn','k','o3','vc','va','fol','na'].forEach(function(k){ item.nu[k] = Math.round(hit[k]*ratio*100)/100; });
+      }
+      i.items.push(item);
+      added++;
+    });
     saveState();
+    return added;
   }
 
   // ---- scoring -------------------------------------------------------
   function hcScore(i){
-    var kg = hcWeightKg(i), female = i.sex==='female';
-    var F = i.foods, S = i.supps;
+    var T = hcTargets(i), X = hcTotals(i), A = X.all, G = X.groups, S = i.supps;
     var n = function(v){ var x = parseFloat(v); return isFinite(x) ? x : 0; };
-    var steps = n(i.steps), protein = n(i.protein), fiber = n(i.fiber), water = n(i.water);
-    var fiberEst = hcFiberEstimate(i); if(i.fiber==='' && fiberEst>0) fiber = fiberEst;
+    var steps = n(i.steps), water = n(i.water), protein = A.p, fiber = A.fib;
     var pillars = [], gaps = [], wins = [];
+    var pct = function(k){ return hcPct(A[k], T[k], k==='na'); };
 
-    // Movement (20)
-    var stepScore = clamp(steps/10000, 0, 1)*80 + (i.strength>=2 ? 20 : i.strength===1 ? 10 : 0);
-    if(i.cardio>=2 && stepScore<100) stepScore = Math.min(100, stepScore+8);
-    stepScore = Math.round(clamp(stepScore,0,100));
-    pillars.push({id:'move', name:'Movement', w:20, score:stepScore, detail: fmt(steps)+' steps · '+i.strength+' strength + '+i.cardio+' cardio sessions a week'});
-    if(steps<7000){
-      var need = Math.max(0, Math.round((8000-steps)/100)*100);
-      gaps.push({k:'miss', title:'Not enough daily movement', text:'You are at '+fmt(steps)+' steps. 7,000–10,000 a day is where the big health gains sit (heart, blood sugar, mood).', fills:[{n:'A '+Math.max(10,Math.round(need/100))+'-min brisk walk', g:'+'+fmt(need)+' steps'},{n:'Walk after each meal', g:'10 min'},{n:'Take calls standing or walking', g:''}]});
-    } else if(steps<10000) gaps.push({k:'short', title:'Steps are decent — top them up', text:fmt(steps)+' today. Another '+fmt(10000-steps)+' (about '+Math.round((10000-steps)/100)+' minutes of walking) reaches the 10k mark.', fills:[]});
+    // Movement 20
+    var moveScore = clamp(steps/10000,0,1)*80 + (i.strength>=2 ? 20 : i.strength===1 ? 10 : 0);
+    if(i.cardio>=2) moveScore = Math.min(100, moveScore+8);
+    moveScore = Math.round(clamp(moveScore,0,100));
+    pillars.push({id:'move', name:'Movement', w:20, score:moveScore, detail:fmt(steps)+' steps · '+i.strength+' strength + '+i.cardio+' cardio sessions a week'});
+    if(i.steps==='') gaps.push({k:'miss', title:'Steps not entered', text:'Add today\'s step count from your phone or watch — walking is the biggest lever on this page.', fills:[]});
+    else if(steps<7000){ var need = Math.round((8000-steps)/100)*100; gaps.push({k:'miss', title:'Not enough daily movement', text:'You are at '+fmt(steps)+' steps. 7,000–10,000 a day is where the big gains sit for the heart, blood sugar and mood.', fills:[{n:'A '+Math.max(10,Math.round(need/100))+'-min brisk walk', g:'+'+fmt(need)+' steps'},{n:'Walk after each meal', g:'10 min'},{n:'Take calls standing or walking', g:''}]}); }
+    else if(steps<10000) gaps.push({k:'short', title:'Steps are decent — top them up', text:fmt(steps)+' today. Another '+fmt(10000-steps)+' (about '+Math.round((10000-steps)/100)+' minutes of walking) reaches 10k.', fills:[]});
     else wins.push('Steps');
-    if(i.strength<2) gaps.push({k: i.strength===0?'miss':'short', title:'Strength training', text: i.strength===0 ? 'No strength sessions this week. Two 30–45 minute sessions a week protect muscle, bone and metabolism — the single most under-rated health habit.' : 'One session a week is a start; two or more is where strength and muscle actually build.', fills:[{n:'Full-body session', g:'2×/week'},{n:'Squat · push · pull · hinge', g:'3 sets each'}], learn:'learn-protein'});
+    if(i.strength<2) gaps.push({k:i.strength===0?'miss':'short', title:'Strength training', text:i.strength===0 ? 'No strength sessions this week. Two 30–45 minute sessions protect muscle, bone and metabolism — the most under-rated health habit.' : 'One session a week is a start; two or more is where strength and muscle actually build.', fills:[{n:'Full-body session', g:'2×/week'},{n:'Squat · push · pull · hinge', g:'3 sets each'}], learn:'learn-protein'});
     else wins.push('Strength');
 
-    // Protein (15)
-    var pTarget = Math.round(kg*1.6), pMin = Math.round(kg*1.2);
-    var pScore = i.protein==='' ? 0 : Math.round(clamp(protein/pTarget,0,1)*100);
-    pillars.push({id:'protein', name:'Protein', w:15, score:pScore, detail: (i.protein===''?'not entered':fmt(protein)+' g')+' · target '+pTarget+' g (1.6 g/kg)'});
-    if(i.protein===''){ gaps.push({k:'miss', title:'Protein not entered', text:'Enter today\'s protein (or tap "Use today\'s log"). Aim for about '+pTarget+' g a day — '+Math.round(pTarget/4)+' g per meal across 4 meals.', fills:[]}); }
-    else if(protein<pTarget){
-      var pg = pTarget-protein;
-      gaps.push({k: protein<pMin?'miss':'short', title:'Protein is '+pg+' g short', text:'You have '+fmt(protein)+' g of ~'+pTarget+' g. Any of these closes the gap:', fills:HC_PROTEIN_FILLS.filter(function(x){ return x.g>=Math.min(pg,20); }).slice(0,5).map(function(x){ return {n:x.n, g:'+'+x.g+' g'}; }), learn:'learn-protein'});
-    } else wins.push('Protein');
+    // Protein 15
+    var pEntered = X.fromFood || i.protein!=='';
+    var pScore = pEntered ? Math.round(clamp(protein/T.protein,0,1)*100) : 0;
+    pillars.push({id:'protein', name:'Protein', w:15, score:pScore, detail:(pEntered?Math.round(protein)+' g':'not entered')+' · target '+T.protein+' g (1.6 g/kg)'});
+    if(!pEntered) gaps.push({k:'miss', title:'No food logged yet', text:'Log what you ate (or tap "Use today\'s log") to score protein, fibre and vitamins. Aim for about '+T.protein+' g protein a day — '+Math.round(T.protein/4)+' g per meal.', fills:[]});
+    else if(protein<T.protein){ var pg = Math.round(T.protein-protein); gaps.push({k:protein<T.proteinMin?'miss':'short', title:'Protein is '+pg+' g short', text:'You have '+Math.round(protein)+' g of ~'+T.protein+' g. Any of these closes the gap:', fills:HC_PROTEIN_FILLS.filter(function(x){ return x.g>=Math.min(pg,18); }).slice(0,5).map(function(x){ return {n:x.n, g:'+'+x.g+' g'}; }), learn:'learn-protein'}); }
+    else wins.push('Protein');
 
-    // Fiber (15)
-    var fTarget = 30;
-    var fScore = (i.fiber==='' && fiberEst===0) ? 0 : Math.round(clamp(fiber/fTarget,0,1)*100);
-    pillars.push({id:'fiber', name:'Fibre', w:15, score:fScore, detail:(i.fiber===''? (fiberEst>0?'~'+fiberEst+' g estimated from your foods':'not entered') : fmt(fiber)+' g')+' · target '+fTarget+' g'});
-    if(fiber<fTarget){
-      var fg = Math.round(fTarget-fiber);
-      gaps.push({k: fiber<15?'miss':'short', title:'Fibre is about '+fg+' g short', text:'Fibre feeds your gut bacteria, steadies blood sugar and keeps you full. '+(fiber>0?'You are at ~'+Math.round(fiber)+' g of 30 g.':'Most people get only 15 g.'), fills:HC_FIBER_FILLS.slice(0, fg>=15?6:4).map(function(x){ return {n:x.n, g:'+'+x.g+' g'}; }), learn:'learn-digestion'});
-    } else wins.push('Fibre');
+    // Fibre 15
+    var fEntered = X.fromFood || i.fiber!=='';
+    var fScore = fEntered ? Math.round(clamp(fiber/T.fib,0,1)*100) : 0;
+    pillars.push({id:'fiber', name:'Fibre', w:15, score:fScore, detail:(fEntered?Math.round(fiber)+' g':'not entered')+' · target '+T.fib+' g'});
+    if(fEntered && fiber<T.fib){ var fg = Math.round(T.fib-fiber); gaps.push({k:fiber<T.fib*0.5?'miss':'short', title:'Fibre is about '+fg+' g short', text:'Fibre feeds your gut bacteria, steadies blood sugar and keeps you full. You are at ~'+Math.round(fiber)+' g of '+T.fib+' g.', fills:HC_FIBER_FILLS.slice(0, fg>=15?6:4).map(function(x){ return {n:x.n, g:'+'+x.g+' g'}; }), learn:'learn-digestion'}); }
+    else if(fEntered) wins.push('Fibre');
 
-    // Food quality (20)
-    var q = 0;
-    q += Math.min(F.veg,3)/3*30; q += Math.min(F.fruit,2)/2*15; q += Math.min(F.grains,2)/2*10; q += Math.min(F.legumes,1)*10; q += Math.min(F.nuts,1)*10;
-    q += ((F.dairy+F.fish+F.meatEggs+F.legumes)>0 ? 10 : 0); q += (F.fish>0 ? 5 : 0); q += (F.dairy>0 ? 5 : 0); q += (F.veg>=5 ? 5 : 0);
-    q -= F.sugary*12 + F.junk*8 + Math.max(0,F.processedMeat-1)*8 + F.alcohol*8 + (F.alcohol>2?15:0);
+    // Food quality 20
+    var q = 0, veg = G.veg, fruit = G.fruit, wg = G.grains, leg = G.legumes, nuts = G.nuts, dairy = G.dairy, fish = G.fish, meat = G.meatEggs;
+    q += Math.min(veg,3)/3*28 + Math.min(fruit,2)/2*14 + Math.min(wg,2)/2*10 + Math.min(leg,1)*10 + Math.min(nuts,1)*10;
+    q += ((dairy+fish+meat+leg)>0 ? 8 : 0) + (fish>0 ? 5 : 0) + (dairy>0 ? 5 : 0) + (veg>=5 ? 5 : 0) + (X.plantKinds>=8 ? 5 : 0);
+    q -= G.sugary*12 + G.junk*8 + Math.max(0,G.redMeat-1)*6 + G.processed*10 + G.alcohol*8 + (G.alcohol>2?15:0) + Math.max(0, G.refined-2)*3;
     q = Math.round(clamp(q,0,100));
-    var plantServ = F.veg+F.fruit+F.grains+F.legumes+F.nuts;
-    pillars.push({id:'food', name:'Food quality', w:20, score:q, detail: plantServ+' plant servings · '+(F.sugary+F.junk+F.processedMeat+F.alcohol)+' low-quality items'});
-    if(F.veg<3) gaps.push({k:F.veg===0?'miss':'short', title:'Vegetables: '+(3-F.veg)+' more serving'+(3-F.veg>1?'s':''), text:'Three or more servings a day (five with fruit) is the consistent marker of lower heart disease and cancer risk. Half the plate at lunch and dinner gets you there.', fills:[{n:'Big salad with lunch', g:'2 servings'},{n:'Cup of cooked vegetables with dinner', g:'1 serving'},{n:'Frozen veg stir-in', g:'1 serving'}]});
-    if(F.fruit<2) gaps.push({k:'short', title:'Fruit: '+(2-F.fruit)+' more', text:'Whole fruit (not juice) adds fibre, potassium and vitamin C. Berries, apples and citrus are the best value.', fills:[{n:'Apple or orange as a snack', g:'1'},{n:'Berries on breakfast', g:'1 cup'}]});
-    if(F.legumes===0 && F.nuts===0) gaps.push({k:'short', title:'No legumes or nuts today', text:'Beans, lentils, nuts and seeds carry most of the magnesium, zinc, potassium and fibre in a good diet. A daily serving of each is a cheap upgrade.', fills:[{n:'Dal or chickpeas', g:'½ cup'},{n:'Mixed nuts', g:'a handful'}], learn:'learn-minerals'});
-    if(F.sugary>0) gaps.push({k:'excess', title:'Sugary drinks: '+F.sugary+' today', text:'Liquid sugar is the single clearest dietary driver of fat gain and insulin resistance — about '+(F.sugary*35)+' g of sugar here. Swap for water, soda water with lime, or unsweetened tea or coffee.', fills:[]});
-    if(F.junk>1) gaps.push({k:'excess', title:'Packaged snacks, sweets or fried food: '+F.junk, text:'Ultra-processed food is easy to overeat and crowds out real food. Keep it to one treat a day and make it deliberate, not default.', fills:[]});
-    if(F.processedMeat>1) gaps.push({k:'excess', title:'Processed or red meat: '+F.processedMeat+' servings', text:'Processed meat is linked with bowel cancer; keep it occasional. Swap for chicken, fish, eggs, paneer or dal.', fills:[]});
-    if(F.alcohol>0) gaps.push({k: F.alcohol>2?'miss':'excess', title:'Alcohol: '+F.alcohol+' drink'+(F.alcohol>1?'s':''), text:(F.alcohol>2?'More than two drinks hurts sleep quality, recovery and testosterone for 1–2 days. ':'')+'There is no health benefit from alcohol; less is better and alcohol-free days matter most.', fills:[], learn:'learn-alcohol'});
-    if(q>=75) wins.push('Food quality');
+    pillars.push({id:'food', name:'Food quality', w:20, score:X.fromFood ? q : 0, detail: X.fromFood ? (veg+fruit+wg+leg+nuts)+' plant servings · '+X.plantKinds+' different plants · '+(G.sugary+G.junk+G.processed+G.alcohol)+' low-quality items' : 'log foods to score'});
+    if(X.fromFood){
+      if(veg<3) gaps.push({k:veg===0?'miss':'short', title:'Vegetables: '+(3-Math.floor(veg))+' more serving'+(3-Math.floor(veg)>1?'s':''), text:'Three or more servings a day (five with fruit) is the consistent marker of lower heart-disease and cancer risk. Half the plate at lunch and dinner gets you there.', fills:[{n:'Big salad with lunch', g:'2 servings'},{n:'Cup of sabzi with dinner', g:'1 serving'},{n:'Frozen veg stir-in', g:'1 serving'}]});
+      if(fruit<2) gaps.push({k:'short', title:'Fruit: '+(2-Math.floor(fruit))+' more', text:'Whole fruit (not juice) adds fibre, potassium and vitamin C. Berries, apples, oranges and guava are the best value.', fills:[{n:'Apple or orange as a snack', g:'1'},{n:'Berries on breakfast', g:'1 cup'}]});
+      if(leg===0 && nuts===0) gaps.push({k:'short', title:'No legumes or nuts today', text:'Dal, beans, nuts and seeds carry most of the magnesium, zinc, potassium and fibre in a good diet. A daily serving of each is a cheap upgrade.', fills:[{n:'Dal or chickpeas', g:'1 cup'},{n:'Mixed nuts', g:'a handful'}], learn:'learn-minerals'});
+      if(X.plantKinds<5) gaps.push({k:'short', title:'Only '+X.plantKinds+' different plant foods', text:'Gut-microbiome studies link 30 different plants a week with a healthier gut — variety matters as much as quantity. Rotate vegetables, fruit, grains, beans, nuts, herbs and spices.', fills:[{n:'Different vegetable at each meal', g:''},{n:'Two kinds of fruit', g:''}], learn:'learn-digestion'});
+      if(G.sugary>0) gaps.push({k:'excess', title:'Sugary drinks: '+G.sugary+' today', text:'Liquid sugar is the clearest dietary driver of fat gain and insulin resistance — about '+Math.round(A.sug)+' g of added sugar on your log. Swap for water, soda water with lime, or unsweetened tea or coffee.', fills:[]});
+      if(G.junk>1) gaps.push({k:'excess', title:'Snacks, sweets or fried food: '+G.junk, text:'Ultra-processed food is easy to overeat and crowds out real food. Keep it to one treat a day and make it deliberate, not default.', fills:[]});
+      if(G.processed>0 || G.redMeat>1) gaps.push({k:'excess', title:(G.processed>0?'Processed meat':'Red meat')+' today', text:'Processed meat is linked with bowel cancer; red meat is fine a few times a week, not daily. Swap for chicken, fish, eggs, paneer or dal.', fills:[]});
+      if(G.alcohol>0) gaps.push({k:G.alcohol>2?'miss':'excess', title:'Alcohol: '+G.alcohol+' drink'+(G.alcohol>1?'s':''), text:(G.alcohol>2?'More than two drinks hurts sleep quality, recovery and testosterone for 1–2 days. ':'')+'There is no health benefit from alcohol; less is better and alcohol-free days matter most.', fills:[], learn:'learn-alcohol'});
+      if(A.na>T.na*1.3) gaps.push({k:'excess', title:'Sodium: ~'+fmt(A.na)+' mg', text:'Above the 2,300 mg guideline — mostly from packaged food, restaurant meals and salty curries. High sodium raises blood pressure within days.', fills:[{n:'Cook with half the salt', g:''},{n:'Skip pickles & papad', g:''},{n:'Potassium-rich foods offset it', g:'banana, potato, curd'}]});
+      if(q>=75) wins.push('Food quality');
+    }
 
-    // Hydration (10)
-    var wTarget = female ? 2.0 : 2.5;
-    var wScore = i.water==='' ? 0 : Math.round(clamp(water/wTarget,0,1)*100);
-    pillars.push({id:'water', name:'Hydration', w:10, score:wScore, detail:(i.water===''?'not entered':water+' L')+' · target ~'+wTarget+' L (more on hot or training days)'});
-    if(water<wTarget) gaps.push({k: water<1?'miss':'short', title:'Water: '+(Math.round((wTarget-water)*4))+' more glasses', text:'You are at '+(i.water===''?'0':water)+' L of ~'+wTarget+' L. Fluids from tea, coffee and milk count; sugary drinks do not.', fills:[{n:'Glass on waking', g:'250 ml'},{n:'Bottle at your desk', g:'750 ml'},{n:'Glass with each meal', g:'750 ml'}]});
+    // Hydration 10
+    var wScore = i.water==='' ? 0 : Math.round(clamp(water/T.water,0,1)*100);
+    pillars.push({id:'water', name:'Hydration', w:10, score:wScore, detail:(i.water===''?'not entered':water+' L')+' · target ~'+T.water+' L'});
+    if(water<T.water) gaps.push({k:water<1?'miss':'short', title:'Water: '+Math.round((T.water-water)*4)+' more glasses', text:'You are at '+(i.water===''?'0':water)+' L of ~'+T.water+' L. Tea, coffee and milk count; sugary drinks do not.', fills:[{n:'Glass on waking', g:'250 ml'},{n:'Bottle at your desk', g:'750 ml'},{n:'Glass with each meal', g:'750 ml'}]});
     else wins.push('Hydration');
 
-    // Sleep & recovery (15)
+    // Sleep & recovery 15
     var sl = i.sleep, sScore = sl>=7 && sl<=9 ? 100 : sl>9 ? 85 : sl>=6 ? 70 : sl>=5 ? 45 : 20;
     if(i.smoke==='yes') sScore = Math.max(0, sScore-25);
-    pillars.push({id:'sleep', name:'Sleep & recovery', w:15, score:sScore, detail: sl+' h sleep · '+i.sun+' min daylight'+(i.smoke==='yes'?' · smoking':'')});
-    if(sl<7) gaps.push({k: sl<6?'miss':'short', title:'Sleep: '+sl+' hours', text:'Under 7 hours raises hunger hormones, lowers testosterone and makes fat loss and muscle gain slower. Fix the wake time first; bedtime follows.', fills:[{n:'Same wake time daily', g:'±30 min'},{n:'Screens off before bed', g:'30 min'},{n:'Cool, dark room', g:'18–20 °C'},{n:'No caffeine after 2 pm', g:''}], learn:'learn-sleep'});
+    pillars.push({id:'sleep', name:'Sleep & recovery', w:15, score:sScore, detail:sl+' h sleep · '+i.sun+' min daylight'+(i.smoke==='yes'?' · smoking':'')});
+    if(sl<7) gaps.push({k:sl<6?'miss':'short', title:'Sleep: '+sl+' hours', text:'Under 7 hours raises hunger hormones, lowers testosterone and slows fat loss and muscle gain. Fix the wake time first; bedtime follows.', fills:[{n:'Same wake time daily', g:'±30 min'},{n:'Screens off before bed', g:'30 min'},{n:'Cool, dark room', g:'18–20 °C'},{n:'No caffeine after 2 pm', g:''}], learn:'learn-sleep'});
     else wins.push('Sleep');
+    if(i.sun<15) gaps.push({k:'short', title:'Daylight: '+i.sun+' min', text:'15–30 minutes of outdoor daylight anchors your body clock (better sleep, mood) and makes most of your vitamin D.', fills:[{n:'Morning walk outside', g:'15 min'},{n:'Lunch break outdoors', g:'15 min'}], learn:'learn-sleep'});
     if(i.smoke==='yes') gaps.push({k:'miss', title:'Smoking', text:'Nothing else on this page moves your health as much as stopping. Nicotine replacement doubles quit rates; talk to a pharmacist or doctor.', fills:[], learn:'learn-smoking'});
 
-    // Micronutrient coverage (5) — from food and supplements
-    var cover = [];
-    var mineralRich = F.nuts+F.legumes+F.grains+F.veg;
-    var animal = F.meatEggs+F.fish+F.dairy;
-    cover.push({n:'Vitamin D', ok: i.sun>=15 || S.d3 || S.multi, fix:'15–20 min of midday sun, or 1,000–2,000 IU D3 with a meal', learn:'learn-vitamins'});
-    cover.push({n:'Omega-3', ok: F.fish>0 || S.omega3, fix:'oily fish twice a week (salmon, sardines, mackerel) or ~1 g EPA+DHA fish oil', learn:'learn-supplements'});
-    cover.push({n:'Magnesium', ok: mineralRich>=4 || S.magnesium, fix:'nuts, legumes, leafy greens, whole grains — or 200–400 mg glycinate at night', learn:'learn-minerals'});
-    cover.push({n:'Zinc', ok: animal>0 || F.legumes>0 || S.zinc || S.multi, fix:'meat, eggs, dairy, legumes or pumpkin seeds', learn:'learn-minerals'});
-    cover.push({n:'Calcium', ok: F.dairy>=2 || S.calcium || (F.veg>=3 && F.legumes>0), fix:'two servings of dairy or curd, or fortified soy milk, tofu and leafy greens', learn:'learn-minerals'});
-    cover.push({n:'B12', ok: animal>0 || S.b12 || S.multi, fix:'any animal food; vegans need a B12 supplement', learn:'learn-vitamins'});
-    cover.push({n:'Iron', ok: F.meatEggs>0 || F.fish>0 || F.legumes>0 || S.iron, fix:'meat, fish, lentils and beans; vitamin C with plant iron helps it absorb', learn:'learn-minerals'});
-    cover.push({n:'Potassium', ok: (F.veg+F.fruit)>=4, fix:'vegetables, fruit, potatoes, beans and curd', learn:'learn-vitamins'});
-    var covered = cover.filter(function(c){ return c.ok; }).length;
-    var mScore = Math.round(covered/cover.length*100);
-    pillars.push({id:'micro', name:'Vitamins & minerals', w:5, score:mScore, detail: covered+' of '+cover.length+' covered by food, sun or supplements'});
-    var missingMicro = cover.filter(function(c){ return !c.ok; });
-    if(missingMicro.length) gaps.push({k: missingMicro.length>=4?'miss':'short', title:'Likely low today: '+missingMicro.map(function(c){ return c.n; }).join(', '), text:'Based on what you ate and took. One day short is fine; a pattern is not.', fills:missingMicro.slice(0,5).map(function(c){ return {n:c.n+': '+c.fix, g:''}; }), learn:'learn-minerals'});
-    else wins.push('Micronutrients');
+    // Vitamins & minerals 5 — from the nutrient panel
+    var panel = HC_NUTRIENTS.filter(function(nu){ return nu.k!=='protein' && nu.k!=='fib'; }).map(function(nu){ var v = nu.k==='vd' ? A.vd + (i.sun>=15 ? Math.min(2000, i.sun*60) : 0) : A[nu.k]; return {k:nu.k, name:nu.name, unit:nu.unit, v:v, t:T[nu.k], pct:hcPct(v, T[nu.k], nu.upper), upper:nu.upper, src:nu.src, learn:nu.learn}; });
+    var mScore = X.fromFood ? Math.round(panel.reduce(function(a,p){ return a+Math.min(100,p.pct); },0)/panel.length) : 0;
+    var low = panel.filter(function(p){ return !p.upper && p.pct<50; });
+    pillars.push({id:'micro', name:'Vitamins & minerals', w:5, score:mScore, detail: X.fromFood ? (panel.length-low.length)+' of '+panel.length+' at 50%+ of daily need' : 'log foods to score'});
+    if(X.fromFood && low.length) gaps.push({k:low.length>=5?'miss':'short', title:'Low today: '+low.map(function(p){ return p.name; }).join(', '), text:'Under half the daily need from food, sun and supplements. One day short is fine; a pattern is not.', fills:low.slice(0,5).map(function(p){ return {n:p.name+': '+p.src, g:p.pct+'%'}; }), learn:'learn-minerals'});
+    else if(X.fromFood) wins.push('Micronutrients');
 
     // supplement review
-    var review = [];
+    var review = [], consider = [];
     function sr(id, verdict, text){ var sp = HC_SUPPS.filter(function(x){ return x.id===id; })[0]; review.push({name:sp.name, v:verdict, text:text, learn:sp.learn}); }
-    if(S.d3) sr('d3','keep', i.sun>=30 ? 'You had good sun today; D3 is still sensible through winter and for anyone mostly indoors.' : 'Sensible — most people indoors run low. 1,000–2,000 IU/day with food; no need for mega-doses.');
-    if(S.omega3) sr('omega3', F.fish>0 ? 'skip' : 'keep', F.fish>0 ? 'You ate fish today — if that happens twice a week, fish oil adds little.' : 'Reasonable when oily fish is rare. Look for ~1 g combined EPA+DHA on the label.');
-    if(S.magnesium) sr('magnesium', mineralRich>=4 ? 'skip' : 'keep', mineralRich>=4 ? 'Your plants today cover magnesium; the supplement is optional (harmless at 200–400 mg).' : 'Fine — glycinate or citrate, 200–400 mg in the evening. Nuts, dal and greens would do the same job.');
-    if(S.zinc) sr('zinc', (animal>0||F.legumes>0) ? 'care' : 'keep', (animal>0||F.legumes>0) ? 'Food already covers zinc. Daily zinc on top of a normal diet is unnecessary and long-term high doses block copper absorption.' : 'OK short term while your diet is low in meat, dairy and legumes; 10–15 mg, not 50.');
+    var mineralRich = G.nuts+G.legumes+G.grains+G.veg, animal = G.meatEggs+G.fish+G.dairy+G.redMeat;
+    var pk = function(k){ return panel.filter(function(p){ return p.k===k; })[0]; };
+    if(S.d3) sr('d3','keep', i.sun>=30 ? 'Good sun today; D3 is still sensible through winter and for anyone mostly indoors. 1,000–2,000 IU with food.' : 'Sensible — most people indoors run low. 1,000–2,000 IU/day with food; no need for mega-doses.');
+    if(S.omega3) sr('omega3', fish>0 ? 'skip' : 'keep', fish>0 ? 'You ate fish today — if that happens twice a week, fish oil adds little.' : 'Reasonable when oily fish is rare. Look for ~1 g combined EPA+DHA on the label.');
+    if(S.magnesium) sr('magnesium', (X.food.mg>=T.mg*0.8) ? 'skip' : 'keep', (X.food.mg>=T.mg*0.8) ? 'Food already gives '+Math.round(X.food.mg)+' mg; the supplement is optional (harmless at 200–400 mg).' : 'Fine — glycinate or citrate, 200–400 mg in the evening. Pumpkin seeds, nuts, dal and greens would do the same job.');
+    if(S.zinc) sr('zinc', (X.food.zn>=T.zn*0.8) ? 'care' : 'keep', (X.food.zn>=T.zn*0.8) ? 'Food already covers zinc ('+Math.round(X.food.zn)+' mg). Daily zinc on top is unnecessary and long-term high doses block copper absorption.' : 'OK short term while your diet is low in meat, dairy and legumes; 10–15 mg, not 50.');
     if(S.creatine) sr('creatine', i.strength>=1 ? 'keep' : 'skip', i.strength>=1 ? 'The best-evidenced supplement for strength and lean mass: 3–5 g every day, timing does not matter.' : 'Creatine only pays off alongside strength training. Start lifting, keep the creatine.');
-    if(S.whey) sr('whey', (i.protein!=='' && protein>=pTarget) ? 'skip' : 'keep', (i.protein!=='' && protein>=pTarget) ? 'You hit your protein from food today, so the powder was optional. It is just convenient protein.' : 'A convenient top-up for the '+Math.max(0,pTarget-Math.round(protein))+' g gap. Whey, casein or a pea/rice blend all work.');
-    if(S.multi) sr('multi','keep','A reasonable backstop on low-variety days. It does not replace vegetables, fruit and legumes, which carry the fibre and potassium a pill cannot.');
+    if(S.multi) sr('multi','keep','A reasonable backstop on low-variety days. It cannot replace vegetables, fruit and dal, which carry the fibre and potassium a pill does not.');
     if(S.b12) sr('b12', animal>0 ? 'skip' : 'keep', animal>0 ? 'Animal foods cover B12 for most people; keep it only if you are mostly plant-based or over 60.' : 'Essential on a plant-based diet: 25–100 mcg daily or 1,000 mcg a few times a week.');
-    if(S.iron) sr('iron','care','Only take iron if a blood test showed low ferritin. Extra iron without a deficiency is harmful, and it is common for men to be told to stop.');
-    if(S.calcium) sr('calcium', F.dairy>=2 ? 'skip' : 'keep', F.dairy>=2 ? 'Two dairy servings already cover calcium; drop the pill and keep the food.' : 'OK if dairy and greens are rare: 500 mg with food, not more at once. Pair with vitamin D.');
-    if(S.probiotic) sr('probiotic','skip','Evidence for general-purpose probiotic pills is weak. Daily curd or yogurt and 30 g of fibre do far more for your gut.');
+    if(S.iron) sr('iron','care','Only take iron if a blood test showed low ferritin. Extra iron without a deficiency is harmful; men rarely need it.');
+    if(S.calcium) sr('calcium', (X.food.ca>=T.ca*0.8) ? 'skip' : 'keep', (X.food.ca>=T.ca*0.8) ? 'Food already gives '+Math.round(X.food.ca)+' mg calcium; drop the pill and keep the curd and paneer.' : 'OK if dairy and greens are rare: 500 mg with food, not more at once. Pair with vitamin D.');
+    if(S.vitc) sr('vitc', (X.food.vc>=T.vc) ? 'skip' : 'keep', (X.food.vc>=T.vc) ? 'Fruit and vegetables already cover vitamin C today; extra is simply excreted.' : 'Fine — 200–500 mg is plenty; an orange or a capsicum does the same.');
+    if(S.probiotic) sr('probiotic','skip','Evidence for general-purpose probiotic pills is weak. Daily curd and 30 g of fibre do far more for your gut.');
     if(S.caffeine) sr('caffeine','keep','Fine before training and for focus. Keep the last dose before 2 pm so it does not cut into deep sleep.');
-    // worth considering
-    var consider = [];
-    if(!S.d3 && i.sun<15) consider.push({name:'Vitamin D3', text:'Little daylight today; 1,000–2,000 IU/day is the cheapest fix.', learn:'learn-vitamins'});
-    if(!S.omega3 && F.fish===0) consider.push({name:'Omega-3', text:'No fish today — either plan two fish meals a week or take fish oil.', learn:'learn-supplements'});
+    if(!S.d3 && pk('vd').pct<50) consider.push({name:'Vitamin D3', text:'Little daylight or oily fish today; 1,000–2,000 IU/day is the cheapest fix.', learn:'learn-vitamins'});
+    if(!S.omega3 && pk('o3').pct<50) consider.push({name:'Omega-3', text:'Omega-3 is low — either plan two oily-fish meals a week or take fish oil.', learn:'learn-supplements'});
     if(!S.creatine && i.strength>=2) consider.push({name:'Creatine', text:'You lift twice a week or more; 3–5 g/day adds measurable strength.', learn:'learn-supplements'});
-    if(!S.b12 && animal===0) consider.push({name:'Vitamin B12', text:'No animal foods today; on a mostly plant-based diet B12 must come from a supplement.', learn:'learn-vitamins'});
-    if(!S.magnesium && mineralRich<3 && sl<7) consider.push({name:'Magnesium', text:'Low on nuts, legumes and greens and short on sleep — 200–400 mg glycinate at night is a reasonable trial.', learn:'learn-minerals'});
-    if(!S.whey && i.protein!=='' && protein<pTarget-30) consider.push({name:'Protein powder', text:'A 30+ g gap is hard to close with meals alone every day; a scoop after training is the easy fix.', learn:'learn-protein'});
+    if(!S.b12 && X.fromFood && pk('b12').pct<50) consider.push({name:'Vitamin B12', text:'B12 is low on today\'s food; on a mostly plant-based diet it must come from a supplement.', learn:'learn-vitamins'});
+    if(!S.magnesium && X.fromFood && pk('mg').pct<50 && sl<7) consider.push({name:'Magnesium', text:'Low magnesium and short sleep — 200–400 mg glycinate at night is a reasonable trial.', learn:'learn-minerals'});
+    if(pEntered && protein<T.protein-30) consider.push({name:'Protein powder', text:'A 30+ g gap is hard to close with meals every day; a scoop after training is the easy fix.', learn:'learn-protein'});
+    if(!S.calcium && X.fromFood && pk('ca').pct<40) consider.push({name:'Calcium (from food first)', text:'Calcium is well short — two servings of curd, milk or paneer a day; a 500 mg supplement only if dairy is out.', learn:'learn-minerals'});
+
+    // risk readouts (protection 0–100)
+    var strengthPts = i.strength>=2 ? 100 : i.strength===1 ? 60 : 20;
+    var naPts = Math.round(clamp((3500 - A.na)/1200, 0, 1)*100);
+    var risks = [
+      {id:'heart', name:'Heart & blood vessels', score: Math.round(0.3*moveScore + 0.3*q + 0.15*sScore + 0.1*naPts + 0.15*Math.min(100,pk('k').pct) - (i.smoke==='yes'?30:0) - (G.alcohol>2?10:0)), why:'steps, food quality, sleep, sodium vs potassium, smoking'},
+      {id:'metabolic', name:'Blood sugar & weight', score: Math.round(0.3*moveScore + 0.25*fScore + 0.2*clamp(100 - G.sugary*25 - G.junk*12, 0, 100) + 0.15*sScore + 0.1*pScore), why:'movement, fibre, sugar & snacks, sleep, protein'},
+      {id:'bones', name:'Bones & joints', score: Math.round(0.3*Math.min(100,pk('ca').pct) + 0.25*Math.min(100,pk('vd').pct) + 0.25*strengthPts + 0.2*pScore), why:'calcium, vitamin D, strength training, protein'},
+      {id:'gut', name:'Gut & digestion', score: Math.round(clamp(0.4*fScore + 0.3*clamp(X.plantKinds/8,0,1)*100 + 0.3*(dairy>0?100:40) - G.alcohol*10 - G.junk*5, 0, 100)), why:'fibre, plant variety, curd/fermented food, alcohol & junk'},
+      {id:'brain', name:'Brain, mood & focus', score: Math.round(0.3*sScore + 0.25*moveScore + 0.2*Math.min(100,pk('o3').pct) + 0.15*(i.sun>=20?100:i.sun*5) + 0.1*Math.min(100,pk('b12').pct)), why:'sleep, movement, omega-3, daylight, B12'},
+      {id:'immune', name:'Immunity & energy', score: Math.round(0.25*Math.min(100,pk('vc').pct) + 0.2*Math.min(100,pk('vd').pct) + 0.2*Math.min(100,pk('zn').pct) + 0.2*sScore + 0.15*Math.min(100,pk('fe').pct)), why:'vitamin C, D, zinc, sleep, iron'}
+    ];
+    risks.forEach(function(r){ r.score = clamp(r.score,0,100); r.status = r.score>=75 ? 'ok' : r.score>=50 ? 'short' : 'miss'; r.label = r.score>=75 ? 'Well protected' : r.score>=50 ? 'Some gaps' : 'Exposed today'; });
 
     var total = 0; pillars.forEach(function(p){ total += p.score*p.w/100; });
     total = Math.round(total);
@@ -7073,147 +7381,372 @@
     var order = {miss:0, excess:1, short:2};
     gaps.sort(function(a,b){ return order[a.k]-order[b.k]; });
     pillars.forEach(function(p){ p.status = p.score>=75 ? 'ok' : p.score>=45 ? 'short' : 'miss'; });
-    var worst = pillars.slice().sort(function(a,b){ return (a.score-b.score)*Math.sqrt(b.w/a.w); })[0];
-    var summary = total>=85 ? 'Nearly everything is covered — keep this day as your template.' : (gaps.length ? 'Biggest lever today: '+gaps[0].title.toLowerCase()+'.' : 'Fill in the sections to see what to work on.');
-    return {total:total, grade:grade, summary:summary, pillars:pillars, gaps:gaps, wins:wins, review:review, consider:consider, worst:worst, protein:protein, pTarget:pTarget, fiber:fiber, fiberEst:fiberEst};
+    var summary = total>=85 ? 'Nearly everything is covered — keep this day as your template.' : (gaps.length ? 'Biggest lever today: '+gaps[0].title.replace(/:.*$/,'').toLowerCase()+'.' : 'Fill in the steps to see what to work on.');
+    return {total:total, grade:grade, summary:summary, pillars:pillars, gaps:gaps, wins:wins, review:review, consider:consider, risks:risks, panel:panel, totals:X, targets:T};
   }
-
-  // ---- form ----------------------------------------------------------
-  function hcCard(title, iconSvg, body, note, id){
-    return '<div class="chart-card"'+(id?' id="'+id+'"':'')+'><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true">'+iconSvg+'</span>'+title+'</span></h2>'+(note?'<p class="hc-sec-note">'+note+'</p>':'')+body+'</div>';
+  // ---- UI helpers ------------------------------------------------------
+  function hcEsc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function hcCard(title, iconSvg, body, note, id, cls){
+    return '<div class="chart-card'+(cls?' '+cls:'')+'"'+(id?' id="'+id+'"':'')+'>'+(title?'<h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true">'+iconSvg+'</span>'+title+'</span></h2>':'')+(note?'<p class="hc-sec-note">'+note+'</p>':'')+body+'</div>';
   }
   var HC_ICON = {
     person:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.8-4 4-6 7.5-6s6.7 2 7.5 6"/></svg>',
     move:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="4.5" r="1.8"/><path d="M9 21l2.5-6.5L9 12l3-3.5 3 2.5 3 .5M11.5 14.5L15 17l1 4M9 12l-3 2"/></svg>',
     food:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-5 0-8-3.5-8-8V9h16v4c0 4.5-3 8-8 8z"/><path d="M12 9c0-3 2-5 5-6-1 2-1 4 0 6M4 13h16"/></svg>',
-    nut:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 20V9a6 6 0 0112 0v11"/><path d="M6 20h12M9 13h6M9 17h6"/></svg>',
     supp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-35 12 12.5)"/><path d="M8.5 16.5l7-5"/></svg>',
     sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></svg>',
     chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>',
     gap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17.5v.5"/></svg>',
-    pill:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>'
+    pill:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>',
+    wheel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l7.8 5.7-3 9.3H7.2l-3-9.3z"/><path d="M12 3v15M4.2 8.7l15.6 0M7.2 18l4.8-15 4.8 15"/></svg>',
+    body:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><path d="M8 10h8l-1 6h-6zM10 16l-1 6M14 16l1 6M8 10l-2 4M16 10l2 4"/></svg>',
+    share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 002 2h10a2 2 0 002-2v-5"/></svg>',
+    search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>'
   };
-  function hcStepItem(f, val){
-    return '<div class="hc-item'+(f.bad?' bad':'')+(val>0?' has':'')+'" data-food="'+f.id+'"><div><span class="hn">'+f.name+'</span><span class="hh">'+f.hint+'</span></div><div class="hc-step"><button type="button" data-food-step="'+f.id+'" data-d="-1" aria-label="less">−</button><b>'+val+'</b><button type="button" data-food-step="'+f.id+'" data-d="1" aria-label="more">+</button></div></div>';
-  }
   function hcChips(key, vals, cur, labels){
     return '<div class="hc-chips" data-key="'+key+'">'+vals.map(function(v,ix){ return '<button type="button" class="chip-btn'+(String(v)===String(cur)?' active':'')+'" data-v="'+v+'">'+(labels?labels[ix]:v)+'</button>'; }).join('')+'</div>';
   }
-  function hcBuildForm(){
-    var i = hcInp(), h = '';
-    h += hcCard('About you', HC_ICON.person,
-      '<div class="segmented" id="hcSex"><button type="button" data-v="male"'+(i.sex==='male'?' class="active"':'')+'>Male</button><button type="button" data-v="female"'+(i.sex==='female'?' class="active"':'')+'>Female</button></div>'+
-      '<div class="row2" style="margin-top:0.8rem"><div class="field"><label>Age</label><input type="number" inputmode="numeric" id="hcAge" min="10" max="100" value="'+i.age+'"></div><div class="field"><label>Weight (kg)</label><input type="number" inputmode="decimal" id="hcWeight" min="25" max="300" step="0.1" placeholder="'+Math.round(hcWeightKg(i))+'" value="'+i.weight+'"></div></div>',
-      'Only used to size your protein and water targets. Anyone can use this — it does not need the Setup tab.');
-    h += hcCard('Movement', HC_ICON.move,
-      '<div class="field"><label>Steps today</label><input type="number" inputmode="numeric" id="hcSteps" min="0" max="60000" placeholder="e.g. 8000" value="'+i.steps+'"></div>'+
-      '<label class="meditate-field-label">Strength sessions a week</label>'+hcChips('strength',[0,1,2,3,4,5,6,7],i.strength)+
-      '<label class="meditate-field-label">Cardio or sport sessions a week</label>'+hcChips('cardio',[0,1,2,3,4,5,6,7],i.cardio),
-      'Walking, lifting and cardio are scored separately — all three matter.');
-    h += hcCard('What you ate today', HC_ICON.food,
-      '<div class="hc-grid">'+HC_FOODS.filter(function(f){ return !f.bad; }).map(function(f){ return hcStepItem(f, i.foods[f.id]); }).join('')+'</div>'+
-      '<label class="meditate-field-label" style="margin-top:0.9rem">Worth limiting</label>'+
-      '<div class="hc-grid">'+HC_FOODS.filter(function(f){ return f.bad; }).map(function(f){ return hcStepItem(f, i.foods[f.id]); }).join('')+'</div>',
-      'Count servings, not calories. A serving is roughly a cupped hand of vegetables or fruit, a fist of grains, a palm of protein.');
-    h += hcCard('Protein, fibre & water', HC_ICON.nut,
-      '<div class="row2"><div class="field"><label>Protein today (g)</label><input type="number" inputmode="numeric" id="hcProtein" min="0" max="500" placeholder="target ~'+Math.round(hcWeightKg(i)*1.6)+'" value="'+i.protein+'"></div><div class="field"><label>Fibre today (g)</label><input type="number" inputmode="numeric" id="hcFiber" min="0" max="150" placeholder="target 30" value="'+i.fiber+'"></div></div>'+
-      '<div class="hc-inline" style="margin:-0.5rem 0 0.9rem"><button type="button" class="chip-btn" id="hcEstFiber">Estimate fibre from my foods</button><span class="hc-est" id="hcFiberEst"></span></div>'+
-      '<div class="field"><label>Water & other fluids (litres)</label><input type="number" inputmode="decimal" id="hcWater" min="0" max="10" step="0.25" placeholder="e.g. 2.5" value="'+i.water+'"></div>',
-      'If you log meals on the Today tab, "Use today\'s log" fills protein and water for you.');
-    h += hcCard('Supplements taken today', HC_ICON.supp,
-      '<div class="hc-supps">'+HC_SUPPS.map(function(sp){ return '<button type="button" class="hc-supp'+(i.supps[sp.id]?' on':'')+'" data-supp="'+sp.id+'"><span class="tick">'+(i.supps[sp.id]?'✓':'')+'</span><span class="sn">'+sp.name+'</span></button>'; }).join('')+'</div>',
-      'Tap what you took. The review below tells you which ones are earning their place.');
-    h += hcCard('Sleep & daylight', HC_ICON.sleep,
-      '<label class="meditate-field-label">Hours of sleep last night</label>'+hcChips('sleep',[4,5,6,6.5,7,7.5,8,8.5,9,10],i.sleep)+
-      '<label class="meditate-field-label">Minutes outdoors in daylight</label>'+hcChips('sun',[0,10,20,30,45,60,90],i.sun,['0','10','20','30','45','60','90+'])+
-      '<label class="meditate-field-label">Smoked or vaped today?</label>'+hcChips('smoke',['no','yes'],i.smoke,['No','Yes']),
-      '');
-    el('hcForm').innerHTML = h;
+  function hcHex(name){ var c = cssColor(name); return '#'+c.map(function(v){ return ('0'+Math.round(clamp(v,0,1)*255).toString(16)).slice(-2); }).join(''); }
+  function hcReturning(){ return Object.keys(state.logs||{}).some(function(d){ var l = state.logs[d]; return (l.foods&&l.foods.length) || l.steps!=null || l.weight!=null; }); }
+  function hcStatusColor(st){ return st==='ok' ? 'var(--good)' : st==='short' ? 'var(--carb)' : 'var(--danger)'; }
+
+  // ---- shell -----------------------------------------------------------
+  function hcShellHTML(){
+    return '<div class="hc-hero-grid">'+
+      '<div class="hc-orb-wrap" id="hcOrbWrap"><canvas id="hcOrb" aria-hidden="true"></canvas><div class="hc-orb-num"><b id="hcScoreNum">–</b><span>/100</span></div></div>'+
+      '<div class="hc-hero-text"><span class="hc-kicker">Today\'s health score</span><h2 class="hc-grade" id="hcGrade">Start your check-up</h2><p class="hc-summary" id="hcSummary">Six quick steps. Nothing leaves this device.</p><div class="hc-mini" id="hcMini"></div><div class="hc-trend" id="hcTrend"></div></div>'+
+    '</div>'+
+    '<div class="hc-stepper" id="hcStepper"></div>';
   }
-  function hcSyncForm(){
+  function hcRenderStepper(){
     var i = hcInp();
-    document.querySelectorAll('#hcSex button').forEach(function(b){ b.classList.toggle('active', b.dataset.v===i.sex); });
-    if(document.activeElement!==el('hcAge')) el('hcAge').value = i.age;
-    if(document.activeElement!==el('hcWeight')) el('hcWeight').value = i.weight;
-    if(document.activeElement!==el('hcSteps')) el('hcSteps').value = i.steps;
-    if(document.activeElement!==el('hcProtein')) el('hcProtein').value = i.protein;
-    if(document.activeElement!==el('hcFiber')) el('hcFiber').value = i.fiber;
-    if(document.activeElement!==el('hcWater')) el('hcWater').value = i.water;
-    el('hcProtein').placeholder = 'target ~'+Math.round(hcWeightKg(i)*1.6);
-    el('hcWeight').placeholder = String(Math.round(hcWeightKg(i)));
-    document.querySelectorAll('#hcForm .hc-chips').forEach(function(row){ var k = row.dataset.key; row.querySelectorAll('.chip-btn').forEach(function(b){ b.classList.toggle('active', String(b.dataset.v)===String(i[k])); }); });
-    document.querySelectorAll('#hcForm .hc-item[data-food]').forEach(function(it){ var v = i.foods[it.dataset.food]||0; it.querySelector('b').textContent = v; it.classList.toggle('has', v>0); });
-    document.querySelectorAll('#hcForm .hc-supp').forEach(function(b){ var on = !!i.supps[b.dataset.supp]; b.classList.toggle('on', on); b.querySelector('.tick').textContent = on ? '✓' : ''; });
-    var est = hcFiberEstimate(i); el('hcFiberEst').textContent = est>0 ? '≈ '+est+' g from the food groups above' : '';
+    el('hcStepper').innerHTML = HC_STEPS.map(function(s, ix){ return '<button type="button" class="hc-stepdot'+(ix===i.step?' cur':ix<i.step?' done':'')+'" data-step="'+ix+'"><span class="d">'+(ix<i.step?'✓':ix+1)+'</span><span class="l">'+s.name+'</span></button>'; }).join('<span class="hc-stepline"></span>');
+  }
+  function hcNavHTML(){
+    var i = hcInp(), last = HC_STEPS.length-1;
+    return '<div class="hc-nav">'+(i.step>0?'<button type="button" class="chip-btn ghost" data-nav="-1">← Back</button>':'<span></span>')+(i.step<last?'<button type="button" class="chip-btn primary" data-nav="1">'+(i.step===last-1?'See my report →':'Next →')+'</button>':'<button type="button" class="chip-btn ghost" data-nav="restart">Start over</button>')+'</div>';
   }
 
-  // ---- results -------------------------------------------------------
-  var hcLastTotal = null;
-  function hcRenderScore(r, animate){
-    var any = hcHasInput(hcInp());
-    var prog = el('hcProg'), num = el('hcScoreNum');
-    var t = any ? r.total : 0;
-    prog.style.strokeDashoffset = (326.7*(1-t/100)).toFixed(1);
-    prog.classList.toggle('low', any && t<40); prog.classList.toggle('mid', any && t>=40 && t<70);
-    if(!any){ num.textContent = '–'; el('hcGrade').textContent = 'Fill in your day'; el('hcSummary').textContent = 'Each answer updates the score instantly. Nothing leaves this device.'; el('hcMini').innerHTML = ''; hcLastTotal = null; return; }
-    if(animate && !REDUCE_MOTION && hcLastTotal!==null && hcLastTotal!==t){
-      var from = hcLastTotal, start = performance.now();
-      (function tick(now){ var k = Math.min(1,(now-start)/600); var e = 1-Math.pow(1-k,3); num.textContent = Math.round(from+(t-from)*e); if(k<1) requestAnimationFrame(tick); })(start);
-    } else num.textContent = t;
-    hcLastTotal = t;
-    el('hcGrade').textContent = r.grade;
-    el('hcSummary').textContent = r.summary;
-    el('hcMini').innerHTML = r.pillars.map(function(p){ return '<span class="'+p.status+'">'+p.name+' '+p.score+'</span>'; }).join('');
+  // ---- steps -----------------------------------------------------------
+  function hcStepHTML(){
+    var i = hcInp(), s = HC_STEPS[i.step], T = hcTargets(i), h = '';
+    var head = '<div class="hc-step-head"><span class="hc-kicker">Step '+(i.step+1)+' of '+HC_STEPS.length+'</span><h2 class="hc-step-title">'+s.title+'</h2></div>';
+    if(s.id==='you'){
+      h += head+'<p class="hc-sec-note">Only used to size your targets (protein, fibre, iron, calcium…). No account, no Setup tab needed.</p>'+
+        '<div class="segmented" id="hcSex"><button type="button" data-v="male"'+(i.sex==='male'?' class="active"':'')+'>Male</button><button type="button" data-v="female"'+(i.sex==='female'?' class="active"':'')+'>Female</button></div>'+
+        '<div class="row2" style="margin-top:0.9rem"><div class="field"><label>Age</label><input type="number" inputmode="numeric" id="hcAge" min="10" max="100" value="'+i.age+'"></div><div class="field"><label>Weight (kg)</label><input type="number" inputmode="decimal" id="hcWeight" min="25" max="300" step="0.1" placeholder="'+Math.round(hcWeightKg(i))+'" value="'+i.weight+'"></div></div>'+
+        '<div class="hc-targets"><span>Protein <b>'+T.protein+' g</b></span><span>Fibre <b>'+T.fib+' g</b></span><span>Water <b>'+T.water+' L</b></span><span>Iron <b>'+T.fe+' mg</b></span><span>Calcium <b>'+T.ca+' mg</b></span></div>'+
+        (hcReturning() ? '<div class="hc-inline"><button type="button" class="chip-btn" id="hcPrefill">Use my Setup numbers & today\'s log</button></div>' : '');
+    } else if(s.id==='move'){
+      h += head+'<div class="field"><label>Steps today</label><input type="number" inputmode="numeric" id="hcSteps" min="0" max="60000" placeholder="e.g. 8000" value="'+i.steps+'"></div>'+
+        '<label class="meditate-field-label">Strength sessions a week</label>'+hcChips('strength',[0,1,2,3,4,5,6,7],i.strength)+
+        '<label class="meditate-field-label">Cardio or sport sessions a week</label>'+hcChips('cardio',[0,1,2,3,4,5,6,7],i.cardio)+
+        '<p class="hc-sec-note" style="margin-top:0.4rem">Walking, lifting and cardio are scored separately — all three matter. 7,000–10,000 steps and two strength sessions a week is the evidence-based floor.</p>';
+    } else if(s.id==='food'){
+      h += head+hcFoodStepHTML();
+    } else if(s.id==='supps'){
+      h += head+'<p class="hc-sec-note">Tap what you took today. The report tells you which ones are earning their place and which your food already covers.</p>'+
+        '<div class="hc-supps">'+HC_SUPPS.map(function(sp){ return '<button type="button" class="hc-supp'+(i.supps[sp.id]?' on':'')+'" data-supp="'+sp.id+'"><span class="tick">'+(i.supps[sp.id]?'✓':'')+'</span><span><span class="sn">'+sp.name+'</span>'+(sp.dose?'<span class="sd">'+sp.dose+'</span>':'')+'</span></button>'; }).join('')+'</div>';
+    } else if(s.id==='rest'){
+      h += head+'<label class="meditate-field-label">Hours of sleep last night</label>'+hcChips('sleep',[4,5,6,6.5,7,7.5,8,8.5,9,10],i.sleep)+
+        '<label class="meditate-field-label">Minutes outdoors in daylight</label>'+hcChips('sun',[0,10,20,30,45,60,90],i.sun,['0','10','20','30','45','60','90+'])+
+        '<label class="meditate-field-label">Water & other fluids today (litres)</label><div class="field"><input type="number" inputmode="decimal" id="hcWater" min="0" max="10" step="0.25" placeholder="e.g. 2.5" value="'+i.water+'"></div>'+
+        '<label class="meditate-field-label">Smoked or vaped today?</label>'+hcChips('smoke',['no','yes'],i.smoke,['No','Yes']);
+    } else {
+      h += head+'<p class="hc-sec-note">Your full report is below — the wheel, body map, nutrient panel, what\'s missing and your supplement review. Save it as an image or share it.</p>';
+    }
+    return h+hcNavHTML();
   }
-  function hcRenderResults(r){
-    var i = hcInp(), any = hcHasInput(i), h = '';
-    if(!any){ el('hcResults').innerHTML = hcCard('Your results', HC_ICON.chart, '<div class="hc-empty">Tap a few answers above and your score, gaps and fixes appear here.</div>'); return; }
-    h += hcCard('Score breakdown', HC_ICON.chart, '<div class="hc-pillars">'+r.pillars.map(function(p){ return '<div class="hc-pill '+p.status+'"><span class="pn">'+p.name+' <small style="color:var(--text-2);font-weight:600">· '+p.w+'%</small></span><span class="ps">'+p.score+'</span><span class="pd">'+p.detail+'</span><span class="pb"><span style="width:'+p.score+'%"></span></span></div>'; }).join('')+'</div>', 'Weighted by how much each pillar moves long-term health. 75+ on a pillar counts as covered.', 'hcBreakdown');
-    var gapsHtml = r.gaps.length ? r.gaps.map(function(g){
-      return '<div class="hc-gap '+g.k+'"><h4>'+g.title+'</h4><p>'+g.text+'</p>'+(g.fills&&g.fills.length?'<div class="hc-fills">'+g.fills.map(function(f){ return '<span>'+f.n+(f.g?' <b>'+f.g+'</b>':'')+'</span>'; }).join('')+'</div>':'')+(g.learn?'<button type="button" class="hc-learn" data-learn="'+g.learn+'">Why this matters →</button>':'')+'</div>';
-    }).join('') : '<div class="hc-gap good"><h4>Nothing missing today</h4><p>Every pillar is covered. Repeat this day as often as you can.</p></div>';
+  var hcFoodView = {q:'', group:'quick'};
+  function hcFoodRow(f, extra){
+    return '<button type="button" class="hc-food" data-add="'+f.id+'"><span class="fn">'+hcEsc(f.name)+'<small>'+hcEsc(f.serving)+'</small></span><span class="fm">'+Math.round(f.kcal)+' kcal · P '+Math.round(f.p)+' · fibre '+(Math.round(f.fib*10)/10)+'</span><span class="fplus">+</span></button>';
+  }
+  function hcFoodListHTML(){
+    var v = hcFoodView, list;
+    if(v.q){ var q = v.q.toLowerCase(); list = HC_DB.map(function(f){ var n = f.name.toLowerCase(), ix = n.indexOf(q); var gx = (HC_GROUPS[f.group]||{name:''}).name.toLowerCase().indexOf(q); var rank = ix===0 ? 0 : ix>0 ? (n.charAt(ix-1)===' '||n.charAt(ix-1)==='('||n.charAt(ix-1)==='/' ? 1 : 2) : gx>-1 ? 3 : 9; return {f:f, r:rank}; }).filter(function(x){ return x.r<9; }).sort(function(a,b){ return a.r-b.r; }).map(function(x){ return x.f; }).slice(0,12); }
+    else if(v.group==='quick') list = HC_QUICK.map(function(id){ return HC_DB_BY_ID[id]; });
+    else list = HC_DB.filter(function(f){ return f.group===v.group; });
+    if(!list.length) return '<div class="hc-empty">Nothing matches — add it as a custom food below.</div>';
+    return list.map(hcFoodRow).join('');
+  }
+  function hcItemsHTML(){
+    var i = hcInp();
+    if(!i.items.length) return '<div class="hc-empty">Nothing logged yet. Search above or tap a quick pick.</div>';
+    return i.items.map(function(it, ix){ var f = hcItemFood(it); return '<div class="hc-item has" data-ix="'+ix+'"><div><span class="hn">'+hcEsc(f.name)+'</span><span class="hh">'+hcEsc(f.serving)+(it.q!==1?' × '+it.q:'')+' · '+Math.round(f.kcal*it.q)+' kcal · P '+Math.round(f.p*it.q)+' g · fibre '+Math.round(f.fib*it.q)+' g</span></div><div class="hc-step"><button type="button" data-item-step="'+ix+'" data-d="-1" aria-label="less">−</button><b>'+it.q+'</b><button type="button" data-item-step="'+ix+'" data-d="1" aria-label="more">+</button></div></div>'; }).join('');
+  }
+  function hcTotalsStrip(){
+    var i = hcInp(), X = hcTotals(i), T = hcTargets(i), A = X.all, G = X.groups;
+    var tile = function(l, v, t, u){ var p = t ? Math.round(clamp(v/t,0,1)*100) : 0; return '<div class="hc-tot"><span class="l">'+l+'</span><b>'+Math.round(v)+'</b><small>'+(t?'/ '+t+' '+u:u)+'</small><i style="width:'+p+'%"></i></div>'; };
+    return tile('Calories', A.kcal, 0, 'kcal')+tile('Protein', A.p, T.protein, 'g')+tile('Fibre', A.fib, T.fib, 'g')+tile('Veg + fruit', G.veg+G.fruit, 5, 'servings');
+  }
+  function hcFoodStepHTML(){
+    var i = hcInp();
+    var groups = [['quick','Quick picks'],['veg','Veg'],['fruit','Fruit'],['grains','Grains'],['legumes','Dal & beans'],['nuts','Nuts & seeds'],['dairy','Dairy'],['fish','Fish'],['meatEggs','Eggs & meat'],['redMeat','Red meat'],['junk','Snacks'],['sugary','Drinks'],['alcohol','Alcohol']];
+    return '<div class="hc-search"><span class="hc-search-ic">'+HC_ICON.search+'</span><input type="search" id="hcSearch" placeholder="Search 100+ foods — dal, oats, paneer, salmon…" autocomplete="off" value="'+hcEsc(hcFoodView.q)+'"></div>'+
+      '<div class="hc-chips hc-groups" id="hcGroups">'+groups.map(function(g){ return '<button type="button" class="chip-btn'+(hcFoodView.group===g[0]&&!hcFoodView.q?' active':'')+'" data-group="'+g[0]+'">'+g[1]+'</button>'; }).join('')+'</div>'+
+      '<div class="hc-foodlist" id="hcFoodList">'+hcFoodListHTML()+'</div>'+
+      '<div class="hc-inline" style="margin:0.6rem 0 0.2rem"><button type="button" class="chip-btn" id="hcCustomToggle">+ Something else</button>'+(hcReturning()?'<button type="button" class="chip-btn" id="hcPrefill">Use today\'s log</button>':'')+'</div>'+
+      '<div class="hc-custom" id="hcCustom" hidden><div class="row2"><div class="field"><label>Name</label><input type="text" id="hcCName" placeholder="e.g. Rajma chawal" maxlength="60"></div><div class="field"><label>Calories</label><input type="number" inputmode="numeric" id="hcCKcal" min="0" max="3000" placeholder="kcal"></div></div><div class="row3"><div class="field"><label>Protein g</label><input type="number" inputmode="numeric" id="hcCP" min="0" max="300"></div><div class="field"><label>Fibre g</label><input type="number" inputmode="numeric" id="hcCFib" min="0" max="100"></div><div class="field"><label>Added sugar g</label><input type="number" inputmode="numeric" id="hcCSug" min="0" max="200"></div></div><div class="hc-inline" style="margin-top:0"><button type="button" class="chip-btn primary" id="hcCustomAdd">Add food</button></div></div>'+
+      '<label class="meditate-field-label" style="margin-top:0.9rem">Logged today</label><div class="hc-items" id="hcItems">'+hcItemsHTML()+'</div>'+
+      '<div class="hc-totals" id="hcTotals">'+hcTotalsStrip()+'</div>'+
+      '<details class="hc-manual"'+(i.items.length?'':' open')+'><summary>Not logging foods? Enter totals instead</summary><div class="row2" style="margin-top:0.6rem"><div class="field"><label>Protein today (g)</label><input type="number" inputmode="numeric" id="hcProtein" min="0" max="500" value="'+i.protein+'"></div><div class="field"><label>Fibre today (g)</label><input type="number" inputmode="numeric" id="hcFiber" min="0" max="150" value="'+i.fiber+'"></div></div><p class="hc-sec-note">Used only when nothing is logged above. Logging foods also scores food quality and 12 vitamins and minerals.</p></details>';
+  }
+
+  // ---- visuals: orb, wheel, body map, sparkline --------------------------
+  var hcOrb = {raf:null, t:0, score:0, target:0, dots:null};
+  function hcOrbFrame(){
+    hcOrb.raf = null;
+    var c = el('hcOrb'); if(!c || currentTab!=='health' || document.hidden) return;
+    var dpr = Math.min(2, window.devicePixelRatio||1), w = c.clientWidth, h = c.clientHeight;
+    if(!w) { hcOrb.raf = requestAnimationFrame(hcOrbFrame); return; }
+    if(c.width!==Math.round(w*dpr)){ c.width = Math.round(w*dpr); c.height = Math.round(h*dpr); }
+    var ctx = c.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,w,h);
+    hcOrb.t += 0.016; hcOrb.score += (hcOrb.target - hcOrb.score)*0.08;
+    var s = hcOrb.score, cx = w/2, cy = h/2, R = Math.min(w,h)*0.36;
+    var dark = isDarkTheme();
+    var c1 = s>=70 ? hcHex('--accent') : s>=40 ? hcHex('--carb') : hcHex('--danger');
+    var c2 = s>=70 ? hcHex('--accent-2') : s>=40 ? hcHex('--protein') : hcHex('--carb');
+    if(!hcOrb.dots){ hcOrb.dots = []; for(var k=0;k<42;k++) hcOrb.dots.push({a:Math.random()*Math.PI*2, r:1.25+Math.random()*0.25, sp:0.25+Math.random()*0.35, sz:1+Math.random()*1.6}); }
+    // halo
+    var halo = ctx.createRadialGradient(cx,cy,R*0.6,cx,cy,R*1.9); halo.addColorStop(0, c1+'44'); halo.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = halo; ctx.fillRect(0,0,w,h);
+    var tilt = 0.42, rot = hcOrb.t*0.5;
+    function dot(d, front){
+      var ang = d.a + hcOrb.t*d.sp*(front?1:1);
+      var x = Math.cos(ang)*R*d.r, y = Math.sin(ang)*R*d.r*tilt, z = Math.sin(ang);
+      if((z>0)!==front) return;
+      var px = cx + x*Math.cos(rot*0.2) , py = cy + y + Math.cos(hcOrb.t*0.7)*2;
+      ctx.beginPath(); ctx.arc(px, py, d.sz*(front?1:0.7), 0, Math.PI*2);
+      ctx.fillStyle = front ? c2 : c1; ctx.globalAlpha = (front?0.95:0.35)*Math.min(1, s/60+0.25); ctx.fill(); ctx.globalAlpha = 1;
+    }
+    hcOrb.dots.forEach(function(d){ dot(d,false); });
+    // sphere
+    var hx = cx - R*0.38 + Math.sin(hcOrb.t*0.6)*R*0.08, hy = cy - R*0.42;
+    var g = ctx.createRadialGradient(hx,hy,R*0.08, cx,cy,R*1.05);
+    g.addColorStop(0, '#ffffff'); g.addColorStop(0.12, c1); g.addColorStop(0.65, c2); g.addColorStop(1, dark ? '#05060a' : '#1a2230');
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.fillStyle = g; ctx.fill();
+    // inner shade for the number
+    var sh = ctx.createRadialGradient(cx,cy,0,cx,cy,R); sh.addColorStop(0,'rgba(0,0,0,0.55)'); sh.addColorStop(0.55,'rgba(0,0,0,0.35)'); sh.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = sh; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.fill();
+    // rim light
+    ctx.strokeStyle = 'rgba(255,255,255,0.18)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(cx,cy,R-0.6,0,Math.PI*2); ctx.stroke();
+    // progress arc around the orb
+    ctx.lineCap = 'round'; ctx.lineWidth = 5;
+    ctx.strokeStyle = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'; ctx.beginPath(); ctx.arc(cx,cy,R+11,0,Math.PI*2); ctx.stroke();
+    var lg = ctx.createLinearGradient(cx-R,cy,cx+R,cy); lg.addColorStop(0,c1); lg.addColorStop(1,c2);
+    ctx.strokeStyle = lg; ctx.beginPath(); ctx.arc(cx,cy,R+11,-Math.PI/2, -Math.PI/2 + Math.PI*2*(s/100)); ctx.stroke();
+    hcOrb.dots.forEach(function(d){ dot(d,true); });
+    if(!REDUCE_MOTION) hcOrb.raf = requestAnimationFrame(hcOrbFrame);
+  }
+  function hcOrbStart(){ if(!hcOrb.raf) hcOrb.raf = requestAnimationFrame(hcOrbFrame); }
+
+  function hcWheelSVG(pillars, prev){
+    var n = pillars.length, cx = 160, cy = 132, r = 86;
+    var pt = function(ix, v){ var a = -Math.PI/2 + ix*2*Math.PI/n; return [cx + Math.cos(a)*r*v/100, cy + Math.sin(a)*r*v/100]; };
+    var ring = function(v){ return pillars.map(function(p,ix){ return pt(ix,v).join(','); }).join(' '); };
+    var poly = pillars.map(function(p,ix){ return pt(ix,p.score).join(','); }).join(' ');
+    var prevPoly = prev ? pillars.map(function(p,ix){ return pt(ix, prev[ix]||0).join(','); }).join(' ') : '';
+    var labels = pillars.map(function(p,ix){ var q = pt(ix,124); var a = -Math.PI/2 + ix*2*Math.PI/n; var anchor = Math.cos(a)>0.3 ? 'start' : Math.cos(a)<-0.3 ? 'end' : 'middle'; return '<text x="'+q[0].toFixed(1)+'" y="'+(q[1]+4).toFixed(1)+'" text-anchor="'+anchor+'" class="wl" fill="'+hcStatusColor(p.status)+'">'+p.name.replace(' & recovery','').replace('Vitamins & minerals','Vitamins')+' <tspan class="wv">'+p.score+'</tspan></text>'; }).join('');
+    return '<svg viewBox="0 0 320 264" class="hc-wheel"><defs><linearGradient id="hcWheelG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs>'+
+      [25,50,75,100].map(function(v){ return '<polygon points="'+ring(v)+'" class="wg'+(v===75?' w75':'')+'"/>'; }).join('')+
+      pillars.map(function(p,ix){ var q = pt(ix,100); return '<line x1="'+cx+'" y1="'+cy+'" x2="'+q[0].toFixed(1)+'" y2="'+q[1].toFixed(1)+'" class="wa"/>'; }).join('')+
+      (prevPoly?'<polygon points="'+prevPoly+'" class="wprev"/>':'')+
+      '<polygon points="'+poly+'" class="wp"/>'+
+      pillars.map(function(p,ix){ var q = pt(ix,p.score); return '<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="3.5" fill="'+hcStatusColor(p.status)+'" class="wd"/>'; }).join('')+
+      labels+'</svg>';
+  }
+  var HC_BODY = {
+    brain:{x:100,y:34,name:'Brain, mood & focus'}, heart:{x:113,y:104,name:'Heart & blood vessels'}, immune:{x:87,y:104,name:'Immunity & energy'},
+    gut:{x:100,y:146,name:'Gut & digestion'}, metabolic:{x:100,y:184,name:'Blood sugar & weight'}, bones:{x:85,y:262,name:'Bones & joints'}
+  };
+  function hcBodySVG(risks){
+    var spots = risks.map(function(r){ var b = HC_BODY[r.id]; if(!b) return ''; var col = hcStatusColor(r.status); return '<g class="bspot" data-risk="'+r.id+'"><circle cx="'+b.x+'" cy="'+b.y+'" r="16" fill="'+col+'" opacity="0.18" class="bp"/><circle cx="'+b.x+'" cy="'+b.y+'" r="9" fill="'+col+'" opacity="0.9"/><text x="'+b.x+'" y="'+(b.y+3.5)+'" text-anchor="middle" class="bt">'+r.score+'</text></g>'; }).join('');
+    return '<svg viewBox="0 0 200 350" class="hc-body"><defs><linearGradient id="hcBodyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity="0.22"/><stop offset="1" stop-color="var(--accent-2)" stop-opacity="0.1"/></linearGradient></defs>'+
+      '<g class="bsil"><circle cx="100" cy="34" r="23"/><rect x="92" y="56" width="16" height="14" rx="5"/><rect x="66" y="66" width="68" height="130" rx="22"/><rect x="36" y="72" width="22" height="118" rx="11" transform="rotate(12 47 131)"/><rect x="142" y="72" width="22" height="118" rx="11" transform="rotate(-12 153 131)"/><rect x="70" y="188" width="27" height="150" rx="13"/><rect x="103" y="188" width="27" height="150" rx="13"/></g>'+
+      spots+'</svg>';
+  }
+  function hcSparkSVG(hist){
+    var days = []; for(var k=6;k>=0;k--){ var d = new Date(); d.setDate(d.getDate()-k); days.push(toDateStr(d)); }
+    var vals = days.map(function(d){ var h = hist[d]; return h ? (typeof h==='number' ? h : h.t) : null; });
+    if(vals.filter(function(v){ return v!=null; }).length<2) return '';
+    var w = 140, hh = 36, pts = [];
+    vals.forEach(function(v,ix){ if(v!=null) pts.push([(ix/6)*(w-8)+4, hh-4-(v/100)*(hh-8)]); });
+    var path = pts.map(function(p,ix){ return (ix?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1); }).join(' ');
+    return '<svg viewBox="0 0 '+w+' '+hh+'" class="hc-spark"><path d="'+path+'" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+pts.map(function(p){ return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.4" fill="var(--accent)"/>'; }).join('')+'</svg>';
+  }
+  function hcPrevEntry(){
+    var hist = (state.health && state.health.history) || {}, today = todayStr();
+    var keys = Object.keys(hist).filter(function(d){ return d<today; }).sort();
+    if(!keys.length) return null;
+    var h = hist[keys[keys.length-1]]; return {date:keys[keys.length-1], t: typeof h==='number' ? h : h.t, p: (h && h.p) || null};
+  }
+
+  // ---- hero + report ----------------------------------------------------
+  var hcLastTotal = null;
+  function hcRenderHero(r){
+    var i = hcInp(), any = hcHasInput(i), t = any ? r.total : 0;
+    hcOrb.target = t; if(!any) hcOrb.score = 0;
+    var num = el('hcScoreNum');
+    if(!any){ num.textContent = '–'; el('hcGrade').textContent = 'Start your check-up'; el('hcSummary').textContent = 'Six quick steps. Nothing leaves this device.'; el('hcMini').innerHTML = ''; el('hcTrend').innerHTML = ''; hcLastTotal = null; }
+    else {
+      if(!REDUCE_MOTION && hcLastTotal!==null && hcLastTotal!==t){ var from = hcLastTotal, start = performance.now(); (function tick(now){ var k = Math.min(1,(now-start)/600); var e = 1-Math.pow(1-k,3); num.textContent = Math.round(from+(t-from)*e); if(k<1) requestAnimationFrame(tick); })(start); }
+      else num.textContent = t;
+      hcLastTotal = t;
+      el('hcGrade').textContent = r.grade; el('hcSummary').textContent = r.summary;
+      el('hcMini').innerHTML = r.pillars.map(function(p){ return '<span class="'+p.status+'">'+p.name.replace(' & recovery','').replace('Vitamins & minerals','Vitamins')+' '+p.score+'</span>'; }).join('');
+      var prev = hcPrevEntry(), tr = '';
+      if(prev){ var d = t - prev.t; tr += '<span class="'+(d>=0?'up':'down')+'">'+(d>=0?'▲':'▼')+' '+Math.abs(d)+' vs last check ('+prev.date.slice(5).replace('-','/')+')</span>'; }
+      tr += hcSparkSVG((state.health&&state.health.history)||{});
+      el('hcTrend').innerHTML = tr;
+    }
+    if(REDUCE_MOTION){ hcOrb.score = t; hcOrbFrame(); } else hcOrbStart();
+  }
+  function hcReportHTML(r){
+    var i = hcInp(), any = hcHasInput(i);
+    if(!any) return hcCard('Your report', HC_ICON.chart, '<div class="hc-empty">Go through the steps — your wheel, body map, nutrient panel and fixes appear here.</div>', '', 'hcReport');
+    var prev = hcPrevEntry(), h = '';
+    // wheel
+    h += hcCard('Health wheel', HC_ICON.wheel, '<div class="hc-wheel-wrap">'+hcWheelSVG(r.pillars, prev && prev.p)+'</div>'+(prev&&prev.p?'<p class="hc-sec-note" style="margin-top:0.3rem">Solid = today · dashed = your last check ('+prev.date.slice(5).replace('-','/')+').</p>':'')+'<div class="hc-pillars">'+r.pillars.map(function(p){ return '<div class="hc-pill '+p.status+'"><span class="pn">'+p.name+' <small>· '+p.w+'%</small></span><span class="ps">'+p.score+'</span><span class="pd">'+p.detail+'</span><span class="pb"><span style="width:'+p.score+'%"></span></span></div>'; }).join('')+'</div>', 'Seven pillars, weighted by how much each moves long-term health. 75+ counts as covered.', 'hcWheelCard');
+    // body map
+    h += hcCard('Body map', HC_ICON.body, '<div class="hc-body-grid"><div class="hc-body-wrap">'+hcBodySVG(r.risks)+'</div><div class="hc-risks">'+r.risks.map(function(k){ return '<div class="hc-risk '+k.status+'" data-risk="'+k.id+'"><span class="rn">'+k.name+'</span><span class="rs">'+k.score+'</span><span class="rl">'+k.label+'</span><span class="rw">'+k.why+'</span></div>'; }).join('')+'</div></div>', 'How today\'s habits protect each system — a protection score from 0 to 100, not a diagnosis.', 'hcBodyCard');
+    // nutrient panel
+    var pro = {k:'protein', name:'Protein', unit:'g', v:r.totals.all.p, t:r.targets.protein, pct:hcPct(r.totals.all.p, r.targets.protein), learn:'learn-protein'};
+    var fib = {k:'fib', name:'Fibre', unit:'g', v:r.totals.all.fib, t:r.targets.fib, pct:hcPct(r.totals.all.fib, r.targets.fib), learn:'learn-digestion'};
+    var rows = [pro, fib].concat(r.panel);
+    h += hcCard('Nutrient panel', HC_ICON.chart, (r.totals.fromFood ? '' : '<div class="hc-empty">Log foods in step 3 to see vitamins and minerals.</div>')+'<div class="hc-nutri">'+rows.map(function(p){ var st = p.upper ? (p.v<=p.t?'ok':p.v<=p.t*1.3?'short':'miss') : (p.pct>=75?'ok':p.pct>=50?'short':'miss'); var disp = p.unit==='g' ? (Math.round(p.v*10)/10) : Math.round(p.v); return '<div class="hc-nu '+st+'"><span class="nn">'+p.name+'</span><span class="nv"><b>'+disp+'</b> / '+p.t+' '+p.unit+'</span><span class="nb"><span style="width:'+Math.min(100,p.upper?Math.round(p.v/p.t*100):p.pct)+'%"></span></span><span class="np">'+(p.upper?(p.v>p.t?'over':'ok'):Math.min(120,p.pct)+'%')+'</span>'+(p.src&&st!=='ok'?'<span class="ns">'+p.src+'</span>':'')+'</div>'; }).join('')+'</div><p class="hc-foot">Daily needs follow the US/EFSA reference intakes for your age and sex; food values are typical-serving estimates. Sunlight is credited toward vitamin D.</p>', '', 'hcNutri');
+    // gaps
+    var gapsHtml = r.gaps.length ? r.gaps.map(function(g){ return '<div class="hc-gap '+g.k+'"><h4>'+g.title+'</h4><p>'+g.text+'</p>'+(g.fills&&g.fills.length?'<div class="hc-fills">'+g.fills.map(function(f){ return '<span>'+f.n+(f.g?' <b>'+f.g+'</b>':'')+'</span>'; }).join('')+'</div>':'')+(g.learn?'<button type="button" class="hc-learn" data-learn="'+g.learn+'">Why this matters →</button>':'')+'</div>'; }).join('') : '<div class="hc-gap good"><h4>Nothing missing today</h4><p>Every pillar is covered. Repeat this day as often as you can.</p></div>';
     if(r.wins.length) gapsHtml += '<div class="hc-gap good"><h4>Already covered</h4><p>'+r.wins.join(' · ')+'</p></div>';
     h += hcCard("What's missing — and how to fill it", HC_ICON.gap, gapsHtml, 'Ordered by impact. Each chip is one concrete swap or addition for today.', 'hcGaps');
+    // supplements
     var rv = '';
     if(r.review.length) rv += '<div class="hc-supp-review">'+r.review.map(function(x){ var lbl = {keep:'Keep', skip:'Optional', add:'Add', care:'Careful'}[x.v]; return '<div class="hc-sr"><span class="n">'+x.name+'</span><span class="v '+x.v+'">'+lbl+'</span><span class="t">'+x.text+'</span></div>'; }).join('')+'</div>';
-    else rv += '<div class="hc-empty">No supplements ticked. Food first — the list below shows what might be worth adding.</div>';
+    else rv += '<div class="hc-empty">No supplements ticked. Food first — below is what might be worth adding.</div>';
     if(r.consider.length) rv += '<label class="meditate-field-label" style="margin-top:0.9rem">Worth considering</label><div class="hc-supp-review">'+r.consider.map(function(x){ return '<div class="hc-sr"><span class="n">'+x.name+'</span><span class="v add">Consider</span><span class="t">'+x.text+'</span></div>'; }).join('')+'</div>';
     rv += '<button type="button" class="hc-learn" data-learn="learn-supplements">What the evidence says about supplements →</button>';
-    rv += '<p class="hc-foot">Targets follow WHO physical-activity guidance (150+ min a week, 2 strength days), the EFSA/IOM fibre intake (25–30 g), 1.2–1.6 g/kg protein for active adults, 7–9 h sleep and standard upper limits for supplements. This is general guidance; a doctor or dietitian should review anything medical.</p>';
     h += hcCard('Supplement review', HC_ICON.pill, rv, '', 'hcSupps');
-    el('hcResults').innerHTML = h;
+    // share
+    h += hcCard('Save or share', HC_ICON.share, '<div class="hc-actions"><button type="button" class="chip-btn primary" id="hcSaveImg">Save report image</button>'+(navigator.share?'<button type="button" class="chip-btn" id="hcShare">Share</button>':'')+'<button type="button" class="chip-btn" id="hcCopy">Copy summary</button></div><canvas id="hcReportCanvas" hidden></canvas><p class="hc-foot">Targets follow WHO physical-activity guidance (150+ min a week, 2 strength days), reference fibre, vitamin and mineral intakes for your age and sex, 1.2–1.6 g/kg protein for active adults and 7–9 h sleep. General guidance only; a doctor or dietitian should review anything medical.</p>', 'A clean report card you can keep, send to a friend or show a coach.', 'hcShareCard');
+    return h;
   }
+  function hcSummaryText(r){
+    return 'Lean Metrics health check — '+todayStr()+'\nScore '+r.total+'/100 · '+r.grade+'\n'+r.pillars.map(function(p){ return p.name+': '+p.score; }).join(' · ')+'\nTop fixes:\n'+r.gaps.slice(0,3).map(function(g){ return '• '+g.title; }).join('\n')+'\n'+r.risks.map(function(k){ return k.name+': '+k.label; }).join(' · ');
+  }
+  function hcDrawReport(r){
+    var c = el('hcReportCanvas'); if(!c) return null;
+    var W = 1080, H = 1540; c.width = W; c.height = H; var x = c.getContext('2d');
+    var dark = true, acc = hcHex('--accent'), acc2 = hcHex('--accent-2');
+    x.fillStyle = '#07080B'; x.fillRect(0,0,W,H);
+    var g1 = x.createRadialGradient(150,120,10,150,120,700); g1.addColorStop(0, acc+'55'); g1.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle = g1; x.fillRect(0,0,W,H);
+    var g2 = x.createRadialGradient(950,1250,10,950,1250,700); g2.addColorStop(0, acc2+'44'); g2.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle = g2; x.fillRect(0,0,W,H);
+    var F = '"Outfit", "Inter", system-ui, sans-serif';
+    x.fillStyle = '#F4F6F8'; x.font = '800 44px '+F; x.fillText('Lean Metrics', 72, 96);
+    x.fillStyle = '#8E95A3'; x.font = '600 26px '+F; x.fillText('Health check · '+new Date().toLocaleDateString(undefined,{weekday:'short', day:'numeric', month:'short', year:'numeric'}), 72, 136);
+    // score ring
+    var cx = 230, cy = 330, R = 120;
+    x.lineWidth = 22; x.lineCap = 'round'; x.strokeStyle = 'rgba(255,255,255,0.08)'; x.beginPath(); x.arc(cx,cy,R,0,Math.PI*2); x.stroke();
+    var lg = x.createLinearGradient(cx-R,cy,cx+R,cy); lg.addColorStop(0, r.total>=70?acc:r.total>=40?'#FFB547':'#FF5C6C'); lg.addColorStop(1, r.total>=70?acc2:r.total>=40?'#FF6A5C':'#FFB547');
+    x.strokeStyle = lg; x.beginPath(); x.arc(cx,cy,R,-Math.PI/2,-Math.PI/2+Math.PI*2*r.total/100); x.stroke();
+    x.fillStyle = '#F4F6F8'; x.font = '800 96px '+F; x.textAlign = 'center'; x.fillText(String(r.total), cx, cy+34); x.font = '600 24px '+F; x.fillStyle = '#8E95A3'; x.fillText('out of 100', cx, cy+68); x.textAlign = 'left';
+    x.fillStyle = '#F4F6F8'; x.font = '800 56px '+F; x.fillText(r.grade, 400, 290);
+    x.fillStyle = '#B5BAC6'; x.font = '500 26px '+F; hcWrapText(x, r.summary, 400, 334, 600, 34);
+    // pillars
+    var y = 520; x.font = '700 24px '+F;
+    r.pillars.forEach(function(p){
+      x.fillStyle = '#F4F6F8'; x.fillText(p.name, 72, y); x.textAlign = 'right'; x.fillStyle = hcStatusHex(p.status); x.fillText(String(p.score), 1008, y); x.textAlign = 'left';
+      x.fillStyle = 'rgba(255,255,255,0.08)'; hcRR(x, 72, y+12, 936, 12, 6); x.fill();
+      var bg = x.createLinearGradient(72,0,1008,0); bg.addColorStop(0, acc); bg.addColorStop(1, acc2); x.fillStyle = p.status==='ok' ? bg : hcStatusHex(p.status); hcRR(x, 72, y+12, 936*p.score/100, 12, 6); x.fill();
+      y += 58;
+    });
+    // fixes
+    y += 20; x.fillStyle = '#F4F6F8'; x.font = '800 32px '+F; x.fillText('Top fixes for today', 72, y); y += 20;
+    r.gaps.slice(0,3).forEach(function(g){ y += 44; x.fillStyle = g.k==='miss' ? '#FF5C6C' : g.k==='excess' ? '#FF6A5C' : '#FFB547'; x.beginPath(); x.arc(84,y-8,7,0,Math.PI*2); x.fill(); x.fillStyle = '#F4F6F8'; x.font = '700 26px '+F; x.fillText(g.title, 108, y); });
+    if(!r.gaps.length){ y += 44; x.fillStyle = '#5CF2A1'; x.font = '700 26px '+F; x.fillText('Nothing missing — repeat this day.', 72, y); }
+    // risks
+    y += 70; x.fillStyle = '#F4F6F8'; x.font = '800 32px '+F; x.fillText('Body systems', 72, y); y += 26;
+    r.risks.forEach(function(k, ix){ var col = ix%2, row = Math.floor(ix/2); var bx = 72 + col*478, by = y + row*78; x.fillStyle = 'rgba(255,255,255,0.05)'; hcRR(x, bx, by, 458, 62, 16); x.fill(); x.fillStyle = hcStatusHex(k.status); x.beginPath(); x.arc(bx+30, by+31, 9, 0, Math.PI*2); x.fill(); x.fillStyle = '#F4F6F8'; x.font = '700 24px '+F; x.fillText(k.name, bx+52, by+28); x.fillStyle = '#8E95A3'; x.font = '600 20px '+F; x.fillText(k.label+' · '+k.score, bx+52, by+52); });
+    x.fillStyle = '#8E95A3'; x.font = '500 20px '+F; x.fillText('General guidance, not medical advice · anilmadha.github.io/lean-metrics', 72, H-48);
+    return c;
+  }
+  function hcStatusHex(st){ return st==='ok' ? '#5CF2A1' : st==='short' ? '#FFB547' : '#FF5C6C'; }
+  function hcRR(x, X, Y, W, H, R){ x.beginPath(); x.moveTo(X+R,Y); x.arcTo(X+W,Y,X+W,Y+H,R); x.arcTo(X+W,Y+H,X,Y+H,R); x.arcTo(X,Y+H,X,Y,R); x.arcTo(X,Y,X+W,Y,R); x.closePath(); }
+  function hcWrapText(x, text, X, Y, maxW, lh){ var words = String(text).split(' '), line = ''; words.forEach(function(w){ var t = line ? line+' '+w : w; if(x.measureText(t).width>maxW){ x.fillText(line, X, Y); line = w; Y += lh; } else line = t; }); if(line) x.fillText(line, X, Y); }
+  function hcExportImage(share){
+    var r = hcScore(hcInp());
+    var go = function(){
+      var c = hcDrawReport(r); if(!c) return;
+      c.toBlob(function(blob){
+        if(!blob) return;
+        var name = 'health-check-'+todayStr()+'.png';
+        if(share && navigator.share){
+          var file = new File([blob], name, {type:'image/png'});
+          if(navigator.canShare && navigator.canShare({files:[file]})){ navigator.share({files:[file], title:'Health check', text:hcSummaryText(r)}).catch(function(){}); return; }
+          navigator.share({title:'Health check', text:hcSummaryText(r)}).catch(function(){}); return;
+        }
+        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+        toast('Report image saved');
+      }, 'image/png');
+    };
+    if(document.fonts && document.fonts.load) document.fonts.load('800 40px Outfit').then(go, go); else go();
+  }
+
+  // ---- render + events --------------------------------------------------
   var hcTimer = null;
-  function hcRecalc(animate){
+  function hcRecalc(){
     var i = hcInp(), r = hcScore(i);
-    hcRenderScore(r, animate);
-    hcRenderResults(r);
-    if(hcHasInput(i)){ state.health.history[todayStr()] = r.total; var ks = Object.keys(state.health.history).sort(); while(ks.length>120){ delete state.health.history[ks.shift()]; } }
+    hcRenderHero(r);
+    var isReport = HC_STEPS[i.step].id==='report';
+    el('hcMain').classList.toggle('report', isReport);
+    el('hcReport').innerHTML = isReport ? hcReportHTML(r) : '';
+    if(el('hcSide')) el('hcSide').innerHTML = hcHasInput(i) ? '<div class="hc-wheel-wrap small">'+hcWheelSVG(r.pillars, null)+'</div><div class="hc-risks compact">'+r.risks.map(function(k){ return '<div class="hc-risk '+k.status+'"><span class="rn">'+k.name+'</span><span class="rs">'+k.score+'</span></div>'; }).join('')+'</div>' : '<div class="hc-empty">Your health wheel and body-system scores build here as you answer.</div>';
+    if(hcHasInput(i)){ state.health.history[todayStr()] = {t:r.total, p:r.pillars.map(function(p){ return p.score; })}; var ks = Object.keys(state.health.history).sort(); while(ks.length>120){ delete state.health.history[ks.shift()]; } }
     saveState();
   }
-  function hcChanged(){ hcSyncForm(); clearTimeout(hcTimer); hcTimer = setTimeout(function(){ hcRecalc(true); }, 120); }
+  function hcRenderStep(){
+    el('hcStepCard').innerHTML = hcStepHTML();
+    hcRenderStepper();
+    var sc = el('hcStepCard'); sc.classList.remove('hc-enter'); void sc.offsetWidth; sc.classList.add('hc-enter');
+  }
+  function hcGoStep(n, scroll){
+    var i = hcInp(); i.step = clamp(n, 0, HC_STEPS.length-1); hcFoodView.q = '';
+    hcRenderStep(); hcRecalc();
+    if(scroll!==false){ var top = el('hcStepCard').getBoundingClientRect().top + window.scrollY - 84; window.scrollTo({top:Math.max(0,top), behavior:REDUCE_MOTION?'auto':'smooth'}); }
+  }
+  function hcRefreshFood(){
+    if(el('hcFoodList')) el('hcFoodList').innerHTML = hcFoodListHTML();
+    if(el('hcItems')) el('hcItems').innerHTML = hcItemsHTML();
+    if(el('hcTotals')) el('hcTotals').innerHTML = hcTotalsStrip();
+    if(el('hcGroups')) el('hcGroups').querySelectorAll('.chip-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.group===hcFoodView.group && !hcFoodView.q); });
+  }
   function renderHealth(){
-    if(!el('hcForm').children.length) hcBuildForm();
-    hcSyncForm();
-    hcRecalc(false);
+    if(!el('hcHero').children.length){ el('hcHero').innerHTML = hcShellHTML(); }
+    hcRenderStep(); hcRecalc();
   }
   function initHealth(){
     var page = el('page-health'); if(!page) return;
     page.addEventListener('click', function(e){
       var i = hcInp(), t;
-      if((t = e.target.closest('[data-food-step]'))){ var id = t.dataset.foodStep; i.foods[id] = clamp((i.foods[id]||0)+parseInt(t.dataset.d,10), 0, 12); buzz(8); hcChanged(); return; }
-      if((t = e.target.closest('.hc-supp'))){ var sid = t.dataset.supp; if(i.supps[sid]) delete i.supps[sid]; else i.supps[sid] = true; buzz(8); hcChanged(); return; }
-      if((t = e.target.closest('.hc-chips .chip-btn'))){ var key = t.closest('.hc-chips').dataset.key, v = t.dataset.v; i[key] = (key==='smoke') ? v : parseFloat(v); hcChanged(); return; }
-      if((t = e.target.closest('#hcSex button'))){ i.sex = t.dataset.v; hcChanged(); return; }
-      if(e.target.closest('#hcEstFiber')){ i.fiber = hcFiberEstimate(i); hcChanged(); toast('Fibre set to ~'+i.fiber+' g from your food groups'); return; }
-      if(e.target.closest('#hcPrefill')){ hcPrefillFromLog(); hcChanged(); toast('Filled from today\'s log and your Setup numbers'); return; }
-      if(e.target.closest('#hcReset')){ state.health.inp = hcDefaults(); hcBuildForm(); hcRecalc(false); window.scrollTo({top:0, behavior: REDUCE_MOTION?'auto':'smooth'}); return; }
-      if(e.target.closest('#hcToResults')){ var g = el('hcGaps') || el('hcResults'); if(g) g.scrollIntoView({behavior: REDUCE_MOTION?'auto':'smooth', block:'start'}); return; }
+      if((t = e.target.closest('[data-nav]'))){ var nv = t.dataset.nav; if(nv==='restart'){ state.health.inp = hcDefaults(); hcGoStep(0); toast('Check-up reset'); } else hcGoStep(i.step+parseInt(nv,10)); return; }
+      if((t = e.target.closest('.hc-stepdot'))){ hcGoStep(parseInt(t.dataset.step,10)); return; }
+      if((t = e.target.closest('[data-add]'))){ var id = t.dataset.add, ex = i.items.filter(function(it){ return it.id===id; })[0]; if(ex) ex.q = Math.min(20, ex.q+1); else i.items.push({id:id, q:1}); buzz(8); hcRefreshFood(); hcRecalc(); t.classList.add('added'); setTimeout(function(){ t.classList.remove('added'); }, 500); return; }
+      if((t = e.target.closest('[data-item-step]'))){ var ix = parseInt(t.dataset.itemStep,10), it = i.items[ix]; if(!it) return; var d = parseInt(t.dataset.d,10); if(d<0 && it.q<=1) i.items.splice(ix,1); else it.q = Math.min(20, Math.max(0.5, it.q + (it.q<1?0.5:1)*d)); buzz(8); hcRefreshFood(); hcRecalc(); return; }
+      if((t = e.target.closest('#hcGroups .chip-btn'))){ hcFoodView.group = t.dataset.group; hcFoodView.q = ''; if(el('hcSearch')) el('hcSearch').value = ''; hcRefreshFood(); return; }
+      if(e.target.closest('#hcCustomToggle')){ var cf = el('hcCustom'); cf.hidden = !cf.hidden; if(!cf.hidden) el('hcCName').focus(); return; }
+      if(e.target.closest('#hcCustomAdd')){ var nm = (el('hcCName').value||'').trim(); if(!nm){ toast('Give the food a name'); return; } var cid = 'c:'+nm.toLowerCase().slice(0,40)+'-'+Date.now().toString(36); i.items.push({id:cid, q:1, name:nm, kcal:nonNeg(el('hcCKcal').value), p:nonNeg(el('hcCP').value), c:0, f:0, fib:nonNeg(el('hcCFib').value), sug:nonNeg(el('hcCSug').value)}); el('hcCustom').hidden = true; ['hcCName','hcCKcal','hcCP','hcCFib','hcCSug'].forEach(function(id){ el(id).value = ''; }); hcRefreshFood(); hcRecalc(); toast('Added '+nm); return; }
+      if((t = e.target.closest('.hc-supp'))){ var sid = t.dataset.supp; if(i.supps[sid]) delete i.supps[sid]; else i.supps[sid] = true; t.classList.toggle('on', !!i.supps[sid]); t.querySelector('.tick').textContent = i.supps[sid] ? '✓' : ''; buzz(8); hcRecalc(); return; }
+      if((t = e.target.closest('.hc-chips:not(.hc-groups) .chip-btn'))){ var key = t.closest('.hc-chips').dataset.key, v = t.dataset.v; i[key] = (key==='smoke') ? v : parseFloat(v); t.parentNode.querySelectorAll('.chip-btn').forEach(function(b){ b.classList.toggle('active', b===t); }); hcRecalc(); return; }
+      if((t = e.target.closest('#hcSex button'))){ i.sex = t.dataset.v; t.parentNode.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b===t); }); hcRecalc(); hcRenderStep(); return; }
+      if(e.target.closest('#hcPrefill')){ var n = hcPrefillFromLog(); hcRenderStep(); hcRecalc(); toast(n ? 'Filled from Setup and '+n+' logged food'+(n>1?'s':'') : 'Filled from your Setup numbers'); return; }
+      if(e.target.closest('#hcSaveImg')){ hcExportImage(false); return; }
+      if(e.target.closest('#hcShare')){ hcExportImage(true); return; }
+      if(e.target.closest('#hcCopy')){ var txt = hcSummaryText(hcScore(i)); if(navigator.clipboard) navigator.clipboard.writeText(txt).then(function(){ toast('Summary copied'); }, function(){ toast('Could not copy'); }); return; }
+      if((t = e.target.closest('.bspot, .hc-risk'))){ var rid = t.dataset.risk; page.querySelectorAll('.hc-risk, .bspot').forEach(function(x){ x.classList.toggle('focus', x.dataset.risk===rid); }); var row = page.querySelector('.hc-risk[data-risk="'+rid+'"]'); if(row && e.target.closest('.bspot')) row.scrollIntoView({behavior:REDUCE_MOTION?'auto':'smooth', block:'nearest'}); return; }
       if((t = e.target.closest('.hc-learn'))){ var target = t.dataset.learn; switchTab('learn'); var chip = document.querySelector('#learnChips .chip-btn[data-target="'+target+'"]'); if(chip) setTimeout(function(){ chip.click(); }, 60); return; }
     });
     page.addEventListener('input', function(e){
       var i = hcInp(), id = e.target.id, v = e.target.value;
       var num = function(min,max){ var x = parseFloat(v); return (v!=='' && isFinite(x)) ? clamp(x,min,max) : ''; };
+      if(id==='hcSearch'){ hcFoodView.q = v.trim(); hcRefreshFood(); return; }
       if(id==='hcAge'){ var a = parseFloat(v); if(isFinite(a) && a>=10 && a<=100) i.age = Math.round(a); }
       else if(id==='hcWeight') i.weight = num(25,300);
       else if(id==='hcSteps') i.steps = num(0,60000);
@@ -7221,8 +7754,10 @@
       else if(id==='hcFiber') i.fiber = num(0,150);
       else if(id==='hcWater') i.water = num(0,10);
       else return;
-      clearTimeout(hcTimer); hcTimer = setTimeout(function(){ hcSyncForm(); hcRecalc(true); }, 250);
+      clearTimeout(hcTimer); hcTimer = setTimeout(function(){ hcRecalc(); if(id==='hcAge'||id==='hcWeight'){ var tg = hcTargets(i); var tt = el('hcStepCard').querySelector('.hc-targets'); if(tt) tt.innerHTML = '<span>Protein <b>'+tg.protein+' g</b></span><span>Fibre <b>'+tg.fib+' g</b></span><span>Water <b>'+tg.water+' L</b></span><span>Iron <b>'+tg.fe+' mg</b></span><span>Calcium <b>'+tg.ca+' mg</b></span>'; } }, 250);
     });
+    page.addEventListener('keydown', function(e){ if(e.key==='Enter' && e.target.id==='hcSearch'){ var first = el('hcFoodList') && el('hcFoodList').querySelector('[data-add]'); if(first) first.click(); e.preventDefault(); } });
+    document.addEventListener('visibilitychange', function(){ if(!document.hidden && currentTab==='health') hcOrbStart(); });
   }
 
   function init(){
