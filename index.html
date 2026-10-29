@@ -963,7 +963,7 @@
     #page-meditate.active > section.panel:first-child{ border:none; padding:0 0 1rem; background:none; }
     #meditateBody{ border:none !important; padding:0 !important; background:none !important; }
     #meditateBody{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 1.8rem; }
-    #meditateBody .chart-card{ border:1px solid var(--hairline); border-radius:16px; padding:1.3rem 1.4rem; margin:0; }
+    #meditateBody .chart-card, #healthBody .chart-card{ border:1px solid var(--hairline); border-radius:16px; padding:1.3rem 1.4rem; margin:0; }
     #meditateBody .meditate-timer-card{ grid-column:1 / -1; }
 
     /* today: date-nav bar is a slim strip, not a tall card */
@@ -1127,7 +1127,7 @@
 
   /* ---------- desktop: card tilt + light sheen ---------- */
   @media (min-width:900px) and (hover:hover) and (pointer:fine){
-    .tabpage.active section.panel:not(#ringPanel):not(#dateNavPanel), #trendsBody .chart-card, #workoutsBody .chart-card, #learnBody .chart-card, #meditateBody .chart-card{
+    .tabpage.active section.panel:not(#ringPanel):not(#dateNavPanel), #trendsBody .chart-card, #workoutsBody .chart-card, #learnBody .chart-card, #meditateBody .chart-card, #healthBody .chart-card{
       position:relative; transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0px)); transition:transform .35s var(--ease-out), box-shadow .35s ease; transform-style:preserve-3d;
     }
     .tabpage.active section.panel:hover{ transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-3px); }
@@ -1381,14 +1381,14 @@
       box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px -22px rgba(0,0,0,0.65); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);}
     #dateNavPanel, #numbersPanel{background:transparent; border:none; box-shadow:none; backdrop-filter:none; padding:0.2rem 0 0.4rem;}
     #numbersPanel{padding-top:0.4rem;}
-    #trendsBody, #workoutsBody, #learnBody, #meditateBody{background:transparent; border:none; box-shadow:none; backdrop-filter:none; padding:0;}
-    #page-trends > section.panel:first-child, #page-workouts > section.panel:first-child, #page-learn > section.panel:first-child, #page-meditate > section.panel:first-child{background:transparent; border:none; box-shadow:none; backdrop-filter:none; padding:0 0 0.6rem;}
+    #trendsBody, #workoutsBody, #learnBody, #meditateBody, #healthBody{background:transparent; border:none; box-shadow:none; backdrop-filter:none; padding:0;}
+    #page-trends > section.panel:first-child, #page-workouts > section.panel:first-child, #page-learn > section.panel:first-child, #page-meditate > section.panel:first-child, #page-health > section.panel:first-child{background:transparent; border:none; box-shadow:none; backdrop-filter:none; padding:0 0 0.6rem;}
     .chart-card{background:var(--glass); border:1px solid var(--glass-border); border-radius:var(--radius); padding:1.1rem 1rem; margin-bottom:0.8rem; box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px -22px rgba(0,0,0,0.65);}
     #ringPanel{padding:1.2rem 1rem 1.1rem;}
   }
   @media (min-width:900px){
     .tabpage.active section.panel{background:var(--glass); border-color:var(--glass-border); border-radius:var(--radius); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px -22px rgba(0,0,0,0.65);}
-    #trendsBody .chart-card, #workoutsBody .chart-card, #learnBody .chart-card, #meditateBody .chart-card{background:var(--glass); border-color:var(--glass-border); border-radius:var(--radius);}
+    #trendsBody .chart-card, #workoutsBody .chart-card, #learnBody .chart-card, #meditateBody .chart-card, #healthBody .chart-card{background:var(--glass); border-color:var(--glass-border); border-radius:var(--radius);}
   }
 
   /* hero: full-bleed gradient wash, giant gradient number, rings beside it when there's room */
@@ -1498,6 +1498,98 @@
   .week-rings .lbl{font-weight:700;}
   .eflow-bar .e-act{background:var(--grad);}
   .act-bar i:nth-child(3){background:var(--accent);}
+
+  /* ============================================================
+     HEALTH CHECK TAB (v25)
+  ============================================================ */
+  nav.tabbar .tlabel{font-size:0.62rem;}
+  nav.tabbar svg{width:21px; height:21px;}
+  .hc-score-card{overflow:hidden; position:relative;}
+  .hc-score-wrap{display:grid; grid-template-columns:auto 1fr; gap:1rem; align-items:center;}
+  .hc-ring{position:relative; width:124px; height:124px;}
+  .hc-ring svg{width:100%; height:100%; overflow:visible;}
+  .hc-track{fill:none; stroke:color-mix(in srgb, var(--text) 10%, transparent); stroke-width:10;}
+  .hc-prog{fill:none; stroke:url(#hcGrad); stroke-width:10; stroke-linecap:round; stroke-dasharray:326.7; stroke-dashoffset:326.7; transition:stroke-dashoffset .9s var(--ease-out); filter:drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 55%, transparent));}
+  .hc-prog.low{stroke:var(--danger); filter:drop-shadow(0 0 8px color-mix(in srgb, var(--danger) 55%, transparent));}
+  .hc-prog.mid{stroke:var(--carb); filter:drop-shadow(0 0 8px color-mix(in srgb, var(--carb) 55%, transparent));}
+  .hc-ring-num{position:absolute; inset:0; display:flex; align-items:baseline; justify-content:center; padding-top:40px; gap:2px;}
+  .hc-ring-num b{font-family:var(--font-display); font-weight:800; font-size:2.3rem; letter-spacing:-0.04em; line-height:1; font-variant-numeric:tabular-nums;}
+  .hc-ring-num span{font-size:0.72rem; color:var(--text-2); font-weight:600;}
+  .hc-kicker{font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-2); font-weight:700;}
+  .hc-grade{font-family:var(--font-display); font-weight:800; font-size:1.5rem; letter-spacing:-0.02em; margin:0.15rem 0 0.25rem; line-height:1.1;}
+  .hc-summary{margin:0; font-size:0.85rem; color:var(--text-2); line-height:1.45;}
+  .hc-mini{display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.55rem;}
+  .hc-mini span{font-size:0.68rem; font-weight:700; padding:0.22rem 0.55rem; border-radius:999px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-2);}
+  .hc-mini span.ok{color:var(--good); border-color:color-mix(in srgb, var(--good) 45%, transparent);}
+  .hc-mini span.short{color:var(--carb); border-color:color-mix(in srgb, var(--carb) 45%, transparent);}
+  .hc-mini span.miss{color:var(--danger); border-color:color-mix(in srgb, var(--danger) 45%, transparent);}
+  .hc-actions{display:flex; flex-wrap:wrap; gap:0.45rem; margin-top:0.9rem;}
+  .hc-actions .chip-btn{padding:0.5rem 0.9rem; font-size:0.8rem;}
+  .hc-actions .chip-btn.ghost{background:transparent;}
+  .hc-sec-note{font-size:0.78rem; color:var(--text-2); margin:-0.2rem 0 0.6rem; line-height:1.45;}
+  .hc-grid{display:grid; grid-template-columns:1fr 1fr; gap:0.55rem;}
+  .hc-grid.one{grid-template-columns:1fr;}
+  .hc-item{display:flex; align-items:center; justify-content:space-between; gap:0.5rem; padding:0.55rem 0.55rem 0.55rem 0.7rem; border-radius:14px; border:1px solid var(--glass-border); background:var(--glass); min-width:0;}
+  .hc-item.has{border-color:color-mix(in srgb, var(--accent) 55%, transparent);}
+  .hc-item.bad.has{border-color:color-mix(in srgb, var(--danger) 55%, transparent);}
+  .hc-item > div:first-child{min-width:0;}
+  .hc-item .hn{display:block; font-size:0.8rem; font-weight:700; line-height:1.2;}
+  .hc-item .hh{display:block; font-size:0.66rem; color:var(--text-2); margin-top:0.1rem; line-height:1.25;}
+  .hc-step{display:flex; align-items:center; gap:0.15rem; flex:none;}
+  .hc-step button{width:28px; height:28px; border-radius:50%; border:1px solid var(--glass-border); background:var(--surface); color:var(--text); font-size:1rem; font-weight:700; line-height:1; display:flex; align-items:center; justify-content:center; padding:0;}
+  .hc-step button:active{transform:scale(0.9);}
+  .hc-step b{min-width:1.4rem; text-align:center; font-family:var(--font-display); font-weight:800; font-variant-numeric:tabular-nums; font-size:0.95rem;}
+  .hc-item.has .hc-step b{color:var(--accent);}
+  .hc-item.bad.has .hc-step b{color:var(--danger);}
+  .hc-chips{display:flex; flex-wrap:wrap; gap:0.4rem; margin:0.35rem 0 0.9rem;}
+  .hc-chips .chip-btn{padding:0.45rem 0.85rem; font-size:0.8rem;}
+  .hc-supps{display:grid; grid-template-columns:1fr 1fr; gap:0.45rem;}
+  .hc-supp{text-align:left; padding:0.55rem 0.7rem; border-radius:14px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text); font:inherit; cursor:pointer; display:flex; align-items:center; gap:0.5rem; min-width:0;}
+  .hc-supp .tick{width:18px; height:18px; border-radius:6px; border:1.5px solid var(--glass-border); flex:none; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--on-accent);}
+  .hc-supp.on{border-color:color-mix(in srgb, var(--accent) 55%, transparent);}
+  .hc-supp.on .tick{background:var(--grad); border-color:transparent;}
+  .hc-supp .sn{font-size:0.8rem; font-weight:700; line-height:1.2;}
+  .hc-inline{display:flex; align-items:center; gap:0.5rem; margin-top:0.4rem;}
+  .hc-inline .chip-btn{padding:0.4rem 0.8rem; font-size:0.76rem;}
+  .hc-est{font-size:0.72rem; color:var(--text-2);}
+  .hc-pillars{display:flex; flex-direction:column; gap:0.6rem;}
+  .hc-pill{display:grid; grid-template-columns:1fr auto; gap:0.1rem 0.6rem; padding:0.6rem 0.75rem; border-radius:14px; border:1px solid var(--glass-border); background:var(--glass);}
+  .hc-pill .pn{font-weight:700; font-size:0.86rem;}
+  .hc-pill .ps{font-family:var(--font-display); font-weight:800; font-size:1rem; text-align:right; font-variant-numeric:tabular-nums;}
+  .hc-pill .pd{grid-column:1 / -1; font-size:0.74rem; color:var(--text-2); line-height:1.35;}
+  .hc-pill .pb{grid-column:1 / -1; height:6px; border-radius:3px; background:color-mix(in srgb, var(--text) 10%, transparent); overflow:hidden; margin-top:0.2rem;}
+  .hc-pill .pb span{display:block; height:100%; border-radius:3px; background:var(--grad); transition:width .7s var(--ease-out);}
+  .hc-pill.short .pb span{background:var(--carb);} .hc-pill.miss .pb span{background:var(--danger);}
+  .hc-pill.short .ps{color:var(--carb);} .hc-pill.miss .ps{color:var(--danger);} .hc-pill.ok .ps{color:var(--good);}
+  .hc-gap{padding:0.75rem 0.85rem; border-radius:16px; border:1px solid var(--glass-border); background:var(--glass); margin-bottom:0.55rem; border-left:3px solid var(--carb);}
+  .hc-gap.miss{border-left-color:var(--danger);} .hc-gap.good{border-left-color:var(--good);} .hc-gap.excess{border-left-color:var(--protein);}
+  .hc-gap h4{margin:0 0 0.2rem; font-family:var(--font-display); font-weight:800; font-size:0.95rem; letter-spacing:-0.01em;}
+  .hc-gap p{margin:0; font-size:0.8rem; color:var(--text-2); line-height:1.45;}
+  .hc-fills{display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.5rem;}
+  .hc-fills span{font-size:0.72rem; padding:0.3rem 0.6rem; border-radius:999px; background:color-mix(in srgb, var(--accent) 12%, transparent); border:1px solid color-mix(in srgb, var(--accent) 30%, transparent); color:var(--text);}
+  .hc-fills span b{color:var(--accent); font-family:var(--font-display);}
+  .hc-learn{background:none; border:none; padding:0; margin-top:0.4rem; color:var(--accent-2); font:inherit; font-size:0.76rem; font-weight:700; cursor:pointer;}
+  .hc-supp-review{display:flex; flex-direction:column; gap:0.45rem;}
+  .hc-sr{display:grid; grid-template-columns:1fr auto; gap:0.1rem 0.6rem; padding:0.55rem 0.7rem; border-radius:12px; border:1px solid var(--glass-border); background:var(--glass);}
+  .hc-sr .n{font-weight:700; font-size:0.82rem;} .hc-sr .v{font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; align-self:center;}
+  .hc-sr .v.keep{color:var(--good);} .hc-sr .v.skip{color:var(--text-2);} .hc-sr .v.add{color:var(--accent);} .hc-sr .v.care{color:var(--danger);}
+  .hc-sr .t{grid-column:1 / -1; font-size:0.74rem; color:var(--text-2); line-height:1.35;}
+  .hc-empty{font-size:0.82rem; color:var(--text-2); padding:0.4rem 0;}
+  .hc-foot{font-size:0.7rem; color:var(--text-2); line-height:1.45; margin-top:0.6rem;}
+  @media (min-width:900px){
+    #page-health.active{display:block;}
+    #page-health.active > section.panel:first-child{border:none; padding:0 0 1rem; background:none;}
+    #healthBody{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1.2rem 1.6rem; align-items:start; border:none !important; padding:0 !important; background:none !important;}
+    #healthBody .chart-card{margin:0;}
+    #hcForm, #hcResults{display:contents;}
+    .hc-score-card{grid-column:1 / -1;}
+    .hc-score-wrap{grid-template-columns:auto 1fr; gap:1.6rem;}
+    .hc-ring{width:150px; height:150px;}
+    .hc-ring-num{padding-top:52px;} .hc-ring-num b{font-size:2.8rem;}
+    .hc-grade{font-size:1.9rem;}
+    .hc-res-title{grid-column:1 / -1;}
+  }
+  @media (max-width:479px){ .hc-grid{grid-template-columns:1fr;} .hc-item .hh{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;} }
 </style>
 </head>
 <body>
@@ -2035,6 +2127,44 @@
   </div>
 
   <!-- ============ MEDITATE ============ -->
+  <div class="tabpage" id="page-health">
+
+    <section class="panel" style="padding-top:0.2rem; border-top:none;">
+      <div class="note">A daily health check anyone can use — no account, no setup. Tap in what you ate, how much you moved, what you took and how you slept, and get a score, what's missing and exactly how to fill the gaps today. General guidance from nutrition and activity guidelines, not medical advice.</div>
+    </section>
+
+    <section class="panel" id="healthBody">
+
+      <div class="chart-card hc-score-card" id="hcScoreCard">
+        <div class="hc-score-wrap">
+          <div class="hc-ring" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <defs><linearGradient id="hcGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs>
+              <circle class="hc-track" cx="60" cy="60" r="52"/>
+              <circle class="hc-prog" id="hcProg" cx="60" cy="60" r="52" transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="hc-ring-num"><b id="hcScoreNum">–</b><span>/100</span></div>
+          </div>
+          <div class="hc-score-text">
+            <span class="hc-kicker">Today's health score</span>
+            <h2 class="hc-grade" id="hcGrade">Fill in your day</h2>
+            <p class="hc-summary" id="hcSummary">Each answer updates the score instantly. Nothing leaves this device.</p>
+            <div class="hc-mini" id="hcMini"></div>
+          </div>
+        </div>
+        <div class="hc-actions">
+          <button type="button" class="chip-btn" id="hcPrefill">Use today's log</button>
+          <button type="button" class="chip-btn" id="hcToResults">See what's missing ↓</button>
+          <button type="button" class="chip-btn ghost" id="hcReset">Reset</button>
+        </div>
+      </div>
+
+      <div id="hcForm"></div>
+      <div id="hcResults"></div>
+
+    </section>
+  </div>
+
   <div class="tabpage" id="page-meditate">
 
     <section class="panel" style="padding-top:0.2rem; border-top:none;">
@@ -2530,6 +2660,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12h11"/><rect x="1.5" y="9" width="2.6" height="6" rx="1"/><rect x="4.6" y="7" width="2" height="10" rx="1"/><rect x="17.4" y="7" width="2" height="10" rx="1"/><rect x="19.9" y="9" width="2.6" height="6" rx="1"/></svg>
       <span class="tlabel">Workouts</span>
     </button>
+    <button class="tab-btn" data-tab="health">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 12.6 12 21l-8.4-8.4A5.2 5.2 0 0 1 12 5.3a5.2 5.2 0 0 1 8.4 7.3z"/><path d="M3.5 12h4l1.5-2.5 2 5 2-6 1.5 3.5h5"/></svg>
+      <span class="tlabel">Health</span>
+    </button>
     <button class="tab-btn" data-tab="learn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5A1.5 1.5 0 014 18.5v-13z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5a1.5 1.5 0 001.5-1.5v-13z"/></svg>
       <span class="tlabel">Learn</span>
@@ -2565,6 +2699,10 @@
   <button class="tab-btn" data-tab="workouts">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12h11"/><rect x="1.5" y="9" width="2.6" height="6" rx="1"/><rect x="4.6" y="7" width="2" height="10" rx="1"/><rect x="17.4" y="7" width="2" height="10" rx="1"/><rect x="19.9" y="9" width="2.6" height="6" rx="1"/></svg>
     <span class="tlabel">Workouts</span>
+  </button>
+  <button class="tab-btn" data-tab="health">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 12.6 12 21l-8.4-8.4A5.2 5.2 0 0 1 12 5.3a5.2 5.2 0 0 1 8.4 7.3z"/><path d="M3.5 12h4l1.5-2.5 2 5 2-6 1.5 3.5h5"/></svg>
+    <span class="tlabel">Health</span>
   </button>
   <button class="tab-btn" data-tab="learn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5A1.5 1.5 0 014 18.5v-13z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5a1.5 1.5 0 001.5-1.5v-13z"/></svg>
@@ -2974,7 +3112,8 @@
       milestones: Object.assign({}, DEFAULT_MILESTONES),
       workout: {gender:'male', split:'3', difficulty:'beginner', goal:'general', completed:{}},
       workoutLogs: {}, restSeconds: 90,
-      meditation: {sessions:[], lastSound:'none', volume:45, bell:true, lifetimeCount:0}
+      meditation: {sessions:[], lastSound:'none', volume:45, bell:true, lifetimeCount:0},
+      health: {inp:null, history:{}}
     };
   }
   function isObj(v){ return !!v && typeof v==='object' && !Array.isArray(v); }
@@ -3048,6 +3187,13 @@
       var vol = parseFloat(md.volume); if(isFinite(vol)) s.meditation.volume = clamp(vol,0,100);
       s.meditation.bell = md.bell !== false;
       var lc = parseFloat(md.lifetimeCount); s.meditation.lifetimeCount = isFinite(lc) && lc>0 ? Math.round(lc) : 0;
+    }
+    if(isObj(parsed.health)){
+      if(isObj(parsed.health.inp)) s.health.inp = hcClean(parsed.health.inp);
+      if(isObj(parsed.health.history)) Object.keys(parsed.health.history).forEach(function(d){
+        var v = parseFloat(parsed.health.history[d]);
+        if(/^\d{4}-\d\d-\d\d$/.test(d) && isFinite(v)) s.health.history[d] = clamp(Math.round(v),0,100);
+      });
     }
     return s;
   }
@@ -3309,7 +3455,7 @@
   /* ============================================================
      TAB NAVIGATION
   ============================================================ */
-  var TAB_ORDER = ['today','trends','workouts','learn','meditate','setup'];
+  var TAB_ORDER = ['today','trends','workouts','health','learn','meditate','setup'];
   var currentTab = 'setup';
   var REDUCE_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   function switchTab(name){
@@ -3328,6 +3474,7 @@
     if(name==='trends') renderTrends();
     if(name==='workouts') renderWorkouts();
     if(name==='meditate') renderMeditateHistory();
+    if(name==='health') renderHealth();
     if(name==='setup') renderSetupResults();
     window.scrollTo(0,0);
     armReveal(page);
@@ -3359,7 +3506,7 @@
         });
       }, {rootMargin:'0px 0px -6% 0px', threshold:0.08});
     }
-    var nodes = page.querySelectorAll('section.panel:not(#trendsBody):not(#learnBody):not(#workoutsBody):not(#meditateBody), #trendsBody > .chart-card, #learnBody > .chart-card, #workoutsBody > .chart-card, #meditateBody > .chart-card');
+    var nodes = page.querySelectorAll('section.panel:not(#trendsBody):not(#learnBody):not(#workoutsBody):not(#meditateBody):not(#healthBody), #trendsBody > .chart-card, #learnBody > .chart-card, #workoutsBody > .chart-card, #meditateBody > .chart-card, #healthBody > .chart-card');
     var vh = window.innerHeight;
     Array.prototype.forEach.call(nodes, function(n){
       n.classList.remove('revealed');
@@ -3972,7 +4119,7 @@
   /* ---------- Desktop card tilt + light sheen ---------- */
   function initCardTilt(){
     if(REDUCE_MOTION || !window.matchMedia || !window.matchMedia('(min-width:900px) and (hover:hover) and (pointer:fine)').matches) return;
-    var SEL = '.tabpage.active section.panel:not(#ringPanel):not(#dateNavPanel), #trendsBody .chart-card, #workoutsBody .chart-card, #learnBody .chart-card, #meditateBody .chart-card';
+    var SEL = '.tabpage.active section.panel:not(#ringPanel):not(#dateNavPanel), #trendsBody .chart-card, #workoutsBody .chart-card, #learnBody .chart-card, #meditateBody .chart-card, #healthBody .chart-card';
     var active = null;
     function ensureSheen(card){ if(!card.querySelector(':scope > .sheen-layer')){ var s = document.createElement('span'); s.className = 'sheen-layer'; card.insertBefore(s, card.firstChild); } }
     document.addEventListener('pointermove', function(e){
@@ -6715,6 +6862,369 @@
   /* ============================================================
      INIT
   ============================================================ */
+
+  /* ============================================================
+     HEALTH CHECK (v25) — a daily score anyone can use without setup
+  ============================================================ */
+  var HC_FOODS = [
+    {id:'veg', name:'Vegetables', hint:'1 cup raw or ½ cup cooked', good:3, fiber:3},
+    {id:'fruit', name:'Fruit', hint:'1 piece or 1 cup', good:2, fiber:3},
+    {id:'grains', name:'Whole grains', hint:'oats, brown rice, whole-wheat roti', good:2, fiber:3},
+    {id:'legumes', name:'Beans & lentils', hint:'½ cup cooked dal, chickpeas', good:1, fiber:7},
+    {id:'nuts', name:'Nuts & seeds', hint:'a small handful', good:1, fiber:2},
+    {id:'dairy', name:'Dairy or curd', hint:'glass of milk, cup of yogurt', good:1, fiber:0},
+    {id:'fish', name:'Fish or seafood', hint:'palm-sized portion', good:0, fiber:0},
+    {id:'meatEggs', name:'Eggs, chicken, meat', hint:'palm-sized or 2 eggs', good:0, fiber:0},
+    {id:'processedMeat', name:'Processed or red meat', hint:'bacon, sausage, salami, kebab', bad:true},
+    {id:'sugary', name:'Sugary drinks', hint:'soda, juice, sweet tea or coffee', bad:true},
+    {id:'junk', name:'Sweets, fried & packaged snacks', hint:'chips, biscuits, pastries, fries', bad:true},
+    {id:'alcohol', name:'Alcohol', hint:'standard drinks', bad:true}
+  ];
+  var HC_SUPPS = [
+    {id:'d3', name:'Vitamin D3', learn:'learn-vitamins'},
+    {id:'omega3', name:'Omega-3 / fish oil', learn:'learn-supplements'},
+    {id:'magnesium', name:'Magnesium', learn:'learn-minerals'},
+    {id:'zinc', name:'Zinc', learn:'learn-minerals'},
+    {id:'creatine', name:'Creatine', learn:'learn-supplements'},
+    {id:'whey', name:'Protein powder', learn:'learn-protein'},
+    {id:'multi', name:'Multivitamin', learn:'learn-vitamins'},
+    {id:'b12', name:'Vitamin B12', learn:'learn-vitamins'},
+    {id:'iron', name:'Iron', learn:'learn-minerals'},
+    {id:'calcium', name:'Calcium', learn:'learn-minerals'},
+    {id:'probiotic', name:'Probiotic', learn:'learn-digestion'},
+    {id:'caffeine', name:'Caffeine / pre-workout', learn:'learn-caffeine'}
+  ];
+  var HC_PROTEIN_FILLS = [
+    {n:'Greek yogurt, 200 g', g:20}, {n:'Chicken breast, 150 g', g:35}, {n:'3 whole eggs', g:19}, {n:'Whey, 1 scoop', g:24},
+    {n:'Paneer, 100 g', g:18}, {n:'Dal or lentils, 1 cup cooked', g:18}, {n:'Tofu, 150 g', g:16}, {n:'Tuna, 1 can', g:25}, {n:'Milk, 1 glass', g:8}
+  ];
+  var HC_FIBER_FILLS = [
+    {n:'Chia seeds, 2 tbsp', g:10}, {n:'Lentils, 1 cup cooked', g:15}, {n:'Raspberries, 1 cup', g:8}, {n:'Chickpeas, ½ cup', g:6},
+    {n:'Broccoli, 1 cup', g:5}, {n:'Avocado, half', g:5}, {n:'Apple with skin', g:4.5}, {n:'Oats, 1 cup cooked', g:4}, {n:'Whole-wheat roti, 2', g:4}
+  ];
+
+  function hcDefaults(){
+    var foods = {}; HC_FOODS.forEach(function(f){ foods[f.id] = 0; });
+    return {sex:'male', age:30, weight:'', steps:'', strength:0, cardio:0, protein:'', fiber:'', water:'', sleep:7, sun:0, smoke:'no', foods:foods, supps:{}};
+  }
+  function hcClean(x){
+    var d = hcDefaults();
+    if(!isObj(x)) return d;
+    d.sex = x.sex==='female' ? 'female' : 'male';
+    var age = parseFloat(x.age); d.age = (isFinite(age) && age>=10 && age<=100) ? Math.round(age) : 30;
+    ['weight','steps','protein','fiber','water'].forEach(function(k){ var v = parseFloat(x[k]); d[k] = (x[k]!=='' && x[k]!=null && isFinite(v) && v>=0) ? v : ''; });
+    d.strength = clamp(parseInt(x.strength,10)||0, 0, 7); d.cardio = clamp(parseInt(x.cardio,10)||0, 0, 7);
+    var sl = parseFloat(x.sleep); d.sleep = isFinite(sl) ? clamp(sl, 3, 12) : 7;
+    var sun = parseFloat(x.sun); d.sun = isFinite(sun) ? clamp(Math.round(sun), 0, 300) : 0;
+    d.smoke = x.smoke==='yes' ? 'yes' : 'no';
+    if(isObj(x.foods)) HC_FOODS.forEach(function(f){ var n = parseInt(x.foods[f.id],10); d.foods[f.id] = isFinite(n) ? clamp(n,0,12) : 0; });
+    if(isObj(x.supps)) HC_SUPPS.forEach(function(sp){ if(x.supps[sp.id]) d.supps[sp.id] = true; });
+    return d;
+  }
+  function hcInp(){ if(!state.health) state.health = {inp:null, history:{}}; if(!state.health.inp) state.health.inp = hcDefaults(); return state.health.inp; }
+  function hcHasInput(i){
+    var any = i.steps!=='' || i.protein!=='' || i.fiber!=='' || i.water!=='' || i.strength>0 || i.cardio>0 || i.sun>0 || i.sleep!==7;
+    HC_FOODS.forEach(function(f){ if(i.foods[f.id]>0) any = true; });
+    HC_SUPPS.forEach(function(sp){ if(i.supps[sp.id]) any = true; });
+    return any;
+  }
+  function hcWeightKg(i){
+    var w = parseFloat(i.weight);
+    if(isFinite(w) && w>0) return w;
+    var m = toMetric(parseFloat(state.profile.height)||175, parseFloat(state.profile.weight)||75, state.profile.unit);
+    return (m && m.w) ? m.w : 75;
+  }
+  function hcFiberEstimate(i){
+    var g = 0; HC_FOODS.forEach(function(f){ if(f.fiber) g += f.fiber * (i.foods[f.id]||0); });
+    return Math.round(g);
+  }
+  function hcPrefillFromLog(){
+    var i = hcInp(), log = getLog(todayStr());
+    var m = toMetric(parseFloat(state.profile.height)||175, parseFloat(state.profile.weight)||75, state.profile.unit);
+    i.sex = state.profile.sex==='female' ? 'female' : 'male';
+    var age = parseFloat(state.profile.age); if(isFinite(age)) i.age = clamp(Math.round(age),10,100);
+    if(m && m.w) i.weight = Math.round(m.w*10)/10;
+    if(log.steps!=null) i.steps = log.steps; else if(state.profile.avgSteps) i.steps = parseFloat(state.profile.avgSteps);
+    var p = log.foods.reduce(function(a,f){ return a+(f.p||0); }, 0); if(p>0) i.protein = Math.round(p);
+    if(log.water>0) i.water = Math.round(log.water*10)/10;
+    var wk = parseInt(state.profile.workoutsWeek,10); if(isFinite(wk)) i.strength = clamp(wk,0,7);
+    saveState();
+  }
+
+  // ---- scoring -------------------------------------------------------
+  function hcScore(i){
+    var kg = hcWeightKg(i), female = i.sex==='female';
+    var F = i.foods, S = i.supps;
+    var n = function(v){ var x = parseFloat(v); return isFinite(x) ? x : 0; };
+    var steps = n(i.steps), protein = n(i.protein), fiber = n(i.fiber), water = n(i.water);
+    var fiberEst = hcFiberEstimate(i); if(i.fiber==='' && fiberEst>0) fiber = fiberEst;
+    var pillars = [], gaps = [], wins = [];
+
+    // Movement (20)
+    var stepScore = clamp(steps/10000, 0, 1)*80 + (i.strength>=2 ? 20 : i.strength===1 ? 10 : 0);
+    if(i.cardio>=2 && stepScore<100) stepScore = Math.min(100, stepScore+8);
+    stepScore = Math.round(clamp(stepScore,0,100));
+    pillars.push({id:'move', name:'Movement', w:20, score:stepScore, detail: fmt(steps)+' steps · '+i.strength+' strength + '+i.cardio+' cardio sessions a week'});
+    if(steps<7000){
+      var need = Math.max(0, Math.round((8000-steps)/100)*100);
+      gaps.push({k:'miss', title:'Not enough daily movement', text:'You are at '+fmt(steps)+' steps. 7,000–10,000 a day is where the big health gains sit (heart, blood sugar, mood).', fills:[{n:'A '+Math.max(10,Math.round(need/100))+'-min brisk walk', g:'+'+fmt(need)+' steps'},{n:'Walk after each meal', g:'10 min'},{n:'Take calls standing or walking', g:''}]});
+    } else if(steps<10000) gaps.push({k:'short', title:'Steps are decent — top them up', text:fmt(steps)+' today. Another '+fmt(10000-steps)+' (about '+Math.round((10000-steps)/100)+' minutes of walking) reaches the 10k mark.', fills:[]});
+    else wins.push('Steps');
+    if(i.strength<2) gaps.push({k: i.strength===0?'miss':'short', title:'Strength training', text: i.strength===0 ? 'No strength sessions this week. Two 30–45 minute sessions a week protect muscle, bone and metabolism — the single most under-rated health habit.' : 'One session a week is a start; two or more is where strength and muscle actually build.', fills:[{n:'Full-body session', g:'2×/week'},{n:'Squat · push · pull · hinge', g:'3 sets each'}], learn:'learn-protein'});
+    else wins.push('Strength');
+
+    // Protein (15)
+    var pTarget = Math.round(kg*1.6), pMin = Math.round(kg*1.2);
+    var pScore = i.protein==='' ? 0 : Math.round(clamp(protein/pTarget,0,1)*100);
+    pillars.push({id:'protein', name:'Protein', w:15, score:pScore, detail: (i.protein===''?'not entered':fmt(protein)+' g')+' · target '+pTarget+' g (1.6 g/kg)'});
+    if(i.protein===''){ gaps.push({k:'miss', title:'Protein not entered', text:'Enter today\'s protein (or tap "Use today\'s log"). Aim for about '+pTarget+' g a day — '+Math.round(pTarget/4)+' g per meal across 4 meals.', fills:[]}); }
+    else if(protein<pTarget){
+      var pg = pTarget-protein;
+      gaps.push({k: protein<pMin?'miss':'short', title:'Protein is '+pg+' g short', text:'You have '+fmt(protein)+' g of ~'+pTarget+' g. Any of these closes the gap:', fills:HC_PROTEIN_FILLS.filter(function(x){ return x.g>=Math.min(pg,20); }).slice(0,5).map(function(x){ return {n:x.n, g:'+'+x.g+' g'}; }), learn:'learn-protein'});
+    } else wins.push('Protein');
+
+    // Fiber (15)
+    var fTarget = 30;
+    var fScore = (i.fiber==='' && fiberEst===0) ? 0 : Math.round(clamp(fiber/fTarget,0,1)*100);
+    pillars.push({id:'fiber', name:'Fibre', w:15, score:fScore, detail:(i.fiber===''? (fiberEst>0?'~'+fiberEst+' g estimated from your foods':'not entered') : fmt(fiber)+' g')+' · target '+fTarget+' g'});
+    if(fiber<fTarget){
+      var fg = Math.round(fTarget-fiber);
+      gaps.push({k: fiber<15?'miss':'short', title:'Fibre is about '+fg+' g short', text:'Fibre feeds your gut bacteria, steadies blood sugar and keeps you full. '+(fiber>0?'You are at ~'+Math.round(fiber)+' g of 30 g.':'Most people get only 15 g.'), fills:HC_FIBER_FILLS.slice(0, fg>=15?6:4).map(function(x){ return {n:x.n, g:'+'+x.g+' g'}; }), learn:'learn-digestion'});
+    } else wins.push('Fibre');
+
+    // Food quality (20)
+    var q = 0;
+    q += Math.min(F.veg,3)/3*30; q += Math.min(F.fruit,2)/2*15; q += Math.min(F.grains,2)/2*10; q += Math.min(F.legumes,1)*10; q += Math.min(F.nuts,1)*10;
+    q += ((F.dairy+F.fish+F.meatEggs+F.legumes)>0 ? 10 : 0); q += (F.fish>0 ? 5 : 0); q += (F.dairy>0 ? 5 : 0); q += (F.veg>=5 ? 5 : 0);
+    q -= F.sugary*12 + F.junk*8 + Math.max(0,F.processedMeat-1)*8 + F.alcohol*8 + (F.alcohol>2?15:0);
+    q = Math.round(clamp(q,0,100));
+    var plantServ = F.veg+F.fruit+F.grains+F.legumes+F.nuts;
+    pillars.push({id:'food', name:'Food quality', w:20, score:q, detail: plantServ+' plant servings · '+(F.sugary+F.junk+F.processedMeat+F.alcohol)+' low-quality items'});
+    if(F.veg<3) gaps.push({k:F.veg===0?'miss':'short', title:'Vegetables: '+(3-F.veg)+' more serving'+(3-F.veg>1?'s':''), text:'Three or more servings a day (five with fruit) is the consistent marker of lower heart disease and cancer risk. Half the plate at lunch and dinner gets you there.', fills:[{n:'Big salad with lunch', g:'2 servings'},{n:'Cup of cooked vegetables with dinner', g:'1 serving'},{n:'Frozen veg stir-in', g:'1 serving'}]});
+    if(F.fruit<2) gaps.push({k:'short', title:'Fruit: '+(2-F.fruit)+' more', text:'Whole fruit (not juice) adds fibre, potassium and vitamin C. Berries, apples and citrus are the best value.', fills:[{n:'Apple or orange as a snack', g:'1'},{n:'Berries on breakfast', g:'1 cup'}]});
+    if(F.legumes===0 && F.nuts===0) gaps.push({k:'short', title:'No legumes or nuts today', text:'Beans, lentils, nuts and seeds carry most of the magnesium, zinc, potassium and fibre in a good diet. A daily serving of each is a cheap upgrade.', fills:[{n:'Dal or chickpeas', g:'½ cup'},{n:'Mixed nuts', g:'a handful'}], learn:'learn-minerals'});
+    if(F.sugary>0) gaps.push({k:'excess', title:'Sugary drinks: '+F.sugary+' today', text:'Liquid sugar is the single clearest dietary driver of fat gain and insulin resistance — about '+(F.sugary*35)+' g of sugar here. Swap for water, soda water with lime, or unsweetened tea or coffee.', fills:[]});
+    if(F.junk>1) gaps.push({k:'excess', title:'Packaged snacks, sweets or fried food: '+F.junk, text:'Ultra-processed food is easy to overeat and crowds out real food. Keep it to one treat a day and make it deliberate, not default.', fills:[]});
+    if(F.processedMeat>1) gaps.push({k:'excess', title:'Processed or red meat: '+F.processedMeat+' servings', text:'Processed meat is linked with bowel cancer; keep it occasional. Swap for chicken, fish, eggs, paneer or dal.', fills:[]});
+    if(F.alcohol>0) gaps.push({k: F.alcohol>2?'miss':'excess', title:'Alcohol: '+F.alcohol+' drink'+(F.alcohol>1?'s':''), text:(F.alcohol>2?'More than two drinks hurts sleep quality, recovery and testosterone for 1–2 days. ':'')+'There is no health benefit from alcohol; less is better and alcohol-free days matter most.', fills:[], learn:'learn-alcohol'});
+    if(q>=75) wins.push('Food quality');
+
+    // Hydration (10)
+    var wTarget = female ? 2.0 : 2.5;
+    var wScore = i.water==='' ? 0 : Math.round(clamp(water/wTarget,0,1)*100);
+    pillars.push({id:'water', name:'Hydration', w:10, score:wScore, detail:(i.water===''?'not entered':water+' L')+' · target ~'+wTarget+' L (more on hot or training days)'});
+    if(water<wTarget) gaps.push({k: water<1?'miss':'short', title:'Water: '+(Math.round((wTarget-water)*4))+' more glasses', text:'You are at '+(i.water===''?'0':water)+' L of ~'+wTarget+' L. Fluids from tea, coffee and milk count; sugary drinks do not.', fills:[{n:'Glass on waking', g:'250 ml'},{n:'Bottle at your desk', g:'750 ml'},{n:'Glass with each meal', g:'750 ml'}]});
+    else wins.push('Hydration');
+
+    // Sleep & recovery (15)
+    var sl = i.sleep, sScore = sl>=7 && sl<=9 ? 100 : sl>9 ? 85 : sl>=6 ? 70 : sl>=5 ? 45 : 20;
+    if(i.smoke==='yes') sScore = Math.max(0, sScore-25);
+    pillars.push({id:'sleep', name:'Sleep & recovery', w:15, score:sScore, detail: sl+' h sleep · '+i.sun+' min daylight'+(i.smoke==='yes'?' · smoking':'')});
+    if(sl<7) gaps.push({k: sl<6?'miss':'short', title:'Sleep: '+sl+' hours', text:'Under 7 hours raises hunger hormones, lowers testosterone and makes fat loss and muscle gain slower. Fix the wake time first; bedtime follows.', fills:[{n:'Same wake time daily', g:'±30 min'},{n:'Screens off before bed', g:'30 min'},{n:'Cool, dark room', g:'18–20 °C'},{n:'No caffeine after 2 pm', g:''}], learn:'learn-sleep'});
+    else wins.push('Sleep');
+    if(i.smoke==='yes') gaps.push({k:'miss', title:'Smoking', text:'Nothing else on this page moves your health as much as stopping. Nicotine replacement doubles quit rates; talk to a pharmacist or doctor.', fills:[], learn:'learn-smoking'});
+
+    // Micronutrient coverage (5) — from food and supplements
+    var cover = [];
+    var mineralRich = F.nuts+F.legumes+F.grains+F.veg;
+    var animal = F.meatEggs+F.fish+F.dairy;
+    cover.push({n:'Vitamin D', ok: i.sun>=15 || S.d3 || S.multi, fix:'15–20 min of midday sun, or 1,000–2,000 IU D3 with a meal', learn:'learn-vitamins'});
+    cover.push({n:'Omega-3', ok: F.fish>0 || S.omega3, fix:'oily fish twice a week (salmon, sardines, mackerel) or ~1 g EPA+DHA fish oil', learn:'learn-supplements'});
+    cover.push({n:'Magnesium', ok: mineralRich>=4 || S.magnesium, fix:'nuts, legumes, leafy greens, whole grains — or 200–400 mg glycinate at night', learn:'learn-minerals'});
+    cover.push({n:'Zinc', ok: animal>0 || F.legumes>0 || S.zinc || S.multi, fix:'meat, eggs, dairy, legumes or pumpkin seeds', learn:'learn-minerals'});
+    cover.push({n:'Calcium', ok: F.dairy>=2 || S.calcium || (F.veg>=3 && F.legumes>0), fix:'two servings of dairy or curd, or fortified soy milk, tofu and leafy greens', learn:'learn-minerals'});
+    cover.push({n:'B12', ok: animal>0 || S.b12 || S.multi, fix:'any animal food; vegans need a B12 supplement', learn:'learn-vitamins'});
+    cover.push({n:'Iron', ok: F.meatEggs>0 || F.fish>0 || F.legumes>0 || S.iron, fix:'meat, fish, lentils and beans; vitamin C with plant iron helps it absorb', learn:'learn-minerals'});
+    cover.push({n:'Potassium', ok: (F.veg+F.fruit)>=4, fix:'vegetables, fruit, potatoes, beans and curd', learn:'learn-vitamins'});
+    var covered = cover.filter(function(c){ return c.ok; }).length;
+    var mScore = Math.round(covered/cover.length*100);
+    pillars.push({id:'micro', name:'Vitamins & minerals', w:5, score:mScore, detail: covered+' of '+cover.length+' covered by food, sun or supplements'});
+    var missingMicro = cover.filter(function(c){ return !c.ok; });
+    if(missingMicro.length) gaps.push({k: missingMicro.length>=4?'miss':'short', title:'Likely low today: '+missingMicro.map(function(c){ return c.n; }).join(', '), text:'Based on what you ate and took. One day short is fine; a pattern is not.', fills:missingMicro.slice(0,5).map(function(c){ return {n:c.n+': '+c.fix, g:''}; }), learn:'learn-minerals'});
+    else wins.push('Micronutrients');
+
+    // supplement review
+    var review = [];
+    function sr(id, verdict, text){ var sp = HC_SUPPS.filter(function(x){ return x.id===id; })[0]; review.push({name:sp.name, v:verdict, text:text, learn:sp.learn}); }
+    if(S.d3) sr('d3','keep', i.sun>=30 ? 'You had good sun today; D3 is still sensible through winter and for anyone mostly indoors.' : 'Sensible — most people indoors run low. 1,000–2,000 IU/day with food; no need for mega-doses.');
+    if(S.omega3) sr('omega3', F.fish>0 ? 'skip' : 'keep', F.fish>0 ? 'You ate fish today — if that happens twice a week, fish oil adds little.' : 'Reasonable when oily fish is rare. Look for ~1 g combined EPA+DHA on the label.');
+    if(S.magnesium) sr('magnesium', mineralRich>=4 ? 'skip' : 'keep', mineralRich>=4 ? 'Your plants today cover magnesium; the supplement is optional (harmless at 200–400 mg).' : 'Fine — glycinate or citrate, 200–400 mg in the evening. Nuts, dal and greens would do the same job.');
+    if(S.zinc) sr('zinc', (animal>0||F.legumes>0) ? 'care' : 'keep', (animal>0||F.legumes>0) ? 'Food already covers zinc. Daily zinc on top of a normal diet is unnecessary and long-term high doses block copper absorption.' : 'OK short term while your diet is low in meat, dairy and legumes; 10–15 mg, not 50.');
+    if(S.creatine) sr('creatine', i.strength>=1 ? 'keep' : 'skip', i.strength>=1 ? 'The best-evidenced supplement for strength and lean mass: 3–5 g every day, timing does not matter.' : 'Creatine only pays off alongside strength training. Start lifting, keep the creatine.');
+    if(S.whey) sr('whey', (i.protein!=='' && protein>=pTarget) ? 'skip' : 'keep', (i.protein!=='' && protein>=pTarget) ? 'You hit your protein from food today, so the powder was optional. It is just convenient protein.' : 'A convenient top-up for the '+Math.max(0,pTarget-Math.round(protein))+' g gap. Whey, casein or a pea/rice blend all work.');
+    if(S.multi) sr('multi','keep','A reasonable backstop on low-variety days. It does not replace vegetables, fruit and legumes, which carry the fibre and potassium a pill cannot.');
+    if(S.b12) sr('b12', animal>0 ? 'skip' : 'keep', animal>0 ? 'Animal foods cover B12 for most people; keep it only if you are mostly plant-based or over 60.' : 'Essential on a plant-based diet: 25–100 mcg daily or 1,000 mcg a few times a week.');
+    if(S.iron) sr('iron','care','Only take iron if a blood test showed low ferritin. Extra iron without a deficiency is harmful, and it is common for men to be told to stop.');
+    if(S.calcium) sr('calcium', F.dairy>=2 ? 'skip' : 'keep', F.dairy>=2 ? 'Two dairy servings already cover calcium; drop the pill and keep the food.' : 'OK if dairy and greens are rare: 500 mg with food, not more at once. Pair with vitamin D.');
+    if(S.probiotic) sr('probiotic','skip','Evidence for general-purpose probiotic pills is weak. Daily curd or yogurt and 30 g of fibre do far more for your gut.');
+    if(S.caffeine) sr('caffeine','keep','Fine before training and for focus. Keep the last dose before 2 pm so it does not cut into deep sleep.');
+    // worth considering
+    var consider = [];
+    if(!S.d3 && i.sun<15) consider.push({name:'Vitamin D3', text:'Little daylight today; 1,000–2,000 IU/day is the cheapest fix.', learn:'learn-vitamins'});
+    if(!S.omega3 && F.fish===0) consider.push({name:'Omega-3', text:'No fish today — either plan two fish meals a week or take fish oil.', learn:'learn-supplements'});
+    if(!S.creatine && i.strength>=2) consider.push({name:'Creatine', text:'You lift twice a week or more; 3–5 g/day adds measurable strength.', learn:'learn-supplements'});
+    if(!S.b12 && animal===0) consider.push({name:'Vitamin B12', text:'No animal foods today; on a mostly plant-based diet B12 must come from a supplement.', learn:'learn-vitamins'});
+    if(!S.magnesium && mineralRich<3 && sl<7) consider.push({name:'Magnesium', text:'Low on nuts, legumes and greens and short on sleep — 200–400 mg glycinate at night is a reasonable trial.', learn:'learn-minerals'});
+    if(!S.whey && i.protein!=='' && protein<pTarget-30) consider.push({name:'Protein powder', text:'A 30+ g gap is hard to close with meals alone every day; a scoop after training is the easy fix.', learn:'learn-protein'});
+
+    var total = 0; pillars.forEach(function(p){ total += p.score*p.w/100; });
+    total = Math.round(total);
+    var grade = total>=85 ? 'Thriving' : total>=70 ? 'Strong day' : total>=55 ? 'On the way' : total>=40 ? 'Needs work' : 'Start here';
+    var order = {miss:0, excess:1, short:2};
+    gaps.sort(function(a,b){ return order[a.k]-order[b.k]; });
+    pillars.forEach(function(p){ p.status = p.score>=75 ? 'ok' : p.score>=45 ? 'short' : 'miss'; });
+    var worst = pillars.slice().sort(function(a,b){ return (a.score-b.score)*Math.sqrt(b.w/a.w); })[0];
+    var summary = total>=85 ? 'Nearly everything is covered — keep this day as your template.' : (gaps.length ? 'Biggest lever today: '+gaps[0].title.toLowerCase()+'.' : 'Fill in the sections to see what to work on.');
+    return {total:total, grade:grade, summary:summary, pillars:pillars, gaps:gaps, wins:wins, review:review, consider:consider, worst:worst, protein:protein, pTarget:pTarget, fiber:fiber, fiberEst:fiberEst};
+  }
+
+  // ---- form ----------------------------------------------------------
+  function hcCard(title, iconSvg, body, note, id){
+    return '<div class="chart-card"'+(id?' id="'+id+'"':'')+'><h2 class="panel-title"><span class="title-flex"><span class="title-icon title-icon-accent" aria-hidden="true">'+iconSvg+'</span>'+title+'</span></h2>'+(note?'<p class="hc-sec-note">'+note+'</p>':'')+body+'</div>';
+  }
+  var HC_ICON = {
+    person:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.8-4 4-6 7.5-6s6.7 2 7.5 6"/></svg>',
+    move:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="4.5" r="1.8"/><path d="M9 21l2.5-6.5L9 12l3-3.5 3 2.5 3 .5M11.5 14.5L15 17l1 4M9 12l-3 2"/></svg>',
+    food:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-5 0-8-3.5-8-8V9h16v4c0 4.5-3 8-8 8z"/><path d="M12 9c0-3 2-5 5-6-1 2-1 4 0 6M4 13h16"/></svg>',
+    nut:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 20V9a6 6 0 0112 0v11"/><path d="M6 20h12M9 13h6M9 17h6"/></svg>',
+    supp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-35 12 12.5)"/><path d="M8.5 16.5l7-5"/></svg>',
+    sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></svg>',
+    chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>',
+    gap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17.5v.5"/></svg>',
+    pill:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>'
+  };
+  function hcStepItem(f, val){
+    return '<div class="hc-item'+(f.bad?' bad':'')+(val>0?' has':'')+'" data-food="'+f.id+'"><div><span class="hn">'+f.name+'</span><span class="hh">'+f.hint+'</span></div><div class="hc-step"><button type="button" data-food-step="'+f.id+'" data-d="-1" aria-label="less">−</button><b>'+val+'</b><button type="button" data-food-step="'+f.id+'" data-d="1" aria-label="more">+</button></div></div>';
+  }
+  function hcChips(key, vals, cur, labels){
+    return '<div class="hc-chips" data-key="'+key+'">'+vals.map(function(v,ix){ return '<button type="button" class="chip-btn'+(String(v)===String(cur)?' active':'')+'" data-v="'+v+'">'+(labels?labels[ix]:v)+'</button>'; }).join('')+'</div>';
+  }
+  function hcBuildForm(){
+    var i = hcInp(), h = '';
+    h += hcCard('About you', HC_ICON.person,
+      '<div class="segmented" id="hcSex"><button type="button" data-v="male"'+(i.sex==='male'?' class="active"':'')+'>Male</button><button type="button" data-v="female"'+(i.sex==='female'?' class="active"':'')+'>Female</button></div>'+
+      '<div class="row2" style="margin-top:0.8rem"><div class="field"><label>Age</label><input type="number" inputmode="numeric" id="hcAge" min="10" max="100" value="'+i.age+'"></div><div class="field"><label>Weight (kg)</label><input type="number" inputmode="decimal" id="hcWeight" min="25" max="300" step="0.1" placeholder="'+Math.round(hcWeightKg(i))+'" value="'+i.weight+'"></div></div>',
+      'Only used to size your protein and water targets. Anyone can use this — it does not need the Setup tab.');
+    h += hcCard('Movement', HC_ICON.move,
+      '<div class="field"><label>Steps today</label><input type="number" inputmode="numeric" id="hcSteps" min="0" max="60000" placeholder="e.g. 8000" value="'+i.steps+'"></div>'+
+      '<label class="meditate-field-label">Strength sessions a week</label>'+hcChips('strength',[0,1,2,3,4,5,6,7],i.strength)+
+      '<label class="meditate-field-label">Cardio or sport sessions a week</label>'+hcChips('cardio',[0,1,2,3,4,5,6,7],i.cardio),
+      'Walking, lifting and cardio are scored separately — all three matter.');
+    h += hcCard('What you ate today', HC_ICON.food,
+      '<div class="hc-grid">'+HC_FOODS.filter(function(f){ return !f.bad; }).map(function(f){ return hcStepItem(f, i.foods[f.id]); }).join('')+'</div>'+
+      '<label class="meditate-field-label" style="margin-top:0.9rem">Worth limiting</label>'+
+      '<div class="hc-grid">'+HC_FOODS.filter(function(f){ return f.bad; }).map(function(f){ return hcStepItem(f, i.foods[f.id]); }).join('')+'</div>',
+      'Count servings, not calories. A serving is roughly a cupped hand of vegetables or fruit, a fist of grains, a palm of protein.');
+    h += hcCard('Protein, fibre & water', HC_ICON.nut,
+      '<div class="row2"><div class="field"><label>Protein today (g)</label><input type="number" inputmode="numeric" id="hcProtein" min="0" max="500" placeholder="target ~'+Math.round(hcWeightKg(i)*1.6)+'" value="'+i.protein+'"></div><div class="field"><label>Fibre today (g)</label><input type="number" inputmode="numeric" id="hcFiber" min="0" max="150" placeholder="target 30" value="'+i.fiber+'"></div></div>'+
+      '<div class="hc-inline" style="margin:-0.5rem 0 0.9rem"><button type="button" class="chip-btn" id="hcEstFiber">Estimate fibre from my foods</button><span class="hc-est" id="hcFiberEst"></span></div>'+
+      '<div class="field"><label>Water & other fluids (litres)</label><input type="number" inputmode="decimal" id="hcWater" min="0" max="10" step="0.25" placeholder="e.g. 2.5" value="'+i.water+'"></div>',
+      'If you log meals on the Today tab, "Use today\'s log" fills protein and water for you.');
+    h += hcCard('Supplements taken today', HC_ICON.supp,
+      '<div class="hc-supps">'+HC_SUPPS.map(function(sp){ return '<button type="button" class="hc-supp'+(i.supps[sp.id]?' on':'')+'" data-supp="'+sp.id+'"><span class="tick">'+(i.supps[sp.id]?'✓':'')+'</span><span class="sn">'+sp.name+'</span></button>'; }).join('')+'</div>',
+      'Tap what you took. The review below tells you which ones are earning their place.');
+    h += hcCard('Sleep & daylight', HC_ICON.sleep,
+      '<label class="meditate-field-label">Hours of sleep last night</label>'+hcChips('sleep',[4,5,6,6.5,7,7.5,8,8.5,9,10],i.sleep)+
+      '<label class="meditate-field-label">Minutes outdoors in daylight</label>'+hcChips('sun',[0,10,20,30,45,60,90],i.sun,['0','10','20','30','45','60','90+'])+
+      '<label class="meditate-field-label">Smoked or vaped today?</label>'+hcChips('smoke',['no','yes'],i.smoke,['No','Yes']),
+      '');
+    el('hcForm').innerHTML = h;
+  }
+  function hcSyncForm(){
+    var i = hcInp();
+    document.querySelectorAll('#hcSex button').forEach(function(b){ b.classList.toggle('active', b.dataset.v===i.sex); });
+    if(document.activeElement!==el('hcAge')) el('hcAge').value = i.age;
+    if(document.activeElement!==el('hcWeight')) el('hcWeight').value = i.weight;
+    if(document.activeElement!==el('hcSteps')) el('hcSteps').value = i.steps;
+    if(document.activeElement!==el('hcProtein')) el('hcProtein').value = i.protein;
+    if(document.activeElement!==el('hcFiber')) el('hcFiber').value = i.fiber;
+    if(document.activeElement!==el('hcWater')) el('hcWater').value = i.water;
+    el('hcProtein').placeholder = 'target ~'+Math.round(hcWeightKg(i)*1.6);
+    el('hcWeight').placeholder = String(Math.round(hcWeightKg(i)));
+    document.querySelectorAll('#hcForm .hc-chips').forEach(function(row){ var k = row.dataset.key; row.querySelectorAll('.chip-btn').forEach(function(b){ b.classList.toggle('active', String(b.dataset.v)===String(i[k])); }); });
+    document.querySelectorAll('#hcForm .hc-item[data-food]').forEach(function(it){ var v = i.foods[it.dataset.food]||0; it.querySelector('b').textContent = v; it.classList.toggle('has', v>0); });
+    document.querySelectorAll('#hcForm .hc-supp').forEach(function(b){ var on = !!i.supps[b.dataset.supp]; b.classList.toggle('on', on); b.querySelector('.tick').textContent = on ? '✓' : ''; });
+    var est = hcFiberEstimate(i); el('hcFiberEst').textContent = est>0 ? '≈ '+est+' g from the food groups above' : '';
+  }
+
+  // ---- results -------------------------------------------------------
+  var hcLastTotal = null;
+  function hcRenderScore(r, animate){
+    var any = hcHasInput(hcInp());
+    var prog = el('hcProg'), num = el('hcScoreNum');
+    var t = any ? r.total : 0;
+    prog.style.strokeDashoffset = (326.7*(1-t/100)).toFixed(1);
+    prog.classList.toggle('low', any && t<40); prog.classList.toggle('mid', any && t>=40 && t<70);
+    if(!any){ num.textContent = '–'; el('hcGrade').textContent = 'Fill in your day'; el('hcSummary').textContent = 'Each answer updates the score instantly. Nothing leaves this device.'; el('hcMini').innerHTML = ''; hcLastTotal = null; return; }
+    if(animate && !REDUCE_MOTION && hcLastTotal!==null && hcLastTotal!==t){
+      var from = hcLastTotal, start = performance.now();
+      (function tick(now){ var k = Math.min(1,(now-start)/600); var e = 1-Math.pow(1-k,3); num.textContent = Math.round(from+(t-from)*e); if(k<1) requestAnimationFrame(tick); })(start);
+    } else num.textContent = t;
+    hcLastTotal = t;
+    el('hcGrade').textContent = r.grade;
+    el('hcSummary').textContent = r.summary;
+    el('hcMini').innerHTML = r.pillars.map(function(p){ return '<span class="'+p.status+'">'+p.name+' '+p.score+'</span>'; }).join('');
+  }
+  function hcRenderResults(r){
+    var i = hcInp(), any = hcHasInput(i), h = '';
+    if(!any){ el('hcResults').innerHTML = hcCard('Your results', HC_ICON.chart, '<div class="hc-empty">Tap a few answers above and your score, gaps and fixes appear here.</div>'); return; }
+    h += hcCard('Score breakdown', HC_ICON.chart, '<div class="hc-pillars">'+r.pillars.map(function(p){ return '<div class="hc-pill '+p.status+'"><span class="pn">'+p.name+' <small style="color:var(--text-2);font-weight:600">· '+p.w+'%</small></span><span class="ps">'+p.score+'</span><span class="pd">'+p.detail+'</span><span class="pb"><span style="width:'+p.score+'%"></span></span></div>'; }).join('')+'</div>', 'Weighted by how much each pillar moves long-term health. 75+ on a pillar counts as covered.', 'hcBreakdown');
+    var gapsHtml = r.gaps.length ? r.gaps.map(function(g){
+      return '<div class="hc-gap '+g.k+'"><h4>'+g.title+'</h4><p>'+g.text+'</p>'+(g.fills&&g.fills.length?'<div class="hc-fills">'+g.fills.map(function(f){ return '<span>'+f.n+(f.g?' <b>'+f.g+'</b>':'')+'</span>'; }).join('')+'</div>':'')+(g.learn?'<button type="button" class="hc-learn" data-learn="'+g.learn+'">Why this matters →</button>':'')+'</div>';
+    }).join('') : '<div class="hc-gap good"><h4>Nothing missing today</h4><p>Every pillar is covered. Repeat this day as often as you can.</p></div>';
+    if(r.wins.length) gapsHtml += '<div class="hc-gap good"><h4>Already covered</h4><p>'+r.wins.join(' · ')+'</p></div>';
+    h += hcCard("What's missing — and how to fill it", HC_ICON.gap, gapsHtml, 'Ordered by impact. Each chip is one concrete swap or addition for today.', 'hcGaps');
+    var rv = '';
+    if(r.review.length) rv += '<div class="hc-supp-review">'+r.review.map(function(x){ var lbl = {keep:'Keep', skip:'Optional', add:'Add', care:'Careful'}[x.v]; return '<div class="hc-sr"><span class="n">'+x.name+'</span><span class="v '+x.v+'">'+lbl+'</span><span class="t">'+x.text+'</span></div>'; }).join('')+'</div>';
+    else rv += '<div class="hc-empty">No supplements ticked. Food first — the list below shows what might be worth adding.</div>';
+    if(r.consider.length) rv += '<label class="meditate-field-label" style="margin-top:0.9rem">Worth considering</label><div class="hc-supp-review">'+r.consider.map(function(x){ return '<div class="hc-sr"><span class="n">'+x.name+'</span><span class="v add">Consider</span><span class="t">'+x.text+'</span></div>'; }).join('')+'</div>';
+    rv += '<button type="button" class="hc-learn" data-learn="learn-supplements">What the evidence says about supplements →</button>';
+    rv += '<p class="hc-foot">Targets follow WHO physical-activity guidance (150+ min a week, 2 strength days), the EFSA/IOM fibre intake (25–30 g), 1.2–1.6 g/kg protein for active adults, 7–9 h sleep and standard upper limits for supplements. This is general guidance; a doctor or dietitian should review anything medical.</p>';
+    h += hcCard('Supplement review', HC_ICON.pill, rv, '', 'hcSupps');
+    el('hcResults').innerHTML = h;
+  }
+  var hcTimer = null;
+  function hcRecalc(animate){
+    var i = hcInp(), r = hcScore(i);
+    hcRenderScore(r, animate);
+    hcRenderResults(r);
+    if(hcHasInput(i)){ state.health.history[todayStr()] = r.total; var ks = Object.keys(state.health.history).sort(); while(ks.length>120){ delete state.health.history[ks.shift()]; } }
+    saveState();
+  }
+  function hcChanged(){ hcSyncForm(); clearTimeout(hcTimer); hcTimer = setTimeout(function(){ hcRecalc(true); }, 120); }
+  function renderHealth(){
+    if(!el('hcForm').children.length) hcBuildForm();
+    hcSyncForm();
+    hcRecalc(false);
+  }
+  function initHealth(){
+    var page = el('page-health'); if(!page) return;
+    page.addEventListener('click', function(e){
+      var i = hcInp(), t;
+      if((t = e.target.closest('[data-food-step]'))){ var id = t.dataset.foodStep; i.foods[id] = clamp((i.foods[id]||0)+parseInt(t.dataset.d,10), 0, 12); buzz(8); hcChanged(); return; }
+      if((t = e.target.closest('.hc-supp'))){ var sid = t.dataset.supp; if(i.supps[sid]) delete i.supps[sid]; else i.supps[sid] = true; buzz(8); hcChanged(); return; }
+      if((t = e.target.closest('.hc-chips .chip-btn'))){ var key = t.closest('.hc-chips').dataset.key, v = t.dataset.v; i[key] = (key==='smoke') ? v : parseFloat(v); hcChanged(); return; }
+      if((t = e.target.closest('#hcSex button'))){ i.sex = t.dataset.v; hcChanged(); return; }
+      if(e.target.closest('#hcEstFiber')){ i.fiber = hcFiberEstimate(i); hcChanged(); toast('Fibre set to ~'+i.fiber+' g from your food groups'); return; }
+      if(e.target.closest('#hcPrefill')){ hcPrefillFromLog(); hcChanged(); toast('Filled from today\'s log and your Setup numbers'); return; }
+      if(e.target.closest('#hcReset')){ state.health.inp = hcDefaults(); hcBuildForm(); hcRecalc(false); window.scrollTo({top:0, behavior: REDUCE_MOTION?'auto':'smooth'}); return; }
+      if(e.target.closest('#hcToResults')){ var g = el('hcGaps') || el('hcResults'); if(g) g.scrollIntoView({behavior: REDUCE_MOTION?'auto':'smooth', block:'start'}); return; }
+      if((t = e.target.closest('.hc-learn'))){ var target = t.dataset.learn; switchTab('learn'); var chip = document.querySelector('#learnChips .chip-btn[data-target="'+target+'"]'); if(chip) setTimeout(function(){ chip.click(); }, 60); return; }
+    });
+    page.addEventListener('input', function(e){
+      var i = hcInp(), id = e.target.id, v = e.target.value;
+      var num = function(min,max){ var x = parseFloat(v); return (v!=='' && isFinite(x)) ? clamp(x,min,max) : ''; };
+      if(id==='hcAge'){ var a = parseFloat(v); if(isFinite(a) && a>=10 && a<=100) i.age = Math.round(a); }
+      else if(id==='hcWeight') i.weight = num(25,300);
+      else if(id==='hcSteps') i.steps = num(0,60000);
+      else if(id==='hcProtein') i.protein = num(0,500);
+      else if(id==='hcFiber') i.fiber = num(0,150);
+      else if(id==='hcWater') i.water = num(0,10);
+      else return;
+      clearTimeout(hcTimer); hcTimer = setTimeout(function(){ hcSyncForm(); hcRecalc(true); }, 250);
+    });
+  }
+
   function init(){
     // Returning users (saved data on this device) land on Today; first-time
     // visitors still start on Setup to enter their numbers.
@@ -6923,7 +7433,7 @@
       }
       if(el('exerciseDetailOverlay').classList.contains('open') || el('gymModeOverlay').style.display==='flex') return;
       if(typing) return;
-      if(/^[1-6]$/.test(e.key)){ switchTab(TAB_ORDER[parseInt(e.key,10)-1]); e.preventDefault(); return; }
+      if(/^[1-7]$/.test(e.key)){ switchTab(TAB_ORDER[parseInt(e.key,10)-1]); e.preventDefault(); return; }
       if(currentTab==='today'){
         if(e.key==='ArrowLeft'){ changeDay(-1); e.preventDefault(); }
         else if(e.key==='ArrowRight'){ changeDay(1); e.preventDefault(); }
@@ -6971,6 +7481,7 @@
 
     // meditate tab
     initMeditate();
+    initHealth();
 
     // reminders
     el('reminderSwitch').addEventListener('click', toggleReminder);
