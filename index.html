@@ -7499,7 +7499,7 @@
     var c = el('hcOrb'); if(!c || currentTab!=='health' || document.hidden) return;
     var dpr = Math.min(2, window.devicePixelRatio||1), w = c.clientWidth, h = c.clientHeight;
     if(!w) { hcOrb.raf = requestAnimationFrame(hcOrbFrame); return; }
-    if(c.width!==Math.round(w*dpr)){ c.width = Math.round(w*dpr); c.height = Math.round(h*dpr); }
+    if(c.width!==Math.round(w*dpr) || c.height!==Math.round(h*dpr)){ c.width = Math.round(w*dpr); c.height = Math.round(h*dpr); }
     var ctx = c.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,w,h);
     hcOrb.t += 0.016; hcOrb.score += (hcOrb.target - hcOrb.score)*0.08;
     var s = hcOrb.score, cx = w/2, cy = h/2, R = Math.min(w,h)*0.36;
